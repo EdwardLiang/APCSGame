@@ -18,10 +18,10 @@ public class Time {
 			world.world.step(1.0f/60.0f, 8, 3);
 			for(Entity a: world.gameElements){
 				Body body = (Body)a.node.getUserData();
-				float xpos = Utility.toPixelPosX(body.getPosition().x) + App.offsetX;
-				float ypos = Utility.toPixelPosY(body.getPosition().y) + App.offsetY;
-				a.node.setLayoutX(xpos);
-				a.node.setLayoutY(ypos);
+				float xPos = Utility.toPixelPosX(body.getPosition().x) + App.offsetX;
+				float yPos = Utility.toPixelPosY(body.getPosition().y) + App.offsetY;
+				a.node.setLayoutX(xPos);
+				a.node.setLayoutY(yPos);
 			}
 		}
 	};
