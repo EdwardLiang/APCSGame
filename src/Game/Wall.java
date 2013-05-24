@@ -2,6 +2,7 @@ package Game;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
 import javafx.scene.Node;
@@ -38,6 +39,7 @@ public class Wall extends Entity{
 		
 		BodyDef bd = new BodyDef();
 		bd.position.set(xPos, yPos);
+		bd.type = BodyType.STATIC;
 				
 		Body body = world.world.createBody(bd);
 		body.createFixture(fd);

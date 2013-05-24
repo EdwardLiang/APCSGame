@@ -37,6 +37,8 @@ public class App extends Application{
 		Wall wall3 = new Wall(0,100,100,1);
 		Wall wall4 = new Wall(0,0,100,1);
 		Wall wall5 = new Wall(50,50,50,3);
+		Projectile proj = new Projectile(25,25,10,1);
+		proj.addToWorld(game);
 		wall.addToWorld(game);
 		wall2.addToWorld(game);
 		wall3.addToWorld(game);
