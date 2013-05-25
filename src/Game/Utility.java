@@ -4,6 +4,46 @@ public class Utility {
 	public static final int HEIGHT = 600;
 
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
+	public static double toPixelPosX(double posX) {
+		double x = WIDTH * posX / 100.0;
+		return x;
+	}
+
+	// Convert a JavaFX pixel x coordinate to a JBox2D x coordinate
+	public static double toPosX(double posX) {
+		double x = (posX * 100.0 * 1.0) / WIDTH;
+		return x;
+	}
+
+	// Convert a JBox2D y coordinate to a JavaFX pixel y coordinate
+	public static double toPixelPosY(double posY) {
+		double y = HEIGHT - (1.0 * HEIGHT) * posY / 100.0;
+		return y;
+	}
+
+	// Convert a JavaFX pixel y coordinate to a JBox2D y coordinate
+	public static double toPosY(double posY) {
+		double y = 100.0 - ((posY * 100 * 1.0) / HEIGHT);
+		return y;
+	}
+
+	// Convert a JBox2D width to pixel width
+	public static double toPixelWidth(double width) {
+		return WIDTH * width / 100.0;
+	}
+
+	// Convert a JBox2D height to pixel height
+	public static double toPixelHeight(double height) {
+		return HEIGHT * height / 100.0;
+	}
+
+	public static double toWidth(double width) {
+		return (width * 100.0) / WIDTH;
+	}
+
+	public static double toHeight(double height) {
+		return (height * 100.0) / HEIGHT;
+	}
 	public static float toPixelPosX(float posX) {
 		float x = WIDTH * posX / 100.0f;
 		return x;

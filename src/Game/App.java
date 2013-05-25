@@ -53,6 +53,7 @@ public class App extends Application{
 		wall4.addToWorld(game);
 		wall5.addToWorld(game);
 		
+
 		((Body)(proj.node.getUserData())).setLinearVelocity(new Vec2(-100, 100));
 		
 		

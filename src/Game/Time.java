@@ -31,6 +31,10 @@ public class Time {
 					a.node.setLayoutX(xpos);
 					a.node.setLayoutY(ypos);
 				}
+				float xPos = Utility.toPixelPosX(body.getPosition().x) + App.offsetX;
+				float yPos = Utility.toPixelPosY(body.getPosition().y) + App.offsetY;
+				a.node.setLayoutX(xPos);
+				a.node.setLayoutY(yPos);
 			}
 		}
 	};
