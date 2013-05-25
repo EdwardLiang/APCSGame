@@ -17,7 +17,7 @@ public class GameWorld{
 	public Time time;
 	
 	public GameWorld(){
-		world = new World(new Vec2(0.0f, -10.0f));
+		world = new World(new Vec2(0.0f, -9.81f));
 		gameElements = new ArrayList<Entity>();
 		time = new Time(this);
 	}

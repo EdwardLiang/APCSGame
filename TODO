@@ -1,16 +1,22 @@
 Entities to create: 
 1) Abstract Projectile class
 2) For projectile, Bullet class -heat seeking, immovability
-3) Cannon that makes projectiles-simple
-4)Debug platforms
+3) Cannon that makes projectiles
 5)Parsing 
 6)Implementing levels
-7)Time Travel (Still) -add to start/stop
+7)Time Travel -add to start/stop
 8)Graphics
-9)Cliff/endless fall -easy
-10)Spring/turbo platform -added jumping-easy
+9)Cliff/endless fall
+10)Spring/turbo platform -added jumping
 11)Basic AI 
 12)Abstract Monster class
 13)Player
 14Transporation between maps
 15)Auto-Moving between maps
+
+EL
+--
+-Monster/Player/SpriteAnimation
+
+AZ
+--

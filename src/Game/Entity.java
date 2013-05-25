@@ -6,6 +6,9 @@ public abstract class Entity {
 	public Node node;
 	public float xPos;
 	public float yPos;
+	public float width;
+	public float height;
+	
 	public GameWorld world;
 	public abstract Node create();
 	

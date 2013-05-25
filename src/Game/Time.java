@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
+import javafx.scene.shape.Circle;
 
 import org.jbox2d.dynamics.Body;
 
@@ -18,10 +19,18 @@ public class Time {
 			world.world.step(1.0f/60.0f, 8, 3);
 			for(Entity a: world.gameElements){
 				Body body = (Body)a.node.getUserData();
-				float xpos = Utility.toPixelPosX(body.getPosition().x) + App.offsetX;
-				float ypos = Utility.toPixelPosY(body.getPosition().y) + App.offsetY;
-				a.node.setLayoutX(xpos);
-				a.node.setLayoutY(ypos);
+				if(a.node instanceof Circle){
+					float xpos = Utility.toPixelPosX(body.getPosition().x) + App.offsetX;
+					float ypos = Utility.toPixelPosY(body.getPosition().y) + App.offsetY;
+					a.node.setLayoutX(xpos);
+					a.node.setLayoutY(ypos);
+				}
+				else{
+					float xpos = Utility.toPixelPosX(body.getPosition().x) + App.offsetX - Utility.toPixelWidth(a.width)/2;
+					float ypos = Utility.toPixelPosY(body.getPosition().y) + App.offsetY -  Utility.toPixelWidth(a.height)/2;
+					a.node.setLayoutX(xpos);
+					a.node.setLayoutY(ypos);
+				}
 			}
 		}
 	};

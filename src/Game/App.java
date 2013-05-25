@@ -1,4 +1,7 @@
 package Game;
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,21 +32,28 @@ public class App extends Application{
 		primaryStage.setResizable(false);
 		
 		game = new GameWorld();
-		player = new BouncyBall(45, 50, 8, Color.BLUE);
+		player = new BouncyBall(45, 90, 8, Color.BLUE);
 		player.addToWorld(game);
 		
-		Wall wall = new Wall(0,100,1,100);
-		Wall wall2 = new Wall(99,100,1,100);
-		Wall wall3 = new Wall(0,100,100,1);
-		Wall wall4 = new Wall(0,0,100,1);
-		Wall wall5 = new Wall(50,50,50,3);
+		//left
+		Wall wall = new Wall(0,50,1,100);
+		//right
+		Wall wall2 = new Wall(100,50,1,100);
+		//top
+		Wall wall3 = new Wall(50,100,100,1);
+		//bottom
+		Wall wall4 = new Wall(50,0,100,1);
+		Wall wall5 = new Wall(50,50,25,3);
 		Projectile proj = new Projectile(25,25,10,1);
+		
 		proj.addToWorld(game);
 		wall.addToWorld(game);
 		wall2.addToWorld(game);
 		wall3.addToWorld(game);
 		wall4.addToWorld(game);
 		wall5.addToWorld(game);
+		
+		((Body)(proj.node.getUserData())).setLinearVelocity(new Vec2(-100, 100));
 		
 		
 		Group root = new Group();

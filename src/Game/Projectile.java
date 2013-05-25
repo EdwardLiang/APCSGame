@@ -2,6 +2,7 @@ package Game;
 
 import javafx.scene.Node;
 import org.jbox2d.collision.shapes.*;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -13,50 +14,39 @@ import javafx.scene.shape.Polygon;
 
 
 public class Projectile extends Entity {
-	public float width;
-	public float height;
-	public float radius;
-	
 	public Projectile(float posX, float posY,float width, float height){
 		xPos = posX;
 		yPos = posY;
 		this.width = width;
 		this.height = height;
-		radius = height/2;
 	}
 
 	public Node create() {
-//		Rectangle rectangle = new Rectangle();
-//		rectangle.setHeight(Utility.toPixelHeight(height));
-//		rectangle.setWidth(Utility.toPixelWidth(width));
-//		rectangle.setLayoutX(Utility.toPixelPosX(xPos));
-//		rectangle.setLayoutY(Utility.toPixelPosY(yPos));
-//		
-//		rectangle.setFill(Color.RED);
-//		
-//		Circle circle = new Circle();
-//
-//		circle.setRadius(radius);
-//		circle.setLayoutX(Utility.toPixelPosX(xPos));
-//		circle.setLayoutY(Utility.toPixelPosX(yPos + height/2));
-//		
-//		circle.setFill(Color.RED);
 		Polygon polygon = new Polygon();
 		polygon.getPoints().addAll(new Double[]{
 		    0.0, 0.0,
 		    20.0, 10.0,
 		    10.0, 20.0 });
-		polygon.setFill(Color.BISQUE);
+		
+		polygon.setFill(Color.RED);
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.KINEMATIC;
 		bd.position.set(xPos, yPos);
 		bd.fixedRotation = true;
+		polygon.setLayoutX(Utility.toPixelPosX(xPos) - Utility.toPixelWidth(width)/2);
+		polygon.setLayoutY(Utility.toPixelPosY(yPos) -  Utility.toPixelWidth(height)/2);
 		
-		CircleShape cs = new CircleShape();
-		cs.m_radius = radius*0.1f;
-		 
+		//CircleShape cs = new CircleShape();
+		//cs.m_radius = 8*0.1f;
+						
+		PolygonShape ps = new PolygonShape();
+		ps.m_count = 3;
+		ps.m_vertices[0] = new Vec2(0,0);
+		ps.m_vertices[1] = new Vec2(Utility.toWidth(20), Utility.toHeight(10));
+		ps.m_vertices[2] = new Vec2(Utility.toWidth(10), Utility.toHeight(20));
+		
 		FixtureDef fd = new FixtureDef();
-		fd.shape = cs;
+		fd.shape = ps;
 		fd.density = 0.6f;
 		fd.friction = 0.3f;
 		fd.restitution = 0.8f;

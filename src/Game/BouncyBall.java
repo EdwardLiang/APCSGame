@@ -8,7 +8,6 @@ import org.jbox2d.dynamics.FixtureDef;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 
 public class BouncyBall extends Entity{
@@ -40,7 +39,7 @@ public class BouncyBall extends Entity{
 		fd.shape = cs;
 		fd.density = 0.6f;
 		fd.friction = 0.3f;
-		fd.restitution = 0.8f;
+		fd.restitution = 0f;
 		
 		Body body = world.world.createBody(bd);
 		body.createFixture(fd);

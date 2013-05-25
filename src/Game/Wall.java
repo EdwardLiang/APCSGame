@@ -11,9 +11,6 @@ import javafx.scene.shape.Rectangle;
 
 
 public class Wall extends Entity{
-	public float width;
-	public float height;
-	
 	public Wall(float posX, float posY, float width, float height){
 		xPos = posX;
 		yPos = posY;
@@ -24,13 +21,13 @@ public class Wall extends Entity{
 		Rectangle rectangle = new Rectangle();
 		rectangle.setHeight(Utility.toPixelHeight(height));
 		rectangle.setWidth(Utility.toPixelWidth(width));
-		rectangle.setLayoutX(Utility.toPixelPosX(xPos));
-		rectangle.setLayoutY(Utility.toPixelPosY(yPos));
+		rectangle.setLayoutX(Utility.toPixelPosX(xPos) - Utility.toPixelWidth(width)/2);
+		rectangle.setLayoutY(Utility.toPixelPosY(yPos) -  Utility.toPixelWidth(height)/2);
 		
 		rectangle.setFill(Color.BLUE);
 
 		PolygonShape ps = new PolygonShape();
-		ps.setAsBox(width, height);
+		ps.setAsBox(width/2, height/2);
 		
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
