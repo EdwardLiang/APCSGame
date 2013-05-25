@@ -31,7 +31,7 @@ public class Projectile extends Entity {
 		    10.0, 20.0 });
 		
 		polygon.setFill(Color.RED);
-		Vec2[] jCoords = new Vec2[]{
+	/*	Vec2[] jCoords = new Vec2[]{
 			    new Vec2(xPos,yPos),
 			    new Vec2((xPos+width),yPos),
 			    new Vec2((xPos)+width + radius,((yPos)+height/2)),
@@ -44,8 +44,8 @@ public class Projectile extends Entity {
 			fxCoords[k] =(double)Utility.toPixelPosX((jCoords[i].x));
 			fxCoords[k+1] = (double)Utility.toPixelPosY(jCoords[i].y);
 			k+=2;
-		}
-		polygon.getPoints().addAll(fxCoords);
+		}*/
+		//polygon.getPoints().addAll(fxCoords);
 		polygon.setFill(Color.DARKBLUE);
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.KINEMATIC;
@@ -65,7 +65,7 @@ public class Projectile extends Entity {
 		
 		PolygonShape shape = new PolygonShape();
 		
-		shape.set(jCoords, 5);
+		//shape.set(jCoords, 5);
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
 		fd.shape = shape;
