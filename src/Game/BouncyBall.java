@@ -33,7 +33,7 @@ public class BouncyBall extends Entity{
 		bd.fixedRotation = true;
 		
 		CircleShape cs = new CircleShape();
-		cs.m_radius = radius*0.1f;
+		cs.m_radius = Utility.toWidth(radius);
 		 
 		FixtureDef fd = new FixtureDef();
 		fd.shape = cs;
