@@ -29,7 +29,7 @@ public class Events {
 						body.setLinearVelocity(velocity);
 					}
 					else if(t.getCode() == KeyCode.UP){
-						App.offsetY++;
+						App.offsetY+=2;
 					}
 					else if(t.getCode() == KeyCode.DOWN){
 						App.offsetY--;
@@ -43,7 +43,6 @@ public class Events {
 					else if(t.getCode() == KeyCode.P){
 						App.game.time.toggleTime();
 					}
-					
 			}
 	};
 

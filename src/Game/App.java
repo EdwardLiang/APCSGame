@@ -45,7 +45,9 @@ public class App extends Application{
 		Wall wall4 = new Wall(50,0,100,1);
 		Wall wall5 = new Wall(50,50,25,3);
 		Projectile proj = new Projectile(25,25,10,1);
+		Creature creature = new Creature(30,80);
 		
+		creature.addToWorld(game);
 		proj.addToWorld(game);
 		wall.addToWorld(game);
 		wall2.addToWorld(game);
