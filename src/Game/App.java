@@ -3,6 +3,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -12,6 +13,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class App extends Application{
@@ -47,7 +49,18 @@ public class App extends Application{
 		btn.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
 				game.time.timeline.playFromStart();
+				Thread t = new Thread(game.time.r);
+				t.start();
 				btn.setVisible(false);
+			}
+		});
+		
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+
+			@Override
+			public void handle(WindowEvent arg0) {
+				Platform.exit();
+				System.exit(0);
 			}
 		});
 		
