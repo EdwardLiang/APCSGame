@@ -27,13 +27,13 @@ public class App extends Application{
 		offsetX = 0.0f;
 		offsetY = 0.0f;
 		
-		primaryStage.setTitle("Bouncy Ball");
+		primaryStage.setTitle("Prototype World");
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
 		
 		game = new GameWorld();
-		player = new BouncyBall(45, 90, 8, Color.BLUE);
-		player.addToWorld(game);
+		BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
+		bouncy.addToWorld(game);
 		
 		//left
 		Wall wall = new Wall(0,50,1,100);
@@ -45,9 +45,9 @@ public class App extends Application{
 		Wall wall4 = new Wall(50,0,100,1);
 		Wall wall5 = new Wall(50,50,25,3);
 		Projectile proj = new Projectile(25,25,10,1);
-		Creature creature = new Creature(30,80);
+		player = new Creature(30,80);
 		
-		creature.addToWorld(game);
+		player.addToWorld(game);
 		proj.addToWorld(game);
 		wall.addToWorld(game);
 		wall2.addToWorld(game);
@@ -72,8 +72,9 @@ public class App extends Application{
 				btn.setVisible(false);
 			}
 		});
-			
+		
 		scene.setOnKeyPressed(Events.keyPress);
+		scene.setOnKeyReleased(Events.keyPress);
 		root.getChildren().add(btn);
 		
 		for(Entity a: game.gameElements){

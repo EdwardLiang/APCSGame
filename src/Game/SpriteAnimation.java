@@ -6,7 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-//http://blog.netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
+//Credit: http://blog.netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
 public class SpriteAnimation extends Transition {
 
 	private final ImageView imageView;

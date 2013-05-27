@@ -68,7 +68,5 @@ public class Creature extends Entity {
 		body.createFixture(fd);
 		imageView.setUserData(body);
 		return imageView;
-
-		
 	}
 }
