@@ -44,29 +44,25 @@ public class Events {
 			} else if (t.getEventType().equals(KeyEvent.KEY_RELEASED)) {
 				buffer.remove(t.getCode());
 				if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
-					Vec2 velocity = new Vec2(
-							body.getLinearVelocity().x + 20.0f,
-							body.getLinearVelocity().y);
+					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
 				}
 				if (t.getCode() == KeyCode.D && body.getLinearVelocity().x != 0) {
-					Vec2 velocity = new Vec2(
-							body.getLinearVelocity().x - 20.0f,
-							body.getLinearVelocity().y);
+					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
 				}
 			}
 			if (buffer.contains(KeyCode.UP)) {
-				App.offsetY+=5;
+				App.offsetY += 5;
 			}
 			if (buffer.contains(KeyCode.DOWN)) {
-				App.offsetY-=5;
+				App.offsetY -= 5;
 			}
 			if (buffer.contains(KeyCode.LEFT)) {
-				App.offsetX+=5;
+				App.offsetX += 5;
 			}
 			if (buffer.contains(KeyCode.RIGHT)) {
-				App.offsetX-=5;
+				App.offsetX -= 5;
 			}
 			if (buffer.contains(KeyCode.P)) {
 				App.game.time.toggleTime();
