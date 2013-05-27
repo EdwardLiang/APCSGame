@@ -24,7 +24,7 @@ public class Wall extends Entity{
 		rectangle.setLayoutX(Utility.toPixelPosX(xPos) - Utility.toPixelWidth(width)/2);
 		rectangle.setLayoutY(Utility.toPixelPosY(yPos) -  Utility.toPixelWidth(height)/2);
 		
-		rectangle.setFill(Color.BLUE);
+		rectangle.setFill(Color.DARKSLATEGRAY);
 
 		PolygonShape ps = new PolygonShape();
 		ps.setAsBox(width/2, height/2);

@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
+import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 
 import org.jbox2d.dynamics.Body;
@@ -16,6 +17,8 @@ public class Time {
 	
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent t){
+			world.backGround.setLayoutX(App.offsetX);
+			world.backGround.setLayoutY(-world.pHeight + Utility.HEIGHT + App.offsetY);
 			world.world.step(1.0f/60.0f, 8, 3);
 			for(Entity a: world.gameElements){
 				Body body = (Body)a.node.getUserData();

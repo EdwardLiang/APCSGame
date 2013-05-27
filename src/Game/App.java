@@ -31,33 +31,11 @@ public class App extends Application{
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
 		
-		game = new GameWorld();
-		BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
-		bouncy.addToWorld(game);
+		game = new GameWorld("file:castle.jpg");
 		
-		//left
-		Wall wall = new Wall(0,50,1,100);
-		//right
-		Wall wall2 = new Wall(100,50,1,100);
-		//top
-		Wall wall3 = new Wall(50,100,100,1);
-		//bottom
-		Wall wall4 = new Wall(50,0,100,1);
-		Wall wall5 = new Wall(50,50,25,3);
-		Projectile proj = new Projectile(25,25,10,1);
 		player = new Creature(30,80);
 		
 		player.addToWorld(game);
-		proj.addToWorld(game);
-		wall.addToWorld(game);
-		wall2.addToWorld(game);
-		wall3.addToWorld(game);
-		wall4.addToWorld(game);
-		wall5.addToWorld(game);
-		
-
-		((Body)(proj.node.getUserData())).setLinearVelocity(new Vec2(-100, 100));
-		
 		
 		Group root = new Group();
 		Scene scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
@@ -75,6 +53,7 @@ public class App extends Application{
 		
 		scene.setOnKeyPressed(Events.keyPress);
 		scene.setOnKeyReleased(Events.keyPress);
+		root.getChildren().add(game.backGround);
 		root.getChildren().add(btn);
 		
 		for(Entity a: game.gameElements){

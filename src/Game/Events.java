@@ -30,7 +30,6 @@ public class Events {
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
 					body.applyLinearImpulse(impulse, point);
 				}
-
 				if (buffer.contains(KeyCode.A) && buffer.contains(KeyCode.D)) {
 					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
@@ -56,25 +55,23 @@ public class Events {
 							body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
 				}
-
 			}
-			t.consume();
-
 			if (buffer.contains(KeyCode.UP)) {
-				App.offsetY++;
+				App.offsetY+=5;
 			}
 			if (buffer.contains(KeyCode.DOWN)) {
-				App.offsetY--;
+				App.offsetY-=5;
 			}
 			if (buffer.contains(KeyCode.LEFT)) {
-				App.offsetX++;
+				App.offsetX+=5;
 			}
 			if (buffer.contains(KeyCode.RIGHT)) {
-				App.offsetX--;
+				App.offsetX-=5;
 			}
 			if (buffer.contains(KeyCode.P)) {
 				App.game.time.toggleTime();
 			}
+			t.consume();
 		}
 	};
 
