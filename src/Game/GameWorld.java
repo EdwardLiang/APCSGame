@@ -32,8 +32,8 @@ public class GameWorld {
 		backGround = new ImageView(back);
 		pWidth = back.getWidth();
 		pHeight = back.getHeight();
-		width = (int) Utility.toWidth(pWidth);
-		height = (int) Utility.toHeight(pHeight);
+		width = (int) Utility.toWidth((float)pWidth);
+		height = (int) Utility.toHeight((float)pHeight);
 		addElements();
 	}
 

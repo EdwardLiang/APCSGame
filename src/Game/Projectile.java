@@ -16,6 +16,8 @@ import javafx.scene.shape.Polygon;
 
 public class Projectile extends Entity {
 	public float radius;
+	public float pWidth;
+	public float pHeight;
 
 	public Projectile(float posX, float posY, float width, float height,
 			float radius) {
@@ -51,20 +53,29 @@ public class Projectile extends Entity {
 		polygon.setLayoutY(Utility.toPixelPosY(yPos)
 				- Utility.toPixelWidth(height) / 2);
 
-		// CircleShape cs = new CircleShape();
-		// cs.m_radius = 8*0.1f;
+		Vec2[] verts = new Vec2[5];
+
+		verts[0] = new Vec2(-(width) / 2, -height / 2); // bottom left
+		verts[1] = new Vec2((width - radius) / 2, -height / 2); // bottom middle
+		verts[2] = new Vec2(width / 2, 0);// middle right
+		verts[3] = new Vec2((width - radius) / 2, height / 2); // top middle
+		verts[4] = new Vec2(-(width) / 2, height / 2); // top left
 
 		PolygonShape ps = new PolygonShape();
-		ps.m_count = 5;
-		ps.m_vertices[0] = new Vec2(-(width)/2, -height/2);
-		ps.m_vertices[1] = new Vec2(-(width)/2, height/2);
-		ps.m_vertices[2] = new Vec2((width-radius)/2, height/2);
-		ps.m_vertices[3] = new Vec2(width/2,0);
-		ps.m_vertices[4] = new Vec2(-(width - radius)/2, -height/2);
-				
+		ps.set(verts, 5);
+
+		ps.m_centroid.setZero();
+
+		for (Vec2 a : ps.m_vertices) {
+			System.out.println(a);
+		}
+		for (Vec2 a : ps.m_normals) {
+			System.out.println(a);
+		}
+
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
-		fd.density = 0.6f;
+		fd.density = 1.6f;
 		fd.friction = 0.3f;
 		fd.restitution = 0.0f;
 

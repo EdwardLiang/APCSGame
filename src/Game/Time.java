@@ -24,8 +24,8 @@ public class Time {
 			for (Entity a : world.gameElements) {
 				Body body = (Body) a.node.getUserData();
 				if (a.node instanceof Circle) {
-					float xpos = Utility.toPixelPosX(body.getPosition().x)
-							+ App.getOffsetX();
+					float xpos = (Utility.toPixelPosX(body.getPosition().x)
+							+ App.getOffsetX());
 					float ypos = Utility.toPixelPosY(body.getPosition().y)
 							+ App.getOffsetY();
 					a.node.setLayoutX(xpos);
