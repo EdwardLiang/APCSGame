@@ -16,8 +16,6 @@ import javafx.scene.shape.Polygon;
 
 public class Projectile extends Entity {
 	public float radius;
-	public float pWidth;
-	public float pHeight;
 
 	public Projectile(float posX, float posY, float width, float height,
 			float radius) {
@@ -30,8 +28,6 @@ public class Projectile extends Entity {
 
 	public Node create() {
 		Polygon polygon = new Polygon();
-		// polygon.getPoints().addAll(
-		// new Double[] { 0.0, 0.0, 20.0, 10.0, 10.0, 20.0 });
 		polygon.getPoints().addAll(
 				new Double[] { 0.0, 0.0,
 						(double) Utility.toPixelWidth(width - radius), 0.0,
@@ -40,9 +36,7 @@ public class Projectile extends Entity {
 						(double) Utility.toPixelWidth(width - radius),
 						(double) Utility.toPixelHeight(height), 0.0,
 						(double) Utility.toPixelHeight(height) });
-		// polygon.setFill(Color.RED);
 
-		// polygon.getPoints().addAll(fxCoords);
 		polygon.setFill(Color.DARKBLUE);
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.STATIC;
@@ -60,18 +54,11 @@ public class Projectile extends Entity {
 		verts[2] = new Vec2(width / 2, 0);// middle right
 		verts[3] = new Vec2((width - radius) / 2, height / 2); // top middle
 		verts[4] = new Vec2(-(width) / 2, height / 2); // top left
-
+		
 		PolygonShape ps = new PolygonShape();
 		ps.set(verts, 5);
 
 		ps.m_centroid.setZero();
-
-		for (Vec2 a : ps.m_vertices) {
-			System.out.println(a);
-		}
-		for (Vec2 a : ps.m_normals) {
-			System.out.println(a);
-		}
 
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
