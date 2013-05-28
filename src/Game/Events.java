@@ -21,7 +21,7 @@ public class Events {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if(t.getCode() == KeyCode.P){
+			if (t.getCode() == KeyCode.P) {
 				App.game.time.toggleTime();
 			}
 		}
@@ -49,7 +49,8 @@ public class Events {
 			Body body = (Body) App.player.node.getUserData();
 			while (true) {
 				if (buffer.contains(KeyCode.W)
-						&& body.getLinearVelocity().y == 0) {
+						&& body.getLinearVelocity().y == 0
+						&& body.getContactList() != null) {
 					Vec2 impulse = new Vec2(0, 200.0f);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
 					body.applyLinearImpulse(impulse, point);
