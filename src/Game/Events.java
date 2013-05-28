@@ -24,7 +24,6 @@ public class Events {
 			Body body = (Body) App.player.node.getUserData();
 			
 			buffer.remove(t.getCode());
-			System.out.println("removed" + t.getCode());
 			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
 				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
 				body.setLinearVelocity(velocity);
@@ -32,7 +31,6 @@ public class Events {
 			if (t.getCode() == KeyCode.D && body.getLinearVelocity().x != 0) {
 				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
 				body.setLinearVelocity(velocity);
-				System.out.println("removed");
 			}
 			t.consume();
 		}
@@ -62,7 +60,6 @@ public class Events {
 				} else if (buffer.contains(KeyCode.D)) {
 					Vec2 velocity = new Vec2(20.0f, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
-					System.out.println("added");
 				}
 
 				
