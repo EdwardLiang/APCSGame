@@ -19,11 +19,23 @@ import javafx.stage.WindowEvent;
 public class App extends Application{
 	public static GameWorld game;
 	public static Entity player;
-	public static float offsetX;
-	public static float offsetY;
+	private static float offsetX;
+	private static float offsetY;
 	
 	public static void main(String[] args){
 		launch(args);
+	}
+	public static synchronized float getOffsetX() {
+		return offsetX;
+	}
+	public static synchronized void setOffsetX(float offsetX) {
+		App.offsetX = offsetX;
+	}
+	public static synchronized float getOffsetY() {
+		return offsetY;
+	}
+	public static synchronized void setOffsetY(float offsetY) {
+		App.offsetY = offsetY;
 	}
 	public void start(Stage primaryStage){
 		offsetX = 0.0f;
@@ -65,7 +77,7 @@ public class App extends Application{
 		});
 		
 		scene.setOnKeyPressed(Events.keyPress);
-		scene.setOnKeyReleased(Events.keyPress);
+		scene.setOnKeyReleased(Events.keyRelease);
 		root.getChildren().add(game.backGround);
 		root.getChildren().add(btn);
 		

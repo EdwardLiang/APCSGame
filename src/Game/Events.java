@@ -15,16 +15,39 @@ import org.jbox2d.dynamics.Body;
 //KNOWN GLITCH: Multiple Jumps Possible.
 
 public class Events {
-	public static final EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
-		private final Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
-
+	public static final Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
+	
+	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>(){
 		public void handle(KeyEvent key) {
+			
+			final KeyEvent t = key;
+			Body body = (Body) App.player.node.getUserData();
+			
+			buffer.remove(t.getCode());
+			System.out.println("removed" + t.getCode());
+			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
+				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
+				body.setLinearVelocity(velocity);
+			}
+			if (t.getCode() == KeyCode.D && body.getLinearVelocity().x != 0) {
+				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
+				body.setLinearVelocity(velocity);
+				System.out.println("removed");
+			}
+			t.consume();
+		}
+		
+	};
+	
+	public static final EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
+		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			Body body = (Body) App.player.node.getUserData();
 
 			if (t.getEventType().equals(KeyEvent.KEY_PRESSED)) {
 				buffer.add(t.getCode());
-				if (buffer.contains(KeyCode.W)
+				
+				if (t.getCode() == KeyCode.W
 						&& body.getLinearVelocity().y == 0) {
 					Vec2 impulse = new Vec2(0, 200.0f);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
@@ -39,31 +62,11 @@ public class Events {
 				} else if (buffer.contains(KeyCode.D)) {
 					Vec2 velocity = new Vec2(20.0f, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
+					System.out.println("added");
 				}
 
-			} else if (t.getEventType().equals(KeyEvent.KEY_RELEASED)) {
-				buffer.remove(t.getCode());
-				if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
-					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
-				}
-				if (t.getCode() == KeyCode.D && body.getLinearVelocity().x != 0) {
-					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
-				}
-			}
-			if (buffer.contains(KeyCode.UP)) {
-				App.offsetY += 5;
-			}
-			if (buffer.contains(KeyCode.DOWN)) {
-				App.offsetY -= 5;
-			}
-			if (buffer.contains(KeyCode.LEFT)) {
-				App.offsetX += 5;
-			}
-			if (buffer.contains(KeyCode.RIGHT)) {
-				App.offsetX -= 5;
-			}
+				
+			}			
 			if (buffer.contains(KeyCode.P)) {
 				App.game.time.toggleTime();
 			}

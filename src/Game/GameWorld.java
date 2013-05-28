@@ -43,8 +43,8 @@ public class GameWorld{
 	}
 	
 	public void addElements(){
-		backGround.setLayoutX(App.offsetX);
-		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.offsetY);
+		backGround.setLayoutX(App.getOffsetX());
+		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
 		
 		BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
 		bouncy.addToWorld(this);

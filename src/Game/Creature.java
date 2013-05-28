@@ -61,7 +61,7 @@ public class Creature extends Entity {
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 0.1f;
-		fd.friction = 0.3f;
+		fd.friction = 0.0f;
 		fd.restitution = 0f;
 		
 		Body body = world.world.createBody(bd);
