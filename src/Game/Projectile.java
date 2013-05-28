@@ -56,11 +56,11 @@ public class Projectile extends Entity {
 
 		PolygonShape ps = new PolygonShape();
 		ps.m_count = 5;
-		ps.m_vertices[0] = new Vec2(0, 0);
-		ps.m_vertices[1] = new Vec2(0, height);
-		ps.m_vertices[2] = new Vec2(width - radius, height);
-		ps.m_vertices[3] = new Vec2(width, height / 2);
-		ps.m_vertices[4] = new Vec2(width - radius, 0);
+		ps.m_vertices[0] = new Vec2(-(width)/2, -height/2);
+		ps.m_vertices[1] = new Vec2(-(width)/2, height/2);
+		ps.m_vertices[2] = new Vec2((width-radius)/2, height/2);
+		ps.m_vertices[3] = new Vec2(width/2,0);
+		ps.m_vertices[4] = new Vec2(-(width - radius)/2, -height/2);
 				
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
