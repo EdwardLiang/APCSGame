@@ -1,9 +1,11 @@
 package Game;
+
 public class Utility {
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 600;
-	
-	//Inspiration/Credit from: http://thisiswhatiknowabout.blogspot.com/2011/12/jbox2d-with-javafx-write-your-first.html
+
+	// Inspiration/Credit from:
+	// http://thisiswhatiknowabout.blogspot.com/2011/12/jbox2d-with-javafx-write-your-first.html
 
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
 	public static double toPixelPosX(double posX) {
@@ -46,6 +48,7 @@ public class Utility {
 	public static double toHeight(double height) {
 		return (height * 100.0) / HEIGHT;
 	}
+
 	public static float toPixelPosX(float posX) {
 		float x = WIDTH * posX / 100.0f;
 		return x;

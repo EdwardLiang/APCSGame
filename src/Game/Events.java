@@ -16,13 +16,13 @@ import org.jbox2d.dynamics.Body;
 
 public class Events {
 	public static final Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
-	
-	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>(){
+
+	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
 		public synchronized void handle(KeyEvent key) {
-			
+
 			final KeyEvent t = key;
 			Body body = (Body) App.player.node.getUserData();
-			
+
 			buffer.remove(t.getCode());
 			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
 				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
@@ -34,9 +34,9 @@ public class Events {
 			}
 			t.consume();
 		}
-		
+
 	};
-	
+
 	public static final EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
@@ -44,9 +44,8 @@ public class Events {
 
 			if (t.getEventType().equals(KeyEvent.KEY_PRESSED)) {
 				buffer.add(t.getCode());
-				
-				if (t.getCode() == KeyCode.W
-						&& body.getLinearVelocity().y == 0) {
+
+				if (t.getCode() == KeyCode.W && body.getLinearVelocity().y == 0) {
 					Vec2 impulse = new Vec2(0, 200.0f);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
 					body.applyLinearImpulse(impulse, point);
@@ -62,8 +61,7 @@ public class Events {
 					body.setLinearVelocity(velocity);
 				}
 
-				
-			}			
+			}
 			if (buffer.contains(KeyCode.P)) {
 				App.game.time.toggleTime();
 			}

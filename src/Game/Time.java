@@ -59,8 +59,7 @@ public class Time {
 
 				if (Utility.toPixelPosY(playerData.getPosition().y)
 						+ App.getOffsetY() > Utility.HEIGHT / 2 + 20
-						&& !(App.getOffsetY() - 1 < 0)
-						/*this works*/)
+						&& !(App.getOffsetY() - 1 < 0))
 					App.setOffsetY(App.getOffsetY() - 1);
 				else if (Utility.toPixelPosY(playerData.getPosition().y)
 						+ App.getOffsetY() < Utility.HEIGHT / 2 - 20

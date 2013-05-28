@@ -24,7 +24,8 @@ public class Creature extends Entity {
 	public int pHeight;
 
 	public Creature(float posX, float posY) {
-		//Image Credits: http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
+		// Image Credits:
+		// http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
 		image = new Image("file:spritesheet.png");
 		xPos = posX;
 		yPos = posY;
@@ -40,30 +41,33 @@ public class Creature extends Entity {
 
 	public Node create() {
 		ImageView imageView = new ImageView(image);
-		imageView.setViewport(new Rectangle2D(offsetX, offsetY, pWidth, pHeight));
+		imageView
+				.setViewport(new Rectangle2D(offsetX, offsetY, pWidth, pHeight));
 		Animation animation = new SpriteAnimation(imageView,
 				Duration.millis(1000), count, col, offsetX, offsetY, pWidth,
 				pHeight);
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();
-				
-		imageView.setLayoutX(Utility.toPixelPosX(xPos) - Utility.toPixelWidth(width)/2);
-		imageView.setLayoutY(Utility.toPixelPosY(yPos) -  Utility.toPixelWidth(height)/2);
-		
+
+		imageView.setLayoutX(Utility.toPixelPosX(xPos)
+				- Utility.toPixelWidth(width) / 2);
+		imageView.setLayoutY(Utility.toPixelPosY(yPos)
+				- Utility.toPixelWidth(height) / 2);
+
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
 		bd.position.set(xPos, yPos);
 		bd.fixedRotation = true;
-		
+
 		PolygonShape ps = new PolygonShape();
-		ps.setAsBox(width/2, height/2);
-		
+		ps.setAsBox(width / 2, height / 2);
+
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 0.1f;
 		fd.friction = 0.0f;
 		fd.restitution = 0f;
-		
+
 		Body body = world.world.createBody(bd);
 		body.createFixture(fd);
 		imageView.setUserData(body);
