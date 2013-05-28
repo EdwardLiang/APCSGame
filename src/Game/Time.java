@@ -32,9 +32,11 @@ public class Time {
 					a.node.setLayoutY(ypos);
 				} else {
 					float xpos = Utility.toPixelPosX(body.getPosition().x)
-							+ App.getOffsetX() - Utility.toPixelWidth(a.width) / 2;
+							+ App.getOffsetX() - Utility.toPixelWidth(a.width)
+							/ 2;
 					float ypos = Utility.toPixelPosY(body.getPosition().y)
-							+ App.getOffsetY() - Utility.toPixelWidth(a.height) / 2;
+							+ App.getOffsetY() - Utility.toPixelWidth(a.height)
+							/ 2;
 					a.node.setLayoutX(xpos);
 					a.node.setLayoutY(ypos);
 				}
@@ -47,11 +49,24 @@ public class Time {
 			while (true) {
 				Body playerData = (Body) App.player.node.getUserData();
 				if (Utility.toPixelPosX(playerData.getPosition().x)
-						+ App.getOffsetX() > Utility.HEIGHT / 2 + 20)
+						+ App.getOffsetX() > Utility.WIDTH / 2 + 20
+						&& !(-App.getOffsetX() + Utility.WIDTH + 1 > world.pWidth)) {
 					App.setOffsetX(App.getOffsetX() - 1);
-				else if (Utility.toPixelPosX(playerData.getPosition().x)
-						+ App.getOffsetX() < Utility.HEIGHT / 2 - 20)
+				} else if (Utility.toPixelPosX(playerData.getPosition().x)
+						+ App.getOffsetX() < Utility.WIDTH / 2 - 20
+						&& !(App.getOffsetX() - 1 > 0))
 					App.setOffsetX(App.getOffsetX() + 1);
+
+				if (Utility.toPixelPosY(playerData.getPosition().y)
+						+ App.getOffsetY() > Utility.HEIGHT / 2 + 20
+						&& !(App.getOffsetY() - 1 < 0)
+						/*this works*/)
+					App.setOffsetY(App.getOffsetY() - 1);
+				else if (Utility.toPixelPosY(playerData.getPosition().y)
+						+ App.getOffsetY() < Utility.HEIGHT / 2 - 20
+						&& !(App.getOffsetY() + Utility.HEIGHT + 1 > world.pHeight))
+					App.setOffsetY(App.getOffsetY() + 1);
+
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {

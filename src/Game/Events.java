@@ -18,7 +18,7 @@ public class Events {
 	public static final Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
 	
 	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>(){
-		public void handle(KeyEvent key) {
+		public synchronized void handle(KeyEvent key) {
 			
 			final KeyEvent t = key;
 			Body body = (Body) App.player.node.getUserData();
