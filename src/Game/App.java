@@ -67,7 +67,9 @@ public class App extends Application {
 			public void handle(ActionEvent event) {
 				game.time.timeline.playFromStart();
 				Thread t = new Thread(game.time.r);
+				Thread key = new Thread(Events.keyThread);
 				t.start();
+				key.start();
 				btn.setVisible(false);
 			}
 		});

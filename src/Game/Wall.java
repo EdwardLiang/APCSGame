@@ -35,7 +35,7 @@ public class Wall extends Entity {
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 1.0f;
-		fd.friction = 0.0f;
+		fd.friction = 0.3f;
 
 		BodyDef bd = new BodyDef();
 		bd.position.set(xPos, yPos);

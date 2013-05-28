@@ -16,13 +16,17 @@ import org.jbox2d.dynamics.Body;
 
 public class Events {
 	public static final Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
-
+	public static final EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
+		public synchronized void handle(KeyEvent key) {
+			final KeyEvent t = key;
+			buffer.add(t.getCode());
+			t.consume();
+		}
+	};
 	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
 		public synchronized void handle(KeyEvent key) {
-
-			final KeyEvent t = key;
 			Body body = (Body) App.player.node.getUserData();
-
+			final KeyEvent t = key;
 			buffer.remove(t.getCode());
 			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
 				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
@@ -37,15 +41,12 @@ public class Events {
 
 	};
 
-	public static final EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
-		public synchronized void handle(KeyEvent key) {
-			final KeyEvent t = key;
+	public static final Runnable keyThread = new Runnable() {
+		public void run() {
 			Body body = (Body) App.player.node.getUserData();
-
-			if (t.getEventType().equals(KeyEvent.KEY_PRESSED)) {
-				buffer.add(t.getCode());
-
-				if (t.getCode() == KeyCode.W && body.getLinearVelocity().y == 0) {
+			while (true) {
+				if (buffer.contains(KeyCode.W)
+						&& body.getLinearVelocity().y == 0) {
 					Vec2 impulse = new Vec2(0, 200.0f);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
 					body.applyLinearImpulse(impulse, point);
@@ -60,13 +61,17 @@ public class Events {
 					Vec2 velocity = new Vec2(20.0f, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
 				}
-
+				if (buffer.contains(KeyCode.P)) {
+					App.game.time.toggleTime();
+				}
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			if (buffer.contains(KeyCode.P)) {
-				App.game.time.toggleTime();
-			}
-			t.consume();
 		}
-	};
 
+	};
 }
