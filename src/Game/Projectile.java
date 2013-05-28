@@ -14,34 +14,36 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+
 public class Projectile extends Entity {
-	public Projectile(float posX, float posY, float width, float height) {
+	public float radius;
+	public Vec2 initDir;
+	
+	public Projectile(float posX, float posY, float width, float height,float radius) {
 		xPos = posX;
 		yPos = posY;
-		this.width = width;
+		this.width = width + radius;
 		this.height = height;
+		this.radius = radius;
 	}
 
 	public Node create() {
 		Polygon polygon = new Polygon();
+		//polygon.getPoints().addAll(
+			//	new Double[] { 0.0, 0.0, 20.0, 10.0, 10.0, 20.0 });
 		polygon.getPoints().addAll(
-				new Double[] { 0.0, 0.0, 20.0, 10.0, 10.0, 20.0 });
+				new Double[]{0.0,0.0,
+						(double)Utility.toPixelWidth(width-radius),0.0,
+						(double) Utility.toPixelWidth(width),(double)Utility.toPixelHeight(height)/2,
+						(double) Utility.toPixelWidth(width-radius),(double)Utility.toPixelHeight(height),
+						0.0,(double)Utility.toPixelHeight(height)});
+		// polygon.setFill(Color.RED);
 
-		polygon.setFill(Color.RED);
-		/*
-		 * Vec2[] jCoords = new Vec2[]{ new Vec2(xPos,yPos), new
-		 * Vec2((xPos+width),yPos), new Vec2((xPos)+width +
-		 * radius,((yPos)+height/2)), new Vec2(((xPos)+width),(yPos)+height),
-		 * new Vec2((xPos),(yPos)+height)}; Double[] fxCoords = new
-		 * Double[jCoords.length*2]; int k = 0; for(int i = 0; i <
-		 * jCoords.length; i++) { fxCoords[k]
-		 * =(double)Utility.toPixelPosX((jCoords[i].x)); fxCoords[k+1] =
-		 * (double)Utility.toPixelPosY(jCoords[i].y); k+=2; }
-		 */
+
 		// polygon.getPoints().addAll(fxCoords);
 		polygon.setFill(Color.DARKBLUE);
 		BodyDef bd = new BodyDef();
-		bd.type = BodyType.KINEMATIC;
+		bd.type = BodyType.STATIC;
 		bd.position.set(xPos, yPos);
 		bd.fixedRotation = true;
 		polygon.setLayoutX(Utility.toPixelPosX(xPos)
@@ -53,10 +55,12 @@ public class Projectile extends Entity {
 		// cs.m_radius = 8*0.1f;
 
 		PolygonShape ps = new PolygonShape();
-		ps.m_count = 3;
+		ps.m_count = 5;
 		ps.m_vertices[0] = new Vec2(0, 0);
-		ps.m_vertices[1] = new Vec2(Utility.toWidth(20), Utility.toHeight(10));
-		ps.m_vertices[2] = new Vec2(Utility.toWidth(10), Utility.toHeight(20));
+		ps.m_vertices[1] = new Vec2(width-radius, 0);
+		ps.m_vertices[2] = new Vec2(width,height/2);
+		ps.m_vertices[3] = new Vec2(width-radius,height);
+		ps.m_vertices[4] = new Vec2(0,height);
 
 		PolygonShape shape = new PolygonShape();
 
@@ -71,6 +75,7 @@ public class Projectile extends Entity {
 		Body body = world.world.createBody(bd);
 		body.createFixture(fd);
 		polygon.setUserData(body);
+		
 
 		return polygon;
 	}

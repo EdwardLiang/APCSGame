@@ -55,7 +55,7 @@ public class GameWorld {
 		Wall bottom = new Wall(width / 2, 0, width, 1);
 
 		Wall platform = new Wall(50, 50, 25, 3);
-		Projectile proj = new Projectile(25, 25, 10, 1);
+		Projectile proj = new Projectile(25.f, 25.f, 10.f, 10.f, 5.f);
 
 		left.addToWorld(this);
 		right.addToWorld(this);
@@ -66,6 +66,6 @@ public class GameWorld {
 		proj.addToWorld(this);
 
 		((Body) (proj.node.getUserData()))
-				.setLinearVelocity(new Vec2(-100, 100));
+				.setLinearVelocity(new Vec2(100,0));
 	}
 }
