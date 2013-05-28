@@ -39,7 +39,7 @@ public class Projectile extends Entity {
 
 		polygon.setFill(Color.DARKBLUE);
 		BodyDef bd = new BodyDef();
-		bd.type = BodyType.STATIC;
+		bd.type = BodyType.KINEMATIC;
 		bd.position.set(xPos, yPos);
 		bd.fixedRotation = true;
 		polygon.setLayoutX(Utility.toPixelPosX(xPos)
