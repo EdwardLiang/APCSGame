@@ -48,30 +48,32 @@ public class Time {
 		public void run() {
 			while (true) {
 				Body playerData = (Body) App.player.node.getUserData();
-				if (Utility.toPixelPosX(playerData.getPosition().x)
-						+ App.getOffsetX() > Utility.WIDTH / 2 + 20
-						&& !(-App.getOffsetX() + Utility.WIDTH + 1 > world.pWidth)) {
-					App.setOffsetX(App.getOffsetX() - 1);
-				} else if (Utility.toPixelPosX(playerData.getPosition().x)
-						+ App.getOffsetX() < Utility.WIDTH / 2 - 20
-						&& !(App.getOffsetX() - 1 > 0))
-					App.setOffsetX(App.getOffsetX() + 1);
+				if (!isPaused()) {
+					if (Utility.toPixelPosX(playerData.getPosition().x)
+							+ App.getOffsetX() > Utility.WIDTH / 2 + 20
+							&& !(-App.getOffsetX() + Utility.WIDTH + 1 > world.pWidth)) {
+						App.setOffsetX(App.getOffsetX() - 1);
+					} else if (Utility.toPixelPosX(playerData.getPosition().x)
+							+ App.getOffsetX() < Utility.WIDTH / 2 - 20
+							&& !(App.getOffsetX() - 1 > 0))
+						App.setOffsetX(App.getOffsetX() + 1);
 
-				if (Utility.toPixelPosY(playerData.getPosition().y)
-						+ App.getOffsetY() > Utility.HEIGHT / 2 + 20
-						&& !(App.getOffsetY() - 1 < 0))
-					App.setOffsetY(App.getOffsetY() - 1);
-				else if (Utility.toPixelPosY(playerData.getPosition().y)
-						+ App.getOffsetY() < Utility.HEIGHT / 2 - 20
-						&& !(App.getOffsetY() + Utility.HEIGHT + 1 > world.pHeight))
-					App.setOffsetY(App.getOffsetY() + 1);
-
+					if (Utility.toPixelPosY(playerData.getPosition().y)
+							+ App.getOffsetY() > Utility.HEIGHT / 2 + 20
+							&& !(App.getOffsetY() - 1 < 0))
+						App.setOffsetY(App.getOffsetY() - 1);
+					else if (Utility.toPixelPosY(playerData.getPosition().y)
+							+ App.getOffsetY() < Utility.HEIGHT / 2 - 20
+							&& !(App.getOffsetY() + Utility.HEIGHT + 1 > world.pHeight))
+						App.setOffsetY(App.getOffsetY() + 1);
+				}
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 			}
 		}
 
@@ -103,6 +105,10 @@ public class Time {
 
 	public void reverseTime() {
 		System.out.println("NOT IMPLEMENTED");
+	}
+
+	public boolean isPaused() {
+		return timeline.getCurrentRate() == 0;
 	}
 
 	// For experimental time manipulation

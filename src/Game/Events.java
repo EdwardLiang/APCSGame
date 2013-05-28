@@ -10,7 +10,7 @@ import javafx.scene.input.KeyEvent;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
-//Multi-Key support inspiration from http://www.brainoverload.nl/java/167/keypressedeventhandler-with-java-fx-2-0-and-multiple-keys
+//Multi-Key Event Set use inspiration from http://www.brainoverload.nl/java/167/keypressedeventhandler-with-java-fx-2-0-and-multiple-keys
 
 //KNOWN GLITCH: Multiple Jumps Possible.
 
@@ -21,6 +21,9 @@ public class Events {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
+			if(t.getCode() == KeyCode.P){
+				App.game.time.toggleTime();
+			}
 		}
 	};
 	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
@@ -60,9 +63,6 @@ public class Events {
 				} else if (buffer.contains(KeyCode.D)) {
 					Vec2 velocity = new Vec2(20.0f, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
-				}
-				if (buffer.contains(KeyCode.P)) {
-					App.game.time.toggleTime();
 				}
 				try {
 					Thread.sleep(10);
