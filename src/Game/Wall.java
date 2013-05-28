@@ -1,6 +1,7 @@
 package Game;
 
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -31,7 +32,7 @@ public class Wall extends Entity {
 
 		PolygonShape ps = new PolygonShape();
 		ps.setAsBox(width / 2, height / 2);
-
+		
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 1.0f;

@@ -61,12 +61,12 @@ public class Projectile extends Entity {
 		ps.m_vertices[2] = new Vec2(width - radius, height);
 		ps.m_vertices[3] = new Vec2(width, height / 2);
 		ps.m_vertices[4] = new Vec2(width - radius, 0);
-		
+				
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 0.6f;
 		fd.friction = 0.3f;
-		fd.restitution = 0.8f;
+		fd.restitution = 0.0f;
 
 		Body body = world.world.createBody(bd);
 		body.createFixture(fd);
