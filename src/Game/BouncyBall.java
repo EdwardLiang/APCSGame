@@ -20,6 +20,10 @@ public class BouncyBall extends Entity {
 		this.radius = radius;
 		this.color = color;
 	}
+	
+	public static BouncyBall parse(String[] frag){
+		return new BouncyBall(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]), Integer.parseInt(frag[3]), Color.web(frag[4]));
+	}
 
 	public Node create() {
 		Circle ball = new Circle();
@@ -46,5 +50,8 @@ public class BouncyBall extends Entity {
 		body.createFixture(fd);
 		ball.setUserData(body);
 		return ball;
+	}
+	public String toString(){
+		return super.toString() + Utility.delim + radius + Utility.delim + color.toString();
 	}
 }

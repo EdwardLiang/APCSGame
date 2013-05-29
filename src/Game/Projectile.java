@@ -25,6 +25,10 @@ public class Projectile extends Entity {
 		this.height = height;
 		this.radius = radius;
 	}
+	//For anyone that isn't Alex or I. DONT USE this constructor if you're not sure what you're doing.
+	public static Projectile parse(String[] frag){
+		return new Projectile(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]), Float.parseFloat(frag[3]), Float.parseFloat(frag[4]), Float.parseFloat(frag[5]));
+	}
 
 	public Node create() {
 		Polygon polygon = new Polygon();
@@ -71,6 +75,9 @@ public class Projectile extends Entity {
 		polygon.setUserData(body);
 
 		return polygon;
+	}
+	public String toString(){
+		return super.toString() + Utility.delim + radius;
 	}
 
 }

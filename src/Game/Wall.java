@@ -11,12 +11,17 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Wall extends Entity {
+public class Wall extends Entity{
 	public Wall(float posX, float posY, float width, float height) {
 		xPos = posX;
 		yPos = posY;
 		this.width = width;
 		this.height = height;
+	}
+	
+	//Cannot create a parsable interface because an interface can't have static methods. 
+	public static Wall parse(String[] frag){
+		return new Wall(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]), Float.parseFloat(frag[3]), Float.parseFloat(frag[4]));
 	}
 
 	public Node create() {
@@ -47,5 +52,7 @@ public class Wall extends Entity {
 		rectangle.setUserData(body);
 		return rectangle;
 	}
-
+	public String toString(){
+		return super.toString();
+	}
 }

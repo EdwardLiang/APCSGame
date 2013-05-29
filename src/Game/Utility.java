@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 public class Utility {
-	final static Charset ENCODING = StandardCharsets.UTF_8;
+	final static String delim = ";";
 
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
 	public static double toPixelPosX(double posX) {
@@ -102,6 +102,10 @@ public class Utility {
 	public static float toHeight(float height) {
 		return (height * 100.0f) / HEIGHT;
 	}
+	
+	public static String[] fragment(String str){
+		return str.split("[;]");
+	}
 
 	public static Color parseColor(String str) {
 		switch (str) {
@@ -135,27 +139,5 @@ public class Utility {
 		default:
 			throw new IllegalArgumentException("Wrong Entity type");
 		}
-	}
-
-	public static void writeToFile(String code, String fileName)
-			throws IOException {
-		Path path = Paths.get(fileName + ".txt");
-		ArrayList<String> list = new ArrayList<String>();
-		list.add(code);
-		Files.write(path, list, ENCODING);
-	}
-
-	public static String readFromFile(String fileName) throws IOException {
-		Path path = Paths.get(fileName + ".txt");
-		List<String> listed = Files.readAllLines(path, ENCODING);
-		String result = "";
-		for (String str : listed)
-			result += str;
-		return result;
-	}
-
-	public static ArrayList<String> addLevelsToAdd(ArrayList<String> levelsList) {
-		levelsList.add("TestLevel");
-		return levelsList;
 	}
 }

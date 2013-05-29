@@ -24,8 +24,11 @@ public class GameWorld {
 	public int width;
 	public int height;
 	public String title;
+	public String bacLoc;
+	public float gravityMag;
 
-	public GameWorld(String backLoc, String title, ArrayList<Entity> elements,float gravityMag) {
+	public GameWorld(String backLoc, String title, ArrayList<Entity> elements,
+			float gravityMag) {
 		world = new World(new Vec2(0.0f, -gravityMag));
 		gameElements = elements;
 		time = new Time(this);
@@ -36,7 +39,28 @@ public class GameWorld {
 		width = (int) Utility.toWidth((float) pWidth);
 		height = (int) Utility.toHeight((float) pHeight);
 		this.title = title;
-		addElements();
+		this.bacLoc = bacLoc;
+		this.gravityMag = gravityMag;
+		backGround.setLayoutX(App.getOffsetX());
+		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
+		for (int i = 0; i < gameElements.size(); i++)
+			gameElements.get(i).addToWorld(this);
+	}
+
+	public GameWorld(String backLoc) {
+		this.title = "test";
+		this.bacLoc = backLoc;
+		this.gravityMag = 30.0f;
+		world = new World(new Vec2(0.0f, -30.0f));
+		gameElements = new ArrayList<Entity>();
+		time = new Time(this);
+		Image back = new Image(backLoc);
+		backGround = new ImageView(back);
+		pWidth = back.getWidth();
+		pHeight = back.getHeight();
+		width = (int) Utility.toWidth(pWidth);
+		height = (int) Utility.toHeight(pHeight);
+		addCoreElements();
 	}
 
 	// Use Entity's addToWorld method. DO NOT DIRECTLY INVOKE THIS METHOD.
@@ -44,32 +68,66 @@ public class GameWorld {
 		gameElements.add(entity);
 	}
 
-	public void addElements() {
-		backGround.setLayoutX(App.getOffsetX());
-		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
-		for (int i = 0; i < gameElements.size(); i++)
-			gameElements.get(i).addToWorld(this);
+	public void addCoreElements() {
 		// BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
 		// bouncy.addToWorld(this);
 		//
-		// Wall left = new Wall(0, height / 2, 1, height);
-		// Wall right = new Wall(width, height / 2, 1, height);
-		// Wall top = new Wall(width / 2, height, width, 1);
-		// Wall bottom = new Wall(width / 2, 0, width, 1);
+		Wall left = new Wall(0, height / 2, 1, height);
+		Wall right = new Wall(width, height / 2, 1, height);
+		Wall top = new Wall(width / 2, height, width, 1);
+		Wall bottom = new Wall(width / 2, 0, width, 1);
 		//
 		// Wall platform = new Wall(50, 50, 25, 3);
 		// Projectile proj = new Projectile(15.f, 75.f, 2.f, 1.f, 3.f);
 		//
-		// left.addToWorld(this);
-		// right.addToWorld(this);
-		// top.addToWorld(this);
-		// bottom.addToWorld(this);
+		left.addToWorld(this);
+		right.addToWorld(this);
+		top.addToWorld(this);
+		bottom.addToWorld(this);
 		//
 		// platform.addToWorld(this);
 		// proj.addToWorld(this);
 		//
 		// ((Body)(proj.node.getUserData())).setLinearVelocity(new Vec2(50.0f,
 		// 0.0f));
+	}
 
+	public static Entity parseElements(String raw) {
+		String[] frags = Utility.fragment(raw);
+		String className = frags[0];
+		if (className.equals("class Game.BouncyBall")) {
+			return BouncyBall.parse(frags);
+		} else if (className.equals("class Game.Creature")) {
+			return Creature.parse(frags);
+		} else if (className.equals("class Game.Projectile")) {
+			return Projectile.parse(frags);
+		} else if (className.equals("class Game.Wall")) {
+			return Wall.parse(frags);
+		} else {
+			System.out.println("ERROR: Attempted to add unsupported class");
+		}
+		return null;
+	}
+
+	public static GameWorld parse(String raw) {
+		String[] parsed = raw.split("[\n]");
+		ArrayList<Entity> elements = new ArrayList<Entity>();
+		for (int i = 3; i < parsed.length - 1; i++) {
+			elements.add(parseElements(parsed[i]));
+		}
+		GameWorld game = new GameWorld(parsed[0], parsed[1], elements,
+				Float.parseFloat(parsed[2]));
+		return game;
+	}
+
+	public String toString() {
+		String result = "";
+		result += bacLoc + "\n";
+		result += title + "\n";
+		result += gravityMag + "\n";
+		for (Entity a : gameElements) {
+			result += a.toString() + "\n";
+		}
+		return result;
 	}
 }

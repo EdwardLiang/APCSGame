@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class App extends Application {
@@ -47,22 +49,20 @@ public class App extends Application {
 	}
 
 	public void start(Stage primaryStage) {
-		levels=Utility.addLevelsToAdd(levels);
+		//levels = Utility.addLevelsToAdd(levels);
 		offsetX = 0.0f;
 		offsetY = 0.0f;
-		
-		
-		primaryStage.setTitle(levels.get(0));
+
+		primaryStage.setTitle("test");
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
 
-		try {
-			game=Parse.toWorld(Utility.readFromFile(levels.get(0)));
+		/*try {
+			game = Parse.toWorld(Utility.readFromFile(levels.get(0)));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-//		game = new GameWorld("file:castle.jpg",primaryStage.getTitle(),null);
-
+		}*/
+		game = new GameWorld("file:castle.jpg");
 		player = new Creature(30, 80);
 
 		player.addToWorld(game);
@@ -99,9 +99,34 @@ public class App extends Application {
 		root.getChildren().add(game.backGround);
 		root.getChildren().add(btn);
 
+		BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
+		Wall platform = new Wall(50, 50, 25, 3);
+		Projectile proj = new Projectile(15.f, 75.f, 2.f, 1.f, 3.f);
+		platform.addToWorld(game);
+		proj.addToWorld(game);
+		bouncy.addToWorld(game);
+		((Body) (proj.node.getUserData())).setLinearVelocity(new Vec2(50.0f,
+				0.0f));
+		
 		for (Entity a : game.gameElements) {
 			root.getChildren().add(a.node);
 		}
+		
+		/*try {
+			Parse.writeToFile(game.toString(), "test");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		ArrayList<String> toString = new ArrayList<String>();
+		toString.add(game.toString());
+		try {
+			Files.write(Paths.get("TestLevel.txt"), toString, Parse.ENCODING);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(game.toString());
 
 		primaryStage.setScene(scene);
 		primaryStage.show();

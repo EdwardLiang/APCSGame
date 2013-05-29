@@ -1,5 +1,12 @@
 package Game;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -19,9 +26,9 @@ import org.jbox2d.dynamics.Body;
  * 
  */
 public class Parse {
-	final static String delim = ";";
-
-	public static String inputToParsed() {
+	final static String delim = "\n";
+	final static Charset ENCODING = StandardCharsets.UTF_8;
+	/*public static String inputToParsed() {
 		String result = "";
 		Scanner input = new Scanner(System.in);
 		System.out.println("Name of World?");
@@ -83,45 +90,59 @@ public class Parse {
 				break;
 			}
 		}
+		System.out.println(result);
+		return result;
+	}*/
+/*
+	public static Entity parseElements(String raw) {
+		String[] frags = Utility.fragment(raw);
+		String className = frags[0];
+		if (className.equals("class Game.BouncyBall")) {
+			return BouncyBall.parse(frags);
+		} else if (className.equals("class Game.Creature")) {
+			return Creature.parse(frags);
+		} else if (className.equals("class Game.Projectile")) {
+			return Projectile.parse(frags);
+		} else if (className.equals("class Game.Wall")) {
+			return Wall.parse(frags);
+		} else {
+			System.out.println("ERROR: Attempted to add unsupported class");
+		}
+		return null;
+	}
+
+	public static GameWorld parse(String raw) {
+		String[] parsed = raw.split("[\n]");
+		ArrayList<Entity> elements = new ArrayList<Entity>();
+		for (int i = 3; i < parsed.length - 1; i++) {
+			elements.add(parseElements(parsed[i]));
+		}
+		GameWorld game = new GameWorld(parsed[0], parsed[1], elements,
+				Float.parseFloat(parsed[2]));
+		return game;
+	}*/
+	
+	public static void writeToFile(String code, String fileName)
+			throws IOException {
+		Path path = Paths.get(fileName + ".txt");
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(code);
+		Files.write(path, list, ENCODING);
+	}
+
+	public static String readFromFile(String fileName) throws IOException {
+		Path path = Paths.get(fileName + ".txt");
+		List<String> listed = Files.readAllLines(path, ENCODING);
+		String result = "";
+		for (String str : listed)
+			result += str;
 		return result;
 	}
 
-	public static GameWorld toWorld(String raw)
-	{
-		String[] parsed = raw.split("[;]");
-		ArrayList<Entity> elements = new ArrayList<Entity>();
-		int numToAdd = Integer.parseInt(parsed[3]);
-		int index = 4;
-		Entity e;
-		for(int i = 0; i < numToAdd; i++){
-			switch(Integer.parseInt(parsed[index])){
-			case 1:
-				e = new BouncyBall(Float.parseFloat(parsed[index+1]),Float.parseFloat(parsed[index+2]),Integer.parseInt(parsed[index+3]),Utility.parseColor(parsed[index+4]));
-				index+=5;
-				break;
-			case 2:
-				e = new Wall((Float.parseFloat(parsed[index+1])),Float.parseFloat(parsed[index+2]),(Float.parseFloat(parsed[index+3])),Float.parseFloat(parsed[index+4]));
-				index+=5;
-				break;
-			case 3: 
-				e = new Projectile((Float.parseFloat(parsed[index+1])),Float.parseFloat(parsed[index+2]),(Float.parseFloat(parsed[index+3])),Float.parseFloat(parsed[index+4]),Float.parseFloat(parsed[index+5]));
-				((Body)(e.node.getUserData())).setLinearVelocity(new Vec2(50.0f, 0.0f));
-				index+=6;
-				break;
-			case 4:
-				e = new Creature(Float.parseFloat(parsed[index+1]),Float.parseFloat(parsed[index+2]));
-				index+=3;
-				break;
-			default:
-				throw new IllegalArgumentException();	
-					
-					
-			}
-			elements.add(e);
-		}
-		
-		GameWorld game = new GameWorld(parsed[2],parsed[0],elements,Float.parseFloat(parsed[1]));
-		return game;
-				
+	public static ArrayList<String> addLevelsToAdd(ArrayList<String> levelsList) {
+		levelsList.add("TestLevel");
+		return levelsList;
 	}
+
+
 }
