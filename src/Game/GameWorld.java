@@ -23,17 +23,19 @@ public class GameWorld {
 	public double pHeight;
 	public int width;
 	public int height;
+	public String title;
 
-	public GameWorld(String backLoc) {
-		world = new World(new Vec2(0.0f, -30.0f));
-		gameElements = new ArrayList<Entity>();
+	public GameWorld(String backLoc, String title, ArrayList<Entity> elements,float gravityMag) {
+		world = new World(new Vec2(0.0f, -gravityMag));
+		gameElements = elements;
 		time = new Time(this);
 		Image back = new Image(backLoc);
 		backGround = new ImageView(back);
 		pWidth = back.getWidth();
 		pHeight = back.getHeight();
-		width = (int) Utility.toWidth((float)pWidth);
-		height = (int) Utility.toHeight((float)pHeight);
+		width = (int) Utility.toWidth((float) pWidth);
+		height = (int) Utility.toHeight((float) pHeight);
+		this.title = title;
 		addElements();
 	}
 
@@ -45,27 +47,29 @@ public class GameWorld {
 	public void addElements() {
 		backGround.setLayoutX(App.getOffsetX());
 		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
-
-		BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
-		bouncy.addToWorld(this);
-
-		Wall left = new Wall(0, height / 2, 1, height);
-		Wall right = new Wall(width, height / 2, 1, height);
-		Wall top = new Wall(width / 2, height, width, 1);
-		Wall bottom = new Wall(width / 2, 0, width, 1);
-
-		Wall platform = new Wall(50, 50, 25, 3);
-		Projectile proj = new Projectile(15.f, 75.f, 2.f, 1.f, 3.f);
-
-		left.addToWorld(this);
-		right.addToWorld(this);
-		top.addToWorld(this);
-		bottom.addToWorld(this);
-
-		platform.addToWorld(this);
-		proj.addToWorld(this);
-		
-		((Body)(proj.node.getUserData())).setLinearVelocity(new Vec2(50.0f, 0.0f));
+		for (int i = 0; i < gameElements.size(); i++)
+			gameElements.get(i).addToWorld(this);
+		// BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
+		// bouncy.addToWorld(this);
+		//
+		// Wall left = new Wall(0, height / 2, 1, height);
+		// Wall right = new Wall(width, height / 2, 1, height);
+		// Wall top = new Wall(width / 2, height, width, 1);
+		// Wall bottom = new Wall(width / 2, 0, width, 1);
+		//
+		// Wall platform = new Wall(50, 50, 25, 3);
+		// Projectile proj = new Projectile(15.f, 75.f, 2.f, 1.f, 3.f);
+		//
+		// left.addToWorld(this);
+		// right.addToWorld(this);
+		// top.addToWorld(this);
+		// bottom.addToWorld(this);
+		//
+		// platform.addToWorld(this);
+		// proj.addToWorld(this);
+		//
+		// ((Body)(proj.node.getUserData())).setLinearVelocity(new Vec2(50.0f,
+		// 0.0f));
 
 	}
 }

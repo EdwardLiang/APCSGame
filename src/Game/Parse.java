@@ -1,6 +1,10 @@
 package Game;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+
+import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 
 /*
  * String code for GameWorld:
@@ -81,8 +85,43 @@ public class Parse {
 		}
 		return result;
 	}
-	public static GameWorld toWorld(String parsed)
+
+	public static GameWorld toWorld(String raw)
 	{
-		return null;
+		String[] parsed = raw.split("[;]");
+		ArrayList<Entity> elements = new ArrayList<Entity>();
+		int numToAdd = Integer.parseInt(parsed[3]);
+		int index = 4;
+		Entity e;
+		for(int i = 0; i < numToAdd; i++){
+			switch(Integer.parseInt(parsed[index])){
+			case 1:
+				e = new BouncyBall(Float.parseFloat(parsed[index+1]),Float.parseFloat(parsed[index+2]),Integer.parseInt(parsed[index+3]),Utility.parseColor(parsed[index+4]));
+				index+=5;
+				break;
+			case 2:
+				e = new Wall((Float.parseFloat(parsed[index+1])),Float.parseFloat(parsed[index+2]),(Float.parseFloat(parsed[index+3])),Float.parseFloat(parsed[index+4]));
+				index+=5;
+				break;
+			case 3: 
+				e = new Projectile((Float.parseFloat(parsed[index+1])),Float.parseFloat(parsed[index+2]),(Float.parseFloat(parsed[index+3])),Float.parseFloat(parsed[index+4]),Float.parseFloat(parsed[index+5]));
+				((Body)(e.node.getUserData())).setLinearVelocity(new Vec2(50.0f, 0.0f));
+				index+=6;
+				break;
+			case 4:
+				e = new Creature(Float.parseFloat(parsed[index+1]),Float.parseFloat(parsed[index+2]));
+				index+=3;
+				break;
+			default:
+				throw new IllegalArgumentException();	
+					
+					
+			}
+			elements.add(e);
+		}
+		
+		GameWorld game = new GameWorld(parsed[2],parsed[0],elements,Float.parseFloat(parsed[1]));
+		return game;
+				
 	}
 }

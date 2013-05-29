@@ -1,6 +1,17 @@
 package Game;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.ArrayList;
+import javafx.scene.paint.Color;
+
 public class Utility {
+	final static Charset ENCODING = StandardCharsets.UTF_8;
 
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
 	public static double toPixelPosX(double posX) {
@@ -92,17 +103,59 @@ public class Utility {
 		return (height * 100.0f) / HEIGHT;
 	}
 
-	public static int codeEnt(String choice) {
-		switch(choice){
-		case "ball": case"Ball":case"BouncyBall":case"bouncyball":case"Bouncyball":
-			return 1; 
-		case "wall":case"Wall":
-			return 2;
-		case "projectile":case"Projectile":
-			return 3; 
-		case"creature":case"Creature":
-			return 4; 
-			default: throw new IllegalArgumentException("Wrong Entity type");
+	public static Color parseColor(String str) {
+		switch (str) {
+		case "BLUE":
+			return Color.BLUE;
+		case "RED":
+			return Color.RED;
+		default:
+			return Color.AQUA;
 		}
+
+	}
+
+	public static int codeEnt(String choice) {
+		switch (choice) {
+		case "ball":
+		case "Ball":
+		case "BouncyBall":
+		case "bouncyball":
+		case "Bouncyball":
+			return 1;
+		case "wall":
+		case "Wall":
+			return 2;
+		case "projectile":
+		case "Projectile":
+			return 3;
+		case "creature":
+		case "Creature":
+			return 4;
+		default:
+			throw new IllegalArgumentException("Wrong Entity type");
+		}
+	}
+
+	public static void writeToFile(String code, String fileName)
+			throws IOException {
+		Path path = Paths.get(fileName + ".txt");
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(code);
+		Files.write(path, list, ENCODING);
+	}
+
+	public static String readFromFile(String fileName) throws IOException {
+		Path path = Paths.get(fileName + ".txt");
+		List<String> listed = Files.readAllLines(path, ENCODING);
+		String result = "";
+		for (String str : listed)
+			result += str;
+		return result;
+	}
+
+	public static ArrayList<String> addLevelsToAdd(ArrayList<String> levelsList) {
+		levelsList.add("TestLevel");
+		return levelsList;
 	}
 }

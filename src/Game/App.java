@@ -16,9 +16,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class App extends Application {
 	public static GameWorld game;
 	public static Entity player;
+	public static ArrayList<String> levels = new ArrayList<String>();
 	private static float offsetX;
 	private static float offsetY;
 
@@ -43,14 +47,21 @@ public class App extends Application {
 	}
 
 	public void start(Stage primaryStage) {
+		levels=Utility.addLevelsToAdd(levels);
 		offsetX = 0.0f;
-		offsetY = 0.0f;	
-
-		primaryStage.setTitle("Prototype World");
+		offsetY = 0.0f;
+		
+		
+		primaryStage.setTitle(levels.get(0));
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
 
-		game = new GameWorld("file:castle.jpg");
+		try {
+			game=Parse.toWorld(Utility.readFromFile(levels.get(0)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		game = new GameWorld("file:castle.jpg",primaryStage.getTitle(),null);
 
 		player = new Creature(30, 80);
 
