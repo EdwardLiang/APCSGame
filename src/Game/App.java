@@ -44,7 +44,7 @@ public class App extends Application {
 
 	public void start(Stage primaryStage) {
 		offsetX = 0.0f;
-		offsetY = 0.0f;
+		offsetY = 0.0f;	
 
 		primaryStage.setTitle("Prototype World");
 		primaryStage.setFullScreen(false);

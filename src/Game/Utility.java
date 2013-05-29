@@ -91,4 +91,18 @@ public class Utility {
 	public static float toHeight(float height) {
 		return (height * 100.0f) / HEIGHT;
 	}
+
+	public static int codeEnt(String choice) {
+		switch(choice){
+		case "ball": case"Ball":case"BouncyBall":case"bouncyball":case"Bouncyball":
+			return 1; 
+		case "wall":case"Wall":
+			return 2;
+		case "projectile":case"Projectile":
+			return 3; 
+		case"creature":case"Creature":
+			return 4; 
+			default: throw new IllegalArgumentException("Wrong Entity type");
+		}
+	}
 }
