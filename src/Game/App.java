@@ -47,6 +47,9 @@ public class App extends Application {
 	public static synchronized void setOffsetY(float offsetY) {
 		App.offsetY = offsetY;
 	}
+	public static void setPlayer(Entity entity){
+		player = entity;
+	}
 
 	public void start(Stage primaryStage) {
 		//levels = Utility.addLevelsToAdd(levels);
@@ -64,10 +67,7 @@ public class App extends Application {
 		}*/
 		//game = new GameWorld("file:castle.jpg");
 		try {
-			System.out.println("test2");
 			game = GameWorld.parse(Parse.readFromFile("test"));
-			System.out.println("test3");
-
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -108,25 +108,26 @@ public class App extends Application {
 		root.getChildren().add(game.backGround);
 		root.getChildren().add(btn);
 
-		BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
+	/*	BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
 		Wall platform = new Wall(50, 50, 25, 3);
 		Projectile proj = new Projectile(15.f, 75.f, 2.f, 1.f, 3.f);
 		platform.addToWorld(game);
 		proj.addToWorld(game);
 		bouncy.addToWorld(game);
 		((Body) (proj.node.getUserData())).setLinearVelocity(new Vec2(50.0f,
-				0.0f));
+				0.0f));*/
 		
 		for (Entity a : game.gameElements) {
 			root.getChildren().add(a.node);
+			System.out.println(a.node);
 		}
 		
-		try {
+	/*	try {
 			Parse.writeToFile(game.toString(), "test");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		primaryStage.setScene(scene);
 		primaryStage.show();

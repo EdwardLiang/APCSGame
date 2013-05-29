@@ -27,10 +27,10 @@ public class GameWorld {
 	public String bacLoc;
 	public float gravityMag;
 
-	public GameWorld(String backLoc, String title, ArrayList<Entity> elements,
+	public GameWorld(String backLoc, String title,
 			float gravityMag) {
 		world = new World(new Vec2(0.0f, -gravityMag));
-		gameElements = elements;
+		gameElements = new ArrayList<Entity>();		
 		time = new Time(this);
 		Image back = new Image(backLoc);
 		backGround = new ImageView(back);
@@ -43,8 +43,6 @@ public class GameWorld {
 		this.gravityMag = gravityMag;
 		backGround.setLayoutX(App.getOffsetX());
 		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
-		for (int i = 0; i < gameElements.size(); i++)
-			gameElements.get(i).addToWorld(this);
 	}
 
 	public GameWorld(String backLoc) {
@@ -111,12 +109,11 @@ public class GameWorld {
 
 	public static GameWorld parse(String raw) {
 		String[] parsed = raw.split("[\n]");
-		ArrayList<Entity> elements = new ArrayList<Entity>();
-		for (int i = 3; i < parsed.length - 1; i++) {
-			elements.add(parseElements(parsed[i]));
-		}
-		GameWorld game = new GameWorld(parsed[0], parsed[1], elements,
+		GameWorld game = new GameWorld(parsed[0], parsed[1],
 				Float.parseFloat(parsed[2]));
+		for (int i = 3; i < parsed.length - 1; i++) {
+			parseElements(parsed[i]).addToWorld(game);
+		}
 		return game;
 	}
 
@@ -126,7 +123,8 @@ public class GameWorld {
 		result += title + "\n";
 		result += gravityMag + "\n";
 		for (Entity a : gameElements) {
-			result += a.toString() + "\n";
+			if(a != App.player)
+				result += a.toString() + "\n";
 		}
 		return result;
 	}
