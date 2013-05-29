@@ -52,12 +52,17 @@ public class GameWorld {
 		world = new World(new Vec2(0.0f, -30.0f));
 		gameElements = new ArrayList<Entity>();
 		time = new Time(this);
+		
 		Image back = new Image(backLoc);
 		backGround = new ImageView(back);
 		pWidth = back.getWidth();
 		pHeight = back.getHeight();
 		width = (int) Utility.toWidth(pWidth);
 		height = (int) Utility.toHeight(pHeight);
+		
+		backGround.setLayoutX(App.getOffsetX());
+		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
+		
 		addCoreElements();
 	}
 

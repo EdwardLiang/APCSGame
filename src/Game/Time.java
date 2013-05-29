@@ -51,7 +51,8 @@ public class Time {
 				if (!isPaused()) {
 					if (Utility.toPixelPosX(playerData.getPosition().x)
 							+ App.getOffsetX() > Utility.WIDTH / 2 + 20
-							&& !(-App.getOffsetX() + Utility.WIDTH + 1 > world.pWidth)) {
+							&& !(-App.getOffsetX() + Utility.WIDTH + 1 > 
+							Utility.toPixelWidth(world.width))) {
 						App.setOffsetX(App.getOffsetX() - 1);
 					} else if (Utility.toPixelPosX(playerData.getPosition().x)
 							+ App.getOffsetX() < Utility.WIDTH / 2 - 20
@@ -64,7 +65,7 @@ public class Time {
 						App.setOffsetY(App.getOffsetY() - 1);
 					else if (Utility.toPixelPosY(playerData.getPosition().y)
 							+ App.getOffsetY() < Utility.HEIGHT / 2 - 20
-							&& !(App.getOffsetY() + Utility.HEIGHT + 1 > world.pHeight))
+							&& !(App.getOffsetY() + Utility.HEIGHT + 1 > Utility.toPixelWidth(world.width)))
 						App.setOffsetY(App.getOffsetY() + 1);
 				}
 				try {

@@ -103,11 +103,14 @@ public class App extends Application {
 		
 		offsetX = 0.0f;
 		offsetY = 0.0f;
+		
+		//primaryStage.setHeight(Utility.HEIGHT);
+		//primaryStage.setWidth(Utility.WIDTH);
 
 		primaryStage.setTitle("test");
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
-		
+				
 		root = new Group();
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
 		
@@ -182,6 +185,7 @@ public class App extends Application {
 				t.start();
 				key.start();
 				btn.setVisible(false);
+				System.out.println(game);
 			}
 		});
 
