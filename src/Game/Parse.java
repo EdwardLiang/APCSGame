@@ -135,14 +135,14 @@ public class Parse {
 		List<String> listed = Files.readAllLines(path, ENCODING);
 		String result = "";
 		for (String str : listed)
-			result += str;
+			result += str + "\n";
 		return result;
 	}
 
-	public static ArrayList<String> addLevelsToAdd(ArrayList<String> levelsList) {
+	/*public static ArrayList<String> addLevelsToAdd(ArrayList<String> levelsList) {
 		levelsList.add("TestLevel");
 		return levelsList;
-	}
+	}*/
 
 
 }

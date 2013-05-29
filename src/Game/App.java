@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class App extends Application {
 	public static GameWorld game;
 	public static Entity player;
-	public static ArrayList<String> levels = new ArrayList<String>();
+	//public static ArrayList<String> levels = new ArrayList<String>();
 	private static float offsetX;
 	private static float offsetY;
 
@@ -62,7 +62,16 @@ public class App extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
-		game = new GameWorld("file:castle.jpg");
+		//game = new GameWorld("file:castle.jpg");
+		try {
+			System.out.println("test2");
+			game = GameWorld.parse(Parse.readFromFile("test"));
+			System.out.println("test3");
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		player = new Creature(30, 80);
 
 		player.addToWorld(game);
@@ -112,21 +121,12 @@ public class App extends Application {
 			root.getChildren().add(a.node);
 		}
 		
-		/*try {
+		try {
 			Parse.writeToFile(game.toString(), "test");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		ArrayList<String> toString = new ArrayList<String>();
-		toString.add(game.toString());
-		try {
-			Files.write(Paths.get("TestLevel.txt"), toString, Parse.ENCODING);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		System.out.println(game.toString());
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
