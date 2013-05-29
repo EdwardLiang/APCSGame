@@ -65,6 +65,9 @@ public class GameWorld {
 	public void addEntity(Entity entity) {
 		gameElements.add(entity);
 	}
+	public void removeEntity(Entity entity){
+		gameElements.remove(entity);
+	}
 
 	public void addCoreElements() {
 		// BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);

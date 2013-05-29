@@ -24,6 +24,9 @@ public class Events {
 			if (t.getCode() == KeyCode.P) {
 				App.game.time.toggleTime();
 			}
+			if(t.getCode() == KeyCode.R){
+				App.changeWorld(App.game2);
+			}
 		}
 	};
 	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {

@@ -14,6 +14,9 @@ public abstract class Entity {
 	public abstract Node create();
 
 	public void addToWorld(GameWorld world) {
+		if(world != null){
+			world.removeEntity(this);
+		}
 		this.world = world;
 		node = create();
 		world.addEntity(this);
