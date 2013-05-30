@@ -24,8 +24,8 @@ public class Time {
 			for (Entity a : world.gameElements) {
 				Body body = (Body) a.node.getUserData();
 				if (a.node instanceof Circle) {
-					float xpos = (Utility.toPixelPosX(body.getPosition().x)
-							+ App.getOffsetX());
+					float xpos = (Utility.toPixelPosX(body.getPosition().x) + App
+							.getOffsetX());
 					float ypos = Utility.toPixelPosY(body.getPosition().y)
 							+ App.getOffsetY();
 					a.node.setLayoutX(xpos);
@@ -51,8 +51,8 @@ public class Time {
 				if (!isPaused()) {
 					if (Utility.toPixelPosX(playerData.getPosition().x)
 							+ App.getOffsetX() > Utility.WIDTH / 2 + 20
-							&& !(-App.getOffsetX() + Utility.WIDTH + 1 > 
-							Utility.toPixelWidth(world.width))) {
+							&& !(-App.getOffsetX() + Utility.WIDTH + 1 > Utility
+									.toPixelWidth(world.width))) {
 						App.setOffsetX(App.getOffsetX() - 1);
 					} else if (Utility.toPixelPosX(playerData.getPosition().x)
 							+ App.getOffsetX() < Utility.WIDTH / 2 - 20
@@ -65,7 +65,8 @@ public class Time {
 						App.setOffsetY(App.getOffsetY() - 1);
 					else if (Utility.toPixelPosY(playerData.getPosition().y)
 							+ App.getOffsetY() < Utility.HEIGHT / 2 - 20
-							&& !(App.getOffsetY() + Utility.HEIGHT + 1 > Utility.toPixelWidth(world.width)))
+							&& !(App.getOffsetY() + Utility.HEIGHT + 1 > Utility
+									.toPixelHeight(world.height)))
 						App.setOffsetY(App.getOffsetY() + 1);
 				}
 				try {

@@ -21,8 +21,8 @@ public class GameWorld {
 	public Time time;
 	public double pWidth;
 	public double pHeight;
-	public int width;
-	public int height;
+	public double width;
+	public double height;
 	public String title;
 	public String bacLoc;
 	public float gravityMag;
@@ -36,8 +36,8 @@ public class GameWorld {
 		backGround = new ImageView(back);
 		pWidth = back.getWidth();
 		pHeight = back.getHeight();
-		width = (int) Utility.toWidth((float) pWidth);
-		height = (int) Utility.toHeight((float) pHeight);
+		width = Utility.toWidth((float) pWidth);
+		height = Utility.toHeight((float) pHeight);
 		this.title = title;
 		this.bacLoc = bacLoc;
 		this.gravityMag = gravityMag;
@@ -59,7 +59,6 @@ public class GameWorld {
 		pHeight = back.getHeight();
 		width = (int) Utility.toWidth(pWidth);
 		height = (int) Utility.toHeight(pHeight);
-		
 		backGround.setLayoutX(App.getOffsetX());
 		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
 		
@@ -78,10 +77,10 @@ public class GameWorld {
 		// BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
 		// bouncy.addToWorld(this);
 		//
-		Wall left = new Wall(0, height / 2, 1, height);
-		Wall right = new Wall(width, height / 2, 1, height);
-		Wall top = new Wall(width / 2, height, width, 1);
-		Wall bottom = new Wall(width / 2, 0, width, 1);
+		Wall left = new Wall(0, (float)height / 2, 1, (float)height);
+		Wall right = new Wall((float)width, (float)height / 2, 1, (float)height);
+		Wall top = new Wall((float)width / 2, (float)height, (float)width, 1);
+		Wall bottom = new Wall((float)width / 2, 0, (float)width, 1);
 		//
 		// Wall platform = new Wall(50, 50, 25, 3);
 		// Projectile proj = new Projectile(15.f, 75.f, 2.f, 1.f, 3.f);
