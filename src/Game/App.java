@@ -114,11 +114,11 @@ public class App extends Application {
 		root = new Group();
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
 		
-		System.out.println("Would you like to load a level file?");
+	/*	System.out.println("Would you like to load a level file?");
 		char next = sc.next().charAt(0);
-		String level;
+		String level;*/
 		
-		if(next == 'y' || next == 'Y'){
+	/*	if(next == 'y' || next == 'Y'){
 			System.out.println("What file would you like to load?");
 			level = sc.next();
 			try {
@@ -128,11 +128,11 @@ public class App extends Application {
 				e1.printStackTrace();
 			}
 		}
-		else{
-			System.out.println("Generating generic file....");
-			game = new GameWorld("file:castle.jpg");
-			game2 = new GameWorld("file:finalv2.png");
-		}
+		else{*/
+			//System.out.println("Generating generic file....");
+			game = new GameWorld(("Game/castle.jpg"));
+			game2 = new GameWorld("Game/finalv2.png");
+		//}
 
 		
 		player = new Creature(30, 80);
@@ -141,7 +141,7 @@ public class App extends Application {
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent arg0) {
-				System.out.println("Would you like to save this level?");
+			/*	System.out.println("Would you like to save this level?");
 				char choice = sc.next().charAt(0);
 				if (choice == 'y' || choice == 'Y') {
 					System.out.println("What name would like to save it as?");
@@ -156,7 +156,7 @@ public class App extends Application {
 				else{
 					Platform.exit();
 					System.exit(0);
-				}
+				}*/
 				Platform.exit();
 				System.exit(0);
 			}
@@ -185,7 +185,6 @@ public class App extends Application {
 				t.start();
 				key.start();
 				btn.setVisible(false);
-				System.out.println(game);
 			}
 		});
 

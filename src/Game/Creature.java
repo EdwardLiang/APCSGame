@@ -27,7 +27,7 @@ public class Creature extends Entity {
 	public Creature(float posX, float posY) {
 		// Image Credits:
 		// http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
-		image = new Image("file:spritesheet.png");
+		image = new Image("Game/spritesheet.png");
 		xPos = posX;
 		yPos = posY;
 		col = 8;
