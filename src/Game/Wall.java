@@ -1,7 +1,6 @@
 package Game;
 
 import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -24,6 +23,7 @@ public class Wall extends Entity{
 		return new Wall(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]), Float.parseFloat(frag[3]), Float.parseFloat(frag[4]));
 	}
 
+	@Override
 	public Node create() {
 		Rectangle rectangle = new Rectangle();
 		rectangle.setHeight(Utility.toPixelHeight(height));
@@ -52,6 +52,7 @@ public class Wall extends Entity{
 		rectangle.setUserData(body);
 		return rectangle;
 	}
+	@Override
 	public String toString(){
 		return super.toString();
 	}

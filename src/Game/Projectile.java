@@ -1,16 +1,12 @@
 package Game;
 
 import javafx.scene.Node;
-import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.common.Vec2;
-
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
@@ -30,6 +26,7 @@ public class Projectile extends Entity {
 		return new Projectile(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]), Float.parseFloat(frag[3]), Float.parseFloat(frag[4]), Float.parseFloat(frag[5]));
 	}
 
+	@Override
 	public Node create() {
 		Polygon polygon = new Polygon();
 		polygon.getPoints().addAll(
@@ -76,6 +73,7 @@ public class Projectile extends Entity {
 
 		return polygon;
 	}
+	@Override
 	public String toString(){
 		return super.toString() + Utility.delim + radius;
 	}

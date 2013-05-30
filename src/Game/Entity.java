@@ -21,6 +21,7 @@ public abstract class Entity {
 		node = create();
 		world.addEntity(this);
 	}
+	@Override
 	public String toString(){
 		return "" + this.getClass() + Utility.delim + xPos + Utility.delim + yPos + Utility.delim + width + Utility.delim + height;
 	}

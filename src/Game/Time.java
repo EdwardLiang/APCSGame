@@ -1,11 +1,11 @@
 package Game;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
-import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 
 import org.jbox2d.dynamics.Body;
@@ -15,6 +15,7 @@ public class Time {
 	GameWorld world;
 
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
+		@Override
 		public void handle(ActionEvent t) {
 			world.world.step(1.0f / 60.0f, 8, 3);
 			world.backGround.setLayoutX(App.getOffsetX());
@@ -45,6 +46,7 @@ public class Time {
 	};
 
 	final Runnable r = new Runnable() {
+		@Override
 		public void run() {
 			while (true) {
 				Body playerData = (Body) App.player.node.getUserData();
@@ -83,7 +85,7 @@ public class Time {
 
 	public Time(GameWorld world) {
 		timeline = new Timeline();
-		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.setCycleCount(Animation.INDEFINITE);
 		Duration duration = Duration.seconds(1.0 / 60.0);
 		KeyFrame frame = new KeyFrame(duration, ae, null, null);
 		timeline.getKeyFrames().add(frame);

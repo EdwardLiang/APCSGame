@@ -11,7 +11,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class Creature extends Entity {
@@ -44,6 +43,7 @@ public class Creature extends Entity {
 		return new Creature(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]));
 	}
 
+	@Override
 	public Node create() {
 		ImageView imageView = new ImageView(image);
 		imageView
@@ -78,6 +78,7 @@ public class Creature extends Entity {
 		imageView.setUserData(body);
 		return imageView;
 	}
+	@Override
 	public String toString(){
 		return super.toString();
 	}

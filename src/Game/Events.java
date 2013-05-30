@@ -17,6 +17,7 @@ import org.jbox2d.dynamics.Body;
 public class Events {
 	public static final Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
 	public static final EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
+		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
@@ -30,6 +31,7 @@ public class Events {
 		}
 	};
 	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
+		@Override
 		public synchronized void handle(KeyEvent key) {
 			Body body = (Body) App.player.node.getUserData();
 			final KeyEvent t = key;
@@ -48,6 +50,7 @@ public class Events {
 	};
 
 	public static final Runnable keyThread = new Runnable() {
+		@Override
 		public void run() {
 			Body body = (Body) App.player.node.getUserData();
 			while (true) {

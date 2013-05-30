@@ -25,6 +25,7 @@ public class BouncyBall extends Entity {
 		return new BouncyBall(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]), Integer.parseInt(frag[3]), Color.web(frag[4]));
 	}
 
+	@Override
 	public Node create() {
 		Circle ball = new Circle();
 		ball.setRadius(radius);
@@ -51,6 +52,7 @@ public class BouncyBall extends Entity {
 		ball.setUserData(body);
 		return ball;
 	}
+	@Override
 	public String toString(){
 		return super.toString() + Utility.delim + radius + Utility.delim + color.toString();
 	}

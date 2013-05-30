@@ -1,8 +1,5 @@
 package Game;
 
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,16 +7,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App extends Application {
@@ -54,6 +44,7 @@ public class App extends Application {
 		
 		btn.setText("Start");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent event) {
 				game.time.timeline.playFromStart();
 				Thread t = new Thread(game.time.r);
@@ -95,6 +86,7 @@ public class App extends Application {
 		player = entity;
 	}
 
+	@Override
 	public void start(Stage primaryStage) {
 		// levels = Utility.addLevelsToAdd(levels);
 		final Scanner sc = new Scanner(System.in);
@@ -140,6 +132,7 @@ public class App extends Application {
 		player.addToWorld(game);
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent arg0) {
 			/*	System.out.println("Would you like to save this level?");
 				char choice = sc.next().charAt(0);
@@ -178,6 +171,7 @@ public class App extends Application {
 		btn.setLayoutY((Utility.HEIGHT - 30));
 		btn.setText("Start");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
 			public void handle(ActionEvent event) {
 				game.time.timeline.playFromStart();
 				Thread t = new Thread(game.time.r);
@@ -194,7 +188,7 @@ public class App extends Application {
 		for (Entity a : game.gameElements) {
 			root.getChildren().add(a.node);
 		}
-
+		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

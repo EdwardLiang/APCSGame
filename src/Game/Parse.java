@@ -7,11 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
 import java.util.ArrayList;
-
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 
 /*
  * String code for GameWorld:
