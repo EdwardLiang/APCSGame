@@ -27,12 +27,13 @@ public class GameWorld {
 		changeMap(currentMap);
 		maps.add(currentMap);
 	}
+
 	public void setPlayer(Entity entity) {
 		this.player = entity;
 	}
 
 	public void changeMap(GameMap Map) {
-		if(currentMap != null){
+		if (currentMap != null) {
 			currentMap.stopAll();
 		}
 		currentMap = Map;
@@ -42,6 +43,7 @@ public class GameWorld {
 		currentMap.addElementsToGUI();
 		currentMap.time.startTime();
 	}
+
 	public static GameWorld parse(String raw) {
 		String[] MapList = Parse.fragment(raw);
 		GameWorld game = new GameWorld();
@@ -60,9 +62,9 @@ public class GameWorld {
 	public String toString() {
 		String str = "";
 		Iterator iter = maps.iterator();
-		//skip adding menu to toString()
+		// skip adding menu to toString()
 		iter.next();
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			str += iter.next().toString() + Parse.delim;
 		}
 		return str;

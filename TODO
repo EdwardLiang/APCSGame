@@ -11,14 +11,17 @@ Entities to create:
 11)Basic AI 
 12)Abstract Monster class
 13)Player
-14Transporation between maps
-15)Auto-Moving between maps
+
 
 EL
 --
--Monster/Player/SpriteAnimation
-
+-PLAYER!!!
+-doors to other levels
+-menu
+-coordinate system
+-revamp GameWorld
+-ladders
 AZ
 --
--Projectile classes
--Level parsing
+-Popup boxes --> menu system
+-Level parsing -->devmode, fix, vectors for projectile

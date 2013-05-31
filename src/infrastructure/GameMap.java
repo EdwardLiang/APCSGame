@@ -40,8 +40,8 @@ public class GameMap {
 		this.gravityMag = gravityMag;
 		this.bacLoc = backLoc;
 		backGround.setLayoutX(App.game.camera.getOffsetX());
-		backGround
-				.setLayoutY(-pHeight + Utility.HEIGHT + App.game.camera.getOffsetY());
+		backGround.setLayoutY(-pHeight + Utility.HEIGHT
+				+ App.game.camera.getOffsetY());
 	}
 
 	public GameMap(String backLoc) {
@@ -100,18 +100,18 @@ public class GameMap {
 	private static Entity parseElements(String raw) {
 		String[] frags = Parse.fragment(raw);
 		String className = frags[0];
-		if (className.equals("class Game.BouncyBall")) {
+		switch (className) {
+		case "class entities.BouncyBall":
 			return BouncyBall.parse(frags);
-		} else if (className.equals("class Game.Creature")) {
+		case "class entities.Creature":
 			return Creature.parse(frags);
-		} else if (className.equals("class Game.Projectile")) {
+		case "class entities.Projectile":
 			return Projectile.parse(frags);
-		} else if (className.equals("class Game.Wall")) {
+		case "class entities.Wall":
 			return Wall.parse(frags);
-		} else {
-			System.out.println("ERROR: Attempted to add unsupported class");
+		default:
+			return null;
 		}
-		return null;
 	}
 
 	public static GameMap parse(String raw) {
