@@ -2,6 +2,7 @@ package Game;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javafx.event.ActionEvent;
@@ -87,8 +88,11 @@ public class GameWorld extends GameLevel {
 
 	public String toString() {
 		String str = "";
-		for (GameLevel level : levels) {
-			str += level.toString() + Parse.delim;
+		Iterator iter = levels.iterator();
+		//skip adding menu to toString()
+		iter.next();
+		while(iter.hasNext()){
+			str += iter.next().toString() + Parse.delim;
 		}
 		return str;
 	}
