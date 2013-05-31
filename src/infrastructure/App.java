@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import levels.*;
 
 public class App extends Application {
 	public static GameWorld game;
@@ -39,7 +38,7 @@ public class App extends Application {
 		//game = GameWorld.parse(Parse.readFromFile("src/levels/index.txt"));
 		game = new GameWorld();
 		game.addMap(new GameMap("maps/castle.jpg"));
-		game.changeMap(game.maps.get(1));
+		//game.changeMap(game.maps.get(1));
 		KeyManager keyManager = new KeyManager();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(game.camera);
