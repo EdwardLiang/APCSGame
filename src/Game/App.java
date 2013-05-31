@@ -24,7 +24,6 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		final Scanner sc = new Scanner(System.in);
 		pS = primaryStage;
 
 		primaryStage.setTitle("Dreamscape");
@@ -36,11 +35,12 @@ public class App extends Application {
 		
 		game = new GameWorld();
 		game.addLevel(new GameLevel("Game/castle.jpg"));
-		//game.changeLevel(game.levels.get(1));
-		Thread key = new Thread(Events.keyThread);
-		Thread r = new Thread(Events.r);
+		game.changeLevel(game.levels.get(1));
+		KeyManager keyManager = new KeyManager();
+		Thread key = new Thread(keyManager.keyThread);
+		Thread cam = new Thread(game.camera);
 		key.start();
-		r.start();
+		cam.start();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
@@ -49,8 +49,8 @@ public class App extends Application {
 			}
 		});
 
-		scene.setOnKeyPressed(Events.keyPress);
-		scene.setOnKeyReleased(Events.keyRelease);
+		scene.setOnKeyPressed(keyManager.keyPress);
+		scene.setOnKeyReleased(keyManager.keyRelease);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

@@ -18,25 +18,25 @@ public class Time {
 		@Override
 		public void handle(ActionEvent t) {
 			world.world.step(1.0f / 60.0f, 8, 3);
-			world.backGround.setLayoutX(App.game.getOffsetX());
+			world.backGround.setLayoutX(App.game.camera.getOffsetX());
 			world.backGround.setLayoutY(-world.pHeight + Utility.HEIGHT
-					+ App.game.getOffsetY());
+					+ App.game.camera.getOffsetY());
 
 			for (Entity a : world.gameElements) {
 				Body body = (Body) a.node.getUserData();
 				if (a.node instanceof Circle) {
-					float xpos = (Utility.toPixelPosX(body.getPosition().x) + App.game
+					float xpos = (Utility.toPixelPosX(body.getPosition().x) + App.game.camera
 							.getOffsetX());
 					float ypos = Utility.toPixelPosY(body.getPosition().y)
-							+ App.game.getOffsetY();
+							+ App.game.camera.getOffsetY();
 					a.node.setLayoutX(xpos);
 					a.node.setLayoutY(ypos);
 				} else {
 					float xpos = Utility.toPixelPosX(body.getPosition().x)
-							+ App.game.getOffsetX() - Utility.toPixelWidth(a.width)
+							+ App.game.camera.getOffsetX() - Utility.toPixelWidth(a.width)
 							/ 2;
 					float ypos = Utility.toPixelPosY(body.getPosition().y)
-							+ App.game.getOffsetY() - Utility.toPixelWidth(a.height)
+							+ App.game.camera.getOffsetY() - Utility.toPixelWidth(a.height)
 							/ 2;
 					a.node.setLayoutX(xpos);
 					a.node.setLayoutY(ypos);

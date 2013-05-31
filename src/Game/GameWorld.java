@@ -12,37 +12,18 @@ import javafx.scene.control.Button;
 public class GameWorld {
 	public LinkedList<GameLevel> levels;
 	public GameLevel currentLevel;
-	public float offsetX;
-	public float offsetY;
 	public Entity player;
+	public Camera camera;
 
 	public GameWorld() {
-		offsetX = 0.0f;
-		offsetY = 0.0f;
 		player = new Creature(30, 80);
 		currentLevel = new GameLevel("Game/menu.jpg");
 		player.addToWorld(currentLevel);
 		levels = new LinkedList<GameLevel>();
+		camera = new Camera();
 		changeLevel(currentLevel);
 		levels.add(currentLevel);
 	}
-
-	public synchronized float getOffsetX() {
-		return offsetX;
-	}
-
-	public synchronized void setOffsetX(float offsetX) {
-		this.offsetX = offsetX;
-	}
-
-	public synchronized float getOffsetY() {
-		return offsetY;
-	}
-
-	public synchronized void setOffsetY(float offsetY) {
-		this.offsetY = offsetY;
-	}
-
 	public void setPlayer(Entity entity) {
 		this.player = entity;
 	}
@@ -53,8 +34,7 @@ public class GameWorld {
 		}
 		currentLevel = level;
 		player.addToWorld(level);
-		offsetX = 0.0f;
-		offsetY = 0.0f;
+		camera.reset();
 		App.root.getChildren().removeAll(App.root.getChildren());
 		currentLevel.addElementsToGUI();
 		currentLevel.time.startLevel();

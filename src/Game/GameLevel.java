@@ -33,9 +33,9 @@ public class GameLevel {
 		this.title = title;
 		this.gravityMag = gravityMag;
 		this.bacLoc = backLoc;
-		backGround.setLayoutX(App.game.getOffsetX());
+		backGround.setLayoutX(App.game.camera.getOffsetX());
 		backGround
-				.setLayoutY(-pHeight + Utility.HEIGHT + App.game.getOffsetY());
+				.setLayoutY(-pHeight + Utility.HEIGHT + App.game.camera.getOffsetY());
 	}
 
 	public GameLevel(String backLoc) {
@@ -91,7 +91,7 @@ public class GameLevel {
 		bottom.addToWorld(this);
 	}
 
-	public static Entity parseElements(String raw) {
+	private static Entity parseElements(String raw) {
 		String[] frags = Parse.fragment(raw);
 		String className = frags[0];
 		if (className.equals("class Game.BouncyBall")) {
