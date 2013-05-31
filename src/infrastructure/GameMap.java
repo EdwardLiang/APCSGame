@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
 import entities.BouncyBall;
@@ -25,6 +26,7 @@ public class GameMap {
 	public String title;
 	public String bacLoc;
 	public float gravityMag;
+	public String originalData;
 
 	public GameMap(String backLoc, String title, float gravityMag) {
 		world = new World(new Vec2(0.0f, -gravityMag));
@@ -61,6 +63,22 @@ public class GameMap {
 		backGround.setLayoutX(0);
 		backGround.setLayoutY(-pHeight + Utility.HEIGHT);
 		addCoreElements();
+	}
+
+	public void reset() {
+		stopAll();
+		for (Entity a : gameElements) {
+			world.destroyBody((Body) a.node.getUserData());
+		}
+		if (originalData != null) {
+			String[] parsed = originalData.split("[\n]");
+			for (int i = 3; i < parsed.length - 1; i++) {
+				parseElements(parsed[i]).addToWorld(this);
+			}
+		}
+		else{
+			addCoreElements();
+		}
 	}
 
 	public void addElementsToGUI() {
@@ -121,6 +139,7 @@ public class GameMap {
 		for (int i = 3; i < parsed.length - 1; i++) {
 			parseElements(parsed[i]).addToWorld(game);
 		}
+		game.originalData = game.toString();
 		return game;
 	}
 

@@ -36,7 +36,7 @@ public class GameWorld {
 
 	public void changeMap(GameMap Map) {
 		if (currentMap != null) {
-			currentMap.stopAll();
+			currentMap.reset();
 		}
 		currentMap = Map;
 		player.addToWorld(Map);
