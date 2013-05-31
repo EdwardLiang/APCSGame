@@ -37,7 +37,6 @@ public class GameLevel {
 		backGround.setLayoutX(App.game.getOffsetX());
 		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.game.getOffsetY());
 	}
-
 	public GameLevel(String backLoc) {
 		this.title = "test";
 		this.bacLoc = backLoc;
@@ -56,6 +55,11 @@ public class GameLevel {
 		backGround.setLayoutY(-pHeight + Utility.HEIGHT);
 		
 		addCoreElements();
+	}
+	public void stopAll(){
+		time.timeline.stop();
+		time.t.interrupt();
+		time.key.interrupt();
 	}
 
 	// Use Entity's addToWorld method. DO NOT DIRECTLY INVOKE THIS METHOD.

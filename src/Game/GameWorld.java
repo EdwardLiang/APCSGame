@@ -20,9 +20,10 @@ public class GameWorld extends GameLevel {
 		offsetX = 0.0f;
 		offsetY = 0.0f;
 		player = new Creature(30, 80);
+		player.addToWorld(this);
 		levels = new LinkedList<GameLevel>();
 		levels.add(this);
-		changeWorld(this);
+		currentLevel = levels.getFirst();
 	}
 
 	public synchronized float getOffsetX() {
@@ -45,10 +46,10 @@ public class GameWorld extends GameLevel {
 		this.player = entity;
 	}
 
-	public void changeWorld(GameLevel level) {
-		if(currentLevel != null)
-			currentLevel.time.timeline.stop();
-
+	public void changeLevel(GameLevel level) {
+		if(currentLevel != null){
+			currentLevel.stopAll();
+		}
 		currentLevel = level;
 		player.addToWorld(level);
 		offsetX = 0.0f;
@@ -58,17 +59,14 @@ public class GameWorld extends GameLevel {
 	}
 	public void startLevel(){
 		currentLevel.time.timeline.playFromStart();
-		Thread t = new Thread(currentLevel.time.r);
-		Thread key = new Thread(Events.keyThread);
-		t.start();
-		key.start();
-		
+		currentLevel.time.t = new Thread(currentLevel.time.r);
+		currentLevel.time.key = new Thread(Events.keyThread);
+		currentLevel.time.t.start();
+		currentLevel.time.key.start();
 		App.root.getChildren().add(currentLevel.backGround);
-
 		for (Entity a : currentLevel.gameElements) {
 			App.root.getChildren().add(a.node);
 		}
-
 		App.pS.setScene(App.scene);
 		App.pS.show();
 	}

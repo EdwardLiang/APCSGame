@@ -13,6 +13,8 @@ import org.jbox2d.dynamics.Body;
 public class Time {
 	Timeline timeline;
 	GameLevel world;
+	Thread t;
+	Thread key;
 
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
@@ -74,8 +76,6 @@ public class Time {
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 
 			}
@@ -91,7 +91,7 @@ public class Time {
 		timeline.getKeyFrames().add(frame);
 		this.world = world;
 	}
-
+	
 	public void stopTime() {
 		timeline.pause();
 	}

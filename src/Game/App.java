@@ -39,6 +39,9 @@ public class App extends Application {
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
 		
 		game = new GameWorld();
+		game.startLevel();
+		game.addLevel(new GameLevel("Game/castle.jpg"));
+		game.changeLevel(game.levels.get(1));
 
 		/*
 		 * System.out.println("Would you like to load a level file?"); char next
