@@ -14,7 +14,7 @@ import entities.Entity;
 
 public class Time {
 	Timeline timeline;
-	GameLevel world;
+	GameMap world;
 
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
@@ -48,7 +48,7 @@ public class Time {
 	};
 
 
-	public Time(GameLevel world) {
+	public Time(GameMap world) {
 		timeline = new Timeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
 		Duration duration = Duration.seconds(1.0 / 60.0);
@@ -85,7 +85,7 @@ public class Time {
 	}
 
 	// For experimental time manipulation
-	public Time(GameLevel world, int a) {
+	public Time(GameMap world, int a) {
 
 	}
 

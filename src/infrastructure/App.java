@@ -34,7 +34,7 @@ public class App extends Application {
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
 		
 		game = new GameWorld();
-		game.addLevel(new GameLevel("maps/castle.jpg"));
+		game.addLevel(new GameMap("maps/castle.jpg"));
 		game.changeLevel(game.levels.get(1));
 		KeyManager keyManager = new KeyManager();
 		Thread key = new Thread(keyManager.keyThread);

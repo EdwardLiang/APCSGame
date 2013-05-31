@@ -13,16 +13,16 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class GameWorld {
-	public LinkedList<GameLevel> levels;
-	public GameLevel currentLevel;
+	public LinkedList<GameMap> levels;
+	public GameMap currentLevel;
 	public Entity player;
 	public Camera camera;
 
 	public GameWorld() {
 		player = new Creature(30, 80);
-		currentLevel = new GameLevel("maps/menu.jpg");
+		currentLevel = new GameMap("maps/menu.jpg");
 		player.addToWorld(currentLevel);
-		levels = new LinkedList<GameLevel>();
+		levels = new LinkedList<GameMap>();
 		camera = new Camera();
 		changeLevel(currentLevel);
 		levels.add(currentLevel);
@@ -31,7 +31,7 @@ public class GameWorld {
 		this.player = entity;
 	}
 
-	public void changeLevel(GameLevel level) {
+	public void changeLevel(GameMap level) {
 		if(currentLevel != null){
 			currentLevel.stopAll();
 		}
@@ -47,7 +47,7 @@ public class GameWorld {
 		GameWorld game = new GameWorld();
 		for (String a : levelList) {
 			try {
-				game.addLevel(GameLevel.parse(Parse.readFromFile(a + ".txt")));
+				game.addLevel(GameMap.parse(Parse.readFromFile(a + ".txt")));
 			} catch (IOException e) {
 				System.out
 						.println("Error: attempted to add a level that doesn't exist");
@@ -68,7 +68,7 @@ public class GameWorld {
 		return str;
 	}
 
-	public void addLevel(GameLevel game) {
+	public void addLevel(GameMap game) {
 		levels.add(game);
 	}
 }

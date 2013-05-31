@@ -13,7 +13,7 @@ import entities.Entity;
 import entities.Projectile;
 import entities.Wall;
 
-public class GameLevel {
+public class GameMap {
 	public ArrayList<Entity> gameElements;
 	public ImageView backGround;
 	public World world;
@@ -26,7 +26,7 @@ public class GameLevel {
 	public String bacLoc;
 	public float gravityMag;
 
-	public GameLevel(String backLoc, String title, float gravityMag) {
+	public GameMap(String backLoc, String title, float gravityMag) {
 		world = new World(new Vec2(0.0f, -gravityMag));
 		gameElements = new ArrayList<Entity>();
 		time = new Time(this);
@@ -44,7 +44,7 @@ public class GameLevel {
 				.setLayoutY(-pHeight + Utility.HEIGHT + App.game.camera.getOffsetY());
 	}
 
-	public GameLevel(String backLoc) {
+	public GameMap(String backLoc) {
 		this.title = "test";
 		this.bacLoc = backLoc;
 		this.gravityMag = 30.0f;
@@ -114,9 +114,9 @@ public class GameLevel {
 		return null;
 	}
 
-	public static GameLevel parse(String raw) {
+	public static GameMap parse(String raw) {
 		String[] parsed = raw.split("[\n]");
-		GameLevel game = new GameLevel(parsed[0], parsed[1],
+		GameMap game = new GameMap(parsed[0], parsed[1],
 				Float.parseFloat(parsed[2]));
 		for (int i = 3; i < parsed.length - 1; i++) {
 			parseElements(parsed[i]).addToWorld(game);

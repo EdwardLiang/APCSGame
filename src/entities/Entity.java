@@ -1,6 +1,6 @@
 package entities;
 
-import infrastructure.GameLevel;
+import infrastructure.GameMap;
 import infrastructure.Parse;
 import javafx.scene.Node;
 
@@ -11,11 +11,11 @@ public abstract class Entity {
 	public float width;
 	public float height;
 
-	public GameLevel world;
+	public GameMap world;
 
 	public abstract Node create();
 
-	public void addToWorld(GameLevel world) {
+	public void addToWorld(GameMap world) {
 		if(world != null){
 			world.removeEntity(this);
 		}
