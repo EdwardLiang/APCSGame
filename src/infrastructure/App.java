@@ -35,10 +35,13 @@ public class App extends Application {
 
 		root = new Group();
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
-		//game = GameWorld.parse(Parse.readFromFile("src/levels/index.txt"));
-		game = new GameWorld();
-		game.addMap(new GameMap("maps/castle.jpg"));
+		
+		game = GameWorld.parse(Parse.readFromFile("src/levels/index.txt"));
+		
+		//game = new GameWorld();
+		//game.addMap(new GameMap("maps/castle.jpg"));
 		//game.changeMap(game.maps.get(1));
+		
 		KeyManager keyManager = new KeyManager();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(game.camera);
