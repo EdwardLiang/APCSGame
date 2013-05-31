@@ -13,8 +13,6 @@ import org.jbox2d.dynamics.Body;
 public class Time {
 	Timeline timeline;
 	GameLevel world;
-	Thread t;
-	Thread key;
 
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
@@ -47,41 +45,6 @@ public class Time {
 		}
 	};
 
-	final Runnable r = new Runnable() {
-		@Override
-		public void run() {
-			while (true) {
-				Body playerData = (Body) App.game.player.node.getUserData();
-				if (!isPaused()) {
-					if (Utility.toPixelPosX(playerData.getPosition().x)
-							+ App.game.getOffsetX() > Utility.WIDTH / 2 + 20
-							&& !(-App.game.getOffsetX() + Utility.WIDTH + 1 > Utility
-									.toPixelWidth(world.width))) {
-						App.game.setOffsetX(App.game.getOffsetX() - 1);
-					} else if (Utility.toPixelPosX(playerData.getPosition().x)
-							+ App.game.getOffsetX() < Utility.WIDTH / 2 - 20
-							&& !(App.game.getOffsetX() - 1 > 0))
-						App.game.setOffsetX(App.game.getOffsetX() + 1);
-
-					if (Utility.toPixelPosY(playerData.getPosition().y)
-							+ App.game.getOffsetY() > Utility.HEIGHT / 2 + 20
-							&& !(App.game.getOffsetY() - 1 < 0))
-						App.game.setOffsetY(App.game.getOffsetY() - 1);
-					else if (Utility.toPixelPosY(playerData.getPosition().y)
-							+ App.game.getOffsetY() < Utility.HEIGHT / 2 - 20
-							&& !(App.game.getOffsetY() + Utility.HEIGHT + 1 > Utility
-									.toPixelHeight(world.height)))
-						App.game.setOffsetY(App.game.getOffsetY() + 1);
-				}
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-				}
-
-			}
-		}
-
-	};
 
 	public Time(GameLevel world) {
 		timeline = new Timeline();
@@ -90,6 +53,10 @@ public class Time {
 		KeyFrame frame = new KeyFrame(duration, ae, null, null);
 		timeline.getKeyFrames().add(frame);
 		this.world = world;
+	}
+	
+	public void startLevel(){
+		timeline.playFromStart();
 	}
 	
 	public void stopTime() {

@@ -20,10 +20,9 @@ public class GameLevel {
 	public String bacLoc;
 	public float gravityMag;
 
-	public GameLevel(String backLoc, String title,
-			float gravityMag) {
+	public GameLevel(String backLoc, String title, float gravityMag) {
 		world = new World(new Vec2(0.0f, -gravityMag));
-		gameElements = new ArrayList<Entity>();		
+		gameElements = new ArrayList<Entity>();
 		time = new Time(this);
 		Image back = new Image(backLoc);
 		backGround = new ImageView(back);
@@ -32,11 +31,13 @@ public class GameLevel {
 		width = Utility.toWidth((float) pWidth);
 		height = Utility.toHeight((float) pHeight);
 		this.title = title;
-		this.bacLoc = bacLoc;
 		this.gravityMag = gravityMag;
+		this.bacLoc = backLoc;
 		backGround.setLayoutX(App.game.getOffsetX());
-		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.game.getOffsetY());
+		backGround
+				.setLayoutY(-pHeight + Utility.HEIGHT + App.game.getOffsetY());
 	}
+
 	public GameLevel(String backLoc) {
 		this.title = "test";
 		this.bacLoc = backLoc;
@@ -44,7 +45,7 @@ public class GameLevel {
 		world = new World(new Vec2(0.0f, -30.0f));
 		gameElements = new ArrayList<Entity>();
 		time = new Time(this);
-		
+
 		Image back = new Image(backLoc);
 		backGround = new ImageView(back);
 		pWidth = back.getWidth();
@@ -53,45 +54,41 @@ public class GameLevel {
 		height = (int) Utility.toHeight(pHeight);
 		backGround.setLayoutX(0);
 		backGround.setLayoutY(-pHeight + Utility.HEIGHT);
-		
 		addCoreElements();
 	}
-	public void stopAll(){
+
+	public void addElementsToGUI() {
+		App.root.getChildren().add(backGround);
+		for (Entity a : gameElements) {
+			App.root.getChildren().add(a.node);
+		}
+		App.pS.setScene(App.scene);
+		App.pS.show();
+	}
+
+	public void stopAll() {
 		time.timeline.stop();
-		time.t.interrupt();
-		time.key.interrupt();
 	}
 
 	// Use Entity's addToWorld method. DO NOT DIRECTLY INVOKE THIS METHOD.
 	public void addEntity(Entity entity) {
 		gameElements.add(entity);
 	}
-	public void removeEntity(Entity entity){
+
+	public void removeEntity(Entity entity) {
 		gameElements.remove(entity);
 	}
 
 	public void addCoreElements() {
-		// BouncyBall bouncy = new BouncyBall(45, 90, 8, Color.BLUE);
-		// bouncy.addToWorld(this);
-		//
-		Wall left = new Wall(0, (float)height / 2, 1, (float)height);
-		Wall right = new Wall((float)width, (float)height / 2, 1, (float)height);
-		Wall top = new Wall((float)width / 2, (float)height, (float)width, 1);
-		Wall bottom = new Wall((float)width / 2, 0, (float)width, 1);
-		//
-		// Wall platform = new Wall(50, 50, 25, 3);
-		// Projectile proj = new Projectile(15.f, 75.f, 2.f, 1.f, 3.f);
-		//
+		Wall left = new Wall(0, (float) height / 2, 1, (float) height);
+		Wall right = new Wall((float) width, (float) height / 2, 1,
+				(float) height);
+		Wall top = new Wall((float) width / 2, (float) height, (float) width, 1);
+		Wall bottom = new Wall((float) width / 2, 0, (float) width, 1);
 		left.addToWorld(this);
 		right.addToWorld(this);
 		top.addToWorld(this);
 		bottom.addToWorld(this);
-		//
-		// platform.addToWorld(this);
-		// proj.addToWorld(this);
-		//
-		// ((Body)(proj.node.getUserData())).setLinearVelocity(new Vec2(50.0f,
-		// 0.0f));
 	}
 
 	public static Entity parseElements(String raw) {
@@ -128,7 +125,7 @@ public class GameLevel {
 		result += title + "\n";
 		result += gravityMag + "\n";
 		for (Entity a : gameElements) {
-			if(a != App.game.player)
+			if (a != App.game.player)
 				result += a.toString() + "\n";
 		}
 		return result;

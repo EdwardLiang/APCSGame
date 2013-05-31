@@ -25,9 +25,6 @@ public class Events {
 			if (t.getCode() == KeyCode.P) {
 				App.game.currentLevel.time.toggleTime();
 			}
-	/*		if(t.getCode() == KeyCode.R){
-				App.changeWorld(App.game2);
-			}*/
 		}
 	};
 	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
@@ -80,4 +77,40 @@ public class Events {
 		}
 
 	};
+	public static final Runnable r = new Runnable() {
+		@Override
+		public void run() {
+			while (true) {
+				Body playerData = (Body) App.game.player.node.getUserData();
+				if (!App.game.currentLevel.time.isPaused()) {
+					if (Utility.toPixelPosX(playerData.getPosition().x)
+							+ App.game.getOffsetX() > Utility.WIDTH / 2 + 20
+							&& !(-App.game.getOffsetX() + Utility.WIDTH + 1 > Utility
+									.toPixelWidth(App.game.currentLevel.width))) {
+						App.game.setOffsetX(App.game.getOffsetX() - 1);
+					} else if (Utility.toPixelPosX(playerData.getPosition().x)
+							+ App.game.getOffsetX() < Utility.WIDTH / 2 - 20
+							&& !(App.game.getOffsetX() - 1 > 0))
+						App.game.setOffsetX(App.game.getOffsetX() + 1);
+
+					if (Utility.toPixelPosY(playerData.getPosition().y)
+							+ App.game.getOffsetY() > Utility.HEIGHT / 2 + 20
+							&& !(App.game.getOffsetY() - 1 < 0))
+						App.game.setOffsetY(App.game.getOffsetY() - 1);
+					else if (Utility.toPixelPosY(playerData.getPosition().y)
+							+ App.game.getOffsetY() < Utility.HEIGHT / 2 - 20
+							&& !(App.game.getOffsetY() + Utility.HEIGHT + 1 > Utility
+									.toPixelHeight(App.game.currentLevel.height)))
+						App.game.setOffsetY(App.game.getOffsetY() + 1);
+				}
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+				}
+
+			}
+		}
+
+	};
+
 }

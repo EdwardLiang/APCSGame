@@ -17,14 +17,14 @@ public class GameWorld {
 	public Entity player;
 
 	public GameWorld() {
-		currentLevel = new GameLevel("Game/menu.jpg");
 		offsetX = 0.0f;
 		offsetY = 0.0f;
 		player = new Creature(30, 80);
+		currentLevel = new GameLevel("Game/menu.jpg");
 		player.addToWorld(currentLevel);
 		levels = new LinkedList<GameLevel>();
+		changeLevel(currentLevel);
 		levels.add(currentLevel);
-		currentLevel = levels.getFirst();
 	}
 
 	public synchronized float getOffsetX() {
@@ -56,20 +56,8 @@ public class GameWorld {
 		offsetX = 0.0f;
 		offsetY = 0.0f;
 		App.root.getChildren().removeAll(App.root.getChildren());
-		startLevel();
-	}
-	public void startLevel(){
-		currentLevel.time.timeline.playFromStart();
-		currentLevel.time.t = new Thread(currentLevel.time.r);
-		currentLevel.time.key = new Thread(Events.keyThread);
-		currentLevel.time.t.start();
-		currentLevel.time.key.start();
-		App.root.getChildren().add(currentLevel.backGround);
-		for (Entity a : currentLevel.gameElements) {
-			App.root.getChildren().add(a.node);
-		}
-		App.pS.setScene(App.scene);
-		App.pS.show();
+		currentLevel.addElementsToGUI();
+		currentLevel.time.startLevel();
 	}
 	public static GameWorld parse(String raw) {
 		String[] levelList = Parse.fragment(raw);
