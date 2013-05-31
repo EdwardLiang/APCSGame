@@ -68,8 +68,9 @@ public class GameMap {
 	public void reset() {
 		stopAll();
 		for (Entity a : gameElements) {
-			world.destroyBody((Body) a.node.getUserData());
+			a.removeFromWorld();
 		}
+		
 		if (originalData != null) {
 			String[] parsed = originalData.split("[\n]");
 			for (int i = 3; i < parsed.length - 1; i++) {

@@ -38,21 +38,18 @@ public class Wall extends Entity{
 
 		rectangle.setFill(Color.DARKSLATEGRAY);
 
-		PolygonShape ps = new PolygonShape();
-		ps.setAsBox(width / 2, height / 2);
+		ps = new PolygonShape();
+		((PolygonShape)ps).setAsBox(width / 2, height / 2);
 		
-		FixtureDef fd = new FixtureDef();
+		fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 1.0f;
 		fd.friction = 0.3f;
 
-		BodyDef bd = new BodyDef();
+		bd = new BodyDef();
 		bd.position.set(xPos, yPos);
 		bd.type = BodyType.STATIC;
 
-		Body body = world.world.createBody(bd);
-		body.createFixture(fd);
-		rectangle.setUserData(body);
 		return rectangle;
 	}
 	@Override

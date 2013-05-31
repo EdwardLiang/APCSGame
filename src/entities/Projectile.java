@@ -41,7 +41,8 @@ public class Projectile extends Entity {
 						(double) Utility.toPixelHeight(height) });
 
 		polygon.setFill(Color.DARKBLUE);
-		BodyDef bd = new BodyDef();
+		
+		bd = new BodyDef();
 		bd.type = BodyType.KINEMATIC;
 		bd.position.set(xPos, yPos);
 		bd.fixedRotation = true;
@@ -58,20 +59,15 @@ public class Projectile extends Entity {
 		verts[3] = new Vec2((width - radius) / 2, height / 2); // top middle
 		verts[4] = new Vec2(-(width) / 2, height / 2); // top left
 		
-		PolygonShape ps = new PolygonShape();
-		ps.set(verts, 5);
+		ps = new PolygonShape();
+		((PolygonShape) ps).set(verts, 5);
+		((PolygonShape) ps).m_centroid.setZero();
 
-		ps.m_centroid.setZero();
-
-		FixtureDef fd = new FixtureDef();
+		fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 1.6f;
 		fd.friction = 0.3f;
 		fd.restitution = 0.0f;
-
-		Body body = world.world.createBody(bd);
-		body.createFixture(fd);
-		polygon.setUserData(body);
 
 		return polygon;
 	}

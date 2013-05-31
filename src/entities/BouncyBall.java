@@ -37,23 +37,20 @@ public class BouncyBall extends Entity {
 
 		ball.setLayoutX(Utility.toPixelPosX(xPos));
 		ball.setLayoutY(Utility.toPixelPosY(yPos));
-		BodyDef bd = new BodyDef();
+		bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
 		bd.position.set(xPos, yPos);
 		bd.fixedRotation = true;
 
-		CircleShape cs = new CircleShape();
-		cs.m_radius = Utility.toWidth(radius);
+		ps = new CircleShape();
+		ps.m_radius = Utility.toWidth(radius);
 
-		FixtureDef fd = new FixtureDef();
-		fd.shape = cs;
+		fd = new FixtureDef();
+		fd.shape = ps;
 		fd.density = 0.6f;
 		fd.friction = 0.3f;
 		fd.restitution = 0f;
 
-		Body body = world.world.createBody(bd);
-		body.createFixture(fd);
-		ball.setUserData(body);
 		return ball;
 	}
 	@Override

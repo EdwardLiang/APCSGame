@@ -62,23 +62,20 @@ public class Creature extends Entity {
 		imageView.setLayoutY(Utility.toPixelPosY(yPos)
 				- Utility.toPixelWidth(height) / 2);
 
-		BodyDef bd = new BodyDef();
+		bd = new BodyDef();
 		bd.type = BodyType.DYNAMIC;
 		bd.position.set(xPos, yPos);
 		bd.fixedRotation = true;
 
-		PolygonShape ps = new PolygonShape();
-		ps.setAsBox(width / 2, height / 2);
+		ps = new PolygonShape();
+		((PolygonShape)ps).setAsBox(width / 2, height / 2);
 
-		FixtureDef fd = new FixtureDef();
+		fd = new FixtureDef();
 		fd.shape = ps;
 		fd.density = 0.1f;
 		fd.friction = 0.0f;
 		fd.restitution = 0f;
 
-		Body body = world.world.createBody(bd);
-		body.createFixture(fd);
-		imageView.setUserData(body);
 		return imageView;
 	}
 	@Override
