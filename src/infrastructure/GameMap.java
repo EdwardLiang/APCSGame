@@ -99,7 +99,7 @@ public class GameMap {
 	public void addEntity(Entity entity) {
 		gameElements.add(entity);
 	}
-
+	// Use Entity's removeFromWorld method. DO NOT DIRECTLY CALL THIS METHOD.
 	public void removeEntity(Entity entity) {
 		gameElements.remove(entity);
 	}

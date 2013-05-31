@@ -9,29 +9,23 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.collision.shapes.Shape;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 public class Projectile extends Entity {
-	public float radius;
+	private float radius;
 
 	public Projectile(float posX, float posY, float width, float height,
 			float radius) {
-		xPos = posX;
-		yPos = posY;
-		this.width = width + radius;
-		this.height = height;
+		super(posX, posY, width + radius, height);
 		this.radius = radius;
 	}
-	public static Projectile parse(String[] frag){
-		return new Projectile(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]), Float.parseFloat(frag[3]), Float.parseFloat(frag[4]), Float.parseFloat(frag[5]));
-	}
 
-	@Override
-	public Node create() {
+	protected Node createNode() {
 		Polygon polygon = new Polygon();
-		polygon.getPoints().addAll(
+		((Polygon) polygon).getPoints().addAll(
 				new Double[] { 0.0, 0.0,
 						(double) Utility.toPixelWidth(width - radius), 0.0,
 						(double) Utility.toPixelWidth(width),
@@ -39,40 +33,51 @@ public class Projectile extends Entity {
 						(double) Utility.toPixelWidth(width - radius),
 						(double) Utility.toPixelHeight(height), 0.0,
 						(double) Utility.toPixelHeight(height) });
-
 		polygon.setFill(Color.DARKBLUE);
-		
-		bd = new BodyDef();
-		bd.type = BodyType.KINEMATIC;
-		bd.position.set(xPos, yPos);
-		bd.fixedRotation = true;
-		polygon.setLayoutX(Utility.toPixelPosX(xPos)
-				- Utility.toPixelWidth(width) / 2);
-		polygon.setLayoutY(Utility.toPixelPosY(yPos)
-				- Utility.toPixelWidth(height) / 2);
+		return polygon;
+	}
 
+	protected Shape createShape() {
 		Vec2[] verts = new Vec2[5];
-
 		verts[0] = new Vec2(-(width) / 2, -height / 2); // bottom left
 		verts[1] = new Vec2((width - radius) / 2, -height / 2); // bottom middle
 		verts[2] = new Vec2(width / 2, 0);// middle right
 		verts[3] = new Vec2((width - radius) / 2, height / 2); // top middle
 		verts[4] = new Vec2(-(width) / 2, height / 2); // top left
-		
-		ps = new PolygonShape();
+
+		PolygonShape polygon = new PolygonShape();
 		((PolygonShape) ps).set(verts, 5);
 		((PolygonShape) ps).m_centroid.setZero();
 
-		fd = new FixtureDef();
-		fd.shape = ps;
-		fd.density = 1.6f;
-		fd.friction = 0.3f;
-		fd.restitution = 0.0f;
-
 		return polygon;
+
 	}
+
+	protected BodyDef createBD() {
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.KINEMATIC;
+		bodyDef.position.set(xPos, yPos);
+		bodyDef.fixedRotation = true;
+		return bodyDef;
+	}
+
+	protected FixtureDef createFD() {
+		FixtureDef fix = new FixtureDef();
+		fix.shape = ps;
+		fix.density = 1.6f;
+		fix.friction = 0.3f;
+		fix.restitution = 0.0f;
+		return fix;
+	}
+
+	public static Projectile parse(String[] frag) {
+		return new Projectile(Float.parseFloat(frag[1]),
+				Float.parseFloat(frag[2]), Float.parseFloat(frag[3]),
+				Float.parseFloat(frag[4]), Float.parseFloat(frag[5]));
+	}
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return super.toString() + Parse.delim + radius;
 	}
 

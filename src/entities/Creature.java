@@ -3,11 +3,11 @@ package entities;
 import infrastructure.Utility;
 
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-
 
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
@@ -17,37 +17,29 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class Creature extends Entity {
-	public boolean status;
-	public Image image;
-	public int col;
-	public int count;
-	public int offsetX;
-	public int offsetY;
-	public int pWidth;
-	public int pHeight;
+	private boolean status;
+	private Image image = new Image("sprites/spritesheet.jpg");;
+	private int col;
+	private int count;
+	private int offsetX;
+	private int offsetY;
+	private int pWidth;
+	private int pHeight;
 
 	public Creature(float posX, float posY) {
 		// Image Credits:
 		// http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
-		image = new Image("sprites/spritesheet.jpg");
-		xPos = posX;
-		yPos = posY;
+		super(posX, posY, Utility.toWidth(60), Utility.toHeight(60));
 		col = 8;
 		count = 60;
 		offsetX = 0;
 		offsetY = 0;
 		pWidth = 60;
 		pHeight = 60;
-		width = Utility.toWidth(pWidth);
-		height = Utility.toHeight(pHeight);
-	}
-	
-	public static Creature parse(String[] frag){
-		return new Creature(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]));
 	}
 
 	@Override
-	public Node create() {
+	protected Node createNode() {
 		ImageView imageView = new ImageView(image);
 		imageView
 				.setViewport(new Rectangle2D(offsetX, offsetY, pWidth, pHeight));
@@ -56,30 +48,42 @@ public class Creature extends Entity {
 				pHeight);
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.play();
-
-		imageView.setLayoutX(Utility.toPixelPosX(xPos)
-				- Utility.toPixelWidth(width) / 2);
-		imageView.setLayoutY(Utility.toPixelPosY(yPos)
-				- Utility.toPixelWidth(height) / 2);
-
-		bd = new BodyDef();
-		bd.type = BodyType.DYNAMIC;
-		bd.position.set(xPos, yPos);
-		bd.fixedRotation = true;
-
-		ps = new PolygonShape();
-		((PolygonShape)ps).setAsBox(width / 2, height / 2);
-
-		fd = new FixtureDef();
-		fd.shape = ps;
-		fd.density = 0.1f;
-		fd.friction = 0.0f;
-		fd.restitution = 0f;
-
 		return imageView;
 	}
+
 	@Override
-	public String toString(){
+	protected Shape createShape() {
+		PolygonShape polygon = new PolygonShape();
+		((PolygonShape) polygon).setAsBox(width / 2, height / 2);
+		return polygon;
+	}
+
+	@Override
+	protected BodyDef createBD() {
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DYNAMIC;
+		bodyDef.position.set(xPos, yPos);
+		bodyDef.fixedRotation = true;
+		return bodyDef;
+	}
+
+	@Override
+	protected FixtureDef createFD() {
+		FixtureDef fix = new FixtureDef();
+		fix.shape = ps;
+		fix.density = 0.1f;
+		fix.friction = 0.0f;
+		fix.restitution = 0f;
+		return fix;
+	}
+
+	public static Creature parse(String[] frag) {
+		return new Creature(Float.parseFloat(frag[1]),
+				Float.parseFloat(frag[2]));
+	}
+
+	@Override
+	public String toString() {
 		return super.toString();
 	}
 }
