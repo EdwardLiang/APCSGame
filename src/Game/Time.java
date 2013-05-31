@@ -18,25 +18,25 @@ public class Time {
 		@Override
 		public void handle(ActionEvent t) {
 			world.world.step(1.0f / 60.0f, 8, 3);
-			world.backGround.setLayoutX(App.getOffsetX());
+			world.backGround.setLayoutX(App.game.getOffsetX());
 			world.backGround.setLayoutY(-world.pHeight + Utility.HEIGHT
-					+ App.getOffsetY());
+					+ App.game.getOffsetY());
 
 			for (Entity a : world.gameElements) {
 				Body body = (Body) a.node.getUserData();
 				if (a.node instanceof Circle) {
-					float xpos = (Utility.toPixelPosX(body.getPosition().x) + App
+					float xpos = (Utility.toPixelPosX(body.getPosition().x) + App.game
 							.getOffsetX());
 					float ypos = Utility.toPixelPosY(body.getPosition().y)
-							+ App.getOffsetY();
+							+ App.game.getOffsetY();
 					a.node.setLayoutX(xpos);
 					a.node.setLayoutY(ypos);
 				} else {
 					float xpos = Utility.toPixelPosX(body.getPosition().x)
-							+ App.getOffsetX() - Utility.toPixelWidth(a.width)
+							+ App.game.getOffsetX() - Utility.toPixelWidth(a.width)
 							/ 2;
 					float ypos = Utility.toPixelPosY(body.getPosition().y)
-							+ App.getOffsetY() - Utility.toPixelWidth(a.height)
+							+ App.game.getOffsetY() - Utility.toPixelWidth(a.height)
 							/ 2;
 					a.node.setLayoutX(xpos);
 					a.node.setLayoutY(ypos);
@@ -49,27 +49,27 @@ public class Time {
 		@Override
 		public void run() {
 			while (true) {
-				Body playerData = (Body) App.player.node.getUserData();
+				Body playerData = (Body) App.game.player.node.getUserData();
 				if (!isPaused()) {
 					if (Utility.toPixelPosX(playerData.getPosition().x)
-							+ App.getOffsetX() > Utility.WIDTH / 2 + 20
-							&& !(-App.getOffsetX() + Utility.WIDTH + 1 > Utility
+							+ App.game.getOffsetX() > Utility.WIDTH / 2 + 20
+							&& !(-App.game.getOffsetX() + Utility.WIDTH + 1 > Utility
 									.toPixelWidth(world.width))) {
-						App.setOffsetX(App.getOffsetX() - 1);
+						App.game.setOffsetX(App.game.getOffsetX() - 1);
 					} else if (Utility.toPixelPosX(playerData.getPosition().x)
-							+ App.getOffsetX() < Utility.WIDTH / 2 - 20
-							&& !(App.getOffsetX() - 1 > 0))
-						App.setOffsetX(App.getOffsetX() + 1);
+							+ App.game.getOffsetX() < Utility.WIDTH / 2 - 20
+							&& !(App.game.getOffsetX() - 1 > 0))
+						App.game.setOffsetX(App.game.getOffsetX() + 1);
 
 					if (Utility.toPixelPosY(playerData.getPosition().y)
-							+ App.getOffsetY() > Utility.HEIGHT / 2 + 20
-							&& !(App.getOffsetY() - 1 < 0))
-						App.setOffsetY(App.getOffsetY() - 1);
+							+ App.game.getOffsetY() > Utility.HEIGHT / 2 + 20
+							&& !(App.game.getOffsetY() - 1 < 0))
+						App.game.setOffsetY(App.game.getOffsetY() - 1);
 					else if (Utility.toPixelPosY(playerData.getPosition().y)
-							+ App.getOffsetY() < Utility.HEIGHT / 2 - 20
-							&& !(App.getOffsetY() + Utility.HEIGHT + 1 > Utility
+							+ App.game.getOffsetY() < Utility.HEIGHT / 2 - 20
+							&& !(App.game.getOffsetY() + Utility.HEIGHT + 1 > Utility
 									.toPixelHeight(world.height)))
-						App.setOffsetY(App.getOffsetY() + 1);
+						App.game.setOffsetY(App.game.getOffsetY() + 1);
 				}
 				try {
 					Thread.sleep(10);

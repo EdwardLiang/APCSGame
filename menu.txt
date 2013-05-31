@@ -1,4 +1,4 @@
-Game/castle.jpg
+Game/menu.jpg
 test
 30.0
 class Game.Wall;0.0;60.0;1.0;120.0
@@ -8,4 +8,3 @@ class Game.Wall;106.0;0.0;213.0;1.0
 class Game.Wall;50.0;50.0;25.0;3.0
 class Game.Projectile;15.0;75.0;5.0;1.0;3.0
 class Game.BouncyBall;45.0;90.0;0.0;0.0;8;0x0000ffff
-

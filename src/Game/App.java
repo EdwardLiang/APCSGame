@@ -13,146 +13,64 @@ import javafx.stage.WindowEvent;
 import java.util.Scanner;
 
 public class App extends Application {
-	public static GameLevel game;
-	public static Entity player;
+	public static GameWorld game;
 	// public static ArrayList<String> levels = new ArrayList<String>();
-	private static float offsetX;
-	private static float offsetY;
-	//public static GameLevel game2;
+	// public static GameLevel game2;
 	public static Group root;
 	public static Scene scene;
 	public static Stage pS;
 
-
 	public static void main(String[] args) {
-		GameWorld GameWorld = new GameWorld();
-		GameWorld.addLevel(new GameLevel("castle.jpg"));
-		System.out.println(GameWorld);
 		launch(args);
-	}
-	
-	public static void changeWorld(GameLevel world){
-		game.time.timeline.stop();
-
-		game = world;
-		player.addToWorld(game);
-		offsetX = 0;
-		offsetY = 0;
-				
-		root.getChildren().removeAll(root.getChildren());
-		
-		final Button btn = new Button();
-		btn.setLayoutX((Utility.WIDTH / 2) - 15);
-		btn.setLayoutY((Utility.HEIGHT - 30));
-		
-		btn.setText("Start");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				game.time.timeline.playFromStart();
-				Thread t = new Thread(game.time.r);
-				Thread key = new Thread(Events.keyThread);
-				t.start();
-				key.start();
-				btn.setVisible(false);
-			}
-		});
-		root.getChildren().add(game.backGround);
-		
-		root.getChildren().add(btn);
-		for (Entity a : game.gameElements) {
-			root.getChildren().add(a.node);
-		}
-		
-		pS.setScene(scene);
-		pS.show();
-
-	}
-
-	public static synchronized float getOffsetX() {
-		return offsetX;
-	}
-
-	public static synchronized void setOffsetX(float offsetX) {
-		App.offsetX = offsetX;
-	}
-
-	public static synchronized float getOffsetY() {
-		return offsetY;
-	}
-
-	public static synchronized void setOffsetY(float offsetY) {
-		App.offsetY = offsetY;
-	}
-
-	public static void setPlayer(Entity entity) {
-		player = entity;
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 		// levels = Utility.addLevelsToAdd(levels);
 		final Scanner sc = new Scanner(System.in);
-		
-		pS = primaryStage;
-		
-		offsetX = 0.0f;
-		offsetY = 0.0f;
-		
-		//primaryStage.setHeight(Utility.HEIGHT);
-		//primaryStage.setWidth(Utility.WIDTH);
 
-		primaryStage.setTitle("test");
+		pS = primaryStage;
+
+		primaryStage.setTitle("Dreamscape");
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
-				
+
 		root = new Group();
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
 		
-	/*	System.out.println("Would you like to load a level file?");
-		char next = sc.next().charAt(0);
-		String level;*/
-		
-	/*	if(next == 'y' || next == 'Y'){
-			System.out.println("What file would you like to load?");
-			level = sc.next();
-			try {
-				game = GameLevel.parse(Parse.readFromFile(level));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		else{*/
-			//System.out.println("Generating generic file....");
-			game = new GameLevel(("Game/castle.jpg"));
-			//game2 = new GameLevel("Game/finalv2.png");
-		//}
+		game = new GameWorld();
 
-		
-		player = new Creature(30, 80);
+		/*
+		 * System.out.println("Would you like to load a level file?"); char next
+		 * = sc.next().charAt(0); String level;
+		 */
 
-		player.addToWorld(game);
+		/*
+		 * if(next == 'y' || next == 'Y'){
+		 * System.out.println("What file would you like to load?"); level =
+		 * sc.next(); try { game = GameLevel.parse(Parse.readFromFile(level)); }
+		 * catch (IOException e1) { // TODO Auto-generated catch block
+		 * e1.printStackTrace(); } } else{
+		 */
+		// System.out.println("Generating generic file....");
+		// game = new GameLevel(("Game/castle.jpg"));
+		// game2 = new GameLevel("Game/finalv2.png");
+		// }
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
-			/*	System.out.println("Would you like to save this level?");
-				char choice = sc.next().charAt(0);
-				if (choice == 'y' || choice == 'Y') {
-					System.out.println("What name would like to save it as?");
-					String str = sc.next();
-					try {
-						Parse.writeToFile(game.toString(), str + ".txt");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				else{
-					Platform.exit();
-					System.exit(0);
-				}*/
+				/*
+				 * System.out.println("Would you like to save this level?");
+				 * char choice = sc.next().charAt(0); if (choice == 'y' ||
+				 * choice == 'Y') {
+				 * System.out.println("What name would like to save it as?");
+				 * String str = sc.next(); try {
+				 * Parse.writeToFile(game.toString(), str + ".txt"); } catch
+				 * (IOException e) { // TODO Auto-generated catch block
+				 * e.printStackTrace(); } } else{ Platform.exit();
+				 * System.exit(0); }
+				 */
 				Platform.exit();
 				System.exit(0);
 			}
@@ -168,30 +86,6 @@ public class App extends Application {
 		 * proj.addToWorld(game); bouncy.addToWorld(game); ((Body)
 		 * (proj.node.getUserData())).setLinearVelocity(new Vec2(50.0f, 0.0f));
 		 */
-		
-		final Button btn = new Button();
-		btn.setLayoutX((Utility.WIDTH / 2) - 15);
-		btn.setLayoutY((Utility.HEIGHT - 30));
-		btn.setText("Start");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				game.time.timeline.playFromStart();
-				Thread t = new Thread(game.time.r);
-				Thread key = new Thread(Events.keyThread);
-				t.start();
-				key.start();
-				btn.setVisible(false);
-			}
-		});
-
-		root.getChildren().add(game.backGround);
-		root.getChildren().add(btn);
-
-		for (Entity a : game.gameElements) {
-			root.getChildren().add(a.node);
-		}
-		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

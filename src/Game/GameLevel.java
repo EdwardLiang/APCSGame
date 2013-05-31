@@ -34,8 +34,8 @@ public class GameLevel {
 		this.title = title;
 		this.bacLoc = bacLoc;
 		this.gravityMag = gravityMag;
-		backGround.setLayoutX(App.getOffsetX());
-		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
+		backGround.setLayoutX(App.game.getOffsetX());
+		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.game.getOffsetY());
 	}
 
 	public GameLevel(String backLoc) {
@@ -52,8 +52,8 @@ public class GameLevel {
 		pHeight = back.getHeight();
 		width = (int) Utility.toWidth(pWidth);
 		height = (int) Utility.toHeight(pHeight);
-		backGround.setLayoutX(App.getOffsetX());
-		backGround.setLayoutY(-pHeight + Utility.HEIGHT + App.getOffsetY());
+		backGround.setLayoutX(0);
+		backGround.setLayoutY(-pHeight + Utility.HEIGHT);
 		
 		addCoreElements();
 	}
@@ -124,7 +124,7 @@ public class GameLevel {
 		result += title + "\n";
 		result += gravityMag + "\n";
 		for (Entity a : gameElements) {
-			if(a != App.player)
+			if(a != App.game.player)
 				result += a.toString() + "\n";
 		}
 		return result;

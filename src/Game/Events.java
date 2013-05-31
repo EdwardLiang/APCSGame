@@ -33,7 +33,7 @@ public class Events {
 	public static final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
-			Body body = (Body) App.player.node.getUserData();
+			Body body = (Body) App.game.player.node.getUserData();
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
 			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
@@ -52,7 +52,7 @@ public class Events {
 	public static final Runnable keyThread = new Runnable() {
 		@Override
 		public void run() {
-			Body body = (Body) App.player.node.getUserData();
+			Body body = (Body) App.game.player.node.getUserData();
 			while (true) {
 				if (buffer.contains(KeyCode.W)
 						&& body.getLinearVelocity().y == 0
