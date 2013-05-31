@@ -19,7 +19,7 @@ public class KeyManager {
 			buffer.add(t.getCode());
 			t.consume();
 			if (t.getCode() == KeyCode.P) {
-				App.game.currentLevel.time.toggleTime();
+				App.game.currentMap.time.toggleTime();
 			}
 		}
 	};

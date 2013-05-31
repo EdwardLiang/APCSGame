@@ -1,4 +1,4 @@
-Game/castle.jpg
+/maps/castle.jpg
 test
 30.0
 class Game.Wall;0.0;60.0;1.0;120.0

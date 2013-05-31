@@ -13,44 +13,44 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class GameWorld {
-	public LinkedList<GameMap> levels;
-	public GameMap currentLevel;
+	public LinkedList<GameMap> maps;
+	public GameMap currentMap;
 	public Entity player;
 	public Camera camera;
 
 	public GameWorld() {
 		player = new Creature(30, 80);
-		currentLevel = new GameMap("maps/menu.jpg");
-		player.addToWorld(currentLevel);
-		levels = new LinkedList<GameMap>();
+		currentMap = new GameMap("maps/menu.jpg");
+		player.addToWorld(currentMap);
+		maps = new LinkedList<GameMap>();
 		camera = new Camera();
-		changeLevel(currentLevel);
-		levels.add(currentLevel);
+		changeMap(currentMap);
+		maps.add(currentMap);
 	}
 	public void setPlayer(Entity entity) {
 		this.player = entity;
 	}
 
-	public void changeLevel(GameMap level) {
-		if(currentLevel != null){
-			currentLevel.stopAll();
+	public void changeMap(GameMap Map) {
+		if(currentMap != null){
+			currentMap.stopAll();
 		}
-		currentLevel = level;
-		player.addToWorld(level);
+		currentMap = Map;
+		player.addToWorld(Map);
 		camera.reset();
 		App.root.getChildren().removeAll(App.root.getChildren());
-		currentLevel.addElementsToGUI();
-		currentLevel.time.startLevel();
+		currentMap.addElementsToGUI();
+		currentMap.time.startTime();
 	}
 	public static GameWorld parse(String raw) {
-		String[] levelList = Parse.fragment(raw);
+		String[] MapList = Parse.fragment(raw);
 		GameWorld game = new GameWorld();
-		for (String a : levelList) {
+		for (String a : MapList) {
 			try {
-				game.addLevel(GameMap.parse(Parse.readFromFile(a + ".txt")));
+				game.addMap(GameMap.parse(Parse.readFromFile(a)));
 			} catch (IOException e) {
 				System.out
-						.println("Error: attempted to add a level that doesn't exist");
+						.println("Error: attempted to add a Map that doesn't exist");
 				e.printStackTrace();
 			}
 		}
@@ -59,7 +59,7 @@ public class GameWorld {
 
 	public String toString() {
 		String str = "";
-		Iterator iter = levels.iterator();
+		Iterator iter = maps.iterator();
 		//skip adding menu to toString()
 		iter.next();
 		while(iter.hasNext()){
@@ -68,7 +68,7 @@ public class GameWorld {
 		return str;
 	}
 
-	public void addLevel(GameMap game) {
-		levels.add(game);
+	public void addMap(GameMap game) {
+		maps.add(game);
 	}
 }

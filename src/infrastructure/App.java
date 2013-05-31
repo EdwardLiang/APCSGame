@@ -10,7 +10,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import levels.*;
 
 public class App extends Application {
 	public static GameWorld game;
@@ -23,7 +27,7 @@ public class App extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws IOException {
 		pS = primaryStage;
 
 		primaryStage.setTitle("Dreamscape");
@@ -32,10 +36,10 @@ public class App extends Application {
 
 		root = new Group();
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
-		
+		//game = GameWorld.parse(Parse.readFromFile("src/levels/index.txt"));
 		game = new GameWorld();
-		game.addLevel(new GameMap("maps/castle.jpg"));
-		game.changeLevel(game.levels.get(1));
+		game.addMap(new GameMap("maps/castle.jpg"));
+		game.changeMap(game.maps.get(1));
 		KeyManager keyManager = new KeyManager();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(game.camera);

@@ -57,16 +57,12 @@ public class Time {
 		this.world = world;
 	}
 	
-	public void startLevel(){
+	public void startTime(){
 		timeline.playFromStart();
 	}
 	
 	public void stopTime() {
 		timeline.pause();
-	}
-
-	public void startTime() {
-		timeline.play();
 	}
 
 	public void toggleTime() {
