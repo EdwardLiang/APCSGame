@@ -24,8 +24,10 @@ public class GameWorld {
 		player.addToWorld(currentMap);
 		maps = new LinkedList<GameMap>();
 		camera = new Camera();
-		changeMap(currentMap);
+		//changeMap(currentMap);
 		maps.add(currentMap);
+		currentMap.addElementsToGUI();
+		currentMap.time.startTime();
 	}
 
 	public void setPlayer(Entity entity) {

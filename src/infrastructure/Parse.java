@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.sun.xml.internal.ws.api.ResourceLoader;
-
 public class Parse {
 	public final static String delim = ";";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
