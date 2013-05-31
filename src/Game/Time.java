@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.Body;
 
 public class Time {
 	Timeline timeline;
-	GameWorld world;
+	GameLevel world;
 
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
@@ -83,7 +83,7 @@ public class Time {
 
 	};
 
-	public Time(GameWorld world) {
+	public Time(GameLevel world) {
 		timeline = new Timeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
 		Duration duration = Duration.seconds(1.0 / 60.0);
@@ -116,7 +116,7 @@ public class Time {
 	}
 
 	// For experimental time manipulation
-	public Time(GameWorld world, int a) {
+	public Time(GameLevel world, int a) {
 
 	}
 

@@ -13,22 +13,25 @@ import javafx.stage.WindowEvent;
 import java.util.Scanner;
 
 public class App extends Application {
-	public static GameWorld game;
+	public static GameLevel game;
 	public static Entity player;
 	// public static ArrayList<String> levels = new ArrayList<String>();
 	private static float offsetX;
 	private static float offsetY;
-	public static GameWorld game2;
+	//public static GameLevel game2;
 	public static Group root;
 	public static Scene scene;
 	public static Stage pS;
 
 
 	public static void main(String[] args) {
+		GameWorld GameWorld = new GameWorld();
+		GameWorld.addLevel(new GameLevel("castle.jpg"));
+		System.out.println(GameWorld);
 		launch(args);
 	}
 	
-	public static void changeWorld(GameWorld world){
+	public static void changeWorld(GameLevel world){
 		game.time.timeline.stop();
 
 		game = world;
@@ -114,7 +117,7 @@ public class App extends Application {
 			System.out.println("What file would you like to load?");
 			level = sc.next();
 			try {
-				game = GameWorld.parse(Parse.readFromFile(level));
+				game = GameLevel.parse(Parse.readFromFile(level));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -122,8 +125,8 @@ public class App extends Application {
 		}
 		else{*/
 			//System.out.println("Generating generic file....");
-			game = new GameWorld(("Game/castle.jpg"));
-			game2 = new GameWorld("Game/finalv2.png");
+			game = new GameLevel(("Game/castle.jpg"));
+			//game2 = new GameLevel("Game/finalv2.png");
 		//}
 
 		

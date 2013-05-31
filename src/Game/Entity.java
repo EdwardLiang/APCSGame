@@ -9,11 +9,11 @@ public abstract class Entity {
 	public float width;
 	public float height;
 
-	public GameWorld world;
+	public GameLevel world;
 
 	public abstract Node create();
 
-	public void addToWorld(GameWorld world) {
+	public void addToWorld(GameLevel world) {
 		if(world != null){
 			world.removeEntity(this);
 		}
@@ -23,6 +23,6 @@ public abstract class Entity {
 	}
 	@Override
 	public String toString(){
-		return "" + this.getClass() + Utility.delim + xPos + Utility.delim + yPos + Utility.delim + width + Utility.delim + height;
+		return "" + this.getClass() + Parse.delim + xPos + Parse.delim + yPos + Parse.delim + width + Parse.delim + height;
 	}
 }

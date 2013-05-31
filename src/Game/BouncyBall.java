@@ -54,6 +54,6 @@ public class BouncyBall extends Entity {
 	}
 	@Override
 	public String toString(){
-		return super.toString() + Utility.delim + radius + Utility.delim + color.toString();
+		return super.toString() + Parse.delim + radius + Parse.delim + color.toString();
 	}
 }

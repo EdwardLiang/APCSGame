@@ -3,8 +3,6 @@ package Game;
 import javafx.scene.paint.Color;
 
 public class Utility {
-	final static String delim = ";";
-
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
 	public static double toPixelPosX(double posX) {
 		double x = WIDTH * posX / 100.0;
@@ -93,43 +91,5 @@ public class Utility {
 
 	public static float toHeight(float height) {
 		return (height * 100.0f) / HEIGHT;
-	}
-	
-	public static String[] fragment(String str){
-		return str.split("[;]");
-	}
-
-	public static Color parseColor(String str) {
-		switch (str) {
-		case "BLUE":
-			return Color.BLUE;
-		case "RED":
-			return Color.RED;
-		default:
-			return Color.AQUA;
-		}
-
-	}
-
-	public static int codeEnt(String choice) {
-		switch (choice) {
-		case "ball":
-		case "Ball":
-		case "BouncyBall":
-		case "bouncyball":
-		case "Bouncyball":
-			return 1;
-		case "wall":
-		case "Wall":
-			return 2;
-		case "projectile":
-		case "Projectile":
-			return 3;
-		case "creature":
-		case "Creature":
-			return 4;
-		default:
-			throw new IllegalArgumentException("Wrong Entity type");
-		}
 	}
 }

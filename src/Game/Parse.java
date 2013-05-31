@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /*
- * String code for GameWorld:
+ * String code for GameLevel:
  * Delimiter: ;
  * Using: String.split(), which passes a String and a delimiter, and returns an array of split Strings.  
  * 0.Name of world
@@ -22,7 +22,8 @@ import java.util.ArrayList;
  * 
  */
 public class Parse {
-	final static String delim = "\n";
+	//final static String delim = "\n";
+	final static String delim = ";";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 	/*public static String inputToParsed() {
 		String result = "";
@@ -107,13 +108,13 @@ public class Parse {
 		return null;
 	}
 
-	public static GameWorld parse(String raw) {
+	public static GameLevel parse(String raw) {
 		String[] parsed = raw.split("[\n]");
 		ArrayList<Entity> elements = new ArrayList<Entity>();
 		for (int i = 3; i < parsed.length - 1; i++) {
 			elements.add(parseElements(parsed[i]));
 		}
-		GameWorld game = new GameWorld(parsed[0], parsed[1], elements,
+		GameLevel game = new GameLevel(parsed[0], parsed[1], elements,
 				Float.parseFloat(parsed[2]));
 		return game;
 	}*/
@@ -124,6 +125,10 @@ public class Parse {
 		ArrayList<String> list = new ArrayList<String>();
 		list.add(code);
 		Files.write(path, list, ENCODING);
+	}
+	
+	public static String[] fragment(String str){
+		return str.split("[;]");
 	}
 
 	public static String readFromFile(String fileName) throws IOException {

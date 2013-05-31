@@ -75,7 +75,7 @@ public class Projectile extends Entity {
 	}
 	@Override
 	public String toString(){
-		return super.toString() + Utility.delim + radius;
+		return super.toString() + Parse.delim + radius;
 	}
 
 }
