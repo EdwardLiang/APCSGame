@@ -1,4 +1,4 @@
-package Game;
+package infrastructure;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Parse {
-	final static String delim = ";";
+	public final static String delim = ";";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 	
 	public static void writeToFile(String code, String fileName)

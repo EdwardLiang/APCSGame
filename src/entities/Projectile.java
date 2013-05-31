@@ -1,5 +1,7 @@
-package Game;
+package entities;
 
+import infrastructure.Parse;
+import infrastructure.Utility;
 import javafx.scene.Node;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -7,6 +9,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.collision.shapes.PolygonShape;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 

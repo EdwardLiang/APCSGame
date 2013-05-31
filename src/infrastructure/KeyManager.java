@@ -1,4 +1,4 @@
-package Game;
+package infrastructure;
 
 import java.util.EnumSet;
 import java.util.Set;

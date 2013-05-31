@@ -1,10 +1,13 @@
-package Game;
+package entities;
+
+import infrastructure.Utility;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+
 
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
@@ -26,7 +29,7 @@ public class Creature extends Entity {
 	public Creature(float posX, float posY) {
 		// Image Credits:
 		// http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
-		image = new Image("Game/spritesheet.jpg");
+		image = new Image("sprites/spritesheet.jpg");
 		xPos = posX;
 		yPos = posY;
 		col = 8;

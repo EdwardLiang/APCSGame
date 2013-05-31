@@ -1,9 +1,12 @@
-package Game;
+package infrastructure;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import entities.Creature;
+import entities.Entity;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +20,7 @@ public class GameWorld {
 
 	public GameWorld() {
 		player = new Creature(30, 80);
-		currentLevel = new GameLevel("Game/menu.jpg");
+		currentLevel = new GameLevel("maps/menu.jpg");
 		player.addToWorld(currentLevel);
 		levels = new LinkedList<GameLevel>();
 		camera = new Camera();

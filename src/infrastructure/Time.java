@@ -1,4 +1,4 @@
-package Game;
+package infrastructure;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -9,6 +9,8 @@ import javafx.util.Duration;
 import javafx.scene.shape.Circle;
 
 import org.jbox2d.dynamics.Body;
+
+import entities.Entity;
 
 public class Time {
 	Timeline timeline;

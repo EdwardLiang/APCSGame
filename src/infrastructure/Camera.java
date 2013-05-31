@@ -1,4 +1,4 @@
-package Game;
+package infrastructure;
 
 import org.jbox2d.dynamics.Body;
 

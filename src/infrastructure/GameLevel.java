@@ -1,4 +1,4 @@
-package Game;
+package infrastructure;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+
+import entities.BouncyBall;
+import entities.Creature;
+import entities.Entity;
+import entities.Projectile;
+import entities.Wall;
 
 public class GameLevel {
 	public ArrayList<Entity> gameElements;

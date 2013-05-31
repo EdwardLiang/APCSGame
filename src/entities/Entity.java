@@ -1,5 +1,7 @@
-package Game;
+package entities;
 
+import infrastructure.GameLevel;
+import infrastructure.Parse;
 import javafx.scene.Node;
 
 public abstract class Entity {
