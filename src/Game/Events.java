@@ -23,7 +23,7 @@ public class Events {
 			buffer.add(t.getCode());
 			t.consume();
 			if (t.getCode() == KeyCode.P) {
-				App.game.time.toggleTime();
+				App.game.currentLevel.time.toggleTime();
 			}
 	/*		if(t.getCode() == KeyCode.R){
 				App.changeWorld(App.game2);

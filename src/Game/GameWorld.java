@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class GameWorld extends GameLevel {
+public class GameWorld {
 	public LinkedList<GameLevel> levels;
 	public GameLevel currentLevel;
 	public float offsetX;
@@ -17,13 +17,13 @@ public class GameWorld extends GameLevel {
 	public Entity player;
 
 	public GameWorld() {
-		super("Game/menu.jpg");
+		currentLevel = new GameLevel("Game/menu.jpg");
 		offsetX = 0.0f;
 		offsetY = 0.0f;
 		player = new Creature(30, 80);
-		player.addToWorld(this);
+		player.addToWorld(currentLevel);
 		levels = new LinkedList<GameLevel>();
-		levels.add(this);
+		levels.add(currentLevel);
 		currentLevel = levels.getFirst();
 	}
 
