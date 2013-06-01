@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Parse {
 	public final static String delim = ";";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
-	
+
 	public static void writeToFile(String code, String fileName)
 			throws IOException {
 		Path path = Paths.get(fileName);
@@ -20,8 +20,8 @@ public class Parse {
 		list.add(code);
 		Files.write(path, list, ENCODING);
 	}
-	
-	public static String[] fragment(String str){
+
+	public static String[] fragment(String str) {
 		return str.split("[;]");
 	}
 
@@ -33,6 +33,7 @@ public class Parse {
 			result += str + "\n";
 		return result;
 	}
+
 	public static String readFromFile(Path path) throws IOException {
 		List<String> listed = Files.readAllLines(path, ENCODING);
 		String result = "";
@@ -40,6 +41,5 @@ public class Parse {
 			result += str + "\n";
 		return result;
 	}
-
 
 }

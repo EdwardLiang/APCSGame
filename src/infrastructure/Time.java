@@ -22,22 +22,22 @@ public class Time implements Serializable {
 		@Override
 		public void handle(ActionEvent t) {
 			map.getPhysics().step(1.0f / 60.0f, 8, 3);
-			map.getBack().setLayoutX(App.game.getOffsetX());
+			map.getBack().setLayoutX(App.camera.getOffsetX());
 			map.getBack().setLayoutY(
-					(float) (-map.getPHeight() + Util.HEIGHT + App.game
+					(float) (-map.getPHeight() + Util.HEIGHT + App.camera
 							.getOffsetY()));
 
 			for (Entity a : map.getElements()) {
 				if (a.node instanceof Circle) {
-					float xpos = a.getPosition().x + App.game.getOffsetX();
-					float ypos = a.getPosition().y + App.game.getOffsetY();
+					float xpos = a.getPosition().x + App.camera.getOffsetX();
+					float ypos = a.getPosition().y + App.camera.getOffsetY();
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
 				} else {
 					float xpos = (float) (a.getPPosition().x
-							+ App.game.getOffsetX() - a.getPWidth() / 2);
+							+ App.camera.getOffsetX() - a.getPWidth() / 2);
 					float ypos = (float) (a.getPPosition().y
-							+ App.game.getOffsetY() - a.getPHeight() / 2);
+							+ App.camera.getOffsetY() - a.getPHeight() / 2);
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
 				}

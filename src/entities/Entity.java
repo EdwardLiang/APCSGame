@@ -16,7 +16,7 @@ import infrastructure.Parse;
 import infrastructure.Util;
 import javafx.scene.Node;
 
-public abstract class Entity implements FXJBox, Serializable{
+public abstract class Entity implements FXJBox, Serializable {
 	public Node node;
 	protected float xPos;
 	protected float yPos;

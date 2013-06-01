@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class App extends Application {
 	public static GameWorld game;
+	public static Camera camera;
 	public static Group root;
 	public static Scene scene;
 	public static Stage pS;
@@ -39,9 +40,10 @@ public class App extends Application {
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
 		game.changeMap(game.getMaps().get(1));
 
+		camera = new Camera();
 		KeyManager keyManager = new KeyManager();
 		Thread key = new Thread(keyManager.keyThread);
-		Thread cam = new Thread(game.getCamera());
+		Thread cam = new Thread(camera);
 		key.start();
 		cam.start();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

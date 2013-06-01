@@ -17,32 +17,18 @@ public class GameWorld implements Serializable {
 	private LinkedList<GameMap> maps;
 	private GameMap currentMap;
 	private Entity player;
-	private Camera camera;
 
 	public GameWorld() {
 		player = new Creature(30, 80);
 		currentMap = new GameMap(new BackGround("maps/menu.jpg"));
 		player.addToWorld(currentMap);
 		maps = new LinkedList<GameMap>();
-		camera = new Camera();
 		maps.add(currentMap);
 		currentMap.startTime();
 	}
 
-	public float getOffsetX() {
-		return camera.getOffsetX();
-	}
-
-	public float getOffsetY() {
-		return camera.getOffsetY();
-	}
-
 	public GameMap getCurrentMap() {
 		return currentMap;
-	}
-
-	public Camera getCamera() {
-		return camera;
 	}
 
 	public void setPlayer(Entity entity) {
@@ -66,7 +52,7 @@ public class GameWorld implements Serializable {
 			currentMap.reset();
 			currentMap.setVisible(false);
 		}
-		camera.reset();
+		App.camera.reset();
 
 		currentMap = Map;
 		player.addToWorld(Map);

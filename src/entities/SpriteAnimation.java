@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 //Credit: http://blog.netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
-public class SpriteAnimation extends Transition implements Serializable{
+public class SpriteAnimation extends Transition implements Serializable {
 
 	private final ImageView imageView;
 	private final int count;
@@ -18,7 +18,6 @@ public class SpriteAnimation extends Transition implements Serializable{
 	private final int offsetY;
 	private final int width;
 	private final int height;
-
 	private int lastIndex;
 
 	public SpriteAnimation(ImageView imageView, Duration duration, int count,
