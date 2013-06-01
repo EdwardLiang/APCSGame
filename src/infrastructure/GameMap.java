@@ -69,6 +69,10 @@ public class GameMap implements Serializable {
 		time.startTime();
 	}
 
+	public void killTime() {
+		time.killTime();
+	}
+
 	public GameMap(BackGround back) {
 		this.name = "Generic";
 		this.gravityMag = 30.0f;

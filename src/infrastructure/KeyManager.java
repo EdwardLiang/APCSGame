@@ -45,8 +45,8 @@ public class KeyManager {
 	public final Runnable keyThread = new Runnable() {
 		@Override
 		public void run() {
-			Body body = (Body) App.game.getPlayer().getBody();
 			while (true) {
+				Body body = (Body) App.game.getPlayer().getBody();
 				if (buffer.contains(KeyCode.W)
 						&& body.getLinearVelocity().y == 0
 						&& body.getContactList() != null) {
@@ -67,7 +67,7 @@ public class KeyManager {
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
-					;
+					System.out.println("KeyManager stopped");
 				}
 			}
 		}

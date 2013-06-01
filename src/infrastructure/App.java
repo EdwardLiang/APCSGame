@@ -37,8 +37,6 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
-		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-	//	game.changeMap(game.getMaps().get(1));
 
 		camera = new Camera();
 		KeyManager keyManager = new KeyManager();
@@ -46,6 +44,9 @@ public class App extends Application {
 		Thread cam = new Thread(camera);
 		key.start();
 		cam.start();
+		
+		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
+		game.changeMap(game.getMaps().get(1));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {

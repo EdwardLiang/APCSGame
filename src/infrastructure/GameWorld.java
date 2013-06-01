@@ -50,12 +50,12 @@ public class GameWorld implements Serializable {
 
 	public void changeMap(GameMap Map) {
 		if (currentMap != null) {
-			currentMap.reset();
+			//currentMap.reset();
+			currentMap.killTime();
 			currentMap.setVisible(false);
 		}
-		App.camera.reset();
-
 		currentMap = Map;
+		App.camera.reset();
 		player.addToMap(Map);
 		currentMap.setVisible(true);
 		currentMap.startTime();

@@ -61,6 +61,9 @@ public class Time implements Serializable {
 	public void stopTime() {
 		timeline.pause();
 	}
+	public void killTime(){//Is that what I'm doing here?
+		timeline.stop();
+	}
 
 	public void toggleTime() {
 		if (timeline.getCurrentRate() > 0)
