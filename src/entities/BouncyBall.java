@@ -1,7 +1,7 @@
 package entities;
 
 import infrastructure.Parse;
-import infrastructure.Utility;
+import infrastructure.Util;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.Shape;
@@ -30,22 +30,22 @@ public class BouncyBall extends Entity {
 		bd = createBD();
 		ps = createShape();
 		fd = createFD();
-		node.setLayoutX(Utility.toPixelPosX(xPos));
-		node.setLayoutY(Utility.toPixelPosY(yPos));
+		node.setLayoutX(Util.toPPosX(xPos));
+		node.setLayoutY(Util.toPPosY(yPos));
 	}
 
 	@Override
 	protected Node createNode() {
 		Circle ball = new Circle(radius);
-		ball.setLayoutX(Utility.toPixelPosX(xPos));
-		ball.setLayoutY(Utility.toPixelPosY(yPos));
+		ball.setLayoutX(Util.toPPosX(xPos));
+		ball.setLayoutY(Util.toPPosY(yPos));
 		return ball;
 	}
 
 	@Override
 	protected Shape createShape() {
 		Shape shape = new CircleShape();
-		shape.m_radius = Utility.toWidth(radius);
+		shape.m_radius = Util.toWidth(radius);
 		return shape;
 	}
 
@@ -66,12 +66,6 @@ public class BouncyBall extends Entity {
 		fix.friction = 0.3f;
 		fix.restitution = 0f;
 		return fix;
-	}
-
-	public static BouncyBall parse(String[] frag) {
-		return new BouncyBall(Float.parseFloat(frag[1]),
-				Float.parseFloat(frag[2]), Integer.parseInt(frag[3]),
-				Color.web(frag[4]));
 	}
 
 	@Override

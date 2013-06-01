@@ -1,6 +1,6 @@
 package entities;
 
-import infrastructure.Utility;
+import infrastructure.Util;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
@@ -21,8 +21,8 @@ public class Wall extends Entity {
 	@Override
 	protected Node createNode() {
 		Rectangle rectangle = new Rectangle();
-		rectangle.setHeight(Utility.toPixelHeight(height));
-		rectangle.setWidth(Utility.toPixelWidth(width));
+		rectangle.setHeight(Util.toPHeight(height));
+		rectangle.setWidth(Util.toPWidth(width));
 		rectangle.setFill(Color.DARKSLATEGRAY);
 		return rectangle;
 	}
@@ -49,11 +49,6 @@ public class Wall extends Entity {
 		fix.density = 1.0f;
 		fix.friction = 0.3f;
 		return fix;
-	}
-
-	public static Wall parse(String[] frag) {
-		return new Wall(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]),
-				Float.parseFloat(frag[3]), Float.parseFloat(frag[4]));
 	}
 
 	@Override

@@ -1,8 +1,10 @@
 package infrastructure;
 
+import java.io.Serializable;
+
 import org.jbox2d.dynamics.Body;
 
-public class Camera implements Runnable {
+public class Camera implements Runnable, Serializable {
 	public float offsetX;
 	public float offsetY;
 
@@ -34,28 +36,24 @@ public class Camera implements Runnable {
 
 	public void run() {
 		while (true) {
-			Body playerData = (Body) App.game.getPlayer().node.getUserData();
+			Body playerData = (Body) App.game.getPlayer().getBody();
 			if (!App.game.getCurrentMap().isPaused()) {
-				if (Utility.toPixelPosX(playerData.getPosition().x)
-						+ getOffsetX() > Utility.WIDTH / 2 + 20
-						&& !(-getOffsetX() + Utility.WIDTH + 1 > Utility
-								.toPixelWidth(App.game.getCurrentMap()
-										.getWidth()))) {
+				if (Util.toPPosX(playerData.getPosition().x) + getOffsetX() > Util.WIDTH / 2 + 20
+						&& !(-getOffsetX() + Util.WIDTH + 1 > Util
+								.toPWidth(App.game.getCurrentMap().getWidth()))) {
 					setOffsetX(getOffsetX() - 1);
-				} else if (Utility.toPixelPosX(playerData.getPosition().x)
-						+ getOffsetX() < Utility.WIDTH / 2 - 20
+				} else if (Util.toPPosX(playerData.getPosition().x)
+						+ getOffsetX() < Util.WIDTH / 2 - 20
 						&& !(getOffsetX() - 1 > 0))
 					setOffsetX(getOffsetX() + 1);
 
-				if (Utility.toPixelPosY(playerData.getPosition().y)
-						+ getOffsetY() > Utility.HEIGHT / 2 + 20
+				if (Util.toPPosY(playerData.getPosition().y) + getOffsetY() > Util.HEIGHT / 2 + 20
 						&& !(getOffsetY() - 1 < 0))
 					setOffsetY(getOffsetY() - 1);
-				else if (Utility.toPixelPosY(playerData.getPosition().y)
-						+ getOffsetY() < Utility.HEIGHT / 2 - 20
-						&& !(getOffsetY() + Utility.HEIGHT + 1 > Utility
-								.toPixelHeight(App.game.getCurrentMap()
-										.getHeight())))
+				else if (Util.toPPosY(playerData.getPosition().y)
+						+ getOffsetY() < Util.HEIGHT / 2 - 20
+						&& !(getOffsetY() + Util.HEIGHT + 1 > Util
+								.toPHeight(App.game.getCurrentMap().getHeight())))
 					setOffsetY(getOffsetY() + 1);
 			}
 			try {

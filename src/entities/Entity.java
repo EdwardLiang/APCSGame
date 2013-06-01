@@ -1,18 +1,22 @@
 package entities;
 
+import java.io.Serializable;
+
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.FixtureDef;
 
 import infrastructure.App;
+import infrastructure.FXJBox;
 import infrastructure.GameMap;
 import infrastructure.Parse;
-import infrastructure.Utility;
+import infrastructure.Util;
 import javafx.scene.Node;
 
-public abstract class Entity {
+public abstract class Entity implements FXJBox, Serializable{
 	public Node node;
 	protected float xPos;
 	protected float yPos;
@@ -41,10 +45,8 @@ public abstract class Entity {
 		bd = createBD();
 		ps = createShape();
 		fd = createFD();
-		node.setLayoutX(Utility.toPixelPosX(xPos) - Utility.toPixelWidth(width)
-				/ 2);
-		node.setLayoutY(Utility.toPixelPosY(yPos)
-				- Utility.toPixelWidth(height) / 2);
+		node.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);
+		node.setLayoutY(Util.toPPosY(yPos) - Util.toPWidth(height) / 2);
 	}
 
 	protected abstract Node createNode();
@@ -75,9 +77,46 @@ public abstract class Entity {
 
 	public void removeFromWorld() {
 		world.removeEntity(this);
-		world.getPhysics().destroyBody((Body) this.node.getUserData());
+		world.getPhysics().destroyBody((Body) this.getBody());
 		setVisible(false);
 		world = null;
+	}
+
+	public void setLayoutX(float x) {
+		node.setLayoutX(x);
+	}
+
+	public void setLayoutY(float y) {
+		node.setLayoutY(y);
+	}
+
+	public Body getBody() {
+		return (Body) getBody();
+	}
+
+	public Vec2 getPosition() {
+		return ((Body) getBody()).getPosition();
+	}
+
+	public Vec2 getPPosition() {
+		return new Vec2(Util.toPPosX(getPosition().x),
+				Util.toPPosY(getPosition().y));
+	}
+
+	public double getPWidth() {
+		return Util.toPWidth(width);
+	}
+
+	public double getPHeight() {
+		return Util.toPHeight(height);
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public float getHeight() {
+		return height;
 	}
 
 	@Override

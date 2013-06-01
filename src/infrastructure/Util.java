@@ -2,9 +2,9 @@ package infrastructure;
 
 import javafx.scene.paint.Color;
 
-public class Utility {
+public class Util {
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
-	public static float toPixelPosX(float posX) {
+	public static float toPPosX(float posX) {
 		float x = WIDTH * posX / 100.0f;
 		return x;
 	}
@@ -16,7 +16,7 @@ public class Utility {
 	}
 
 	// Convert a JBox2D y coordinate to a JavaFX pixel y coordinate
-	public static float toPixelPosY(float posY) {
+	public static float toPPosY(float posY) {
 		float y = HEIGHT - (1.0f * HEIGHT) * posY / 100.0f;
 		return y;
 	}
@@ -28,12 +28,12 @@ public class Utility {
 	}
 
 	// Convert a JBox2D width to pixel width
-	public static float toPixelWidth(float width) {
+	public static float toPWidth(float width) {
 		return WIDTH * width / 100.0f;
 	}
 
 	// Convert a JBox2D height to pixel height
-	public static float toPixelHeight(float height) {
+	public static float toPHeight(float height) {
 		return HEIGHT * height / 100.0f;
 	}
 
@@ -46,7 +46,7 @@ public class Utility {
 	}
 
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
-	public static double toPixelPosX(double posX) {
+	public static double toPPosX(double posX) {
 		double x = WIDTH * posX / 100.0;
 		return x;
 	}
@@ -58,7 +58,7 @@ public class Utility {
 	}
 
 	// Convert a JBox2D y coordinate to a JavaFX pixel y coordinate
-	public static double toPixelPosY(double posY) {
+	public static double toPPosY(double posY) {
 		double y = HEIGHT - (1.0 * HEIGHT) * posY / 100.0;
 		return y;
 	}
@@ -70,12 +70,12 @@ public class Utility {
 	}
 
 	// Convert a JBox2D width to pixel width
-	public static double toPixelWidth(double width) {
+	public static double toPWidth(double width) {
 		return WIDTH * width / 100.0;
 	}
 
 	// Convert a JBox2D height to pixel height
-	public static double toPixelHeight(double height) {
+	public static double toPHeight(double height) {
 		return HEIGHT * height / 100.0;
 	}
 

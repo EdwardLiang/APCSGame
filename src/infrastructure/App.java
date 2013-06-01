@@ -33,9 +33,8 @@ public class App extends Application {
 		primaryStage.setResizable(false);
 
 		root = new Group();
-		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
+		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
-		// game = GameWorld.parse(Parse.readFromFile("src/levels/index.txt"));
 		game = new GameWorld();
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
 		game.changeMap(game.getMaps().get(1));

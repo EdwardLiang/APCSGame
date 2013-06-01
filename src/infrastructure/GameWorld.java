@@ -1,6 +1,7 @@
 package infrastructure;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class GameWorld {
+public class GameWorld implements Serializable {
 	private LinkedList<GameMap> maps;
 	private GameMap currentMap;
 	private Entity player;
@@ -26,6 +27,14 @@ public class GameWorld {
 		camera = new Camera();
 		maps.add(currentMap);
 		currentMap.startTime();
+	}
+
+	public float getOffsetX() {
+		return camera.getOffsetX();
+	}
+
+	public float getOffsetY() {
+		return camera.getOffsetY();
 	}
 
 	public GameMap getCurrentMap() {
@@ -63,21 +72,6 @@ public class GameWorld {
 		player.addToWorld(Map);
 		currentMap.setVisible(true);
 		currentMap.startTime();
-	}
-
-	public static GameWorld parse(String raw) {
-		String[] MapList = Parse.fragment(raw);
-		GameWorld game = new GameWorld();
-		for (String a : MapList) {
-			try {
-				game.addMap(GameMap.parse(Parse.readFromFile(a)));
-			} catch (IOException e) {
-				System.out
-						.println("Error: attempted to add a Map that doesn't exist");
-				e.printStackTrace();
-			}
-		}
-		return game;
 	}
 
 	public String toString() {

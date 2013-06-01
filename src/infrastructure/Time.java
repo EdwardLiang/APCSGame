@@ -1,5 +1,7 @@
 package infrastructure;
 
+import java.io.Serializable;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,41 +14,36 @@ import org.jbox2d.dynamics.Body;
 
 import entities.Entity;
 
-public class Time {
+public class Time implements Serializable {
 	Timeline timeline;
-	GameMap world;
+	GameMap map;
 
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent t) {
-			world.getPhysics().step(1.0f / 60.0f, 8, 3);
-			world.backGround.setLayoutX(App.game.camera.getOffsetX());
-			world.backGround.setLayoutY(-world.pHeight + Utility.HEIGHT
-					+ App.game.camera.getOffsetY());
+			map.getPhysics().step(1.0f / 60.0f, 8, 3);
+			map.getBack().setLayoutX(App.game.getOffsetX());
+			map.getBack().setLayoutY(
+					(float) (-map.getPHeight() + Util.HEIGHT + App.game
+							.getOffsetY()));
 
-			for (Entity a : world.gameElements) {
-				Body body = (Body) a.node.getUserData();
+			for (Entity a : map.getElements()) {
 				if (a.node instanceof Circle) {
-					float xpos = (Utility.toPixelPosX(body.getPosition().x) + App.game.camera
-							.getOffsetX());
-					float ypos = Utility.toPixelPosY(body.getPosition().y)
-							+ App.game.camera.getOffsetY();
-					a.node.setLayoutX(xpos);
-					a.node.setLayoutY(ypos);
+					float xpos = a.getPosition().x + App.game.getOffsetX();
+					float ypos = a.getPosition().y + App.game.getOffsetY();
+					a.setLayoutX(xpos);
+					a.setLayoutY(ypos);
 				} else {
-					float xpos = Utility.toPixelPosX(body.getPosition().x)
-							+ App.game.camera.getOffsetX() - Utility.toPixelWidth(a.width)
-							/ 2;
-					float ypos = Utility.toPixelPosY(body.getPosition().y)
-							+ App.game.camera.getOffsetY() - Utility.toPixelWidth(a.height)
-							/ 2;
-					a.node.setLayoutX(xpos);
-					a.node.setLayoutY(ypos);
+					float xpos = (float) (a.getPPosition().x
+							+ App.game.getOffsetX() - a.getPWidth() / 2);
+					float ypos = (float) (a.getPPosition().y
+							+ App.game.getOffsetY() - a.getPHeight() / 2);
+					a.setLayoutX(xpos);
+					a.setLayoutY(ypos);
 				}
 			}
 		}
 	};
-
 
 	public Time(GameMap world) {
 		timeline = new Timeline();
@@ -54,13 +51,13 @@ public class Time {
 		Duration duration = Duration.seconds(1.0 / 60.0);
 		KeyFrame frame = new KeyFrame(duration, ae, null, null);
 		timeline.getKeyFrames().add(frame);
-		this.world = world;
+		this.map = world;
 	}
-	
-	public void startTime(){
+
+	public void startTime() {
 		timeline.playFromStart();
 	}
-	
+
 	public void stopTime() {
 		timeline.pause();
 	}

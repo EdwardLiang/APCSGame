@@ -1,5 +1,7 @@
 package entities;
 
+import java.io.Serializable;
+
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
@@ -7,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 //Credit: http://blog.netopyr.com/2012/03/09/creating-a-sprite-animation-with-javafx/
-public class SpriteAnimation extends Transition {
+public class SpriteAnimation extends Transition implements Serializable{
 
 	private final ImageView imageView;
 	private final int count;

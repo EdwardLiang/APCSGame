@@ -1,5 +1,6 @@
 package infrastructure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
@@ -14,26 +15,34 @@ import entities.Entity;
 import entities.Projectile;
 import entities.Wall;
 
-public class GameMap {
+public class GameMap implements Serializable {
 	private ArrayList<Entity> gameElements;
 	private BackGround back;
 	private World world;
 	private Time time;
 	private float width;
 	private float height;
-	private String title;
+	private String name;
 	private float gravityMag;
 	private String originalData;
 
-	public GameMap(BackGround back, String title, float gravityMag) {
+	public GameMap(BackGround back, String name, float gravityMag) {
 		this.world = new World(new Vec2(0.0f, -gravityMag));
 		this.gameElements = new ArrayList<Entity>();
 		this.time = new Time(this);
 		this.width = back.getWidth();
 		this.height = back.getHeight();
-		this.title = title;
+		this.name = name;
 		this.gravityMag = gravityMag;
 		this.back = back;
+	}
+
+	public ArrayList<Entity> getElements() {
+		return gameElements;
+	}
+
+	public BackGround getBack() {/* , you don't know what you're dealing with */
+		return back;
 	}
 
 	public float getWidth() {
@@ -61,7 +70,7 @@ public class GameMap {
 	}
 
 	public GameMap(BackGround back) {
-		this.title = "test";
+		this.name = "Generic";
 		this.gravityMag = 30.0f;
 		this.world = new World(new Vec2(0.0f, -30.0f));
 		this.gameElements = new ArrayList<Entity>();
@@ -80,10 +89,10 @@ public class GameMap {
 		stopAll();
 		removeAll();
 		if (originalData != null) {
-			String[] parsed = originalData.split("[\n]");
-			for (int i = 3; i < parsed.length - 1; i++) {
-				parseElements(parsed[i]).addToWorld(this);
-			}
+			// TODO
+			//
+			//
+
 		} else {
 			addCoreElements();
 		}
@@ -139,39 +148,11 @@ public class GameMap {
 		time.toggleTime();
 	}
 
-	private static Entity parseElements(String raw) {
-		String[] frags = Parse.fragment(raw);
-		String className = frags[0];
-		switch (className) {
-		case "class entities.BouncyBall":
-			return BouncyBall.parse(frags);
-		case "class entities.Creature":
-			return Creature.parse(frags);
-		case "class entities.Projectile":
-			return Projectile.parse(frags);
-		case "class entities.Wall":
-			return Wall.parse(frags);
-		default:
-			return null;
-		}
-	}
-
-	public static GameMap parse(String raw) {
-		String[] parsed = raw.split("[\n]");
-		GameMap game = new GameMap(BackGround.parse(parsed[0]), parsed[1],
-				Float.parseFloat(parsed[2]));
-		for (int i = 3; i < parsed.length - 1; i++) {
-			parseElements(parsed[i]).addToWorld(game);
-		}
-		game.originalData = game.toString();
-		return game;
-	}
-
 	@Override
 	public String toString() {
 		String result = "";
 		result += back.toString() + "\n";
-		result += title + "\n";
+		result += name + "\n";
 		result += gravityMag + "\n";
 		for (Entity a : gameElements) {
 			if (a != App.game.getPlayer())

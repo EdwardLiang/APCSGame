@@ -1,7 +1,7 @@
 package entities;
 
 import infrastructure.Parse;
-import infrastructure.Utility;
+import infrastructure.Util;
 import javafx.scene.Node;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -27,12 +27,12 @@ public class Projectile extends Entity {
 		Polygon polygon = new Polygon();
 		((Polygon) polygon).getPoints().addAll(
 				new Double[] { 0.0, 0.0,
-						(double) Utility.toPixelWidth(width - radius), 0.0,
-						(double) Utility.toPixelWidth(width),
-						(double) Utility.toPixelHeight(height) / 2,
-						(double) Utility.toPixelWidth(width - radius),
-						(double) Utility.toPixelHeight(height), 0.0,
-						(double) Utility.toPixelHeight(height) });
+						(double) Util.toPWidth(width - radius), 0.0,
+						(double) Util.toPWidth(width),
+						(double) Util.toPHeight(height) / 2,
+						(double) Util.toPWidth(width - radius),
+						(double) Util.toPHeight(height), 0.0,
+						(double) Util.toPHeight(height) });
 		polygon.setFill(Color.DARKBLUE);
 		return polygon;
 	}
@@ -68,12 +68,6 @@ public class Projectile extends Entity {
 		fix.friction = 0.3f;
 		fix.restitution = 0.0f;
 		return fix;
-	}
-
-	public static Projectile parse(String[] frag) {
-		return new Projectile(Float.parseFloat(frag[1]),
-				Float.parseFloat(frag[2]), Float.parseFloat(frag[3]),
-				Float.parseFloat(frag[4]), Float.parseFloat(frag[5]));
 	}
 
 	@Override

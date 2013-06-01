@@ -1,6 +1,6 @@
 package entities;
 
-import infrastructure.Utility;
+import infrastructure.Util;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 public class Creature extends Entity {
 	private boolean status;
-	private Image image = new Image("sprites/spritesheet.jpg");;
+	private Image image = new Image("sprites/spritesheet.jpg");
 	private int col;
 	private int count;
 	private int offsetX;
@@ -29,7 +29,7 @@ public class Creature extends Entity {
 	public Creature(float posX, float posY) {
 		// Image Credits:
 		// http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
-		super(posX, posY, Utility.toWidth(60), Utility.toHeight(60));
+		super(posX, posY, Util.toWidth(60), Util.toHeight(60));
 		this.col = 8;
 		this.count = 60;
 		this.offsetX = 0;
@@ -75,11 +75,6 @@ public class Creature extends Entity {
 		fix.friction = 0.0f;
 		fix.restitution = 0f;
 		return fix;
-	}
-
-	public static Creature parse(String[] frag) {
-		return new Creature(Float.parseFloat(frag[1]),
-				Float.parseFloat(frag[2]));
 	}
 
 	@Override
