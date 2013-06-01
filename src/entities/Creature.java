@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 public class Creature extends Entity {
 	private boolean status;
-	private Image image = new Image("sprites/spritesheet.jpg");
+	private Image image;
 	private int col;
 	private int count;
 	private int offsetX;
@@ -30,16 +30,17 @@ public class Creature extends Entity {
 		// Image Credits:
 		// http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
 		super(posX, posY, Util.toWidth(60), Util.toHeight(60));
+	}
+
+	@Override
+	protected Node createNode() {
+		this.image =  new Image("sprites/spritesheet.jpg");
 		this.col = 8;
 		this.count = 60;
 		this.offsetX = 0;
 		this.offsetY = 0;
 		this.pWidth = 60;
 		this.pHeight = 60;
-	}
-
-	@Override
-	protected Node createNode() {
 		ImageView imageView = new ImageView(image);
 		imageView
 				.setViewport(new Rectangle2D(offsetX, offsetY, pWidth, pHeight));

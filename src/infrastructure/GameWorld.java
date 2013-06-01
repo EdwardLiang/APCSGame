@@ -21,10 +21,11 @@ public class GameWorld implements Serializable {
 	public GameWorld() {
 		player = new Creature(30, 80);
 		currentMap = new GameMap(new BackGround("maps/menu.jpg"));
-		player.addToWorld(currentMap);
+		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();
 		maps.add(currentMap);
 		currentMap.startTime();
+		currentMap.setVisible(true);
 	}
 
 	public GameMap getCurrentMap() {
@@ -55,7 +56,7 @@ public class GameWorld implements Serializable {
 		App.camera.reset();
 
 		currentMap = Map;
-		player.addToWorld(Map);
+		player.addToMap(Map);
 		currentMap.setVisible(true);
 		currentMap.startTime();
 	}
@@ -63,8 +64,6 @@ public class GameWorld implements Serializable {
 	public String toString() {
 		String str = "";
 		Iterator iter = maps.iterator();
-		// skip adding menu to toString()
-		iter.next();
 		while (iter.hasNext()) {
 			str += iter.next().toString() + Parse.delim;
 		}

@@ -100,18 +100,20 @@ public class GameMap implements Serializable {
 
 	public void removeAll() {
 		for (Entity a : gameElements) {
-			a.removeFromWorld();
+			a.removeFromMap();
 		}
 	}
 
 	public void setVisible(Boolean bool) {
 		if (bool == true) {
+			back.setVisible(true);
 			for (Entity a : gameElements) {
 				a.setVisible(true);
 			}
 			App.pS.setScene(App.scene);
 			App.pS.show();
 		} else {
+			back.setVisible(false);
 			for (Entity a : gameElements) {
 				a.setVisible(false);
 			}
@@ -122,12 +124,12 @@ public class GameMap implements Serializable {
 		time.timeline.stop();
 	}
 
-	// Use Entity's addToWorld method. DO NOT DIRECTLY INVOKE THIS METHOD.
+	// Use Entity's addToMap method. DO NOT DIRECTLY INVOKE THIS METHOD.
 	public void addEntity(Entity entity) {
 		gameElements.add(entity);
 	}
 
-	// Use Entity's removeFromWorld method. DO NOT DIRECTLY CALL THIS METHOD.
+	// Use Entity's removeFromMap method. DO NOT DIRECTLY CALL THIS METHOD.
 	public void removeEntity(Entity entity) {
 		gameElements.remove(entity);
 	}
@@ -138,10 +140,10 @@ public class GameMap implements Serializable {
 				(float) height);
 		Wall top = new Wall((float) width / 2, (float) height, (float) width, 1);
 		Wall bottom = new Wall((float) width / 2, 0, (float) width, 1);
-		left.addToWorld(this);
-		right.addToWorld(this);
-		top.addToWorld(this);
-		bottom.addToWorld(this);
+		left.addToMap(this);
+		right.addToMap(this);
+		top.addToMap(this);
+		bottom.addToMap(this);
 	}
 
 	public void toggleTime() {

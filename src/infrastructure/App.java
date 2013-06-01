@@ -38,7 +38,7 @@ public class App extends Application {
 
 		game = new GameWorld();
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-		game.changeMap(game.getMaps().get(1));
+	//	game.changeMap(game.getMaps().get(1));
 
 		camera = new Camera();
 		KeyManager keyManager = new KeyManager();

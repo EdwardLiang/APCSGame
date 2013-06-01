@@ -20,27 +20,27 @@ public class BackGround implements FXJBox, Serializable {
 		view.setLayoutY(-getPHeight() + Util.HEIGHT);
 	}
 
-	public void setLayoutX(float x) {
+	public synchronized void setLayoutX(float x) {
 		view.setLayoutX(x);
 	}
 
-	public void setLayoutY(float y) {
+	public synchronized void setLayoutY(float y) {
 		view.setLayoutY(y);
 	}
 
-	public double getPWidth() {
+	public synchronized double getPWidth() {
 		return image.getWidth();
 	}
 
-	public double getPHeight() {
+	public synchronized double getPHeight() {
 		return image.getHeight();
 	}
 
-	public float getWidth() {
+	public synchronized float getWidth() {
 		return (float) Util.toWidth(image.getWidth());
 	}
 
-	public float getHeight() {
+	public synchronized float getHeight() {
 		return (float) Util.toHeight(image.getHeight());
 	}
 
@@ -57,13 +57,13 @@ public class BackGround implements FXJBox, Serializable {
 	}
 
 	@Override
-	public Vec2 getPosition() {
+	public synchronized Vec2 getPosition() {
 		return new Vec2((float) Util.toPosX(view.getLayoutX()),
 				(float) Util.toPosY(view.getLayoutY()));
 	}
 
 	@Override
-	public Vec2 getPPosition() {
+	public synchronized Vec2 getPPosition() {
 		return new Vec2((float) view.getLayoutX(), (float) view.getLayoutY());
 	}
 
