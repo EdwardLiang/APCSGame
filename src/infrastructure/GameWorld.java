@@ -13,37 +13,56 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class GameWorld {
-	public LinkedList<GameMap> maps;
-	public GameMap currentMap;
-	public Entity player;
-	public Camera camera;
+	private LinkedList<GameMap> maps;
+	private GameMap currentMap;
+	private Entity player;
+	private Camera camera;
 
 	public GameWorld() {
 		player = new Creature(30, 80);
-		currentMap = new GameMap("maps/menu.jpg");
+		currentMap = new GameMap(new BackGround("maps/menu.jpg"));
 		player.addToWorld(currentMap);
 		maps = new LinkedList<GameMap>();
 		camera = new Camera();
-		//changeMap(currentMap);
 		maps.add(currentMap);
-		currentMap.addElementsToGUI();
-		currentMap.time.startTime();
+		currentMap.startTime();
+	}
+
+	public GameMap getCurrentMap() {
+		return currentMap;
+	}
+
+	public Camera getCamera() {
+		return camera;
 	}
 
 	public void setPlayer(Entity entity) {
 		this.player = entity;
 	}
 
+	public Entity getPlayer() {
+		return player;
+	}
+
+	public LinkedList<GameMap> getMaps() {
+		return maps;
+	}
+
+	public void addMap(GameMap game) {
+		maps.add(game);
+	}
+
 	public void changeMap(GameMap Map) {
 		if (currentMap != null) {
 			currentMap.reset();
+			currentMap.setVisible(false);
 		}
+		camera.reset();
+
 		currentMap = Map;
 		player.addToWorld(Map);
-		camera.reset();
-		App.root.getChildren().removeAll(App.root.getChildren());
-		currentMap.addElementsToGUI();
-		currentMap.time.startTime();
+		currentMap.setVisible(true);
+		currentMap.startTime();
 	}
 
 	public static GameWorld parse(String raw) {
@@ -70,9 +89,5 @@ public class GameWorld {
 			str += iter.next().toString() + Parse.delim;
 		}
 		return str;
-	}
-
-	public void addMap(GameMap game) {
-		maps.add(game);
 	}
 }

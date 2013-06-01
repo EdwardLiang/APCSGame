@@ -28,23 +28,21 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		pS = primaryStage;
-
 		primaryStage.setTitle("Dreamscape");
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
 
 		root = new Group();
 		scene = new Scene(root, Utility.WIDTH, Utility.HEIGHT);
-		
-		//game = GameWorld.parse(Parse.readFromFile("src/levels/index.txt"));
-		
+
+		// game = GameWorld.parse(Parse.readFromFile("src/levels/index.txt"));
 		game = new GameWorld();
-		game.addMap(new GameMap("maps/castle.jpg"));
-		game.changeMap(game.maps.get(1));
-		
+		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
+		game.changeMap(game.getMaps().get(1));
+
 		KeyManager keyManager = new KeyManager();
 		Thread key = new Thread(keyManager.keyThread);
-		Thread cam = new Thread(game.camera);
+		Thread cam = new Thread(game.getCamera());
 		key.start();
 		cam.start();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

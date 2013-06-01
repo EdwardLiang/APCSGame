@@ -15,83 +15,101 @@ import entities.Projectile;
 import entities.Wall;
 
 public class GameMap {
-	public ArrayList<Entity> gameElements;
-	public ImageView backGround;
-	public World world;
-	public Time time;
-	public double pWidth;
-	public double pHeight;
-	public double width;
-	public double height;
-	public String title;
-	public String bacLoc;
-	public float gravityMag;
-	public String originalData;
+	private ArrayList<Entity> gameElements;
+	private BackGround back;
+	private World world;
+	private Time time;
+	private float width;
+	private float height;
+	private String title;
+	private float gravityMag;
+	private String originalData;
 
-	public GameMap(String backLoc, String title, float gravityMag) {
-		world = new World(new Vec2(0.0f, -gravityMag));
-		gameElements = new ArrayList<Entity>();
-		time = new Time(this);
-		Image back = new Image(backLoc);
-		backGround = new ImageView(back);
-		pWidth = back.getWidth();
-		pHeight = back.getHeight();
-		width = Utility.toWidth((float) pWidth);
-		height = Utility.toHeight((float) pHeight);
+	public GameMap(BackGround back, String title, float gravityMag) {
+		this.world = new World(new Vec2(0.0f, -gravityMag));
+		this.gameElements = new ArrayList<Entity>();
+		this.time = new Time(this);
+		this.width = back.getWidth();
+		this.height = back.getHeight();
 		this.title = title;
 		this.gravityMag = gravityMag;
-		this.bacLoc = backLoc;
-		backGround.setLayoutX(App.game.camera.getOffsetX());
-		backGround.setLayoutY(-pHeight + Utility.HEIGHT
-				+ App.game.camera.getOffsetY());
+		this.back = back;
 	}
 
-	public GameMap(String backLoc) {
-		this.title = "test";
-		this.bacLoc = backLoc;
-		this.gravityMag = 30.0f;
-		world = new World(new Vec2(0.0f, -30.0f));
-		gameElements = new ArrayList<Entity>();
-		time = new Time(this);
+	public float getWidth() {
+		return width;
+	}
 
-		Image back = new Image(backLoc);
-		backGround = new ImageView(back);
-		pWidth = back.getWidth();
-		pHeight = back.getHeight();
-		width = (int) Utility.toWidth(pWidth);
-		height = (int) Utility.toHeight(pHeight);
-		backGround.setLayoutX(0);
-		backGround.setLayoutY(-pHeight + Utility.HEIGHT);
+	public float getHeight() {
+		return height;
+	}
+
+	public double getPHeight() {
+		return back.getPHeight();
+	}
+
+	public double getPWidth() {
+		return back.getWidth();
+	}
+
+	public Boolean isPaused() {
+		return time.isPaused();
+	}
+
+	public void startTime() {
+		time.startTime();
+	}
+
+	public GameMap(BackGround back) {
+		this.title = "test";
+		this.gravityMag = 30.0f;
+		this.world = new World(new Vec2(0.0f, -30.0f));
+		this.gameElements = new ArrayList<Entity>();
+		this.time = new Time(this);
+		this.back = back;
+		this.width = back.getWidth();
+		this.height = back.getHeight();
 		addCoreElements();
+	}
+
+	public World getPhysics() {
+		return world;
 	}
 
 	public void reset() {
 		stopAll();
-		for (Entity a : gameElements) {
-			a.removeFromWorld();
-		}
-		
+		removeAll();
 		if (originalData != null) {
 			String[] parsed = originalData.split("[\n]");
 			for (int i = 3; i < parsed.length - 1; i++) {
 				parseElements(parsed[i]).addToWorld(this);
 			}
-		}
-		else{
+		} else {
 			addCoreElements();
 		}
 	}
 
-	public void addElementsToGUI() {
-		App.root.getChildren().add(backGround);
+	public void removeAll() {
 		for (Entity a : gameElements) {
-			App.root.getChildren().add(a.node);
+			a.removeFromWorld();
 		}
-		App.pS.setScene(App.scene);
-		App.pS.show();
 	}
 
-	public void stopAll() {
+	public void setVisible(Boolean bool) {
+		if (bool == true) {
+			for (Entity a : gameElements) {
+				a.setVisible(true);
+			}
+			App.pS.setScene(App.scene);
+			App.pS.show();
+		} else {
+			for (Entity a : gameElements) {
+				a.setVisible(false);
+			}
+		}
+	}
+
+	private void stopAll() {
 		time.timeline.stop();
 	}
 
@@ -99,6 +117,7 @@ public class GameMap {
 	public void addEntity(Entity entity) {
 		gameElements.add(entity);
 	}
+
 	// Use Entity's removeFromWorld method. DO NOT DIRECTLY CALL THIS METHOD.
 	public void removeEntity(Entity entity) {
 		gameElements.remove(entity);
@@ -114,6 +133,10 @@ public class GameMap {
 		right.addToWorld(this);
 		top.addToWorld(this);
 		bottom.addToWorld(this);
+	}
+
+	public void toggleTime() {
+		time.toggleTime();
 	}
 
 	private static Entity parseElements(String raw) {
@@ -135,7 +158,7 @@ public class GameMap {
 
 	public static GameMap parse(String raw) {
 		String[] parsed = raw.split("[\n]");
-		GameMap game = new GameMap(parsed[0], parsed[1],
+		GameMap game = new GameMap(BackGround.parse(parsed[0]), parsed[1],
 				Float.parseFloat(parsed[2]));
 		for (int i = 3; i < parsed.length - 1; i++) {
 			parseElements(parsed[i]).addToWorld(game);
@@ -147,11 +170,11 @@ public class GameMap {
 	@Override
 	public String toString() {
 		String result = "";
-		result += bacLoc + "\n";
+		result += back.toString() + "\n";
 		result += title + "\n";
 		result += gravityMag + "\n";
 		for (Entity a : gameElements) {
-			if (a != App.game.player)
+			if (a != App.game.getPlayer())
 				result += a.toString() + "\n";
 		}
 		return result;

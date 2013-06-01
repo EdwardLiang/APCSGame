@@ -14,26 +14,26 @@ import javafx.scene.Node;
 
 public abstract class Entity {
 	public Node node;
-	public float xPos;
-	public float yPos;
-	public float width;
-	public float height;
-	public BodyDef bd;
-	public FixtureDef fd;
-	public Shape ps;
+	protected float xPos;
+	protected float yPos;
+	protected float width;
+	protected float height;
+	protected BodyDef bd;
+	protected FixtureDef fd;
+	protected Shape ps;
 
 	public GameMap world;
 
 	public Entity(float posX, float posY, float width, float height) {
-		xPos = posX;
-		yPos = posY;
+		this.xPos = posX;
+		this.yPos = posY;
 		this.width = width;
 		this.height = height;
 	}
 
 	public Entity(float posX, float posY) {
-		xPos = posX;
-		yPos = posY;
+		this.xPos = posX;
+		this.yPos = posY;
 	}
 
 	protected void create() {
@@ -60,17 +60,23 @@ public abstract class Entity {
 			removeFromWorld();
 		}
 		this.world = world;
-		Body body = world.world.createBody(bd);
+		Body body = world.getPhysics().createBody(bd);
 		body.createFixture(fd);
 		node.setUserData(body);
-		App.root.getChildren().add(node);
 		world.addEntity(this);
+	}
+
+	public void setVisible(Boolean bool) {
+		if (bool == true)
+			App.root.getChildren().add(node);
+		else if (App.root.getChildren().contains(node) == true)
+			App.root.getChildren().remove(this);
 	}
 
 	public void removeFromWorld() {
 		world.removeEntity(this);
-		world.world.destroyBody((Body) this.node.getUserData());
-		App.root.getChildren().remove(this);
+		world.getPhysics().destroyBody((Body) this.node.getUserData());
+		setVisible(false);
 		world = null;
 	}
 

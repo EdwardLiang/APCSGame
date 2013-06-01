@@ -19,7 +19,7 @@ public class Time {
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent t) {
-			world.world.step(1.0f / 60.0f, 8, 3);
+			world.getPhysics().step(1.0f / 60.0f, 8, 3);
 			world.backGround.setLayoutX(App.game.camera.getOffsetX());
 			world.backGround.setLayoutY(-world.pHeight + Utility.HEIGHT
 					+ App.game.camera.getOffsetY());

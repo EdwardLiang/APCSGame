@@ -34,12 +34,13 @@ public class Camera implements Runnable {
 
 	public void run() {
 		while (true) {
-			Body playerData = (Body) App.game.player.node.getUserData();
-			if (!App.game.currentMap.time.isPaused()) {
+			Body playerData = (Body) App.game.getPlayer().node.getUserData();
+			if (!App.game.getCurrentMap().isPaused()) {
 				if (Utility.toPixelPosX(playerData.getPosition().x)
 						+ getOffsetX() > Utility.WIDTH / 2 + 20
 						&& !(-getOffsetX() + Utility.WIDTH + 1 > Utility
-								.toPixelWidth(App.game.currentMap.width))) {
+								.toPixelWidth(App.game.getCurrentMap()
+										.getWidth()))) {
 					setOffsetX(getOffsetX() - 1);
 				} else if (Utility.toPixelPosX(playerData.getPosition().x)
 						+ getOffsetX() < Utility.WIDTH / 2 - 20
@@ -53,7 +54,8 @@ public class Camera implements Runnable {
 				else if (Utility.toPixelPosY(playerData.getPosition().y)
 						+ getOffsetY() < Utility.HEIGHT / 2 - 20
 						&& !(getOffsetY() + Utility.HEIGHT + 1 > Utility
-								.toPixelHeight(App.game.currentMap.height)))
+								.toPixelHeight(App.game.getCurrentMap()
+										.getHeight())))
 					setOffsetY(getOffsetY() + 1);
 			}
 			try {
@@ -63,5 +65,4 @@ public class Camera implements Runnable {
 
 		}
 	}
-
 }

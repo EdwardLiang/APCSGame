@@ -30,12 +30,12 @@ public class Creature extends Entity {
 		// Image Credits:
 		// http://www.bit-101.com/blog/wp-content/uploads/2011/03/spritesheet.png
 		super(posX, posY, Utility.toWidth(60), Utility.toHeight(60));
-		col = 8;
-		count = 60;
-		offsetX = 0;
-		offsetY = 0;
-		pWidth = 60;
-		pHeight = 60;
+		this.col = 8;
+		this.count = 60;
+		this.offsetX = 0;
+		this.offsetY = 0;
+		this.pWidth = 60;
+		this.pHeight = 60;
 	}
 
 	@Override
