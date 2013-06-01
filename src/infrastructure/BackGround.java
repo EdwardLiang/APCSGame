@@ -20,30 +20,37 @@ public class BackGround implements FXJBox, Serializable {
 		view.setLayoutY(-getPHeight() + Util.HEIGHT);
 	}
 
+	@Override
 	public synchronized void setLayoutX(float x) {
 		view.setLayoutX(x);
 	}
 
+	@Override
 	public synchronized void setLayoutY(float y) {
 		view.setLayoutY(y);
 	}
 
+	@Override
 	public synchronized double getPWidth() {
 		return image.getWidth();
 	}
 
+	@Override
 	public synchronized double getPHeight() {
 		return image.getHeight();
 	}
 
+	@Override
 	public synchronized float getWidth() {
 		return (float) Util.toWidth(image.getWidth());
 	}
 
+	@Override
 	public synchronized float getHeight() {
 		return (float) Util.toHeight(image.getHeight());
 	}
 
+	@Override
 	public String toString() {
 		return path;
 	}

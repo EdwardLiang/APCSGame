@@ -3,16 +3,10 @@ package infrastructure;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
-import entities.BouncyBall;
-import entities.Creature;
 import entities.Entity;
-import entities.Projectile;
 import entities.Wall;
 
 public class GameMap implements Serializable {
@@ -139,11 +133,11 @@ public class GameMap implements Serializable {
 	}
 
 	public void addCoreElements() {
-		Wall left = new Wall(0, (float) height / 2, 1, (float) height);
-		Wall right = new Wall((float) width, (float) height / 2, 1,
-				(float) height);
-		Wall top = new Wall((float) width / 2, (float) height, (float) width, 1);
-		Wall bottom = new Wall((float) width / 2, 0, (float) width, 1);
+		Wall left = new Wall(0, height / 2, 1, height);
+		Wall right = new Wall(width, height / 2, 1,
+				height);
+		Wall top = new Wall(width / 2, height, width, 1);
+		Wall bottom = new Wall(width / 2, 0, width, 1);
 		left.addToMap(this);
 		right.addToMap(this);
 		top.addToMap(this);

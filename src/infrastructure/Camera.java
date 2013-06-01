@@ -34,9 +34,10 @@ public class Camera implements Runnable, Serializable {
 		this.offsetY = offsetY;
 	}
 
+	@Override
 	public void run() {
 		while (true) {
-			Body playerData = (Body) App.game.getPlayer().getBody();
+			Body playerData = App.game.getPlayer().getBody();
 			if (!App.game.getCurrentMap().isPaused()) {
 				if (Util.toPPosX(playerData.getPosition().x) + getOffsetX() > Util.WIDTH / 2 + 20
 						&& !(-getOffsetX() + Util.WIDTH + 1 > Util

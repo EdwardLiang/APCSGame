@@ -2,7 +2,6 @@ package entities;
 
 import java.io.Serializable;
 
-import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -71,6 +70,7 @@ public abstract class Entity implements FXJBox, Serializable {
 		map.addEntity(this);
 	}
 
+	@Override
 	public void setVisible(Boolean bool) {
 		if (bool == true){
 			if(App.root.getChildren().contains(node) == true){
@@ -86,15 +86,17 @@ public abstract class Entity implements FXJBox, Serializable {
 
 	public void removeFromMap() {
 		map.removeEntity(this);
-		map.getPhysics().destroyBody((Body) this.getBody());
+		map.getPhysics().destroyBody(this.getBody());
 		setVisible(false);
 		map = null;
 	}
 
+	@Override
 	public synchronized void setLayoutX(float x) {
 		node.setLayoutX(x);
 	}
 
+	@Override
 	public synchronized void setLayoutY(float y) {
 		node.setLayoutY(y);
 	}
@@ -103,27 +105,33 @@ public abstract class Entity implements FXJBox, Serializable {
 		return (Body) node.getUserData();
 	}
 
+	@Override
 	public synchronized Vec2 getPosition() {
-		return ((Body) getBody()).getPosition();
+		return getBody().getPosition();
 	}
 
+	@Override
 	public synchronized Vec2 getPPosition() {
 		return new Vec2(Util.toPPosX(getPosition().x),
 				Util.toPPosY(getPosition().y));
 	}
 
+	@Override
 	public synchronized double getPWidth() {
 		return Util.toPWidth(width);
 	}
 
+	@Override
 	public synchronized double getPHeight() {
 		return Util.toPHeight(height);
 	}
 
+	@Override
 	public synchronized float getWidth() {
 		return width;
 	}
 
+	@Override
 	public synchronized float getHeight() {
 		return height;
 	}

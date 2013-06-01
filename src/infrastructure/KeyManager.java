@@ -26,7 +26,7 @@ public class KeyManager {
 	public final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
-			Body body = (Body) App.game.getPlayer().getBody();
+			Body body = App.game.getPlayer().getBody();
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
 			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
@@ -46,7 +46,7 @@ public class KeyManager {
 		@Override
 		public void run() {
 			while (true) {
-				Body body = (Body) App.game.getPlayer().getBody();
+				Body body = App.game.getPlayer().getBody();
 				if (buffer.contains(KeyCode.W)
 						&& body.getLinearVelocity().y == 0
 						&& body.getContactList() != null) {

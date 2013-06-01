@@ -4,7 +4,6 @@ import infrastructure.Parse;
 import infrastructure.Util;
 import javafx.scene.Node;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
@@ -23,9 +22,10 @@ public class Projectile extends Entity {
 		this.radius = radius;
 	}
 
+	@Override
 	protected Node createNode() {
 		Polygon polygon = new Polygon();
-		((Polygon) polygon).getPoints().addAll(
+		polygon.getPoints().addAll(
 				new Double[] { 0.0, 0.0,
 						(double) Util.toPWidth(width - radius), 0.0,
 						(double) Util.toPWidth(width),
@@ -37,6 +37,7 @@ public class Projectile extends Entity {
 		return polygon;
 	}
 
+	@Override
 	protected Shape createShape() {
 		Vec2[] verts = new Vec2[5];
 		verts[0] = new Vec2(-(width) / 2, -height / 2); // bottom left
@@ -53,6 +54,7 @@ public class Projectile extends Entity {
 
 	}
 
+	@Override
 	protected BodyDef createBD() {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.KINEMATIC;
@@ -61,6 +63,7 @@ public class Projectile extends Entity {
 		return bodyDef;
 	}
 
+	@Override
 	protected FixtureDef createFD() {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;

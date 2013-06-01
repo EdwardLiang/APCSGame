@@ -1,7 +1,5 @@
 package infrastructure;
 
-import javafx.scene.paint.Color;
-
 public class Util {
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
 	public static float toPPosX(float posX) {

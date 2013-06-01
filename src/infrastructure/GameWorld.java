@@ -1,17 +1,11 @@
 package infrastructure;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import entities.Creature;
 import entities.Entity;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 
 public class GameWorld implements Serializable {
 	private LinkedList<GameMap> maps;
@@ -61,6 +55,7 @@ public class GameWorld implements Serializable {
 		currentMap.startTime();
 	}
 
+	@Override
 	public String toString() {
 		String str = "";
 		Iterator iter = maps.iterator();
