@@ -15,14 +15,14 @@ Entities to create:
 
 EL
 --
--FINISH ENGINE.
+-coordinate system -devmode
 -PLAYER!!!
 -doors to other levels
 -menu
--coordinate system
--revamp GameWorld
 -ladders
+-Monster
+-Floor
 AZ
 --
 -Popup boxes --> menu system
--Level parsing -->devmode, fix, vectors for projectile
+-Level parsing -->fix, vectors for projectile
