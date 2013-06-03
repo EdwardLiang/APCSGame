@@ -18,6 +18,13 @@ public class App extends Application {
 	public static Stage pS;
 
 	public static void main(String[] args) {
+		try {
+			for (double a : PathParser.localPPath("castlefloor")) {
+				System.out.println(a);
+			}
+		} catch (IOException e) {
+			System.out.println("invalid path");
+		}
 		launch(args);
 	}
 
@@ -39,7 +46,7 @@ public class App extends Application {
 		Thread cam = new Thread(camera);
 		key.start();
 		cam.start();
-		
+
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
 		game.changeMap(game.getMaps().get(1));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

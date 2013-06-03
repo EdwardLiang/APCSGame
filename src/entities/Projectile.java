@@ -47,8 +47,8 @@ public class Projectile extends Entity {
 		verts[4] = new Vec2(-(width) / 2, height / 2); // top left
 
 		PolygonShape polygon = new PolygonShape();
-		((PolygonShape) ps).set(verts, 5);
-		((PolygonShape) ps).m_centroid.setZero();
+		((PolygonShape) polygon).set(verts, 5);
+		((PolygonShape) polygon).m_centroid.setZero();
 
 		return polygon;
 
