@@ -26,7 +26,7 @@ public class StaticPathEntity extends PathEntity {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;
 		fix.density = 1.0f;
-		fix.friction = 0.3f;
+		fix.friction = 10.3f;
 		return fix;
 	}
 

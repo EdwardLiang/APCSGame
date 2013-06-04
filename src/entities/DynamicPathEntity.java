@@ -27,7 +27,7 @@ public class DynamicPathEntity extends PathEntity {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;
 		fix.density = 0.6f;
-		fix.friction = 0.3f;
+		fix.friction = 2.3f;
 		fix.restitution = 0f;
 		return fix;
 	}
