@@ -4,6 +4,7 @@ import inputManagers.DefaultKeys;
 import inputManagers.DevModeKeys;
 import inputManagers.DevMouse;
 import inputManagers.MouseManager;
+import javafx.scene.control.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -75,6 +76,20 @@ public class App extends Application {
 		scene.setOnKeyReleased(keyManager.keyRelease);
 		scene.setOnMouseClicked(mouse);
 		scene.setOnMouseMoved(mouse);
+
+        MenuBar menuBar = new MenuBar();
+ 
+        // --- Menu File
+        Menu menuFile = new Menu("File");
+        //menuFile.setOnAction(EventHandler<ActionEvent> )
+        Menu menuEdit = new Menu("Edit");
+        MenuItem devMode = new MenuItem("DevMode");
+        menuEdit.getItems().add(devMode);
+        Menu menuView = new Menu("View");
+        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+
+		((Group) scene.getRoot()).getChildren().addAll(menuBar);
+
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
