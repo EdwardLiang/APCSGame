@@ -10,6 +10,7 @@ import entities.Entity;
 import entities.Wall;
 
 public class GameMap implements Serializable {
+	private static final long serialVersionUID = 42L;
 	private ArrayList<Entity> gameElements;
 	private BackGround back;
 	private World world;
