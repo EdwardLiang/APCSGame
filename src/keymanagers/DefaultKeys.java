@@ -1,4 +1,6 @@
-package infrastructure;
+package keymanagers;
+
+import infrastructure.App;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -10,9 +12,8 @@ import javafx.scene.input.KeyEvent;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
-public class KeyManager {
-	public final Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
-	public final EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
+public class DefaultKeys extends KeyManager{
+	public EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
@@ -23,7 +24,7 @@ public class KeyManager {
 			}
 		}
 	};
-	public final EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
+	public EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			Body body = App.game.getPlayer().getBody();
@@ -42,7 +43,7 @@ public class KeyManager {
 
 	};
 
-	public final Runnable keyThread = new Runnable() {
+	public Runnable keyThread = new Runnable() {
 		@Override
 		public void run() {
 			while (true) {

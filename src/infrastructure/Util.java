@@ -1,5 +1,7 @@
 package infrastructure;
 
+import org.jbox2d.common.Vec2;
+
 public class Util {
 	// Convert a JBox2D x coordinate to a JavaFX pixel x coordinate
 	public static float toPPosX(float posX) {
@@ -90,5 +92,20 @@ public class Util {
 
 	// Inspiration/Credit from:
 	// http://thisiswhatiknowabout.blogspot.com/2011/12/jbox2d-with-javafx-write-your-first.html
+	public static Vec2[] toPoints(Vec2[] pPoints){
+		Vec2[] points = new Vec2[pPoints.length];
+		for (int a = 0; a < pPoints.length; a++) {
+			points[a] = toPoint(pPoints[a]);
+		}
+		return points;
+	}
+	public static Vec2 toPPoint(Vec2 point) {
+		return new Vec2(Util.toPPosX(point.x), Util.toPPosY(point.y));
+	}
+
+	public static Vec2 toPoint(Vec2 pPoint) {
+		return new Vec2(Util.toPosX(pPoint.x), Util.toPosY(pPoint.y));
+	}
+
 
 }

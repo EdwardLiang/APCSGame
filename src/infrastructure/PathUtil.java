@@ -18,43 +18,20 @@ import org.jbox2d.common.Vec2;
 public class PathUtil {
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
-	public static Vec2[] readInPPoints(String url) throws IOException {
-		Path path = Paths.get(url);
-		List<String> listed = Files.readAllLines(path, ENCODING);
-		String line10 = listed.get(9);
-		line10 = line10.substring(13, line10.length() - 4);
-		String[] coordPairs = line10.split("[ ]");
-		for (int a = 0; a < coordPairs.length; a++) {
-			coordPairs[a] = coordPairs[a].substring(0,
-					coordPairs[a].length() - 1);
-		}
-		Vec2[] points = new Vec2[coordPairs.length - 2];
-		for (int a = 1; a < coordPairs.length - 1; a++) {
-			String[] tupleSplit = coordPairs[a].split("[,]");
-			float x = Float.parseFloat(tupleSplit[0]);
-			float y = Float.parseFloat(tupleSplit[1]);
-			points[a - 1] = new Vec2(x, y);
-		}
-		return points;
+	public static Vec2 toLocalPoint(Vec2 world, Vec2 topLeft) {
+		return new Vec2(world.x - topLeft.x, world.y - topLeft.y);
 	}
 
-	public static Vec2[] readInPoints(String url) throws IOException {
-		Vec2[] pixelPath = readInPPoints(url);
-		Vec2[] path = new Vec2[pixelPath.length];
-		for (int a = 0; a < pixelPath.length; a++) {
-			path[a] = new Vec2(Util.toPosX(path[a].x), Util.toPosY(path[a].y));
-		}
-		return path;
+	public static Vec2 toWorldPoint(Vec2 local, Vec2 topLeft) {
+		return new Vec2(local.x + topLeft.x, local.y + topLeft.y);
 	}
 
-	public static Vec2[] readInLocal(String url) throws IOException {
-		Vec2[] pLocal = readInPLocal(url);
-		Vec2[] local = new Vec2[pLocal.length];
-		for (int a = 0; a < pLocal.length; a++) {
-			local[a] = new Vec2(Util.toPosX(pLocal[a].x),
-					Util.toPosY(pLocal[a].y));
-		}
-		return local;
+	public static Vec2 topLeft(Vec2[] world) {
+		return new Vec2(minX(world), minY(world));
+	}
+
+	public static Vec2 bottomLeft(Vec2[] world) {
+		return new Vec2(minX(world), minY(world));
 	}
 
 	public static float minX(Vec2[] world) {
@@ -93,49 +70,53 @@ public class PathUtil {
 		return maxY;
 	}
 
-	public static Vec2 topLeft(Vec2[] world) {
-		return new Vec2(minY(world), minX(world));
-	}
-
-	public static Vec2 shapeCenter(Vec2[] world) {
-		float midX = (minX(world) + maxX(world)) / 2;
-		float midY = (minY(world) + maxY(world)) / 2;
-		return new Vec2(midX, midY);
-	}
-
-	public static Vec2[] shapePoints(Vec2[] local) {
-		Vec2[] shapePoints = new Vec2[local.length];
-		Vec2 lCenter = shapeCenter(local);
-		for (int a = 0; a < local.length; a++) {
-			shapePoints[a] = new Vec2(Math.abs(lCenter.x - local[a].x),
-					Math.abs(lCenter.y - local[a].y));
+	public static Vec2[] readInPPoints(String url) throws IOException {
+		Path path = Paths.get(url);
+		List<String> listed = Files.readAllLines(path, ENCODING);
+		String line10 = listed.get(9);
+		line10 = line10.substring(13, line10.length() - 4);
+		String[] coordPairs = line10.split("[ ]");
+		for (int a = 0; a < coordPairs.length; a++) {
+			coordPairs[a] = coordPairs[a].substring(0,
+					coordPairs[a].length() - 1);
 		}
-		return shapePoints;
+		Vec2[] points = new Vec2[coordPairs.length];
+		for (int a = 0; a < coordPairs.length; a++) {
+			String[] tupleSplit = coordPairs[a].split("[,]");
+			float x = Float.parseFloat(tupleSplit[0]);
+			float y = Float.parseFloat(tupleSplit[1]);
+			points[a] = new Vec2(x, y);
+		}
+		return points;
+	}
+
+	public static Vec2[] readInPoints(String url) throws IOException {
+		Vec2[] pixelPath = readInPPoints(url);
+		Vec2[] path = new Vec2[pixelPath.length];
+		for (int a = 0; a < pixelPath.length; a++) {
+			path[a] = new Vec2(Util.toPosX(path[a].x), Util.toPosY(path[a].y));
+		}
+		return path;
 	}
 
 	public static Vec2[] readInPLocal(String url) throws IOException {
 		Vec2[] pWorldPoints = readInPPoints(url);
-		Vec2[] pLocal = worldToLocal(pWorldPoints);
+		Vec2[] pLocal = PWorldToPLocal(pWorldPoints);
 		return pLocal;
 	}
 
-	public static Vec2 toLocalPoint(Vec2 world, Vec2 topLeft) {
-		return new Vec2(world.x - topLeft.x, world.y - topLeft.y);
+	public static Vec2[] readInLocal(String url) throws IOException {
+		Vec2[] pPoints = readInPPoints(url);
+		Vec2[] points = Util.toPoints(pPoints);
+		Vec2[] local = worldToLocal(points);
+		return local;
 	}
 
-	public static Vec2 toWorldPoint(Vec2 local, Vec2 topLeft) {
-		return new Vec2(local.x + topLeft.x, local.y + topLeft.y);
+	public static Vec2[] readInFileToPLocal(String url) throws IOException {
+		return PWorldToPLocal(readInPoints(url));
 	}
 
-	public static Vec2 toPPoint(Vec2 point) {
-		return new Vec2(Util.toPPosX(point.x), Util.toPPosY(point.y));
-	}
-
-	public static Vec2 toPoint(Vec2 pPoint) {
-		return new Vec2(Util.toPosX(pPoint.x), Util.toPosY(pPoint.y));
-	}
-
-	public static Vec2[] worldToLocal(Vec2[] world) {
+	public static Vec2[] PWorldToPLocal(Vec2[] world) {
 		Vec2[] local = new Vec2[world.length];
 		Vec2 topLeft = topLeft(world);
 		for (int a = 0; a < world.length; a++) {
@@ -144,8 +125,13 @@ public class PathUtil {
 		return local;
 	}
 
-	public static Vec2[] readInFileToLocal(String url) throws IOException {
-		return worldToLocal(readInPoints(url));
+	public static Vec2[] worldToLocal(Vec2[] world) {
+		Vec2[] local = new Vec2[world.length];
+		Vec2 bottomLeft = bottomLeft(world);
+		for (int a = 0; a < world.length; a++) {
+			local[a] = toLocalPoint(world[a], bottomLeft);
+		}
+		return local;
 	}
 
 	public static Vec2[] localToWorld(Vec2[] local, Vec2 topLeft) {
@@ -165,6 +151,23 @@ public class PathUtil {
 			index += 2;
 		}
 		return doubles;
+	}
+
+	public static Vec2 shapeCenter(Vec2[] world) {
+		float midX = (minX(world) + maxX(world)) / 2;
+		float midY = (minY(world) + maxY(world)) / 2;
+		return new Vec2(midX, midY);
+	}
+
+	public static Vec2[] shapePoints(Vec2[] local) {
+		Vec2[] shapePoints = new Vec2[local.length];
+		Vec2 lCenter = shapeCenter(local);
+		for (int a = 0; a < local.length; a++) {
+			shapePoints[a] = new Vec2();
+			shapePoints[a].x = local[a].x - lCenter.x;
+			shapePoints[a].y = local[a].y - lCenter.y;
+		}
+		return shapePoints;
 	}
 
 	public static Shape makeShape(Vec2[] verts) {

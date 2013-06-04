@@ -5,10 +5,16 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.jbox2d.collision.shapes.PolygonShape;
 
 import java.io.IOException;
+
+import org.jbox2d.common.Vec2;
+
+import keymanagers.DefaultKeys;
 
 public class App extends Application {
 	public static GameWorld game;
@@ -17,8 +23,13 @@ public class App extends Application {
 	public static Scene scene;
 	public static Stage pS;
 
-	public static void main(String[] args) {
-		launch(args);
+	public static void main(String[] args) throws IOException {
+		for(Vec2 a: ((PolygonShape)PathUtil.readToShape("castlefloor")).m_vertices){
+			System.out.println(a);
+		}
+		//for(Vec2 a: PathUtil.readInPPoints("castlefloor"))
+		//	System.out.println(a);
+		//launch(args);
 	}
 
 	@Override
@@ -34,7 +45,7 @@ public class App extends Application {
 		game = new GameWorld();
 
 		camera = new Camera();
-		KeyManager keyManager = new KeyManager();
+		DefaultKeys keyManager = new DefaultKeys();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(camera);
 		key.start();

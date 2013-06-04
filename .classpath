@@ -3,6 +3,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="at.bestsolution.efxclipse.tooling.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-library/target/jbox2d-library-2.2.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
