@@ -19,8 +19,11 @@ import org.jbox2d.common.Vec2;
 public class PathUtil {
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
-	public static Vec2 toLocalPoint(Vec2 world, Vec2 topLeft) {
+	public static Vec2 PtoLocalPoint(Vec2 world, Vec2 topLeft) {
 		return new Vec2(world.x - topLeft.x, world.y - topLeft.y);
+	}
+	public static Vec2 toLocalPoint(Vec2 world, Vec2 bottomLeft){
+		return new Vec2(world.x - bottomLeft.x, world.y - bottomLeft.y);
 	}
 
 	public static Vec2 toWorldPoint(Vec2 local, Vec2 topLeft) {
@@ -102,7 +105,7 @@ public class PathUtil {
 		float maxY = 0;
 		for (int a = 0; a < world.length; a++) {
 			if (world[a].y > maxY)
-				maxY = world[a].x;
+				maxY = world[a].y;
 		}
 		return maxY;
 	}
