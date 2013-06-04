@@ -23,13 +23,13 @@ public abstract class PathEntity extends Entity{
 	}
 
 	@Override
+	//WORKING
 	protected Node createNode() {
 		return PathUtil.makeNode(localPPoints);
 	}
 
 	@Override
-	//WORKING
 	protected Shape createShape() {
-		return PathUtil.makeShape(PathUtil.PWorldToLocal(worldPPoints));
+		return PathUtil.makeShape(PathUtil.shapePoints(PathUtil.PWorldToLocal(worldPPoints)));
 	}
 }
