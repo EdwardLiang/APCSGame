@@ -1,6 +1,7 @@
 package entities;
 
 import infrastructure.PathUtil;
+import infrastructure.Util;
 import javafx.scene.Node;
 
 import org.jbox2d.collision.shapes.Shape;
@@ -12,13 +13,12 @@ public abstract class PathEntity extends Entity{
 	Vec2[] worldPPoints;
 	Vec2[] localPPoints;
 	public PathEntity(Vec2[] wp){
-		super();
 		this.worldPPoints = wp;
 		this.localPPoints = PathUtil.PWorldToPLocal(worldPPoints);
-		this.xPos = PathUtil.posX(wp);
-		this.yPos = PathUtil.posY(wp);
-		this.width = PathUtil.width(wp);
-		this.height = PathUtil.height(wp);
+		this.xPos = Util.toPosX(PathUtil.posX(wp));
+		this.yPos = Util.toPosY(PathUtil.posY(wp));
+		this.width = Util.toWidth(PathUtil.width(wp));
+		this.height = Util.toHeight(PathUtil.height(wp));
 		create();
 	}
 
@@ -28,6 +28,7 @@ public abstract class PathEntity extends Entity{
 	}
 
 	@Override
+	//WORKING
 	protected Shape createShape() {
 		return PathUtil.makeShape(PathUtil.PWorldToLocal(worldPPoints));
 	}
