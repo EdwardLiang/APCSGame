@@ -13,10 +13,14 @@ public class ShapeMaker {
 	public ArrayList<Marker> marks;
 
 	public void addMarker(float pPosX, float pPosY) {
-		marks.add(new Marker(pPosX, pPosY));
+		Marker mark = new Marker(pPosX, pPosY);
+		marks.add(mark);
+		mark.setVisible(true);
 	}
 
 	public void clearMarkers() {
+		for (Marker a : marks)
+			a.setVisible(false);
 		marks.clear();
 	}
 

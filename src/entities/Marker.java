@@ -2,6 +2,7 @@ package entities;
 
 import org.jbox2d.common.Vec2;
 
+import infrastructure.App;
 import infrastructure.Util;
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
@@ -23,6 +24,17 @@ public class Marker {
 
 	public Vec2 coord() {
 		return new Vec2(Util.toPosX(xPPos), Util.toPosY(yPPos));
+	}
+
+	public void setVisible(boolean bool) {
+		if (bool == true) {
+			if (App.root.getChildren().contains(node) == true) {
+				App.root.getChildren().remove(node);
+				App.root.getChildren().add(node);
+			} else
+				App.root.getChildren().add(node);
+		} else if (App.root.getChildren().contains(node) == true)
+			App.root.getChildren().remove(this);
 	}
 
 	private Node create() {

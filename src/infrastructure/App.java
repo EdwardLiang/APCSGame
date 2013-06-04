@@ -1,6 +1,7 @@
 package infrastructure;
 
 import inputManagers.DefaultKeys;
+import inputManagers.MouseManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -24,12 +25,7 @@ public class App extends Application {
 	public static Stage pS;
 
 	public static void main(String[] args) throws IOException {
-		for(Vec2 a: ((PolygonShape)PathUtil.readToShape("castlefloor")).m_vertices){
-			System.out.println(a);
-		}
-		//for(Vec2 a: PathUtil.readInPPoints("castlefloor"))
-		//	System.out.println(a);
-		//launch(args);
+		launch(args);
 	}
 
 	@Override
@@ -63,6 +59,7 @@ public class App extends Application {
 
 		scene.setOnKeyPressed(keyManager.keyPress);
 		scene.setOnKeyReleased(keyManager.keyRelease);
+		scene.setOnMouseClicked(new MouseManager());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
