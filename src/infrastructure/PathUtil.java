@@ -34,6 +34,42 @@ public class PathUtil {
 		return new Vec2(minX(world), minY(world));
 	}
 
+	public static float posX(String url) throws IOException {
+		Vec2[] worldPoints = readInPoints(url);
+		return shapeCenter(worldPoints).x;
+	}
+
+	public static float posY(String url) throws IOException {
+		Vec2[] worldPoints = readInPoints(url);
+		return posY(worldPoints);
+	}
+
+	public static float width(String url) throws IOException{
+		Vec2[] worldPoints = readInPoints(url);
+		return width(worldPoints);
+	}
+
+	public static float height(String url) throws IOException {
+		Vec2[] worldPoints = readInPoints(url);
+		return height(worldPoints);
+	}
+	public static float posX(Vec2[] worldPoints) {
+		return shapeCenter(worldPoints).x;
+	}
+
+	public static float posY(Vec2[] worldPoints) {
+		return shapeCenter(worldPoints).y;
+	}
+
+	public static float width(Vec2[] worldPoints){
+		return maxX(worldPoints) - minX(worldPoints);
+	}
+
+	public static float height(Vec2[] worldPoints) {
+		return maxY(worldPoints) - minY(worldPoints);
+	}
+
+
 	public static float minX(Vec2[] world) {
 		float leftX = Float.MAX_VALUE;
 		for (int a = 0; a < world.length; a++) {
@@ -114,6 +150,12 @@ public class PathUtil {
 
 	public static Vec2[] readInFileToPLocal(String url) throws IOException {
 		return PWorldToPLocal(readInPoints(url));
+	}
+	
+	public static Vec2[] PWorldToLocal(Vec2[] pPoints){
+		Vec2[] points = Util.toPoints(pPoints);
+		Vec2[] local = worldToLocal(points);
+		return local;
 	}
 
 	public static Vec2[] PWorldToPLocal(Vec2[] world) {

@@ -1,5 +1,6 @@
 package infrastructure;
 
+import inputManagers.DefaultKeys;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -14,7 +15,6 @@ import java.io.IOException;
 
 import org.jbox2d.common.Vec2;
 
-import keymanagers.DefaultKeys;
 
 public class App extends Application {
 	public static GameWorld game;

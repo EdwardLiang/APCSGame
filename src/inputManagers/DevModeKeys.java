@@ -1,4 +1,4 @@
-package keymanagers;
+package inputManagers;
 
 public class DevModeKeys{
 
