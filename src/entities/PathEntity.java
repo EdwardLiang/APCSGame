@@ -12,9 +12,14 @@ public abstract class PathEntity extends Entity{
 	Vec2[] worldPPoints;
 	Vec2[] localPPoints;
 	public PathEntity(Vec2[] wp){
-		super(PathUtil.posX(wp), PathUtil.posY(wp), PathUtil.width(wp), PathUtil.height(wp));
+		super();
 		this.worldPPoints = wp;
 		this.localPPoints = PathUtil.PWorldToPLocal(worldPPoints);
+		this.xPos = PathUtil.posX(wp);
+		this.yPos = PathUtil.posY(wp);
+		this.width = PathUtil.width(wp);
+		this.height = PathUtil.height(wp);
+		create();
 	}
 
 	@Override

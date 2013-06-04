@@ -23,8 +23,9 @@ public class ShapeMaker {
 	}
 
 	public void clearMarkers() {
-		for (Marker a : marks)
+		for(Marker a: marks){
 			a.setVisible(false);
+		}
 		marks.clear();
 	}
 
@@ -37,17 +38,17 @@ public class ShapeMaker {
 	}
 
 	public Entity generateDynamicEntity() {
-		for(Vec2 a: getLocations()){
-			System.out.println(a);
-		}
 		DynamicPathEntity en = new DynamicPathEntity(getLocations());
+		en.addToMap(App.game.getCurrentMap());
+		en.setVisible(true);
 		clearMarkers();
 		return en;
 	}
 
 	public Entity generateStaticEntity() {
-		
 		StaticPathEntity en = new StaticPathEntity(getLocations());
+		en.addToMap(App.game.getCurrentMap());
+		en.setVisible(true);
 		clearMarkers();
 		return en;
 	}

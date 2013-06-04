@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -20,6 +21,9 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import java.io.IOException;
 
 import org.jbox2d.common.Vec2;
+
+import entities.BouncyBall;
+import entities.Creature;
 
 public class App extends Application {
 	public static GameWorld game;
@@ -44,6 +48,7 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
+
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
 		shaker = new ShapeMaker();
@@ -53,6 +58,8 @@ public class App extends Application {
 		Thread cam = new Thread(camera);
 		key.start();
 		cam.start();
+		
+//		ball.setVisible(true);
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
 		game.changeMap(game.getMaps().get(1));
@@ -70,5 +77,11 @@ public class App extends Application {
 		scene.setOnMouseMoved(mouse);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		//BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
+		//Creature ball = new Creature(30,90);
+		//ball.addToMap(game.getCurrentMap());
+		//ball.setVisible(true);
+
 	}
 }

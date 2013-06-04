@@ -46,6 +46,10 @@ public abstract class Entity implements FXJBox, Serializable {
 		create();
 	}
 
+	public Entity() {
+
+	}
+
 	protected void create() {
 		node = createNode();
 		bd = createBD();
@@ -76,16 +80,14 @@ public abstract class Entity implements FXJBox, Serializable {
 
 	@Override
 	public void setVisible(Boolean bool) {
-		if (bool == true){
-			if(App.root.getChildren().contains(node) == true){
+		if (bool == true) {
+			if (App.root.getChildren().contains(node) == true) {
 				App.root.getChildren().remove(node);
 				App.root.getChildren().add(node);
-			}
-			else
+			} else
 				App.root.getChildren().add(node);
-		}
-		else if (App.root.getChildren().contains(node) == true)
-			App.root.getChildren().remove(this);
+		} else if (App.root.getChildren().contains(node) == true)
+			App.root.getChildren().remove(node);
 	}
 
 	public void removeFromMap() {

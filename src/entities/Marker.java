@@ -33,8 +33,9 @@ public class Marker {
 				App.root.getChildren().add(node);
 			} else
 				App.root.getChildren().add(node);
-		} else if (App.root.getChildren().contains(node) == true)
-			App.root.getChildren().remove(this);
+		} else if (App.root.getChildren().contains(node) == true){
+			App.root.getChildren().remove(node);
+		}
 	}
 
 	private Node create() {

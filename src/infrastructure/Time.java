@@ -27,8 +27,8 @@ public class Time implements Serializable {
 
 			for (Entity a : map.getElements()) {
 				if (a.node instanceof Circle) {
-					float xpos = a.getPosition().x + App.camera.getOffsetX();
-					float ypos = a.getPosition().y + App.camera.getOffsetY();
+					float xpos = a.getPPosition().x + App.camera.getOffsetX();
+					float ypos = a.getPPosition().y + App.camera.getOffsetY();
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
 				} else {

@@ -18,9 +18,11 @@ public class BouncyBall extends Entity {
 	private Color color;
 
 	public BouncyBall(float posX, float posY, int radius, Color color) {
-		super(posX, posY);
 		this.radius = radius;
 		this.color = color;
+		this.yPos = posX;
+		this.xPos = posY;
+		create();
 	}
 
 	@Override
@@ -35,9 +37,9 @@ public class BouncyBall extends Entity {
 
 	@Override
 	protected Node createNode() {
-		Circle ball = new Circle(radius);
-		ball.setLayoutX(Util.toPPosX(xPos));
-		ball.setLayoutY(Util.toPPosY(yPos));
+		Circle ball = new Circle();
+		ball.setRadius(radius);
+		ball.setFill(color);
 		return ball;
 	}
 

@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -229,6 +230,7 @@ public class PathUtil {
 		Polygon polygon = new Polygon();
 		Double[] doubles = vecToDouble(verts);
 		polygon.getPoints().addAll(doubles);
+		polygon.setFill(Color.BLUE);
 		return polygon;
 	}
 

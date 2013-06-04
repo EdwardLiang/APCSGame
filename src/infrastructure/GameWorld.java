@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javafx.scene.paint.Color;
+
+import entities.BouncyBall;
 import entities.Creature;
 import entities.Entity;
 
