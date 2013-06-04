@@ -2,8 +2,14 @@ package infrastructure;
 
 import java.io.Serializable;
 
+import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
 
+import entities.Entity;
+
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -73,5 +79,4 @@ public class BackGround implements FXJBox, Serializable {
 	public synchronized Vec2 getPPosition() {
 		return new Vec2((float) view.getLayoutX(), (float) view.getLayoutY());
 	}
-
 }
