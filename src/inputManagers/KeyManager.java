@@ -32,7 +32,6 @@ public abstract class KeyManager {
 			buffer.remove(t.getCode());
 			t.consume();
 		}
-
 	};
 
 	public Runnable keyThread = new Runnable() {

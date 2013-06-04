@@ -1,6 +1,8 @@
 package infrastructure;
 
 import inputManagers.DefaultKeys;
+import inputManagers.DevModeKeys;
+import inputManagers.DevMouse;
 import inputManagers.MouseManager;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -22,6 +24,7 @@ import org.jbox2d.common.Vec2;
 public class App extends Application {
 	public static GameWorld game;
 	public static Camera camera;
+	public static ShapeMaker shaker;
 	public static Group root;
 	public static Scene scene;
 	public static Stage pS;
@@ -43,8 +46,9 @@ public class App extends Application {
 		game = new GameWorld();
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
-		DefaultKeys keyManager = new DefaultKeys();
-		MouseManager mouse = new MouseManager();
+		shaker = new ShapeMaker();
+		DevModeKeys keyManager = new DevModeKeys();
+		MouseManager mouse = new DevMouse();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(camera);
 		key.start();

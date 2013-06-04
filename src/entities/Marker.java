@@ -9,21 +9,21 @@ import javafx.scene.shape.Circle;
 
 public class Marker {
 	public Node node;
-	protected float xPPos;
-	protected float yPPos;
+	protected double xPPos;
+	protected double yPPos;
 
-	public Marker(float xPPos, float yPPos) {
+	public Marker(double xPPos, double yPPos) {
 		this.xPPos = xPPos;
 		this.yPPos = yPPos;
 		node = create();
 	}
 
 	public Vec2 pCoord() {
-		return new Vec2(xPPos, yPPos);
+		return new Vec2((float)xPPos, (float)yPPos);
 	}
 
 	public Vec2 coord() {
-		return new Vec2(Util.toPosX(xPPos), Util.toPosY(yPPos));
+		return new Vec2((float)Util.toPosX(xPPos), (float)Util.toPosY(yPPos));
 	}
 
 	public void setVisible(boolean bool) {
@@ -42,5 +42,8 @@ public class Marker {
 		ball.setLayoutX(xPPos);
 		ball.setLayoutY(yPPos);
 		return ball;
+	}
+	public String toString(){
+		return pCoord().toString();
 	}
 }

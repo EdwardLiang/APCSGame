@@ -12,6 +12,10 @@ import org.jbox2d.common.Vec2;
 public class ShapeMaker {
 	public ArrayList<Marker> marks;
 
+	public ShapeMaker() {
+		marks = new ArrayList<Marker>();
+	}
+
 	public void addMarker(float pPosX, float pPosY) {
 		Marker mark = new Marker(pPosX, pPosY);
 		marks.add(mark);
@@ -33,12 +37,16 @@ public class ShapeMaker {
 	}
 
 	public Entity generateDynamicEntity() {
+		for(Vec2 a: getLocations()){
+			System.out.println(a);
+		}
 		DynamicPathEntity en = new DynamicPathEntity(getLocations());
 		clearMarkers();
 		return en;
 	}
 
 	public Entity generateStaticEntity() {
+		
 		StaticPathEntity en = new StaticPathEntity(getLocations());
 		clearMarkers();
 		return en;
