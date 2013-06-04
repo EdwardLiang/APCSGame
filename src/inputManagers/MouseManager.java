@@ -17,8 +17,8 @@ public class MouseManager implements EventHandler<MouseEvent> {
 	public void handle(MouseEvent me) {
 		if (me.getEventType() == MouseEvent.MOUSE_MOVED) {
 		} else if (me.getEventType() == MouseEvent.MOUSE_CLICKED) {
-			// System.out.println(new Vec2((float) me.getSceneX(), (float) me
-			// .getSceneY()));
+			 System.out.println(new Vec2((float) me.getSceneX(), (float) me
+			 .getSceneY()));
 		}
 	}
 }

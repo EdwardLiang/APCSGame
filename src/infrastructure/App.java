@@ -5,6 +5,7 @@ import inputManagers.MouseManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -17,7 +18,6 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import java.io.IOException;
 
 import org.jbox2d.common.Vec2;
-
 
 public class App extends Application {
 	public static GameWorld game;
@@ -41,9 +41,7 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
-		Image image = new Image("sprites/crosshair2.png");
-		
-		scene.setCursor(new ImageCursor(image, image.getWidth()/2, image.getHeight()/2));
+		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
 		DefaultKeys keyManager = new DefaultKeys();
 		MouseManager mouse = new MouseManager();
