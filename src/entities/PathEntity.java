@@ -1,5 +1,6 @@
 package entities;
 
+import infrastructure.App;
 import infrastructure.PathUtil;
 import infrastructure.Util;
 import javafx.scene.Node;
@@ -15,8 +16,8 @@ public abstract class PathEntity extends Entity{
 	public PathEntity(Vec2[] wp){
 		this.worldPPoints = wp;
 		this.localPPoints = PathUtil.PWorldToPLocal(worldPPoints);
-		this.xPos = Util.toPosX(PathUtil.posX(wp));
-		this.yPos = Util.toPosY(PathUtil.posY(wp));
+		this.xPos = Util.toPosX(PathUtil.posX(wp) - App.camera.getOffsetX());
+		this.yPos = Util.toPosY(PathUtil.posY(wp) - App.camera.getOffsetY());
 		this.width = Util.toWidth(PathUtil.width(wp));
 		this.height = Util.toHeight(PathUtil.height(wp));
 		create();
