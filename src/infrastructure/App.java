@@ -6,7 +6,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -39,9 +41,12 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
-
+		Image image = new Image("sprites/crosshair2.png");
+		
+		scene.setCursor(new ImageCursor(image, image.getWidth()/2, image.getHeight()/2));
 		camera = new Camera();
 		DefaultKeys keyManager = new DefaultKeys();
+		MouseManager mouse = new MouseManager();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(camera);
 		key.start();
@@ -59,7 +64,8 @@ public class App extends Application {
 
 		scene.setOnKeyPressed(keyManager.keyPress);
 		scene.setOnKeyReleased(keyManager.keyRelease);
-		scene.setOnMouseClicked(new MouseManager());
+		scene.setOnMouseClicked(mouse);
+		scene.setOnMouseMoved(mouse);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
