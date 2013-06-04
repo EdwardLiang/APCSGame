@@ -16,6 +16,10 @@ import infrastructure.Util;
 import javafx.scene.Node;
 
 public abstract class Entity implements FXJBox, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 42L;
 	public Node node;
 	protected float xPos;
 	protected float yPos;

@@ -80,7 +80,7 @@ public class Time implements Serializable {
 
 	// For experimental time manipulation
 	public Time(GameMap world, int a) {
-
+		
 	}
 
 }
