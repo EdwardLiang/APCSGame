@@ -7,6 +7,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
 import entities.Entity;
+import entities.Floor;
 import entities.Wall;
 
 public class GameMap implements Serializable {
@@ -138,7 +139,7 @@ public class GameMap implements Serializable {
 		Wall right = new Wall(width, height / 2, 1,
 				height);
 		Wall top = new Wall(width / 2, height, width, 1);
-		Wall bottom = new Wall(width / 2, 0, width, 1);
+		Floor bottom = new Floor(width / 2, 0, width, 17);
 		left.addToMap(this);
 		right.addToMap(this);
 		top.addToMap(this);

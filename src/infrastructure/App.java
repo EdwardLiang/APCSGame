@@ -64,6 +64,7 @@ public class App extends Application {
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
 		game.changeMap(game.getMaps().get(1));
+
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
@@ -93,10 +94,9 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-		//BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
+		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
 		//Creature ball = new Creature(30,90);
-		//ball.addToMap(game.getCurrentMap());
-		//ball.setVisible(true);
-
+		ball.addToMap(game.getCurrentMap());
+		ball.setVisible(true);
 	}
 }

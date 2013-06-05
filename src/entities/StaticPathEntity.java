@@ -13,6 +13,10 @@ public class StaticPathEntity extends PathEntity {
 		super(verts);
 	}
 
+	public StaticPathEntity() {
+		super();
+	}
+
 	@Override
 	protected BodyDef createBD() {
 		BodyDef bodyDef = new BodyDef();

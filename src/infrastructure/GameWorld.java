@@ -16,7 +16,7 @@ public class GameWorld implements Serializable {
 	private Entity player;
 
 	public GameWorld() {
-		player = new Creature(30, 80);
+		player = new Creature(10, 20);
 		currentMap = new GameMap(new BackGround("maps/menu.jpg"));
 		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();

@@ -5,6 +5,7 @@ import org.jbox2d.common.Vec2;
 import infrastructure.App;
 import infrastructure.Util;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Marker {
@@ -40,6 +41,7 @@ public class Marker {
 
 	private Node create() {
 		Circle ball = new Circle(8);
+		ball.setFill(Color.NAVY);
 		ball.setLayoutX(xPPos);
 		ball.setLayoutY(yPPos);
 		return ball;

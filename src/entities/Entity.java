@@ -147,4 +147,5 @@ public abstract class Entity implements FXJBox, Serializable {
 		return "" + this.getClass() + Parse.delim + xPos + Parse.delim + yPos
 				+ Parse.delim + width + Parse.delim + height;
 	}
+
 }
