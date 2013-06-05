@@ -11,6 +11,7 @@ import inputManagers.PixelEscapeKeys;
 import javafx.scene.control.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -18,9 +19,11 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.stage.Popup;
 import org.jbox2d.collision.shapes.PolygonShape;
 
 import java.io.IOException;
@@ -43,7 +46,7 @@ public class App extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws IOException {
+	public void start(final Stage primaryStage) throws IOException {
 		pS = primaryStage;
 		primaryStage.setTitle("Dreamscape");
 		primaryStage.setFullScreen(false);
@@ -92,8 +95,29 @@ public class App extends Application {
 		menuEdit.getItems().add(devMode);
 		Menu menuView = new Menu("View");
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+		final Popup popup = new Popup(); popup.setX(300); popup.setY(200);
+		popup.getContent().addAll(new Circle(25, 25, 50, Color.BLUE));
 
-		((Group) scene.getRoot()).getChildren().addAll(menuBar);
+		Button show = new Button("Show");
+		show.setOnAction(new EventHandler<ActionEvent>() {
+		  @Override public void handle(ActionEvent event) {
+		    popup.show(primaryStage);
+		  }
+		});
+		show.setLayoutX(160);
+		show.setLayoutY(100);
+
+		Button hide = new Button("Hide");
+		hide.setLayoutX(100);
+		hide.setLayoutY(100);
+		hide.setOnAction(new EventHandler<ActionEvent>() {
+		  @Override public void handle(ActionEvent event) {
+		    popup.hide();
+		  }
+		});
+
+		((Group) scene.getRoot()).getChildren().addAll(menuBar,show,hide);
+		
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
