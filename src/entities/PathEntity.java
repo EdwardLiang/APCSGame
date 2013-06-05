@@ -5,6 +5,7 @@ import infrastructure.PathUtil;
 import infrastructure.Util;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -31,7 +32,6 @@ public abstract class PathEntity extends Entity {
 	}
 
 	@Override
-	// WORKING
 	protected Node createNode() {
 		Node node = PathUtil.makeNode(localPPoints);
 		((Polygon) node).setFill(Color.DARKSLATEGREY);
@@ -40,7 +40,8 @@ public abstract class PathEntity extends Entity {
 
 	@Override
 	protected Shape createShape() {
-		return PathUtil.makeShape(PathUtil.shapePoints(PathUtil
-				.PWorldToLocal(worldPPoints)));
+		PolygonShape shape = (PolygonShape) PathUtil.makeShape(PathUtil
+				.shapePoints(PathUtil.PWorldToLocal(worldPPoints)));
+		return shape;
 	}
 }

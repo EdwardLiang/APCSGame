@@ -65,7 +65,7 @@ public class BouncyBall extends Entity {
 		fix.shape = ps;
 		fix.density = 0.6f;
 		fix.friction = 0.3f;
-		fix.restitution = 0f;
+		fix.restitution = 10f;
 		return fix;
 	}
 
