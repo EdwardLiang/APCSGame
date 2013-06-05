@@ -73,7 +73,7 @@ public class App extends Application {
 		// ball.setVisible(true);
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-		game.changeMap(game.getMaps().get(1));
+		//game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
