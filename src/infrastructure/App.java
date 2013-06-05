@@ -4,6 +4,7 @@ import inputManagers.DefaultKeys;
 import inputManagers.DevModeKeys;
 import inputManagers.DevMouse;
 import inputManagers.FlyingKeys;
+import inputManagers.InertialKeys;
 import inputManagers.KeyManager;
 import inputManagers.MouseManager;
 import inputManagers.PixelEscapeKeys;
