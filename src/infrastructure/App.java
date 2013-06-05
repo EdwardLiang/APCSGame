@@ -63,8 +63,8 @@ public class App extends Application {
 		Thread cam = new Thread(camera);
 		key.start();
 		cam.start();
-		
-//		ball.setVisible(true);
+
+		// ball.setVisible(true);
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
 		game.changeMap(game.getMaps().get(1));
@@ -82,24 +82,24 @@ public class App extends Application {
 		scene.setOnMouseClicked(mouse);
 		scene.setOnMouseMoved(mouse);
 
-        MenuBar menuBar = new MenuBar();
- 
-        // --- Menu File
-        Menu menuFile = new Menu("File");
-        //menuFile.setOnAction(EventHandler<ActionEvent> )
-        Menu menuEdit = new Menu("Edit");
-        MenuItem devMode = new MenuItem("DevMode");
-        menuEdit.getItems().add(devMode);
-        Menu menuView = new Menu("View");
-        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+		MenuBar menuBar = new MenuBar();
+
+		// --- Menu File
+		Menu menuFile = new Menu("File");
+		// menuFile.setOnAction(EventHandler<ActionEvent> )
+		Menu menuEdit = new Menu("Edit");
+		MenuItem devMode = new MenuItem("DevMode");
+		menuEdit.getItems().add(devMode);
+		Menu menuView = new Menu("View");
+		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
 
 		((Group) scene.getRoot()).getChildren().addAll(menuBar);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
+
 		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
-		//Creature ball = new Creature(30,90);
+		// Creature ball = new Creature(30,90);
 		ball.addToMap(game.getCurrentMap());
 		ball.setVisible(true);
 	}

@@ -40,8 +40,8 @@ public class Marker {
 	}
 
 	private Node create() {
-		Circle ball = new Circle(8);
-		ball.setFill(Color.NAVY);
+		Circle ball = new Circle(3);
+		ball.setFill(Color.DARKSLATEGREY);
 		ball.setLayoutX(xPPos);
 		ball.setLayoutY(yPPos);
 		return ball;
