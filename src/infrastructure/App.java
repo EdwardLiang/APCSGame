@@ -11,6 +11,8 @@ import inputManagers.PixelEscapeKeys;
 import javafx.scene.control.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -24,6 +26,7 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.Popup;
+import javafx.scene.text.Text;
 import org.jbox2d.collision.shapes.PolygonShape;
 
 import java.io.IOException;
@@ -89,25 +92,41 @@ public class App extends Application {
 
 		// --- Menu File
 		Menu menuFile = new Menu("File");
-		// menuFile.setOnAction(EventHandler<ActionEvent> )
+		
 		Menu menuEdit = new Menu("Edit");
 		MenuItem devMode = new MenuItem("DevMode");
 		menuEdit.getItems().add(devMode);
+		devMode.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public synchronized void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Popup pop = new Popup();
+				pop.setX(800);pop.setY(200);
+				pop.getContent().addAll(new Text(10,50,"PLEASE TELL ME HOW TO REVERSE DEVMODE"));
+				//((Group) scene.getRoot()).getChildren().addall(pop);
+				pop.show(primaryStage);
+				
+			}
+			 
+		 });
 		Menu menuView = new Menu("View");
+		MenuItem zoom = new MenuItem("Zoom");
+		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
 		final Popup popup = new Popup(); popup.setX(300); popup.setY(200);
-		popup.getContent().addAll(new Circle(25, 25, 50, Color.BLUE));
+		popup.getContent().addAll(new Circle(25, 25, 50, Color.BLUE), new Text(10,50,"Test"));
 
-		Button show = new Button("Show");
+		Button show = new Button("ShowTest");
 		show.setOnAction(new EventHandler<ActionEvent>() {
-		  @Override public void handle(ActionEvent event) {
+		  @Override public synchronized void handle(ActionEvent event) {
 		    popup.show(primaryStage);
 		  }
 		});
-		show.setLayoutX(160);
+		show.setLayoutX(220);
 		show.setLayoutY(100);
 
-		Button hide = new Button("Hide");
+		Button hide = new Button("HideTest");
 		hide.setLayoutX(100);
 		hide.setLayoutY(100);
 		hide.setOnAction(new EventHandler<ActionEvent>() {
