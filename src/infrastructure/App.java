@@ -35,6 +35,7 @@ import org.jbox2d.common.Vec2;
 
 import entities.BouncyBall;
 import entities.Creature;
+import entities.PopupText;
 
 public class App extends Application {
 	public static GameWorld game;
@@ -100,7 +101,6 @@ public class App extends Application {
 
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				Popup pop = new Popup();
 				pop.setX(800);pop.setY(200);
 				pop.getContent().addAll(new Text(10,50,"PLEASE TELL ME HOW TO REVERSE DEVMODE"));
@@ -114,28 +114,18 @@ public class App extends Application {
 		MenuItem zoom = new MenuItem("Zoom");
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-		final Popup popup = new Popup(); popup.setX(300); popup.setY(200);
-		popup.getContent().addAll(new Circle(25, 25, 50, Color.BLUE), new Text(10,50,"Test"));
-
-		Button show = new Button("ShowTest");
-		show.setOnAction(new EventHandler<ActionEvent>() {
+		final PopupText test = new PopupText(200,200,80,50,"THIS IS A TEST",primaryStage);
+		Button toggle = new Button("toggleTest");
+		toggle.setOnAction(new EventHandler<ActionEvent>() {
 		  @Override public synchronized void handle(ActionEvent event) {
-		    popup.show(primaryStage);
+		    test.toggle();
 		  }
 		});
-		show.setLayoutX(220);
-		show.setLayoutY(100);
+		toggle.setLayoutX(200);
+		toggle.setLayoutY(100);
 
-		Button hide = new Button("HideTest");
-		hide.setLayoutX(100);
-		hide.setLayoutY(100);
-		hide.setOnAction(new EventHandler<ActionEvent>() {
-		  @Override public void handle(ActionEvent event) {
-		    popup.hide();
-		  }
-		});
 
-		((Group) scene.getRoot()).getChildren().addAll(menuBar,show,hide);
+		((Group) scene.getRoot()).getChildren().addAll(menuBar,toggle);
 		
 
 		primaryStage.setScene(scene);
