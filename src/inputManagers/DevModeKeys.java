@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class DevModeKeys extends DefaultKeys {
+public class DevModeKeys extends FlyingKeys {
 	public EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
