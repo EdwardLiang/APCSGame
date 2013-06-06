@@ -46,7 +46,7 @@ public class Wall extends Entity {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;
 		fix.density = 1.0f;
-		fix.friction = 0.3f;
+		fix.friction = 1.0f;
 		return fix;
 	}
 
