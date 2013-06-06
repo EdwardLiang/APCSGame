@@ -16,14 +16,14 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class Creature extends Entity {
-	private boolean status;
-	private Image image;
-	private int col;
-	private int count;
-	private int offsetX;
-	private int offsetY;
-	private int pWidth;
-	private int pHeight;
+	protected boolean status;
+	protected Image image;
+	protected int col;
+	protected int count;
+	protected int offsetX;
+	protected int offsetY;
+	protected int pWidth;
+	protected int pHeight;
 
 	public Creature(float posX, float posY) {
 		// Image Credits:
@@ -35,7 +35,7 @@ public class Creature extends Entity {
 	protected Node createNode() {
 		this.image =  new Image("sprites/spritesheet.jpg");
 		this.col = 8;
-		this.count = 60;
+		this.count = 60; 
 		this.offsetX = 0;
 		this.offsetY = 0;
 		this.pWidth = 60;
@@ -71,7 +71,7 @@ public class Creature extends Entity {
 	protected FixtureDef createFD() {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;
-		fix.density = 0.1f;
+		fix.density = 1.0f;
 		fix.friction = 0.0f;
 		fix.restitution = 0f;
 		return fix;

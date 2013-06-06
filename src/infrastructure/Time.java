@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 import javafx.util.Duration;
 import javafx.scene.shape.Circle;
 
-import entities.Entity;
+import entities.*;
 
 public class Time implements Serializable {
 	Timeline timeline;
@@ -26,12 +26,63 @@ public class Time implements Serializable {
 							.getOffsetY()));
 
 			for (Entity a : map.getElements()) {
+				if(a instanceof Player){
+					if(a.getBody().getLinearVelocity().x == 0
+							&& ((Player)a).getStatus() != Player.Status.IDLE
+							&& a.getBody().getContactList() != null){
+						a.setVisible(false);
+						((Player) a).setStatus(Player.Status.IDLE);
+						((Player) a).changeNode();
+						a.setVisible(true);
+					}
+					else if(a.getBody().getLinearVelocity().y > 0
+							&& ((Player) a).getStatus() != Player.Status.UPWARD){
+						a.setVisible(false);
+						((Player) a).setStatus(Player.Status.UPWARD);
+						((Player) a).changeNode();
+						a.setVisible(true);
+					}
+					else if(a.getBody().getLinearVelocity().y < 0
+							&& ((Player) a).getStatus() != Player.Status.DOWNWARDS){
+						a.setVisible(false);
+						((Player) a).setStatus(Player.Status.DOWNWARDS);
+						((Player) a).changeNode();
+						a.setVisible(true);
+					}
+					else if(a.getBody().getLinearVelocity().y != 0){
+						;
+					}
+					else if(Math.abs(a.getBody().getLinearVelocity().x) > 0
+							&& ((Player) a).getStatus() != Player.Status.WALK){
+						a.setVisible(false);
+						((Player) a).setStatus(Player.Status.WALK);
+						((Player) a).changeNode();
+						a.setVisible(true);
+					}
+					if(((Player)a).getSide() == Player.Side.RIGHT && a.getBody().getLinearVelocity().x < 0)
+					{
+						a.setVisible(false);
+						((Player) a).setSide(Player.Side.LEFT);
+						((Player) a).changeNode();
+						a.setVisible(true);
+					}
+					else if(((Player)a).getSide() == Player.Side.LEFT && a.getBody().getLinearVelocity().x > 0)
+					{
+						a.setVisible(false);
+						((Player) a).setSide(Player.Side.RIGHT);
+						((Player) a).changeNode();
+						a.setVisible(true);
+					}
+
+
+				}
 				if (a.node instanceof Circle) {
 					float xpos = a.getPPosition().x + App.camera.getOffsetX();
 					float ypos = a.getPPosition().y + App.camera.getOffsetY();
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
-				} else {
+				}
+				else {
 					float xpos = (float) (a.getPPosition().x
 							+ App.camera.getOffsetX() - a.getPWidth() / 2);
 					float ypos = (float) (a.getPPosition().y

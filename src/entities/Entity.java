@@ -28,6 +28,7 @@ public abstract class Entity implements FXJBox, Serializable {
 	protected BodyDef bd;
 	protected FixtureDef fd;
 	protected Shape ps;
+	protected Body body;
 
 	public GameMap map;
 
@@ -72,7 +73,7 @@ public abstract class Entity implements FXJBox, Serializable {
 			removeFromMap();
 		}
 		this.map = map;
-		Body body = map.getPhysics().createBody(bd);
+		body = map.getPhysics().createBody(bd);
 		body.createFixture(fd);
 		node.setUserData(body);
 		map.addEntity(this);

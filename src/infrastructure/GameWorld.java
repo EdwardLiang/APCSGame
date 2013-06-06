@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import entities.BouncyBall;
 import entities.Creature;
 import entities.Entity;
+import entities.Player;
 
 public class GameWorld implements Serializable {
 	private LinkedList<GameMap> maps;
@@ -16,7 +17,7 @@ public class GameWorld implements Serializable {
 	private Entity player;
 
 	public GameWorld() {
-		player = new Creature(10, 20);
+		player = new Player(10, 20);
 		currentMap = new GameMap(new BackGround("maps/menu.jpg"));
 		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();

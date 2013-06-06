@@ -35,7 +35,6 @@ import org.jbox2d.common.Vec2;
 
 import entities.BouncyBall;
 import entities.Creature;
-import entities.PopupText;
 
 public class App extends Application {
 	public static GameWorld game;
@@ -110,22 +109,22 @@ public class App extends Application {
 			}
 			 
 		 });
-		Menu menuView = new Menu("View");
+	/*	Menu menuView = new Menu("View");
 		MenuItem zoom = new MenuItem("Zoom");
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-		final PopupText test = new PopupText(200,200,80,50,"THIS IS A TEST",primaryStage);
+	//	final PopupText test = new PopupText(200,200,80,50,"THIS IS A TEST",primaryStage);
 		Button toggle = new Button("toggleTest");
 		toggle.setOnAction(new EventHandler<ActionEvent>() {
 		  @Override public synchronized void handle(ActionEvent event) {
-		    test.toggle();
+	//	    test.toggle();
 		  }
 		});
 		toggle.setLayoutX(200);
-		toggle.setLayoutY(100);
+		toggle.setLayoutY(100);*/
 
 
-		((Group) scene.getRoot()).getChildren().addAll(menuBar,toggle);
+	//	((Group) scene.getRoot()).getChildren().addAll(menuBar,toggle);
 		
 
 		primaryStage.setScene(scene);
