@@ -58,7 +58,7 @@ public class DefaultKeys extends KeyManager{
 				if (buffer.contains(KeyCode.W)
 						&& body.getLinearVelocity().y == 0
 						&& body.getContactList() != null) {
-					Vec2 impulse = new Vec2(0, 200.0f);
+					Vec2 impulse = new Vec2(0, 500.0f);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
 					body.applyLinearImpulse(impulse, point);
 				}
