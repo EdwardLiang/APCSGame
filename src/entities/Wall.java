@@ -4,6 +4,7 @@ import infrastructure.Util;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
@@ -29,7 +30,15 @@ public class Wall extends Entity {
 	@Override
 	protected Shape createShape() {
 		PolygonShape polygon = new PolygonShape();
-		polygon.setAsBox(width / 2, height / 2);
+		Vec2[] verts = new Vec2[5];
+		verts[0] = new Vec2(-(width) / 2, -height / 2); // bottom left
+		verts[1] = new Vec2((width) / 2, -height / 2); // bottom right
+		verts[2] = new Vec2(1 + (width) / 2, height / 2); // top right
+		verts[3] = new Vec2(-1 -(width) / 2, height / 2); // top left
+
+		((PolygonShape) polygon).set(verts, 4);
+		((PolygonShape) polygon).m_centroid.setZero();
+
 		return polygon;
 	}
 

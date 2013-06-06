@@ -1,5 +1,6 @@
 package infrastructure;
 import inputManagers.DefaultKeys;
+import inputManagers.CreationKeys;
 import inputManagers.DevModeKeys;
 import inputManagers.DevMouse;
 import inputManagers.FlyingKeys;
@@ -63,7 +64,7 @@ public class App extends Application {
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
 		shaker = new ShapeMaker();
-		DevModeKeys keyManager = new DevModeKeys();
+		CreationKeys keyManager = new CreationKeys();
 		MouseManager mouse = new DevMouse();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(camera);
@@ -73,7 +74,7 @@ public class App extends Application {
 		// ball.setVisible(true);
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-		game.changeMap(game.getMaps().get(1));
+		//game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
