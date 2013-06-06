@@ -12,6 +12,13 @@ public class DevModeKeys extends FlyingKeys {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
+			if(t.getCode() == KeyCode.N){
+				if(App.game.getIsAtDoor()){
+					int index = App.game.getMaps().indexOf(App.game.getCurrentMap());
+					if(index + 1 < App.game.getMaps().size())
+						App.game.changeMap(App.game.getMaps().get(index+1));
+				}
+			}
 			if (t.getCode() == KeyCode.P) {
 				App.game.getCurrentMap().toggleTime();
 			} else if (t.getCode() == KeyCode.DIGIT1) {

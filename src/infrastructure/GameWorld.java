@@ -15,12 +15,14 @@ public class GameWorld implements Serializable {
 	private LinkedList<GameMap> maps;
 	private GameMap currentMap;
 	private Entity player;
+	private Boolean isAtDoor;
 
 	public GameWorld() {
 		player = new Player(10, 20);
 		currentMap = new GameMap(new BackGround("maps/menu.jpg"));
 		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();
+		isAtDoor = false;
 		maps.add(currentMap);
 		currentMap.startTime();
 		currentMap.setVisible(true);
@@ -67,5 +69,12 @@ public class GameWorld implements Serializable {
 			str += iter.next().toString() + Parse.delim;
 		}
 		return str;
+	}
+
+	public void isAtDoor(boolean b) {
+		this.isAtDoor = b;
+	}
+	public boolean getIsAtDoor(){
+		return isAtDoor;
 	}
 }

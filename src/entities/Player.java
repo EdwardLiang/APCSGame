@@ -21,27 +21,33 @@ public class Player extends Creature {
 		this.side = Side.RIGHT;
 		// TODO Auto-generated constructor stub
 	}
-	public Side getSide(){
+
+	public Side getSide() {
 		return side;
 	}
-	public Status getStatus(){
+
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(Status status){
+
+	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public void setSide(Side side){
+
+	public void setSide(Side side) {
 		this.side = side;
 	}
-	
-	public enum Status{
-		IDLE,WALK,CLIMBING,DOWNWARDS,UPWARD,DEAD;
+
+	public enum Status {
+		IDLE, WALK, CLIMBING, DOWNWARDS, UPWARD, DEAD;
 	}
-	public enum Side{
-		RIGHT,LEFT;
+
+	public enum Side {
+		RIGHT, LEFT;
 	}
-	public void updatePic(){
-		switch(this.status){
+
+	public void updatePic() {
+		switch (this.status) {
 		case IDLE:
 			this.image = new Image("sprites/tim-idle.gif");
 			break;
@@ -68,12 +74,13 @@ public class Player extends Creature {
 		imageView = new ImageView(image);
 		return imageView;
 	}
-	public void changeNode(){
+
+	public void changeNode() {
 		updatePic();
 		imageView = new ImageView(image);
 		imageView.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);
 		imageView.setLayoutY(Util.toPPosY(yPos) - Util.toPWidth(height) / 2);
-		if(side == Side.LEFT)
+		if (side == Side.LEFT)
 			imageView.setScaleX(-1);
 		imageView.setUserData(body);
 		this.node = imageView;

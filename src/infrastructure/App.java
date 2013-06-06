@@ -35,6 +35,7 @@ import org.jbox2d.common.Vec2;
 
 import entities.BouncyBall;
 import entities.Creature;
+import entities.Door;
 
 public class App extends Application {
 	public static GameWorld game;

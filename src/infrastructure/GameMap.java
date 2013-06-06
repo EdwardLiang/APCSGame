@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
+import entities.Door;
 import entities.Entity;
 import entities.Floor;
 import entities.Wall;
@@ -21,6 +22,7 @@ public class GameMap implements Serializable {
 	private String name;
 	private float gravityMag;
 	private String originalData;
+	private Door door;
 
 	public GameMap(BackGround back, String name, float gravityMag) {
 		this.world = new World(new Vec2(0.0f, -gravityMag));
@@ -31,6 +33,7 @@ public class GameMap implements Serializable {
 		this.name = name;
 		this.gravityMag = gravityMag;
 		this.back = back;
+		this.door = new Door(Util.toPosX(20),Util.toPosY(20));
 	}
 
 	public ArrayList<Entity> getElements() {
@@ -39,6 +42,10 @@ public class GameMap implements Serializable {
 
 	public BackGround getBack() {/* , you don't know what you're dealing with */
 		return back;
+	}
+	
+	public Door getDoor(){
+		return door;
 	}
 
 	public float getWidth() {
@@ -79,6 +86,7 @@ public class GameMap implements Serializable {
 		this.width = back.getWidth();
 		this.height = back.getHeight();
 		addCoreElements();
+		this.door = new Door(Util.toPPosX(20),Util.toPPosY(13));
 	}
 
 	public World getPhysics() {
@@ -110,6 +118,7 @@ public class GameMap implements Serializable {
 			for (Entity a : gameElements) {
 				a.setVisible(true);
 			}
+			door.setVisible(true);
 			App.pS.setScene(App.scene);
 			App.pS.show();
 		} else {
@@ -117,6 +126,7 @@ public class GameMap implements Serializable {
 			for (Entity a : gameElements) {
 				a.setVisible(false);
 			}
+			door.setVisible(false);
 		}
 	}
 

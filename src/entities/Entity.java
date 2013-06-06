@@ -6,6 +6,7 @@ import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
 import infrastructure.App;
@@ -29,6 +30,7 @@ public abstract class Entity implements FXJBox, Serializable {
 	protected FixtureDef fd;
 	protected Shape ps;
 	protected Body body;
+	protected Fixture fixture;
 
 	public GameMap map;
 
@@ -74,7 +76,7 @@ public abstract class Entity implements FXJBox, Serializable {
 		}
 		this.map = map;
 		body = map.getPhysics().createBody(bd);
-		body.createFixture(fd);
+		fixture = body.createFixture(fd);
 		node.setUserData(body);
 		map.addEntity(this);
 	}
