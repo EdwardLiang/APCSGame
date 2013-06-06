@@ -1,4 +1,5 @@
 package infrastructure;
+
 import inputManagers.DefaultKeys;
 import inputManagers.DevModeKeys;
 import inputManagers.DevMouse;
@@ -35,7 +36,8 @@ import org.jbox2d.common.Vec2;
 import entities.BouncyBall;
 import entities.Creature;
 import entities.Entity;
-import entities.PopupText;
+import entities.PopupText;
+
 public class App extends Application {
 	public static GameWorld game;
 	public static Camera camera;
@@ -73,7 +75,7 @@ public class App extends Application {
 		// ball.setVisible(true);
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-		game.changeMap(game.getMaps().get(1));
+		//game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -100,9 +102,7 @@ public class App extends Application {
 
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				(new PopupText(800, 200, 350, 50,
-						"PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",
-						primaryStage)).toggle();
+				(new PopupText("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",primaryStage)).toggle();
 
 			}
 
