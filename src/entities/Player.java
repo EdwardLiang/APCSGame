@@ -75,7 +75,7 @@ public class Player extends Creature {
 		imageView.setLayoutY(Util.toPPosY(yPos) - Util.toPWidth(height) / 2);
 		if(side == Side.LEFT)
 			imageView.setScaleX(-1);
-		imageView.setUserData(body);
+		imageView.setUserData(getBody());
 		this.node = imageView;
 	}
 }

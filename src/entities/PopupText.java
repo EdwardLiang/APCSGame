@@ -20,7 +20,6 @@ public class PopupText {
 	private Popup window;
 	private Boolean isVisible;
 	private Rectangle r;
-	private Text text;
 
 	public PopupText(double xPPos, double yPPos, int width, int height,
 			String message, Stage stage) {
@@ -34,10 +33,24 @@ public class PopupText {
 		window = new Popup();
 		window.setX(xPPos);
 		window.setY(yPPos);
-		text = new Text(xPPos,yPPos, message);
 		r = create();
-		window.getContent().addAll(text);
+		window.getContent().addAll(r, new Text(xPPos-width/2,yPPos, message));
 
+	}
+	public PopupText(String message, Stage stage)
+	{
+		this.xPPos = 700;
+		this.yPPos = 200;
+		this.message = message;
+		this.width = 500;
+		this.height = 200;
+		this.stage = stage;
+		isVisible = false;
+		window = new Popup();
+		window.setX(xPPos);
+		window.setY(yPPos);
+		r = create();
+		window.getContent().addAll(r, new Text(xPPos-width/2,yPPos-width/2, message));
 	}
 
 	public void toggle() {

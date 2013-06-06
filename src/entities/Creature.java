@@ -17,7 +17,7 @@ import javafx.util.Duration;
 
 public class Creature extends Entity {
 	private boolean status;
-	private Image image;
+	protected Image image;
 	private int col;
 	private int count;
 	private int offsetX;

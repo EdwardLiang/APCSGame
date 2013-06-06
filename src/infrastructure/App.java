@@ -101,7 +101,9 @@ public class App extends Application {
 
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				(new PopupText(800,200,350,50,"PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",primaryStage)).toggle();
+				(new PopupText(800, 200, 350, 50,
+						"PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",
+						primaryStage)).toggle();
 
 			}
 
@@ -110,8 +112,7 @@ public class App extends Application {
 		MenuItem zoom = new MenuItem("Zoom");
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-		final PopupText test = new PopupText(200, 200, 80, 50,
-				"THIS IS A TEST", primaryStage);
+		final PopupText test = new PopupText("THIS IS A TEST", primaryStage);
 		Button toggle = new Button("toggleTest");
 		toggle.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
