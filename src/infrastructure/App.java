@@ -34,6 +34,7 @@ import org.jbox2d.common.Vec2;
 
 import entities.BouncyBall;
 import entities.Creature;
+import entities.Entity;
 import entities.PopupText;
 public class App extends Application {
 	public static GameWorld game;
@@ -72,7 +73,7 @@ public class App extends Application {
 		// ball.setVisible(true);
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-		// game.changeMap(game.getMaps().get(1));
+		game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override

@@ -77,7 +77,6 @@ public abstract class Entity implements FXJBox, Serializable {
 		this.map = map;
 		body = map.getPhysics().createBody(bd);
 		fixture = body.createFixture(fd);
-		Body body = map.getPhysics().createBody(bd);
 		body.createFixture(fd);
 		node.setUserData(body);
 		map.addEntity(this);

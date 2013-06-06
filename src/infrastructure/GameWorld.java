@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.jbox2d.dynamics.Fixture;
+
 import javafx.scene.paint.Color;
 
 import entities.BouncyBall;
