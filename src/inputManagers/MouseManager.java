@@ -21,5 +21,6 @@ public class MouseManager implements EventHandler<MouseEvent> {
 			App.shaker
 					.addMarker((float) me.getSceneX(), (float) me.getSceneY());
 		}
+		//else if(me.getEventType().equals(MouseEvent.))
 	}
 }
