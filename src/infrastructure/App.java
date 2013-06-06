@@ -74,7 +74,7 @@ public class App extends Application {
 		// ball.setVisible(true);
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-		//game.changeMap(game.getMaps().get(1));
+		// game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -93,40 +93,36 @@ public class App extends Application {
 
 		// --- Menu File
 		Menu menuFile = new Menu("File");
-		
+
 		Menu menuEdit = new Menu("Edit");
 		MenuItem devMode = new MenuItem("DevMode");
 		menuEdit.getItems().add(devMode);
-		devMode.setOnAction(new EventHandler<ActionEvent>(){
+		devMode.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				Popup pop = new Popup();
-				pop.setX(800);pop.setY(200);
-				pop.getContent().addAll(new Text(10,50,"PLEASE TELL ME HOW TO REVERSE DEVMODE"));
-				//((Group) scene.getRoot()).getChildren().addall(pop);
-				pop.show(primaryStage);
-				
+				(new PopupText(800,200,350,50,"PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",primaryStage)).toggle();
+
 			}
-			 
-		 });
+
+		});
 		Menu menuView = new Menu("View");
 		MenuItem zoom = new MenuItem("Zoom");
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-		final PopupText test = new PopupText(200,200,80,50,"THIS IS A TEST",primaryStage);
+		final PopupText test = new PopupText(200, 200, 80, 50,
+				"THIS IS A TEST", primaryStage);
 		Button toggle = new Button("toggleTest");
 		toggle.setOnAction(new EventHandler<ActionEvent>() {
-		  @Override public synchronized void handle(ActionEvent event) {
-		    test.toggle();
-		  }
+			@Override
+			public synchronized void handle(ActionEvent event) {
+				test.toggle();
+			}
 		});
 		toggle.setLayoutX(200);
 		toggle.setLayoutY(100);
 
-
-		((Group) scene.getRoot()).getChildren().addAll(menuBar,toggle);
-		
+		((Group) scene.getRoot()).getChildren().addAll(menuBar, toggle);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
