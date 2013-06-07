@@ -1,7 +1,9 @@
 package infrastructure;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
@@ -196,7 +198,7 @@ public class GameMap implements Serializable {
 		}
 	}
 
-	public static GameMap parse(String raw, String loc) {
+	public static GameMap parse(String raw, File loc) {
 		String[] parsed = raw.split("[\n]");
 		GameMap game = new GameMap(BackGround.parse(parsed[0]),
 				Float.parseFloat(parsed[1]), Float.parseFloat(parsed[2]),
@@ -205,7 +207,7 @@ public class GameMap implements Serializable {
 		for (int i = 6; i < parsed.length; i++) {
 			parseElements(parsed[i]).addToMap(game);
 		}
-		game.setOriginalDataLoc(loc);
+		game.setOriginalDataLoc(loc.getPath());
 		return game;
 	}
 

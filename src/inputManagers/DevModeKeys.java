@@ -28,8 +28,8 @@ public class DevModeKeys extends FlyingKeys {
 			}
 			if (t.getCode() == KeyCode.U) {
 				System.out.println(App.game.getCurrentMap());
-				System.out.println(GameMap.parse(App.game.getCurrentMap()
-						.toString(), "asdf"));
+//				System.out.println(GameMap.parse(App.game.getCurrentMap()
+//						.toString(), "asdf"));
 			}
 			if (t.getCode() == KeyCode.P) {
 				App.game.getCurrentMap().toggleTime();

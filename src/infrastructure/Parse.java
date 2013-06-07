@@ -34,8 +34,8 @@ public class Parse {
 		return result;
 	}
 
-	public static String readFromFile(Path path) throws IOException {
-		List<String> listed = Files.readAllLines(path, ENCODING);
+	public static String readFromFile(File file) throws IOException {
+		List<String> listed = Files.readAllLines(file.toPath(), ENCODING);
 		String result = "";
 		for (String str : listed)
 			result += str + "\n";

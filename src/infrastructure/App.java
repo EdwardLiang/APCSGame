@@ -35,6 +35,7 @@ import org.jbox2d.collision.shapes.PolygonShape;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -61,9 +62,13 @@ public class App extends Application {
 	public static Thread key;
 	public static Thread cam;
 
-	protected static final List<String> musicList = Arrays.asList(new String[] {
+	public static final List<String> musicList = Arrays.asList(new String[] {
 			"src/audio/ZombieTheme.mp3", "src/audio/Melancholy.mp3",
 			"src/audio/Mountain.m4a", "src/audio/Mysterious.mp3" });
+	public static final List<String> levelList = Arrays.asList(new String[] {
+			"src/levels/menu.txt", "src/levels/1-1.txt", "src/levels/1-2.txt",
+			"src/levels/1-3.txt", "src/levels/1-4.txt", "src/levels/1-7.txt",
+			"src/levels/2-2.txt" });
 
 	public static void main(String[] args) throws IOException {
 		launch(args);
@@ -96,35 +101,43 @@ public class App extends Application {
 		// game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 1350, 280,
 		// 36,
 		// 49, 30.0f));
-		game.addMap(GameMap.parse(Parse.readFromFile("1-1.txt"), "1-1.txt"));
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(1)),
+				getLevelForIndex(1)));
 		// game.addMap(new GameMap(new BackGround("maps/1-2.jpg"), 20, 280, 36,
 		// 49, 30.0f));
-		game.addMap(GameMap.parse(Parse.readFromFile("1-2.txt"), "1-2.txt"));
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(2)),
+				getLevelForIndex(2)));
 		// game.addMap(new GameMap(new BackGround("maps/1-3.jpg"), 1200, 270,
 		// 36,
 		// 49, 30.0f));
-		game.addMap(GameMap.parse(Parse.readFromFile("1-3.txt"), "1-3.txt"));
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(3)),
+				getLevelForIndex(3)));
 		// game.addMap(new GameMap(new BackGround("maps/1-4.png"), 900, 100, 36,
 		// 49, 0));
-		game.addMap(GameMap.parse(Parse.readFromFile("1-4.txt"), "1-4.txt"));
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(4)),
+				getLevelForIndex(4)));
 		// game.addMap(new GameMap(new BackGround("maps/1-4.png"), 900, 100, 36,
 		// 49, 0));
-		game.addMap(GameMap.parse(Parse.readFromFile("1-7.txt"), "1-7.txt"));
-//		game.addMap(new GameMap(new BackGround("maps/1-7.jpg"), 1200, 237, 10,
-//				49, 30.0f));
-//		game.getMaps().get(5).addCoreElements();
-//		for (int a = 0; a < 210; a += 10) {
-//			BouncyBall bouncy = new BouncyBall(a, 90, 8, Color.BLUE);
-//			bouncy.addToMap(game.getMaps().get(5));
-//		}
-//		for (int a = 0; a < 311; a += 5) {
-//			BouncyBall bouncy = new BouncyBall(30, a, 8, Color.WHITE);
-//			bouncy.addToMap(game.getMaps().get(5));
-//		}
-		 //game.addMap(new GameMap(new BackGround("maps/2-2.jpg"), 1150, 100, 36,
-					 //49, 30));
-		//game.getMaps().get(6).addCoreElements();
-		game.addMap(GameMap.parse(Parse.readFromFile("2-2.txt"), "2-2.txt"));
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(5)),
+				getLevelForIndex(5)));
+		// game.addMap(new GameMap(new BackGround("maps/1-7.jpg"), 1200, 237,
+		// 10,
+		// 49, 30.0f));
+		// game.getMaps().get(5).addCoreElements();
+		// for (int a = 0; a < 210; a += 10) {
+		// BouncyBall bouncy = new BouncyBall(a, 90, 8, Color.BLUE);
+		// bouncy.addToMap(game.getMaps().get(5));
+		// }
+		// for (int a = 0; a < 311; a += 5) {
+		// BouncyBall bouncy = new BouncyBall(30, a, 8, Color.WHITE);
+		// bouncy.addToMap(game.getMaps().get(5));
+		// }
+		// game.addMap(new GameMap(new BackGround("maps/2-2.jpg"), 1150, 100,
+		// 36,
+		// 49, 30));
+		// game.getMaps().get(6).addCoreElements();
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(6)),
+				getLevelForIndex(6)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
@@ -144,7 +157,7 @@ public class App extends Application {
 		Menu menuFile = new Menu("File");
 		MenuItem save = new MenuItem("Save Map");
 		MenuItem reset = new MenuItem("Reset Level");
-		reset.setOnAction(new EventHandler<ActionEvent>(){
+		reset.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -157,7 +170,7 @@ public class App extends Application {
 				}
 			}
 		});
-		menuFile.getItems().addAll(save,reset);
+		menuFile.getItems().addAll(save, reset);
 
 		Menu menuEdit = new Menu("Edit");
 		MenuItem devMode = new MenuItem("DevMode");
@@ -197,8 +210,8 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		game.changeMap(game.getMaps().get(1));
-//		game.getCurrentMap().addCoreElements();
-		App.game.changeMap(App.game.getMaps().get(6));
+		game.getCurrentMap().addCoreElements();
+		// App.game.changeMap(App.game.getMaps().get(6));
 
 	}
 
@@ -222,5 +235,9 @@ public class App extends Application {
 			});
 			mediaView.setMediaPlayer(mediaPlayer);
 		}
+	}
+
+	public static File getLevelForIndex(int index) {
+		return (new File(levelList.get(index)));
 	}
 }
