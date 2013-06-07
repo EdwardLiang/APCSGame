@@ -15,44 +15,7 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-//public class EdwardPopup {
-//	protected Rectangle rect;
-//	protected double xPPos, yPPos, width, height;
-//	protected String message;
-//	protected Stage s;
-//	protected Text t;
-//	protected boolean isOn;
-//
-//	public EdwardPopup(Stage s, String message) {
-//		this.s = s;
-//		this.message = message;
-//		this.xPPos = 50;
-//		this.yPPos = 150;
-//		this.width = 500;
-//		this.height = 300;
-//		isOn = false;
-//		rect = create();
-//		t = new Text(xPPos + 10, xPPos, message);
-//		t.wrappingWidthProperty().bind(rect.widthProperty().multiply(0.9));
-//		t.xProperty().bind(rect.xProperty().add(rect.widthProperty().doubleValue()-(t.boundsInLocalProperty().getValue().getWidth()/2)));
-//		t.yProperty().bind(rect.yProperty().add(rect.heightProperty().divide(2)));
-//		t.setTextAlignment(TextAlignment.CENTER);
-//		t.setTextOrigin(VPos.CENTER);
-//	}
-//
-//	
-//
-//	public Rectangle create() {
-//		Rectangle r = new Rectangle(width, height, Color.WHITESMOKE);
-//		r.setWidth(width);
-//		r.setHeight(height);
-//		r.setLayoutX(xPPos);
-//		r.setLayoutY(yPPos);
-//
-//		return r;
-//	}
-//
-//}
+
 public class EdwardPopup {
 	public enum Box {
 		YES, NO;
@@ -77,7 +40,8 @@ public class EdwardPopup {
 		this.rectangle = new Rectangle(width, height);
 //		rectangle.setLayoutX(xPPos);
 //		rectangle.setLayoutY(yPPos);
-		rectangle.setFill(Color.WHITESMOKE);
+		rectangle.setFill(Color.TRANSPARENT);
+		text.setFont(Font.font("Georgia", 25));
 
 		this.clip = new Rectangle(width, height);
 		text.setClip(clip);
