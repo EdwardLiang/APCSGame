@@ -61,8 +61,8 @@ public class GameWorld implements Serializable {
 		App.camera.reset();
 		player.addToMap(Map);
 		currentMap.setVisible(true);
-		App.root.getChildren().removeAll(App.menuBar, App.toggle);
-		App.root.getChildren().addAll(App.menuBar, App.toggle);
+		App.root.getChildren().removeAll(App.menuBar);
+		App.root.getChildren().addAll(App.menuBar);
 		currentMap.startTime();
 	}
 

@@ -48,7 +48,6 @@ public class App extends Application {
 	public static Scene scene;
 	public static Stage pS;
 	public static MenuBar menuBar;
-	public static Button toggle;
 
 	public static void main(String[] args) throws IOException {
 		launch(args);
@@ -111,7 +110,7 @@ public class App extends Application {
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
 
-		((Group) scene.getRoot()).getChildren().addAll(menuBar, toggle);
+		((Group) scene.getRoot()).getChildren().addAll(menuBar);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
