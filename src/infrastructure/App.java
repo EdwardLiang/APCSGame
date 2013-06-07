@@ -47,6 +47,8 @@ public class App extends Application {
 	public static Group root;
 	public static Scene scene;
 	public static Stage pS;
+	public static MenuBar menuBar;
+	public static Button toggle;
 
 	public static void main(String[] args) throws IOException {
 		launch(args);
@@ -96,7 +98,7 @@ public class App extends Application {
 		scene.setOnMouseClicked(mouse);
 		scene.setOnMouseMoved(mouse);
 
-		MenuBar menuBar = new MenuBar();
+		menuBar = new MenuBar();
 
 		// --- Menu File
 		Menu menuFile = new Menu("File");
@@ -119,7 +121,7 @@ public class App extends Application {
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
 		//final PopupText test = new PopupText("THIS IS A TEST", primaryStage);
 		final EdwardPopup test = new EdwardPopup("THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST ");
-		Button toggle = new Button("toggleTest");
+		toggle = new Button("toggleTest");
 		toggle.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public synchronized void handle(ActionEvent event) {

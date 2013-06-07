@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import org.jbox2d.dynamics.Fixture;
 
+import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
 import entities.BouncyBall;
@@ -60,6 +61,8 @@ public class GameWorld implements Serializable {
 		App.camera.reset();
 		player.addToMap(Map);
 		currentMap.setVisible(true);
+		App.root.getChildren().removeAll(App.menuBar, App.toggle);
+		App.root.getChildren().addAll(App.menuBar, App.toggle);
 		currentMap.startTime();
 	}
 

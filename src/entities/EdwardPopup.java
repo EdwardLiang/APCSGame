@@ -42,6 +42,7 @@ public class EdwardPopup {
 //		rectangle.setLayoutY(yPPos);
 		rectangle.setFill(Color.TRANSPARENT);
 		text.setFont(Font.font("Georgia", 25));
+		text.setFill(Color.WHITESMOKE);
 
 		this.clip = new Rectangle(width, height);
 		text.setClip(clip);
