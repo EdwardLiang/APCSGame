@@ -21,6 +21,9 @@ import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -30,6 +33,7 @@ import javafx.stage.Popup;
 import javafx.scene.text.Text;
 import org.jbox2d.collision.shapes.PolygonShape;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.jbox2d.common.Vec2;
@@ -48,7 +52,8 @@ public class App extends Application {
 	public static Scene scene;
 	public static Stage pS;
 	public static MenuBar menuBar;
-
+	//private static final String MEDIA_URL = "http://www.youtube-mp3.org/#v=a1qaWZ-UjXw";
+	private static final String MEDIA_URL = "src/audio/ZombieTheme.mp3";
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
@@ -85,10 +90,10 @@ public class App extends Application {
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg"), 20, 13, 20,
 				20, 30.0f));
-		try{
-			game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"), "savefile.txt"));
-		}
-		catch(Exception e){
+		try {
+			game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"),
+					"savefile.txt"));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		// game.changeMap(game.getMaps().get(1));
@@ -132,7 +137,8 @@ public class App extends Application {
 			@Override
 			public synchronized void handle(ActionEvent event) {
 				try {
-					Parse.writeToFile(App.game.getCurrentMap().toString(), "savefile.txt");
+					Parse.writeToFile(App.game.getCurrentMap().toString(),
+							"savefile.txt");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -142,7 +148,15 @@ public class App extends Application {
 		});
 
 		((Group) scene.getRoot()).getChildren().addAll(menuBar);
-
+		// audio stuff
+		String otherSong = null;// list of songs to be implemented
+		File file = new File(MEDIA_URL);
+		
+		Media media = new Media(file.toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setAutoPlay(true);
+		MediaView mediaView = new MediaView(mediaPlayer);
+		((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 

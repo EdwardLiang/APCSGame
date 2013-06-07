@@ -1,9 +1,10 @@
-maps/castle.jpg
+maps/menu.jpg
 20.0
 13.0
 20.0
 20.0
 30.0
-class entities.StaticPathEntity;64.25;46.916668;303.0,240.0 276.0,387.0 464.0,397.0 499.0,270.0
-class entities.DynamicPathEntity;64.666664;87.5;349.0,51.0 349.0,115.0 422.0,105.0 431.0,35.0
+class entities.BouncyBall;30.0;90.0;0.0;0.0;8;0xff0000ff
+class entities.Creature;30.0;30.0;10.0;10.0
+class entities.DynamicPathEntity;120.0;66.58333;126.0,134.0 266.0,144.0 98.0,249.0 236.0,267.0
 
