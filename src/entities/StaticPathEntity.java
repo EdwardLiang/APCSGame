@@ -1,5 +1,7 @@
 package entities;
 
+import infrastructure.PathUtil;
+
 import java.io.IOException;
 
 import org.jbox2d.common.Vec2;
@@ -33,5 +35,10 @@ public class StaticPathEntity extends PathEntity {
 		fix.friction = 10.3f;
 		return fix;
 	}
-
+	public static StaticPathEntity parse(String[] frags){
+		return new StaticPathEntity(PathUtil.parseWPPoints(frags[3]));
+	}
+	public String toString(){
+		return super.toString();
+	}
 }

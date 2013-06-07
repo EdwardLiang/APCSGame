@@ -129,6 +129,18 @@ public class PathUtil {
 		}
 		return points;
 	}
+	
+	public static Vec2[] parseWPPoints(String str){
+		String[] coordPairs = str.split("[ ]");
+		Vec2[] points = new Vec2[coordPairs.length];
+		for (int a = 0; a < coordPairs.length; a++) {
+			String[] tupleSplit = coordPairs[a].split("[,]");
+			float x = Float.parseFloat(tupleSplit[0]);
+			float y = Float.parseFloat(tupleSplit[1]);
+			points[a] = new Vec2(x, y);
+		}
+		return points;
+	}
 
 	public static Vec2[] readInPoints(String url) throws IOException {
 		Vec2[] pixelPath = readInPPoints(url);
@@ -240,5 +252,13 @@ public class PathUtil {
 	public static Node readToNode(String url) throws IOException {
 		Vec2[] verts = readInPLocal(url);
 		return makeNode(verts);
+	}
+	public static String wPToString(Vec2[] verts){
+		String converted = "";
+		for(Vec2 a: verts){
+			converted = converted + a.x + "," + a.y + " ";
+		}
+		converted = converted.substring(0,converted.length()-1);
+		return converted;
 	}
 }

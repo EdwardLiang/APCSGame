@@ -2,6 +2,7 @@ package entities;
 
 import infrastructure.App;
 import infrastructure.GameMap;
+import infrastructure.Parse;
 import infrastructure.Util;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -53,8 +54,11 @@ public class Door {
 		imageView.setLayoutY(yPPos);
 		return imageView;
 	}
+	public static Door parse(String[] frag){
+		return new Door(Double.parseDouble(frag[0]), Double.parseDouble(frag[1]));
+	}
 	public String toString(){
-		return pCoord().toString();
+		return "" +  xPPos + Parse.delim + yPPos;
 	}
 
 }

@@ -69,6 +69,12 @@ public class BouncyBall extends Entity {
 		return fix;
 	}
 
+	public static BouncyBall parse(String[] frag) {
+		return new BouncyBall(Float.parseFloat(frag[1]),
+				Float.parseFloat(frag[2]), Integer.parseInt(frag[5]),
+				Color.web(frag[6]));
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + Parse.delim + radius + Parse.delim

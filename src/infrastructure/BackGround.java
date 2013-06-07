@@ -55,6 +55,10 @@ public class BackGround implements FXJBox, Serializable {
 	public synchronized float getHeight() {
 		return (float) Util.toHeight(image.getHeight());
 	}
+	
+	public static BackGround parse(String path){
+		return new BackGround(path);
+	}
 
 	@Override
 	public String toString() {

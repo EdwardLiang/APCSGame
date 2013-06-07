@@ -1,5 +1,8 @@
 package entities;
 
+import infrastructure.Parse;
+import infrastructure.PathUtil;
+
 import java.io.IOException;
 
 import org.jbox2d.common.Vec2;
@@ -30,6 +33,12 @@ public class DynamicPathEntity extends PathEntity {
 		fix.friction = 2.3f;
 		fix.restitution = 0f;
 		return fix;
+	}
+	public static DynamicPathEntity parse(String[] frags){
+		return new DynamicPathEntity(PathUtil.parseWPPoints(frags[4]));
+	}
+	public String toString(){
+		return super.toString();
 	}
 
 }

@@ -21,7 +21,7 @@ public class GameWorld implements Serializable {
 
 	public GameWorld() {
 		player = new Player(10, 20);
-		currentMap = new GameMap(new BackGround("maps/menu.jpg"));
+		currentMap = new GameMap(new BackGround("maps/menu.jpg"), 20, 13, 20, 20, 30.0f);
 		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();
 		isAtDoor = false;

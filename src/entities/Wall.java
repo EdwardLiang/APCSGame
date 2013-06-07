@@ -34,7 +34,7 @@ public class Wall extends Entity {
 		verts[0] = new Vec2(-(width) / 2, -height / 2); // bottom left
 		verts[1] = new Vec2((width) / 2, -height / 2); // bottom right
 		verts[2] = new Vec2(1 + (width) / 2, height / 2); // top right
-		verts[3] = new Vec2(-1 -(width) / 2, height / 2); // top left
+		verts[3] = new Vec2(-1 - (width) / 2, height / 2); // top left
 
 		((PolygonShape) polygon).set(verts, 4);
 		((PolygonShape) polygon).m_centroid.setZero();
@@ -57,6 +57,11 @@ public class Wall extends Entity {
 		fix.density = 1.0f;
 		fix.friction = 1.0f;
 		return fix;
+	}
+
+	public static Wall parse(String[] frag) {
+		return new Wall(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]),
+				Float.parseFloat(frag[3]), Float.parseFloat(frag[4]));
 	}
 
 	@Override

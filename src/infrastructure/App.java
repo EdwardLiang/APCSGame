@@ -62,11 +62,14 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
+		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
+		ball.addToMap(game.getCurrentMap());
+		ball.setVisible(true);
 
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
 		shaker = new ShapeMaker();
-		CreationKeys keyManager = new CreationKeys();
+		DevModeKeys keyManager = new DevModeKeys();
 		MouseManager mouse = new DevMouse();
 		Thread key = new Thread(keyManager.keyThread);
 		Thread cam = new Thread(camera);
@@ -75,8 +78,9 @@ public class App extends Application {
 
 		// ball.setVisible(true);
 
-		game.addMap(new GameMap(new BackGround("maps/castle.jpg")));
-		//game.changeMap(game.getMaps().get(1));
+		game.addMap(new GameMap(new BackGround("maps/castle.jpg"), 20, 13, 20,
+				20, 30.0f));
+		// game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -103,7 +107,8 @@ public class App extends Application {
 
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				(new PopupText("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",primaryStage)).toggle();
+				(new PopupText("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",
+						primaryStage)).toggle();
 
 			}
 
@@ -128,9 +133,5 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
-		// Creature ball = new Creature(30,90);
-		ball.addToMap(game.getCurrentMap());
-		ball.setVisible(true);
 	}
 }

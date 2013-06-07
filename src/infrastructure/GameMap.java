@@ -1,15 +1,13 @@
 package infrastructure;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
-import entities.Door;
-import entities.Entity;
-import entities.Floor;
-import entities.Wall;
+import entities.*;
 
 public class GameMap implements Serializable {
 	private static final long serialVersionUID = 42L;
@@ -19,22 +17,13 @@ public class GameMap implements Serializable {
 	private Time time;
 	private float width;
 	private float height;
-	private String name;
 	private float gravityMag;
-	private String originalData;
+	private String originalDataLoc;
 	private Door door;
-
-	public GameMap(BackGround back, String name, float gravityMag) {
-		this.world = new World(new Vec2(0.0f, -gravityMag));
-		this.gameElements = new ArrayList<Entity>();
-		this.time = new Time(this);
-		this.width = back.getWidth();
-		this.height = back.getHeight();
-		this.name = name;
-		this.gravityMag = gravityMag;
-		this.back = back;
-		this.door = new Door(Util.toPosX(20),Util.toPosY(20));
-	}
+	private float doorX;
+	private float doorY;
+	private float playerX;
+	private float playerY;
 
 	public ArrayList<Entity> getElements() {
 		return gameElements;
@@ -43,8 +32,8 @@ public class GameMap implements Serializable {
 	public BackGround getBack() {/* , you don't know what you're dealing with */
 		return back;
 	}
-	
-	public Door getDoor(){
+
+	public Door getDoor() {
 		return door;
 	}
 
@@ -76,31 +65,37 @@ public class GameMap implements Serializable {
 		time.killTime();
 	}
 
-	public GameMap(BackGround back) {
-		this.name = "Generic";
-		this.gravityMag = 30.0f;
-		this.world = new World(new Vec2(0.0f, -30.0f));
+	public GameMap(BackGround back, float doorX, float doorY, float playerX,
+			float playerY, float gravityMag) {
+		this.gravityMag = gravityMag;
+		this.world = new World(new Vec2(0.0f, -gravityMag));
 		this.gameElements = new ArrayList<Entity>();
 		this.time = new Time(this);
 		this.back = back;
 		this.width = back.getWidth();
 		this.height = back.getHeight();
 		addCoreElements();
-		this.door = new Door(Util.toPPosX(20),Util.toPPosY(13));
+		this.door = new Door(Util.toPPosX(doorX), Util.toPPosY(doorY));
+		this.doorX = doorX;
+		this.doorY = doorY;
+		this.playerX = playerX;
+		this.playerY = playerY;
+		this.originalDataLoc = "";
 	}
 
 	public World getPhysics() {
 		return world;
 	}
 
-	public void reset() {
+	public void reset() throws IOException {
 		stopAll();
 		removeAll();
-		if (originalData != null) {
-			// TODO
-			//
-			//
-
+		if (originalDataLoc != null) {
+			String raw = Parse.readFromFile(originalDataLoc);
+			String[] parsed = raw.split("[\n]");
+			for (int i = 6; i < parsed.length - 1; i++) {
+				parseElements(parsed[i]).addToMap(this);
+			}
 		} else {
 			addCoreElements();
 		}
@@ -146,8 +141,7 @@ public class GameMap implements Serializable {
 
 	public void addCoreElements() {
 		Wall left = new Wall(0, height / 2, 1, height);
-		Wall right = new Wall(width, height / 2, 1,
-				height);
+		Wall right = new Wall(width, height / 2, 1, height);
 		Wall top = new Wall(width / 2, height, width, 1);
 		Floor bottom = new Floor(width / 2, 0, width, 17);
 		left.addToMap(this);
@@ -160,14 +154,62 @@ public class GameMap implements Serializable {
 		time.toggleTime();
 	}
 
+	private static Entity parseElements(String raw) {
+		String[] frags = Parse.fragment(raw);
+		String className = frags[0];
+		switch (className) {
+		case "class entities.BouncyBall":
+			return BouncyBall.parse(frags);
+		case "class entities.Creature":
+			return Creature.parse(frags);
+		case "class entities.Projectile":
+			return Projectile.parse(frags);
+		case "class entities.Wall":
+			return Wall.parse(frags);
+		case "class entities.Floor":
+			return Floor.parse(frags);
+		case "class entities.StaticPathEntity":
+			return StaticPathEntity.parse(frags);
+		case "class entities.DynamicPathEntity":
+			return DynamicPathEntity.parse(frags);
+		default:
+			return null;
+		}
+	}
+
+	public static GameMap parse(String raw, String loc) {
+		String[] parsed = raw.split("[\n]");
+		GameMap game = new GameMap(BackGround.parse(parsed[0]),
+				Float.parseFloat(parsed[1]), Float.parseFloat(parsed[2]),
+				Float.parseFloat(parsed[3]), Float.parseFloat(parsed[4]),
+				Float.parseFloat(parsed[5]));
+		for (int i = 6; i < parsed.length; i++) {
+			parseElements(parsed[i]).addToMap(game);
+		}
+		game.setOriginalDataLoc(loc);
+		return game;
+	}
+
+	public void setOriginalDataLoc(String loc) {
+		this.originalDataLoc = loc;
+	}
+
+	public String getOriginalDataLoc() {
+		return originalDataLoc;
+	}
+
 	@Override
 	public String toString() {
 		String result = "";
 		result += back.toString() + "\n";
-		result += name + "\n";
+		result += doorX + "\n";
+		result += doorY + "\n";
+		result += playerX + "\n";
+		result += playerY + "\n";
 		result += gravityMag + "\n";
+
 		for (Entity a : gameElements) {
-			if (a != App.game.getPlayer())
+			if (a != App.game.getPlayer() && !(a instanceof Wall))
 				result += a.toString() + "\n";
 		}
 		return result;

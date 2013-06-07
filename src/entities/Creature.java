@@ -33,7 +33,7 @@ public class Creature extends Entity {
 
 	@Override
 	protected Node createNode() {
-		this.image =  new Image("sprites/spritesheet.jpg");
+		this.image = new Image("sprites/spritesheet.jpg");
 		this.col = 8;
 		this.count = 60;
 		this.offsetX = 0;
@@ -75,6 +75,11 @@ public class Creature extends Entity {
 		fix.friction = 0.0f;
 		fix.restitution = 0f;
 		return fix;
+	}
+
+	public static Creature parse(String[] frag) {
+		return new Creature(Float.parseFloat(frag[1]),
+				Float.parseFloat(frag[2]));
 	}
 
 	@Override

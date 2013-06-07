@@ -1,6 +1,7 @@
 package inputManagers;
 
 import infrastructure.App;
+import infrastructure.GameMap;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -18,6 +19,13 @@ public class DevModeKeys extends FlyingKeys {
 					if(index + 1 < App.game.getMaps().size())
 						App.game.changeMap(App.game.getMaps().get(index+1));
 				}
+			}
+			if(t.getCode() == KeyCode.O){
+				System.out.println(App.game.getCurrentMap());
+			}
+			if(t.getCode() == KeyCode.U){
+				System.out.println(App.game.getCurrentMap());
+				System.out.println(GameMap.parse(App.game.getCurrentMap().toString(), "asdf"));
 			}
 			if (t.getCode() == KeyCode.P) {
 				App.game.getCurrentMap().toggleTime();

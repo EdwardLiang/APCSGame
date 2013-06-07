@@ -1,6 +1,7 @@
 package entities;
 
 import infrastructure.App;
+import infrastructure.Parse;
 import infrastructure.PathUtil;
 import infrastructure.Util;
 import javafx.scene.Node;
@@ -43,5 +44,8 @@ public abstract class PathEntity extends Entity {
 		PolygonShape shape = (PolygonShape) PathUtil.makeShape(PathUtil
 				.shapePoints(PathUtil.PWorldToLocal(worldPPoints)));
 		return shape;
+	}
+	public String toString(){
+		return "" + this.getClass() + Parse.delim + xPos + Parse.delim + yPos + Parse.delim + PathUtil.wPToString(worldPPoints);
 	}
 }
