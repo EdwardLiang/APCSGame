@@ -20,8 +20,8 @@ public class BouncyBall extends Entity {
 	public BouncyBall(float posX, float posY, int radius, Color color) {
 		this.radius = radius;
 		this.color = color;
-		this.yPos = posX;
-		this.xPos = posY;
+		this.yPos = posY;
+		this.xPos = posX;
 		create();
 	}
 

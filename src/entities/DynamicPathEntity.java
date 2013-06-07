@@ -35,7 +35,7 @@ public class DynamicPathEntity extends PathEntity {
 		return fix;
 	}
 	public static DynamicPathEntity parse(String[] frags){
-		return new DynamicPathEntity(PathUtil.parseWPPoints(frags[4]));
+		return new DynamicPathEntity(PathUtil.parseWPPoints(frags[3]));
 	}
 	public String toString(){
 		return super.toString();

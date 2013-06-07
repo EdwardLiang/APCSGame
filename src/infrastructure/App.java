@@ -67,6 +67,9 @@ public class App extends Application {
 		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
 		ball.addToMap(game.getCurrentMap());
 		ball.setVisible(true);
+		Creature creature = new Creature(30, 30);
+		creature.addToMap(game.getCurrentMap());
+		creature.setVisible(true);
 
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
@@ -82,6 +85,12 @@ public class App extends Application {
 
 		game.addMap(new GameMap(new BackGround("maps/castle.jpg"), 20, 13, 20,
 				20, 30.0f));
+		try{
+			game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"), "savefile.txt"));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		// game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -99,8 +108,10 @@ public class App extends Application {
 
 		menuBar = new MenuBar();
 
-		// --- Menu File
+		// Menu File
 		Menu menuFile = new Menu("File");
+		MenuItem save = new MenuItem("Save Map");
+		menuFile.getItems().add(save);
 
 		Menu menuEdit = new Menu("Edit");
 		MenuItem devMode = new MenuItem("DevMode");
@@ -109,6 +120,26 @@ public class App extends Application {
 		MenuItem zoom = new MenuItem("Zoom");
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+		devMode.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public synchronized void handle(ActionEvent event) {
+				(new EdwardPopup("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!"))
+						.toggle();
+			}
+
+		});
+		save.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public synchronized void handle(ActionEvent event) {
+				try {
+					Parse.writeToFile(App.game.getCurrentMap().toString(), "savefile.txt");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
 
 		((Group) scene.getRoot()).getChildren().addAll(menuBar);
 
