@@ -41,21 +41,18 @@ public class InertialKeys extends DefaultKeys {
 			while (true) {
 				Body body = App.game.getPlayer().getBody();
 				if (buffer.contains(KeyCode.W)) {
-					Vec2 velocity = new Vec2(0, 50.0f);
+					Vec2 velocity = new Vec2(body.getLinearVelocity().x, 200.0f);
 					body.setLinearVelocity(velocity);
 				}
 				if (buffer.contains(KeyCode.S)) {
-					Vec2 velocity = new Vec2(0, -50.0f);
+					Vec2 velocity = new Vec2(body.getLinearVelocity().x, -200.0f);
 					body.setLinearVelocity(velocity);
 				}
-				if (buffer.contains(KeyCode.A) && buffer.contains(KeyCode.D)) {
-					Vec2 velocity = new Vec2(0, 50.0f);
+				if (buffer.contains(KeyCode.A)) {
+					Vec2 velocity = new Vec2(-200.0f, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
-				} else if (buffer.contains(KeyCode.A)) {
-					Vec2 velocity = new Vec2(-50.0f, 0);
-					body.setLinearVelocity(velocity);
-				} else if (buffer.contains(KeyCode.D)) {
-					Vec2 velocity = new Vec2(50.0f, 0);
+				}if (buffer.contains(KeyCode.D)) {
+					Vec2 velocity = new Vec2(200.0f, body.getLinearVelocity().y);
 					body.setLinearVelocity(velocity);
 				}
 				try {

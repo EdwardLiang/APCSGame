@@ -32,16 +32,16 @@ public class EdwardPopup {
 
 	public EdwardPopup(String string) {
 		this.width = App.scene.getWidth();
-		this.height = 300;
+		this.height = 1100;
 		this.text = new Text(string);
-		text.setTextAlignment(TextAlignment.CENTER);
-		text.setTextOrigin(VPos.CENTER);
+		text.setTextAlignment(TextAlignment.LEFT);
+		text.setTextOrigin(VPos.BOTTOM);
 
 		this.rectangle = new Rectangle(width, height);
-//		rectangle.setLayoutX(xPPos);
-//		rectangle.setLayoutY(yPPos);
+		rectangle.setLayoutX(100);
+		rectangle.setLayoutY(100);
 		rectangle.setFill(Color.TRANSPARENT);
-		text.setFont(Font.font("Georgia", 25));
+		text.setFont(Font.font("Georgia", 20));
 		text.setFill(Color.WHITESMOKE);
 
 		this.clip = new Rectangle(width, height);

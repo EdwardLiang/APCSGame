@@ -74,7 +74,6 @@ public class GameMap implements Serializable {
 		this.back = back;
 		this.width = back.getWidth();
 		this.height = back.getHeight();
-		addCoreElements();
 		this.door = new Door(doorX, doorY);
 		this.doorX = doorX;
 		this.doorY = doorY;
@@ -149,7 +148,7 @@ public class GameMap implements Serializable {
 		Wall left = new Wall(0, height / 2, 1, height);
 		Wall right = new Wall(width, height / 2, 1, height);
 		Wall top = new Wall(width / 2, height, width, 1);
-		Floor bottom = new Floor(width / 2, 0, width, 17);
+		Wall bottom = new Wall(width / 2, 0, width, 1);
 		left.addToMap(this);
 		right.addToMap(this);
 		top.addToMap(this);
@@ -215,7 +214,7 @@ public class GameMap implements Serializable {
 		result += gravityMag + "\n";
 
 		for (Entity a : gameElements) {
-			if (a != App.game.getPlayer() && !(a instanceof Wall))
+			if (a != App.game.getPlayer())
 				result += a.toString() + "\n";
 		}
 		return result;
