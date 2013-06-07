@@ -1,5 +1,8 @@
 package entities;
 
+import java.io.IOException;
+
+import infrastructure.App;
 import infrastructure.Util;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
@@ -67,6 +70,12 @@ public class Player extends Creature {
 			this.image = new Image("sprites/tim-dead.gif");
 			break;
 		}
+	}
+
+	public void kill() throws IOException {
+		this.status = Status.DEAD;
+		App.game.getCurrentMap().reset();
+
 	}
 
 	protected Node createNode() {
