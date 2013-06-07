@@ -52,7 +52,6 @@ public class App extends Application {
 	public static Scene scene;
 	public static Stage pS;
 	public static MenuBar menuBar;
-	//private static final String MEDIA_URL = "http://www.youtube-mp3.org/#v=a1qaWZ-UjXw";
 	private static final String MEDIA_URL = "src/audio/ZombieTheme.mp3";
 	public static void main(String[] args) throws IOException {
 		launch(args);
