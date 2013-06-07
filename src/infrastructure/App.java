@@ -57,8 +57,8 @@ public class App extends Application {
 	public static Stage pS;
 	public static MenuBar menuBar;
 	protected static final List<String> musicList =  Arrays
-			.asList(new String[] { "src/audio/ZombieTheme.mp3",
-					"src/audio/Mountain.m4a", "src/audio/ZombieTheme.mp3" });
+			.asList(new String[] { "src/audio/Mysterious.mp3","src/audio/ZombieTheme.mp3",
+					"src/audio/Mountain.m4a" });
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
