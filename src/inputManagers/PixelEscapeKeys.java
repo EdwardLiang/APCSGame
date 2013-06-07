@@ -1,5 +1,7 @@
 package inputManagers;
 
+import java.io.IOException;
+
 import infrastructure.App;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -15,16 +17,25 @@ public class PixelEscapeKeys extends DefaultKeys {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if(t.getCode() == KeyCode.N){
-				if(App.game.getIsAtDoor()){
-					int index = App.game.getMaps().indexOf(App.game.getCurrentMap());
-					if(index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index+1));
+			if (t.getCode() == KeyCode.N) {
+				if (App.game.getIsAtDoor()) {
+					int index = App.game.getMaps().indexOf(
+							App.game.getCurrentMap());
+					if (index + 1 < App.game.getMaps().size())
+						App.game.changeMap(App.game.getMaps().get(index + 1));
 				}
 			}
 			if (t.getCode() == KeyCode.P) {
 				App.game.getCurrentMap().toggleTime();
 			}
+			if (t.getCode() == KeyCode.R)
+				try {
+					App.game.getCurrentMap().reset();
+					System.out.println("R Hit");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 		}
 	};
 	public EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
@@ -42,14 +53,26 @@ public class PixelEscapeKeys extends DefaultKeys {
 			while (true) {
 				Body body = App.game.getPlayer().getBody();
 				if (buffer.contains(KeyCode.W)) {
-					Vec2 impulse = new Vec2(0, 200.0f);
+					Vec2 impulse = new Vec2(0, 50000.0f);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
-					body.applyLinearImpulse(impulse, point);
+					body.applyForce(impulse, point);
 				}
-				Vec2 velocity = new Vec2(20.0f, body.getLinearVelocity().y);
-				body.setLinearVelocity(velocity);
+				 else if (buffer.contains(KeyCode.A)) {
+						Vec2 impulse = new Vec2(-5000.0f, 0);
+						Vec2 point = body.getWorldPoint(body.getWorldCenter());
+						body.applyForce(impulse, point);
+				} else if (buffer.contains(KeyCode.D)) {
+					Vec2 impulse = new Vec2(5000.0f, 0);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
+				}
+				else if (buffer.contains(KeyCode.S)) {
+					Vec2 impulse = new Vec2(0, -5000.0f);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
+				}
 				try {
-					Thread.sleep(100);
+					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					System.out.println("KeyManager stopped");
 				}

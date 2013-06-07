@@ -46,7 +46,9 @@ import entities.BouncyBall;
 import entities.Creature;
 import entities.EdwardPopup;
 import entities.Entity;
+import entities.Floor;
 import entities.PopupText;
+import entities.Wall;
 
 public class App extends Application {
 	public static GameWorld game;
@@ -56,9 +58,13 @@ public class App extends Application {
 	public static Scene scene;
 	public static Stage pS;
 	public static MenuBar menuBar;
-	protected static final List<String> musicList =  Arrays
-			.asList(new String[] { "src/audio/ZombieTheme.mp3","src/audio/Melancholy.mp3",
-					"src/audio/Mountain.m4a","src/audio/Mysterious.mp3" });
+	public static Thread key;
+	public static Thread cam;
+
+	protected static final List<String> musicList = Arrays.asList(new String[] {
+			"src/audio/ZombieTheme.mp3", "src/audio/Melancholy.mp3",
+			"src/audio/Mountain.m4a", "src/audio/Mysterious.mp3" });
+
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
@@ -74,28 +80,46 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
-		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
-		ball.addToMap(game.getCurrentMap());
-		ball.setVisible(true);
-		Creature creature = new Creature(30, 30);
-		creature.addToMap(game.getCurrentMap());
-		creature.setVisible(true);
 
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
 		shaker = new ShapeMaker();
-		DevModeKeys keyManager = new DevModeKeys();
 		MouseManager mouse = new DevMouse();
-		Thread key = new Thread(keyManager.keyThread);
-		Thread cam = new Thread(camera);
+		CreationKeys keyManager = new CreationKeys();
+		key = new Thread(keyManager.keyThread);
+		cam = new Thread(camera);
 		key.start();
 		cam.start();
 
 		// ball.setVisible(true);
 
-		//game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 1350, 280, 36,
-				//49, 30.0f));
+		// game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 1350, 280,
+		// 36,
+		// 49, 30.0f));
 		game.addMap(GameMap.parse(Parse.readFromFile("1-1.txt"), "1-1.txt"));
+		// game.addMap(new GameMap(new BackGround("maps/1-2.jpg"), 20, 280, 36,
+		// 49, 30.0f));
+		game.addMap(GameMap.parse(Parse.readFromFile("1-2.txt"), "1-2.txt"));
+		// game.addMap(new GameMap(new BackGround("maps/1-3.jpg"), 1200, 270,
+		// 36,
+		// 49, 30.0f));
+		game.addMap(GameMap.parse(Parse.readFromFile("1-3.txt"), "1-3.txt"));
+		// game.addMap(new GameMap(new BackGround("maps/1-4.png"), 900, 100, 36,
+		// 49, 0));
+		game.addMap(GameMap.parse(Parse.readFromFile("1-4.txt"), "1-4.txt"));
+		// game.addMap(new GameMap(new BackGround("maps/1-4.png"), 900, 100, 36,
+		// 49, 0));
+		game.addMap(new GameMap(new BackGround("maps/1-7.jpg"), 1200, 237, 10,
+				49, 30.0f));
+		game.getMaps().get(5).addCoreElements();
+		for (int a = 0; a < 1280; a += 10) {
+			BouncyBall bouncy = new BouncyBall(a, 90, 8, Color.BLUE);
+			bouncy.addToMap(game.getMaps().get(5));
+		}
+		for (int a = 0; a < 720; a += 5) {
+			BouncyBall bouncy = new BouncyBall(30, a, 8, Color.WHITE);
+			bouncy.addToMap(game.getMaps().get(5));
+		}
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -153,27 +177,32 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		game.changeMap(game.getMaps().get(1));
+		game.getCurrentMap().addCoreElements();
+		// Floor bottom = new Floor(game.getCurrentMap().getWidth() / 2, 35,
+		// game.getCurrentMap().getWidth(), 17);
+		// bottom.addToMap(game.getCurrentMap());
 
 	}
-	public MediaView createMediaView(){
-	    MediaView mediaView = new MediaView();
-	    initMediaPlayer(mediaView, musicList.iterator());
-	    return mediaView;
+
+	public MediaView createMediaView() {
+		MediaView mediaView = new MediaView();
+		initMediaPlayer(mediaView, musicList.iterator());
+		return mediaView;
 	}
 
-	private void initMediaPlayer(
-	          final MediaView mediaView, 
-	          final Iterator<String> urls
-	){
-	    if (urls.hasNext()){
-	        MediaPlayer mediaPlayer = new MediaPlayer(new Media((new File(urls.next()).toURI().toString())));
-	        mediaPlayer.setAutoPlay(true);
-	        mediaPlayer.setOnEndOfMedia(new Runnable() {
-	            @Override public void run() {
-	                initMediaPlayer(mediaView, urls);
-	            }
-	        });
-	        mediaView.setMediaPlayer(mediaPlayer);
-	    } 
+	private void initMediaPlayer(final MediaView mediaView,
+			final Iterator<String> urls) {
+		if (urls.hasNext()) {
+			MediaPlayer mediaPlayer = new MediaPlayer(new Media((new File(
+					urls.next()).toURI().toString())));
+			mediaPlayer.setAutoPlay(true);
+			mediaPlayer.setOnEndOfMedia(new Runnable() {
+				@Override
+				public void run() {
+					initMediaPlayer(mediaView, urls);
+				}
+			});
+			mediaView.setMediaPlayer(mediaPlayer);
+		}
 	}
 }

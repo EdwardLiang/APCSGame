@@ -1,5 +1,7 @@
 package inputManagers;
 
+import java.io.IOException;
+
 import infrastructure.App;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -18,13 +20,22 @@ public class FlyingKeys extends DefaultKeys {
 			if (t.getCode() == KeyCode.P) {
 				App.game.getCurrentMap().toggleTime();
 			}
-			if(t.getCode() == KeyCode.N){
-				if(App.game.getIsAtDoor()){
-					int index = App.game.getMaps().indexOf(App.game.getCurrentMap());
-					if(index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index+1));
+			if (t.getCode() == KeyCode.N) {
+				if (App.game.getIsAtDoor()) {
+					int index = App.game.getMaps().indexOf(
+							App.game.getCurrentMap());
+					if (index + 1 < App.game.getMaps().size())
+						App.game.changeMap(App.game.getMaps().get(index + 1));
 				}
 			}
+			if (t.getCode() == KeyCode.R)
+				try {
+					App.game.getCurrentMap().reset();
+					System.out.println("R Hit");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 		}
 	};
 	public EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
@@ -45,7 +56,7 @@ public class FlyingKeys extends DefaultKeys {
 		}
 
 	};
-	
+
 	public Runnable keyThread = new Runnable() {
 		@Override
 		public void run() {

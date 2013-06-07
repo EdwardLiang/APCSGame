@@ -2,6 +2,7 @@ package inputManagers;
 
 import infrastructure.App;
 
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -12,21 +13,30 @@ import javafx.scene.input.KeyEvent;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
-public class DefaultKeys extends KeyManager{
+public class DefaultKeys extends KeyManager {
 	public EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
+			if (t.getCode() == KeyCode.R)
+				try {
+					App.game.getCurrentMap().reset();
+					System.out.println("R Hit");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 			if (t.getCode() == KeyCode.P) {
 				App.game.getCurrentMap().toggleTime();
 			}
-			if(t.getCode() == KeyCode.N){
-				if(App.game.getIsAtDoor()){
-					int index = App.game.getMaps().indexOf(App.game.getCurrentMap());
-					if(index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index+1));
+			if (t.getCode() == KeyCode.N) {
+				if (App.game.getIsAtDoor()) {
+					int index = App.game.getMaps().indexOf(
+							App.game.getCurrentMap());
+					if (index + 1 < App.game.getMaps().size())
+						App.game.changeMap(App.game.getMaps().get(index + 1));
 				}
 			}
 		}
@@ -58,7 +68,7 @@ public class DefaultKeys extends KeyManager{
 				if (buffer.contains(KeyCode.W)
 						&& body.getLinearVelocity().y == 0
 						&& body.getContactList() != null) {
-					Vec2 impulse = new Vec2(0, 500.0f);
+					Vec2 impulse = new Vec2(0, 5000.0f);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
 					body.applyLinearImpulse(impulse, point);
 				}

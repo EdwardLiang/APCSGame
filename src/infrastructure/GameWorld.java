@@ -1,5 +1,10 @@
 package infrastructure;
 
+import inputManagers.DevModeKeys;
+import inputManagers.FlyingKeys;
+import inputManagers.InertialKeys;
+import inputManagers.PixelEscapeKeys;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
@@ -66,6 +71,35 @@ public class GameWorld implements Serializable {
 		currentMap.setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
 		App.root.getChildren().addAll(App.menuBar);
+		if(Map.getBack().getPath().equals("maps/1-3.jpg")){
+			FlyingKeys keyManager = new FlyingKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+		}
+		if(Map.getBack().getPath().equals("maps/1-4.png")){
+			InertialKeys keyManager = new InertialKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+		}
+		if(Map.getBack().getPath().equals("maps/1-7.jpg")){
+			PixelEscapeKeys keyManager = new PixelEscapeKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			App.cam.interrupt();
+			App.camera = new CustomCamera();
+			App.cam = new Thread(App.camera);
+			App.cam.start();
+		}
+
 		currentMap.startTime();
 	}
 

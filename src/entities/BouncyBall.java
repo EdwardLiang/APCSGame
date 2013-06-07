@@ -63,7 +63,7 @@ public class BouncyBall extends Entity {
 	protected FixtureDef createFD() {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;
-		fix.density = 0.6f;
+		fix.density = 4.6f;
 		fix.friction = 0.3f;
 		fix.restitution = 10f;
 		return fix;
