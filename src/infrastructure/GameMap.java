@@ -75,7 +75,7 @@ public class GameMap implements Serializable {
 		this.width = back.getWidth();
 		this.height = back.getHeight();
 		addCoreElements();
-		this.door = new Door(Util.toPPosX(doorX), Util.toPPosY(doorY));
+		this.door = new Door(doorX, doorY);
 		this.doorX = doorX;
 		this.doorY = doorY;
 		this.playerX = playerX;

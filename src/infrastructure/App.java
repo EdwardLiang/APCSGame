@@ -68,12 +68,6 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
-		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
-		ball.addToMap(game.getCurrentMap());
-		ball.setVisible(true);
-		Creature creature = new Creature(30, 30);
-		creature.addToMap(game.getCurrentMap());
-		creature.setVisible(true);
 
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
@@ -87,7 +81,7 @@ public class App extends Application {
 
 		// ball.setVisible(true);
 
-		game.addMap(new GameMap(new BackGround("maps/castle.jpg"), 20, 13, 20,
+		game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 20, 13, 20,
 				20, 30.0f));
 		try {
 			game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"),
