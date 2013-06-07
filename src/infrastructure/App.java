@@ -125,8 +125,6 @@ public class App extends Application {
 					 //49, 30));
 		//game.getMaps().get(6).addCoreElements();
 		game.addMap(GameMap.parse(Parse.readFromFile("2-2.txt"), "2-2.txt"));
-		BouncyBall bouncy = new BouncyBall(110, 50,8, Color.BLUE);
-		bouncy.addToMap(game.getMaps().get(6));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
@@ -200,7 +198,7 @@ public class App extends Application {
 		primaryStage.show();
 		game.changeMap(game.getMaps().get(1));
 //		game.getCurrentMap().addCoreElements();
-		App.game.changeMap(App.game.getMaps().get(5));
+		App.game.changeMap(App.game.getMaps().get(6));
 
 	}
 
