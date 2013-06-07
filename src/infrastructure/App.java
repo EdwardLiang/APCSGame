@@ -36,6 +36,7 @@ import org.jbox2d.common.Vec2;
 
 import entities.BouncyBall;
 import entities.Creature;
+import entities.EdwardPopup;
 import entities.Entity;
 import entities.PopupText;
 
@@ -103,8 +104,8 @@ public class App extends Application {
 
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				(new PopupText("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",primaryStage)).toggle();
-
+				//(new PopupText("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!",primaryStage)).toggle();
+				(new EdwardPopup("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!")).toggle();
 			}
 
 		});
@@ -112,7 +113,8 @@ public class App extends Application {
 		MenuItem zoom = new MenuItem("Zoom");
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-		final PopupText test = new PopupText("THIS IS A TEST", primaryStage);
+		//final PopupText test = new PopupText("THIS IS A TEST", primaryStage);
+		final EdwardPopup test = new EdwardPopup("THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST THIS IS A TEST ");
 		Button toggle = new Button("toggleTest");
 		toggle.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
