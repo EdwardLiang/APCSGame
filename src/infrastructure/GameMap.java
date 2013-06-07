@@ -33,7 +33,7 @@ public class GameMap implements Serializable {
 		return back;
 	}
 
-	public Door getDoor() {
+	public Door getDoor() { 
 		return door;
 	}
 
@@ -104,12 +104,26 @@ public class GameMap implements Serializable {
 		} else {
 			addCoreElements();
 		}
+		App.camera.reset();
+		App.game.getCurrentMap().killTime();
+		App.game.getCurrentMap().setVisible(false);
+	
+		App.camera.reset();
+		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(), App.game.getCurrentMap().getPY()));
+		App.game.getPlayer().addToMap(App.game.getCurrentMap());
+		App.game.getCurrentMap().setVisible(true);
+		App.root.getChildren().removeAll(App.menuBar);
+		App.root.getChildren().addAll(App.menuBar);
+		App.game.getCurrentMap().startTime();
+		App.game.getCurrentMap().setVisible(true);
 	}
 
 	public void removeAll() {
-		for (Entity a : gameElements) {
-			a.removeFromMap();
-		}
+		for(int i = 0; i < gameElements.size(); i++)
+			gameElements.get(i).removeFromMap();
+		//this.getBack().setVisible(false);
+//		for (Entity a : gameElements) {
+//			a.removeFromMap();
 	}
 
 	public void setVisible(Boolean bool) {

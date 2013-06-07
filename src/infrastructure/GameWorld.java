@@ -1,5 +1,6 @@
 package infrastructure;
 
+import inputManagers.CreationKeys;
 import inputManagers.DevModeKeys;
 import inputManagers.FlyingKeys;
 import inputManagers.InertialKeys;
@@ -17,6 +18,7 @@ import javafx.scene.paint.Color;
 
 import entities.BouncyBall;
 import entities.Creature;
+import entities.EdwardPopup;
 import entities.Entity;
 import entities.Player;
 
@@ -71,6 +73,7 @@ public class GameWorld implements Serializable {
 		currentMap.setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
 		App.root.getChildren().addAll(App.menuBar);
+		EdwardPopup pop = new EdwardPopup("test");
 		if(Map.getBack().getPath().equals("maps/1-3.jpg")){
 			FlyingKeys keyManager = new FlyingKeys();
 			App.key.interrupt();
@@ -78,16 +81,22 @@ public class GameWorld implements Serializable {
 			App.key.start();
 			App.scene.setOnKeyPressed(keyManager.keyPress);
 			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			pop= new EdwardPopup("You can fly! WASD to move, N to move to the next level at a door.");
+			pop.toggle();
 		}
 		if(Map.getBack().getPath().equals("maps/1-4.png")){
+			pop.toggle();
 			InertialKeys keyManager = new InertialKeys();
 			App.key.interrupt();
 			App.key = new Thread(keyManager.keyThread);
 			App.key.start();
 			App.scene.setOnKeyPressed(keyManager.keyPress);
 			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			pop = new EdwardPopup("You are in space. Congrats. Have fun hitting that door!");
+			pop.toggle();
 		}
 		if(Map.getBack().getPath().equals("maps/1-7.jpg")){
+			pop.toggle();
 			PixelEscapeKeys keyManager = new PixelEscapeKeys();
 			App.key.interrupt();
 			App.key = new Thread(keyManager.keyThread);
@@ -98,6 +107,22 @@ public class GameWorld implements Serializable {
 			App.camera = new CustomCamera();
 			App.cam = new Thread(App.camera);
 			App.cam.start();
+			pop = new EdwardPopup("You are a gas particle! Have fun!");
+		}
+		if(Map.getBack().getPath().equals("maps/2-2.jpg")){
+			pop.toggle();
+			CreationKeys keyManager = new CreationKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			App.cam.interrupt();
+			App.camera = new Camera();
+			App.cam = new Thread(App.camera);
+			App.cam.start();
+			pop = new EdwardPopup("YOU are now making the game! 1 makes a dynamic thingie, 2 makes a static one. As always, R is reset. Have fun!");
+			pop.toggle();
 		}
 
 		currentMap.startTime();

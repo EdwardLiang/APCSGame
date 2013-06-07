@@ -41,9 +41,13 @@ public class Door {
 	}
 
 	public void setVisible(boolean bool) {
-		if (bool == true)
-			App.root.getChildren().add(node);
-		else if (App.root.getChildren().contains(node) == true)
+		if (bool == true) {
+			if (App.root.getChildren().contains(node) == true) {
+				App.root.getChildren().remove(node);
+				App.root.getChildren().add(node);
+			} else
+				App.root.getChildren().add(node);
+		} else if (App.root.getChildren().contains(node) == true)
 			App.root.getChildren().remove(node);
 	}
 

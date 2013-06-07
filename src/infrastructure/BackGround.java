@@ -70,9 +70,13 @@ public class BackGround implements FXJBox, Serializable {
 
 	@Override
 	public void setVisible(Boolean bool) {
-		if (bool == true)
-			App.root.getChildren().add(view);
-		else if (App.root.getChildren().contains(view) == true)
+		if (bool == true) {
+			if (App.root.getChildren().contains(view) == true) {
+				App.root.getChildren().remove(view);
+				App.root.getChildren().add(view);
+			} else
+				App.root.getChildren().add(view);
+		} else if (App.root.getChildren().contains(view) == true)
 			App.root.getChildren().remove(view);
 	}
 

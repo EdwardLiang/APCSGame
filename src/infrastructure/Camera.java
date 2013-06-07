@@ -35,7 +35,7 @@ public class Camera implements Runnable, Serializable {
 	public synchronized void setOffsetY(float offsetY) {
 		this.offsetY = offsetY;
 	}
-
+	
 	@Override
 	public void run() {
 		while (true) {

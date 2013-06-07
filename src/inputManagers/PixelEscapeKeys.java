@@ -58,11 +58,11 @@ public class PixelEscapeKeys extends DefaultKeys {
 					body.applyForce(impulse, point);
 				}
 				 else if (buffer.contains(KeyCode.A)) {
-						Vec2 impulse = new Vec2(-5000.0f, 0);
+						Vec2 impulse = new Vec2(-10000.0f, 0);
 						Vec2 point = body.getWorldPoint(body.getWorldCenter());
 						body.applyForce(impulse, point);
 				} else if (buffer.contains(KeyCode.D)) {
-					Vec2 impulse = new Vec2(5000.0f, 0);
+					Vec2 impulse = new Vec2(10000.0f, 0);
 					Vec2 point = body.getWorldPoint(body.getWorldCenter());
 					body.applyForce(impulse, point);
 				}

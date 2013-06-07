@@ -109,18 +109,24 @@ public class App extends Application {
 		game.addMap(GameMap.parse(Parse.readFromFile("1-4.txt"), "1-4.txt"));
 		// game.addMap(new GameMap(new BackGround("maps/1-4.png"), 900, 100, 36,
 		// 49, 0));
-		game.addMap(new GameMap(new BackGround("maps/1-7.jpg"), 1200, 237, 10,
-				49, 30.0f));
-		game.getMaps().get(5).addCoreElements();
-		for (int a = 0; a < 1280; a += 10) {
-			BouncyBall bouncy = new BouncyBall(a, 90, 8, Color.BLUE);
-			bouncy.addToMap(game.getMaps().get(5));
-		}
-		for (int a = 0; a < 720; a += 5) {
-			BouncyBall bouncy = new BouncyBall(30, a, 8, Color.WHITE);
-			bouncy.addToMap(game.getMaps().get(5));
-		}
-
+		game.addMap(GameMap.parse(Parse.readFromFile("1-7.txt"), "1-7.txt"));
+//		game.addMap(new GameMap(new BackGround("maps/1-7.jpg"), 1200, 237, 10,
+//				49, 30.0f));
+//		game.getMaps().get(5).addCoreElements();
+//		for (int a = 0; a < 210; a += 10) {
+//			BouncyBall bouncy = new BouncyBall(a, 90, 8, Color.BLUE);
+//			bouncy.addToMap(game.getMaps().get(5));
+//		}
+//		for (int a = 0; a < 311; a += 5) {
+//			BouncyBall bouncy = new BouncyBall(30, a, 8, Color.WHITE);
+//			bouncy.addToMap(game.getMaps().get(5));
+//		}
+		 //game.addMap(new GameMap(new BackGround("maps/2-2.jpg"), 1150, 100, 36,
+					 //49, 30));
+		//game.getMaps().get(6).addCoreElements();
+		game.addMap(GameMap.parse(Parse.readFromFile("2-2.txt"), "2-2.txt"));
+		BouncyBall bouncy = new BouncyBall(110, 50,8, Color.BLUE);
+		bouncy.addToMap(game.getMaps().get(6));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
@@ -139,7 +145,21 @@ public class App extends Application {
 		// Menu File
 		Menu menuFile = new Menu("File");
 		MenuItem save = new MenuItem("Save Map");
-		menuFile.getItems().add(save);
+		MenuItem reset = new MenuItem("Reset Level");
+		reset.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					App.game.getCurrentMap().reset();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		menuFile.getItems().addAll(save,reset);
 
 		Menu menuEdit = new Menu("Edit");
 		MenuItem devMode = new MenuItem("DevMode");
@@ -151,7 +171,9 @@ public class App extends Application {
 		devMode.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				(new EdwardPopup("PLEASE TELL ME HOW TO REVERSE DEVMODE!1!!1!"))
+				(new EdwardPopup(
+						"This is the feature of our game that allows us to dynamically draw and execute player-defined shapes. To use, draw points with"
+								+ "your mouse, and press F1 or F2 to create the shape, depending on what kind of shape you want. "))
 						.toggle();
 			}
 
@@ -177,10 +199,8 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		game.changeMap(game.getMaps().get(1));
-		game.getCurrentMap().addCoreElements();
-		// Floor bottom = new Floor(game.getCurrentMap().getWidth() / 2, 35,
-		// game.getCurrentMap().getWidth(), 17);
-		// bottom.addToMap(game.getCurrentMap());
+//		game.getCurrentMap().addCoreElements();
+		App.game.changeMap(App.game.getMaps().get(5));
 
 	}
 
