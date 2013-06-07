@@ -53,6 +53,7 @@ public class App extends Application {
 	public static Stage pS;
 	public static MenuBar menuBar;
 	private static final String MEDIA_URL = "src/audio/ZombieTheme.mp3";
+
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
@@ -80,15 +81,11 @@ public class App extends Application {
 		cam.start();
 
 		// ball.setVisible(true);
+		game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"),
+				"savefile.txt"));
 
-		game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 20, 13, 20,
-				20, 30.0f));
-		try {
-			game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"),
-					"savefile.txt"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 20, 13, 20, 20,
+				30.0f));
 		// game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -144,7 +141,7 @@ public class App extends Application {
 		// audio stuff
 		String otherSong = null;// list of songs to be implemented
 		File file = new File(MEDIA_URL);
-		
+
 		Media media = new Media(file.toURI().toString());
 		MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setAutoPlay(true);

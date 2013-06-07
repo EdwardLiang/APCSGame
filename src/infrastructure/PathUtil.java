@@ -130,7 +130,7 @@ public class PathUtil {
 		return points;
 	}
 	
-	public static Vec2[] parseWPPoints(String str){
+	public static Vec2[] parseVec2(String str){
 		String[] coordPairs = str.split("[ ]");
 		Vec2[] points = new Vec2[coordPairs.length];
 		for (int a = 0; a < coordPairs.length; a++) {
@@ -253,7 +253,7 @@ public class PathUtil {
 		Vec2[] verts = readInPLocal(url);
 		return makeNode(verts);
 	}
-	public static String wPToString(Vec2[] verts){
+	public static String pToString(Vec2[] verts){
 		String converted = "";
 		for(Vec2 a: verts){
 			converted = converted + a.x + "," + a.y + " ";

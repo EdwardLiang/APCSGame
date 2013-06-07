@@ -18,14 +18,36 @@ import org.jbox2d.dynamics.FixtureDef;
 public abstract class PathEntity extends Entity {
 	Vec2[] worldPPoints;
 	Vec2[] localPPoints;
+	Vec2[] local;
+	float offsetX;
+	float offsetY;
 
 	public PathEntity(Vec2[] wp) {
 		this.worldPPoints = wp;
 		this.localPPoints = PathUtil.PWorldToPLocal(worldPPoints);
-		this.xPos = Util.toPosX(PathUtil.posX(wp) - App.camera.getOffsetX());
-		this.yPos = Util.toPosY(PathUtil.posY(wp) - App.camera.getOffsetY());
+		this.local = PathUtil.PWorldToLocal(worldPPoints);
+		if (App.camera != null) {
+			this.xPos = Util
+					.toPosX(PathUtil.posX(wp) - App.camera.getOffsetX());
+			this.yPos = Util
+					.toPosY(PathUtil.posY(wp) - App.camera.getOffsetY());
+		} else {
+			this.xPos = Util.toPosX(PathUtil.posX(wp));
+			this.yPos = Util.toPosY(PathUtil.posY(wp));
+		}
 		this.width = Util.toWidth(PathUtil.width(wp));
 		this.height = Util.toHeight(PathUtil.height(wp));
+		create();
+	}
+
+	public PathEntity(Vec2[] lp, Vec2[] local, float x, float y, float width,
+			float height) {
+		this.localPPoints = lp;
+		this.local = local;
+		this.width = width;
+		this.height = height;
+		this.xPos = x;
+		this.yPos = y;
 		create();
 	}
 
@@ -42,10 +64,14 @@ public abstract class PathEntity extends Entity {
 	@Override
 	protected Shape createShape() {
 		PolygonShape shape = (PolygonShape) PathUtil.makeShape(PathUtil
-				.shapePoints(PathUtil.PWorldToLocal(worldPPoints)));
+				.shapePoints(local));
 		return shape;
 	}
-	public String toString(){
-		return "" + this.getClass() + Parse.delim + xPos + Parse.delim + yPos + Parse.delim + PathUtil.wPToString(worldPPoints);
+
+	public String toString() {
+		return "" + this.getClass() + Parse.delim + xPos + Parse.delim + yPos
+				+ Parse.delim + PathUtil.pToString(localPPoints) + Parse.delim
+				+ PathUtil.pToString(local) + Parse.delim + width + Parse.delim
+				+ height;
 	}
 }

@@ -16,6 +16,11 @@ public class DynamicPathEntity extends PathEntity {
 		super(verts);
 	}
 
+	public DynamicPathEntity(Vec2[] lp, Vec2[] local, float x, float y,
+			float width, float height) {
+		super(lp, local, x, y, width, height);
+	}
+
 	@Override
 	protected BodyDef createBD() {
 		BodyDef bodyDef = new BodyDef();
@@ -34,10 +39,15 @@ public class DynamicPathEntity extends PathEntity {
 		fix.restitution = 0f;
 		return fix;
 	}
-	public static DynamicPathEntity parse(String[] frags){
-		return new DynamicPathEntity(PathUtil.parseWPPoints(frags[3]));
+
+	public static DynamicPathEntity parse(String[] frags) {
+		return new DynamicPathEntity(PathUtil.parseVec2(frags[3]),
+				PathUtil.parseVec2(frags[4]), Float.parseFloat(frags[1]),
+				Float.parseFloat(frags[2]), Float.parseFloat(frags[5]),
+				Float.parseFloat(frags[6]));
 	}
-	public String toString(){
+
+	public String toString() {
 		return super.toString();
 	}
 

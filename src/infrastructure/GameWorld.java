@@ -1,5 +1,6 @@
 package infrastructure;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,9 +21,12 @@ public class GameWorld implements Serializable {
 	private Entity player;
 	private Boolean isAtDoor;
 
-	public GameWorld() {
+	public GameWorld() throws IOException {
 		player = new Player(10, 20);
-		currentMap = new GameMap(new BackGround("maps/menu.jpg"), 1190, 352, 20, 20, 30.0f);
+		// currentMap = GameMap.parse(Parse.readFromFile("menu.txt"),
+		// "menu.txt");
+		currentMap = new GameMap(new BackGround("maps/menu.jpg"), 1190, 352,
+				20, 20, 30.0f);
 		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();
 		isAtDoor = false;
@@ -53,7 +57,7 @@ public class GameWorld implements Serializable {
 
 	public void changeMap(GameMap Map) {
 		if (currentMap != null) {
-			//currentMap.reset();
+			// currentMap.reset();
 			currentMap.killTime();
 			currentMap.setVisible(false);
 		}
@@ -79,7 +83,8 @@ public class GameWorld implements Serializable {
 	public void isAtDoor(boolean b) {
 		this.isAtDoor = b;
 	}
-	public boolean getIsAtDoor(){
+
+	public boolean getIsAtDoor() {
 		return isAtDoor;
 	}
 }
