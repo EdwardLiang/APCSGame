@@ -35,6 +35,10 @@ import org.jbox2d.collision.shapes.PolygonShape;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import org.jbox2d.common.Vec2;
 
@@ -52,8 +56,9 @@ public class App extends Application {
 	public static Scene scene;
 	public static Stage pS;
 	public static MenuBar menuBar;
-	private static final String MEDIA_URL = "src/audio/ZombieTheme.mp3";
-
+	protected static final List<String> musicList =  Arrays
+			.asList(new String[] { "src/audio/ZombieTheme.mp3",
+					"src/audio/Mountain.m4a", "src/audio/ZombieTheme.mp3" });
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
@@ -69,6 +74,12 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		game = new GameWorld();
+		BouncyBall ball = new BouncyBall(30, 90, 8, Color.RED);
+		ball.addToMap(game.getCurrentMap());
+		ball.setVisible(true);
+		Creature creature = new Creature(30, 30);
+		creature.addToMap(game.getCurrentMap());
+		creature.setVisible(true);
 
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
@@ -81,11 +92,15 @@ public class App extends Application {
 		cam.start();
 
 		// ball.setVisible(true);
-		game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"),
-				"savefile.txt"));
 
-		game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 20, 13, 20, 20,
-				30.0f));
+		game.addMap(new GameMap(new BackGround("maps/castle.jpg"), 20, 13, 20,
+				20, 30.0f));
+		try {
+			game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"),
+					"savefile.txt"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		// game.changeMap(game.getMaps().get(1));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -139,16 +154,31 @@ public class App extends Application {
 
 		((Group) scene.getRoot()).getChildren().addAll(menuBar);
 		// audio stuff
-		String otherSong = null;// list of songs to be implemented
-		File file = new File(MEDIA_URL);
-
-		Media media = new Media(file.toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.setAutoPlay(true);
-		MediaView mediaView = new MediaView(mediaPlayer);
+		MediaView mediaView = createMediaView();
 		((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
+	}
+	public MediaView createMediaView(){
+	    MediaView mediaView = new MediaView();
+	    initMediaPlayer(mediaView, musicList.iterator());
+	    return mediaView;
+	}
+
+	private void initMediaPlayer(
+	          final MediaView mediaView, 
+	          final Iterator<String> urls
+	){
+	    if (urls.hasNext()){
+	        MediaPlayer mediaPlayer = new MediaPlayer(new Media((new File(urls.next()).toURI().toString())));
+	        mediaPlayer.setAutoPlay(true);
+	        mediaPlayer.setOnEndOfMedia(new Runnable() {
+	            @Override public void run() {
+	                initMediaPlayer(mediaView, urls);
+	            }
+	        });
+	        mediaView.setMediaPlayer(mediaPlayer);
+	    } 
 	}
 }
