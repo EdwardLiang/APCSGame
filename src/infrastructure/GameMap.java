@@ -86,6 +86,12 @@ public class GameMap implements Serializable {
 	public World getPhysics() {
 		return world;
 	}
+	public float getPX(){
+		return playerX;
+	}
+	public float getPY(){
+		return playerY;
+	}
 
 	public void reset() throws IOException {
 		stopAll();

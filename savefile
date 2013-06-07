@@ -1,9 +1,0 @@
-maps/menu.jpg
-20.0
-13.0
-20.0
-20.0
-30.0
-class entities.BouncyBall;30.0;90.0;0.0;0.0;8;0xff0000ff
-class entities.Creature;30.0;30.0;10.0;10.0
-

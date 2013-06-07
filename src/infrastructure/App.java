@@ -93,15 +93,9 @@ public class App extends Application {
 
 		// ball.setVisible(true);
 
-		game.addMap(new GameMap(new BackGround("maps/castle.jpg"), 20, 13, 20,
-				20, 30.0f));
-		try {
-			game.addMap(GameMap.parse(Parse.readFromFile("savefile.txt"),
-					"savefile.txt"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// game.changeMap(game.getMaps().get(1));
+		//game.addMap(new GameMap(new BackGround("maps/1-1.jpg"), 1350, 280, 36,
+				//49, 30.0f));
+		game.addMap(GameMap.parse(Parse.readFromFile("1-1.txt"), "1-1.txt"));
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -158,6 +152,7 @@ public class App extends Application {
 		((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		game.changeMap(game.getMaps().get(1));
 
 	}
 	public MediaView createMediaView(){

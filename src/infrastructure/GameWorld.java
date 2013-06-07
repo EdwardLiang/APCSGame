@@ -22,11 +22,10 @@ public class GameWorld implements Serializable {
 	private Boolean isAtDoor;
 
 	public GameWorld() throws IOException {
-		player = new Player(10, 20);
-		// currentMap = GameMap.parse(Parse.readFromFile("menu.txt"),
-		// "menu.txt");
-		currentMap = new GameMap(new BackGround("maps/menu.jpg"), 1190, 352,
-				20, 20, 30.0f);
+		currentMap = GameMap.parse(Parse.readFromFile("menu.txt"), "menu.txt");
+		// currentMap = new GameMap(new BackGround("maps/menu.jpg"), 1190, 352,
+		// 20, 20, 30.0f);
+		player = new Player(currentMap.getPX(), currentMap.getPY());
 		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();
 		isAtDoor = false;
@@ -54,7 +53,6 @@ public class GameWorld implements Serializable {
 	public void addMap(GameMap game) {
 		maps.add(game);
 	}
-
 	public void changeMap(GameMap Map) {
 		if (currentMap != null) {
 			// currentMap.reset();
@@ -63,6 +61,7 @@ public class GameWorld implements Serializable {
 		}
 		currentMap = Map;
 		App.camera.reset();
+		player = new Player(currentMap.getPX(), currentMap.getPY());
 		player.addToMap(Map);
 		currentMap.setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
