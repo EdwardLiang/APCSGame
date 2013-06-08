@@ -2,8 +2,6 @@ package entities;
 
 import infrastructure.App;
 import infrastructure.GameMap;
-import infrastructure.Parse;
-import infrastructure.Util;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +18,9 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
+
+import utils.Parse;
+import utils.Util;
 
 public class Door {
 	public Node node;

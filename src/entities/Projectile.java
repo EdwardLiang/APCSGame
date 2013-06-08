@@ -1,7 +1,5 @@
 package entities;
 
-import infrastructure.Parse;
-import infrastructure.Util;
 import javafx.scene.Node;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
@@ -9,6 +7,9 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
+
+import utils.Parse;
+import utils.Util;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;

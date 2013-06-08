@@ -1,4 +1,4 @@
-package inputManagers;
+package keymanagers;
 
 import infrastructure.App;
 

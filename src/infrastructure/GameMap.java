@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
+import utils.Parse;
+
 import entities.*;
+import guiobject.BackGround;
 
 public class GameMap implements Serializable {
 	private static final long serialVersionUID = 42L;

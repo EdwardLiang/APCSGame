@@ -1,7 +1,5 @@
 package entities;
 
-import infrastructure.Parse;
-import infrastructure.PathUtil;
 
 import java.io.IOException;
 
@@ -9,6 +7,9 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+
+import utils.Parse;
+import utils.PathUtil;
 
 public class DynamicPathEntity extends PathEntity {
 

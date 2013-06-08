@@ -1,8 +1,9 @@
-package inputManagers;
+package mousemanagers;
 
+import utils.Util;
 import infrastructure.App;
-import infrastructure.Util;
 import javafx.scene.input.MouseEvent;
+import keymanagers.MouseManager;
 
 public class DevMouse extends MouseManager {
 	public void handle(MouseEvent me) {

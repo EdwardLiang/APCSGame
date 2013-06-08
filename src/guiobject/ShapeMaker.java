@@ -1,9 +1,10 @@
-package infrastructure;
+package guiobject;
 
 import entities.DynamicPathEntity;
 import entities.Entity;
-import entities.Marker;
 import entities.StaticPathEntity;
+
+import infrastructure.App;
 
 import java.util.ArrayList;
 

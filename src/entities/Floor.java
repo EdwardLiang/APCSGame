@@ -1,7 +1,7 @@
 package entities;
 
+import utils.Parse;
 import infrastructure.App;
-import infrastructure.Parse;
 
 public class Floor extends Wall {
 

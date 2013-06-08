@@ -1,9 +1,6 @@
 package entities;
 
 import infrastructure.App;
-import infrastructure.Parse;
-import infrastructure.PathUtil;
-import infrastructure.Util;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -14,6 +11,10 @@ import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.FixtureDef;
+
+import utils.Parse;
+import utils.PathUtil;
+import utils.Util;
 
 public abstract class PathEntity extends Entity {
 	Vec2[] worldPPoints;

@@ -1,14 +1,9 @@
 package infrastructure;
 
-import inputManagers.DefaultKeys;
-import inputManagers.CreationKeys;
-import inputManagers.DevModeKeys;
-import inputManagers.DevMouse;
-import inputManagers.FlyingKeys;
-import inputManagers.InertialKeys;
-import inputManagers.KeyManager;
-import inputManagers.MouseManager;
-import inputManagers.PixelEscapeKeys;
+import guiobject.Camera;
+import guiobject.EdwardPopup;
+import guiobject.PopupText;
+import guiobject.ShapeMaker;
 import javafx.scene.control.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,6 +26,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.Popup;
 import javafx.scene.text.Text;
+import mousemanagers.DevMouse;
+
 import org.jbox2d.collision.shapes.PolygonShape;
 
 import java.io.File;
@@ -41,14 +38,24 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import keymanagers.CreationKeys;
+import keymanagers.DefaultKeys;
+import keymanagers.DevModeKeys;
+import keymanagers.FlyingKeys;
+import keymanagers.InertialKeys;
+import keymanagers.KeyManager;
+import keymanagers.MouseManager;
+import keymanagers.PixelEscapeKeys;
+
 import org.jbox2d.common.Vec2;
+
+import utils.Parse;
+import utils.Util;
 
 import entities.BouncyBall;
 import entities.Creature;
-import entities.EdwardPopup;
 import entities.Entity;
 import entities.Floor;
-import entities.PopupText;
 import entities.Wall;
 
 public class App extends Application {

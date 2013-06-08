@@ -9,11 +9,12 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
+import utils.Parse;
+import utils.Util;
+
 import infrastructure.App;
 import infrastructure.FXJBox;
 import infrastructure.GameMap;
-import infrastructure.Parse;
-import infrastructure.Util;
 import javafx.scene.Node;
 
 public abstract class Entity implements FXJBox, Serializable {

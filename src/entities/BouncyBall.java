@@ -1,13 +1,14 @@
 package entities;
 
-import infrastructure.Parse;
-import infrastructure.Util;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+
+import utils.Parse;
+import utils.Util;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;

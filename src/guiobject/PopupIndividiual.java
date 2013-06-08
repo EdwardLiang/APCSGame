@@ -1,4 +1,4 @@
-package entities;
+package guiobject;
 
 import javafx.scene.text.Text;
 import javafx.stage.Popup;

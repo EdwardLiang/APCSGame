@@ -2,6 +2,8 @@ package infrastructure;
 
 import java.io.Serializable;
 
+import utils.Util;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

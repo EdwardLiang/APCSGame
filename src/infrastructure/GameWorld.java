@@ -1,10 +1,8 @@
 package infrastructure;
 
-import inputManagers.CreationKeys;
-import inputManagers.DevModeKeys;
-import inputManagers.FlyingKeys;
-import inputManagers.InertialKeys;
-import inputManagers.PixelEscapeKeys;
+import guiobject.Camera;
+import guiobject.CustomCamera;
+import guiobject.EdwardPopup;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -13,12 +11,18 @@ import java.util.LinkedList;
 
 import org.jbox2d.dynamics.Fixture;
 
+import utils.Parse;
+
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import keymanagers.CreationKeys;
+import keymanagers.DevModeKeys;
+import keymanagers.FlyingKeys;
+import keymanagers.InertialKeys;
+import keymanagers.PixelEscapeKeys;
 
 import entities.BouncyBall;
 import entities.Creature;
-import entities.EdwardPopup;
 import entities.Entity;
 import entities.Player;
 

@@ -1,6 +1,5 @@
 package entities;
 
-import infrastructure.PathUtil;
 
 import java.io.IOException;
 
@@ -8,6 +7,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+
+import utils.PathUtil;
 
 public class StaticPathEntity extends PathEntity {
 

@@ -2,8 +2,9 @@ package entities;
 
 import java.io.IOException;
 
+import utils.Util;
+
 import infrastructure.App;
-import infrastructure.Util;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;

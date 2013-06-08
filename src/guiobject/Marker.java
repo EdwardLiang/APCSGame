@@ -1,9 +1,10 @@
-package entities;
+package guiobject;
 
 import org.jbox2d.common.Vec2;
 
+import utils.Util;
+
 import infrastructure.App;
-import infrastructure.Util;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

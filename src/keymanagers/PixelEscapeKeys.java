@@ -1,4 +1,4 @@
-package inputManagers;
+package keymanagers;
 
 import java.io.IOException;
 
@@ -12,16 +12,13 @@ import org.jbox2d.dynamics.Body;
 
 import entities.Player;
 
-public class FlyingKeys extends DefaultKeys {
+public class PixelEscapeKeys extends DefaultKeys {
 	public EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if (t.getCode() == KeyCode.P) {
-				App.game.getCurrentMap().toggleTime();
-			}
 			if (t.getCode() == KeyCode.D) {
 				if (App.game.getPlayer() != null) {
 					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
@@ -53,6 +50,9 @@ public class FlyingKeys extends DefaultKeys {
 						App.game.changeMap(App.game.getMaps().get(index + 1));
 				}
 			}
+			if (t.getCode() == KeyCode.P) {
+				App.game.getCurrentMap().toggleTime();
+			}
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();
@@ -66,20 +66,8 @@ public class FlyingKeys extends DefaultKeys {
 	public EventHandler<KeyEvent> keyRelease = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
-			Body body = App.game.getPlayer().getBody();
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
-			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
-				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-				body.setLinearVelocity(velocity);
-				((Player)App.game.getPlayer()).setMoving(false);
-			}
-			if (t.getCode() == KeyCode.D && body.getLinearVelocity().x != 0) {
-				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-				body.setLinearVelocity(velocity);
-				((Player)App.game.getPlayer()).setMoving(false);
-			}
-			t.consume();
 		}
 
 	};
@@ -90,18 +78,21 @@ public class FlyingKeys extends DefaultKeys {
 			while (true) {
 				Body body = App.game.getPlayer().getBody();
 				if (buffer.contains(KeyCode.W)) {
-					Vec2 velocity = new Vec2(body.getLinearVelocity().x, 20.0f);
-					body.setLinearVelocity(velocity);
-				}
-				if (buffer.contains(KeyCode.A) && buffer.contains(KeyCode.D)) {
-					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
+					Vec2 impulse = new Vec2(0, 50000.0f);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
 				} else if (buffer.contains(KeyCode.A)) {
-					Vec2 velocity = new Vec2(-20.0f, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
+					Vec2 impulse = new Vec2(-10000.0f, 0);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
 				} else if (buffer.contains(KeyCode.D)) {
-					Vec2 velocity = new Vec2(20.0f, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
+					Vec2 impulse = new Vec2(10000.0f, 0);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
+				} else if (buffer.contains(KeyCode.S)) {
+					Vec2 impulse = new Vec2(0, -5000.0f);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
 				}
 				try {
 					Thread.sleep(10);
@@ -112,5 +103,4 @@ public class FlyingKeys extends DefaultKeys {
 		}
 
 	};
-
 }

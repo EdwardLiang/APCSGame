@@ -1,4 +1,4 @@
-package inputManagers;
+package keymanagers;
 
 import java.io.IOException;
 
@@ -17,11 +17,11 @@ public class DevModeKeys extends FlyingKeys {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if (t.getCode() == KeyCode.E){
-				App.setTC(1.0f/20.0f);
+			if (t.getCode() == KeyCode.E) {
+				App.setTC(1.0f / 20.0f);
 			}
-			if (t.getCode() == KeyCode.Q){
-				App.setTC(1.0f/100.0f);
+			if (t.getCode() == KeyCode.Q) {
+				App.setTC(1.0f / 100.0f);
 			}
 			if (t.getCode() == KeyCode.D) {
 				if (App.game.getPlayer() != null) {
