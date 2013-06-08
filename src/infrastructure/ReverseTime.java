@@ -25,7 +25,6 @@ public class ReverseTime extends Time {
 	EventHandler<ActionEvent> fs = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println("reverse's eventhandler triggered");
 			map.getBack().setLayoutX(App.camera.getOffsetX());
 			map.getBack().setLayoutY(
 					(float) (-map.getPHeight() + Util.HEIGHT + App.camera
@@ -51,8 +50,10 @@ public class ReverseTime extends Time {
 			for (Entity a : frame.getData().keySet()) {
 				a.getBody().setAngularVelocity(0);
 				a.getBody().setLinearVelocity(new Vec2(0, 0));
-				a.getBody().getPosition().x = frame.getData().get(a).getX();
-				a.getBody().getPosition().y = frame.getData().get(a).getY();
+			//	a.getBody().getPosition().x = frame.getData().get(a).getX();
+			//	a.getBody().getPosition().y = frame.getData().get(a).getY();
+				a.getBody().setTransform(new Vec2(frame.getData().get(a).getX(),
+						frame.getData().get(a).getY()), 0);
 				if (a.node instanceof Circle) {
 					float xpos = a.getPPosition().x + App.camera.getOffsetX();
 					float ypos = a.getPPosition().y + App.camera.getOffsetY();

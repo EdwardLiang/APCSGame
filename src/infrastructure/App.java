@@ -82,7 +82,6 @@ public class App extends Application {
 		launch(args);
 	}
 	public static void reverseTime(){
-		System.out.println("method reverseTime triggered");
 		App.game.getCurrentMap().killTime();
 		App.game.getCurrentMap().newReverseTime();
 		App.game.getCurrentMap().startTime();
