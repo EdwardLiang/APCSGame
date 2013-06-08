@@ -19,7 +19,7 @@ public class Time implements Serializable {
 	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent t) {
-			map.getPhysics().step(1.0f / 60.0f, 8, 3);
+			map.getPhysics().step(App.getTC(), 8, 3);
 			map.getBack().setLayoutX(App.camera.getOffsetX());
 			map.getBack().setLayoutY(
 					(float) (-map.getPHeight() + Util.HEIGHT + App.camera
@@ -43,48 +43,54 @@ public class Time implements Serializable {
 
 			for (Entity a : map.getElements()) {
 				if (a instanceof Player) {
-					if (a.getBody().getLinearVelocity().y > 0
-							&& ((Player) a).getStatus() != Player.Status.UPWARD) {
-						a.setVisible(false);
-						((Player) a).setStatus(Player.Status.UPWARD);
-						((Player) a).changeNode();
-						a.setVisible(true);
-					} else if (a.getBody().getLinearVelocity().y < 0
-							&& ((Player) a).getStatus() != Player.Status.DOWNWARDS) {
-						a.setVisible(false);
-						((Player) a).setStatus(Player.Status.DOWNWARDS);
-						((Player) a).changeNode();
-						a.setVisible(true);
-					} else if (a.getBody().getLinearVelocity().y != 0) {
-						;
-					} else if (a.getBody().getLinearVelocity().x == 0
-							&& ((Player) a).getStatus() != Player.Status.IDLE
-							&& ((Player) a).getStatus() != Player.Status.UPWARD
-							&& a.getBody().getContactList() != null) {
-						a.setVisible(false);
-						((Player) a).setStatus(Player.Status.IDLE);
-						((Player) a).changeNode();
-						a.setVisible(true);
-					} else if (Math.abs(a.getBody().getLinearVelocity().x) > 0
-							&& ((Player) a).getStatus() != Player.Status.WALK) {
-						a.setVisible(false);
-						((Player) a).setStatus(Player.Status.WALK);
-						((Player) a).changeNode();
-						a.setVisible(true);
+					if(a.getBody().getContactList() != null){
+						if (a.getBody().getLinearVelocity().x == 0
+								&& ((Player) a).getStatus() != Player.Status.IDLE
+								&& ((Player) a).getStatus() != Player.Status.UPWARD
+								&& !((Player) a).isMoving()
+								&& a.getBody().getContactList() != null) {
+							a.setVisible(false);
+							((Player) a).setStatus(Player.Status.IDLE);
+							((Player) a).changeNode();
+							a.setVisible(true);
+						} else if (Math.abs(a.getBody().getLinearVelocity().x) > 0
+								&& ((Player) a).getStatus() != Player.Status.WALK) {
+							a.setVisible(false);
+							((Player) a).setStatus(Player.Status.WALK);
+							((Player) a).changeNode();
+							a.setVisible(true);
+						}
 					}
-					if (((Player) a).getSide() == Player.Side.RIGHT
-							&& a.getBody().getLinearVelocity().x < 0) {
+					else{
+						if (a.getBody().getLinearVelocity().y > 0
+								&& ((Player) a).getStatus() != Player.Status.UPWARD) {
+							a.setVisible(false);
+							((Player) a).setStatus(Player.Status.UPWARD);
+							((Player) a).changeNode();
+							a.setVisible(true);
+						} else if (a.getBody().getLinearVelocity().y < 0
+								&& ((Player) a).getStatus() != Player.Status.DOWNWARDS) {
+							a.setVisible(false);
+							((Player) a).setStatus(Player.Status.DOWNWARDS);
+							((Player) a).changeNode();
+							a.setVisible(true);
+						} else if (a.getBody().getLinearVelocity().y != 0) {
+							;
+						}
+					}
+					/*if (((Player) a).getSide() == Player.Side.RIGHT
+							&& a.getBody().getLinearVelocity().x < -.2) {
 						a.setVisible(false);
 						((Player) a).setSide(Player.Side.LEFT);
 						((Player) a).changeNode();
 						a.setVisible(true);
 					} else if (((Player) a).getSide() == Player.Side.LEFT
-							&& a.getBody().getLinearVelocity().x > 0) {
+							&& a.getBody().getLinearVelocity().x > .2) {
 						a.setVisible(false);
 						((Player) a).setSide(Player.Side.RIGHT);
 						((Player) a).changeNode();
 						a.setVisible(true);
-					}
+					}*/
 
 				}
 				if (a.node instanceof Circle) {

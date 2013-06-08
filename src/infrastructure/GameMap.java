@@ -62,6 +62,9 @@ public class GameMap implements Serializable {
 	public void startTime() {
 		time.startTime();
 	}
+	public void newTime(){
+		this.time = new Time(this);
+	}
 
 	public void killTime() {
 		time.killTime();

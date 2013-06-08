@@ -2,6 +2,8 @@ package inputManagers;
 
 import java.io.IOException;
 
+import entities.Player;
+
 import infrastructure.App;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -14,6 +16,29 @@ public class CreationKeys extends DefaultKeys {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
+			if (t.getCode() == KeyCode.D) {
+				if (App.game.getPlayer() != null) {
+					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
+						App.game.getPlayer().setVisible(false);
+						((Player) App.game.getPlayer())
+								.setSide(Player.Side.RIGHT);
+						((Player) App.game.getPlayer()).changeNode();
+						App.game.getPlayer().setVisible(true);
+					}
+				}
+			}
+			if (t.getCode() == KeyCode.A) {
+				if (App.game.getPlayer() != null) {
+					if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
+						App.game.getPlayer().setVisible(false);
+						((Player) App.game.getPlayer())
+								.setSide(Player.Side.LEFT);
+						((Player) App.game.getPlayer()).changeNode();
+						App.game.getPlayer().setVisible(true);
+					}
+				}
+			}
+
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();

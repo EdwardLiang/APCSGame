@@ -15,6 +15,7 @@ public class Player extends Creature {
 	private Status status;
 	private Side side;
 	private ImageView imageView;
+	private boolean moving;
 
 	public Player(float posX, float posY) {
 		super(posX, posY);
@@ -23,6 +24,12 @@ public class Player extends Creature {
 		this.status = Status.IDLE;
 		this.side = Side.RIGHT;
 		// TODO Auto-generated constructor stub
+	}
+	public synchronized void setMoving(boolean bool){
+		moving = bool;
+	}
+	public synchronized boolean isMoving(){
+		return moving;
 	}
 
 	public Side getSide() {

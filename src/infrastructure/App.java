@@ -61,6 +61,7 @@ public class App extends Application {
 	public static MenuBar menuBar;
 	public static Thread key;
 	public static Thread cam;
+	public static float tC;
 
 	public static final List<String> musicList = Arrays.asList(new String[] {
 			"src/audio/ZombieTheme.mp3", "src/audio/Melancholy.mp3",
@@ -73,6 +74,16 @@ public class App extends Application {
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
+	
+	public static synchronized void setTC(float tC){
+		App.game.getCurrentMap().killTime();
+		App.game.getCurrentMap().newTime();
+		App.tC = tC;
+		App.game.getCurrentMap().startTime();
+	}
+	public static synchronized float getTC(){
+		return tC;
+	}
 
 	@Override
 	public void start(final Stage primaryStage) throws IOException {
@@ -80,6 +91,7 @@ public class App extends Application {
 		primaryStage.setTitle("Dreamscape");
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
+		tC = 1.0f /60.0f;
 
 		root = new Group();
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
@@ -90,7 +102,7 @@ public class App extends Application {
 		camera = new Camera();
 		shaker = new ShapeMaker();
 		MouseManager mouse = new DevMouse();
-		CreationKeys keyManager = new CreationKeys();
+		DevModeKeys keyManager = new DevModeKeys();
 		key = new Thread(keyManager.keyThread);
 		cam = new Thread(camera);
 		key.start();

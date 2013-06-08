@@ -2,6 +2,8 @@ package inputManagers;
 
 import java.io.IOException;
 
+import entities.Player;
+
 import infrastructure.App;
 import infrastructure.GameMap;
 import javafx.event.EventHandler;
@@ -15,6 +17,35 @@ public class DevModeKeys extends FlyingKeys {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
+			if (t.getCode() == KeyCode.E){
+				App.setTC(1.0f/20.0f);
+			}
+			if (t.getCode() == KeyCode.Q){
+				App.setTC(1.0f/100.0f);
+			}
+			if (t.getCode() == KeyCode.D) {
+				if (App.game.getPlayer() != null) {
+					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
+						App.game.getPlayer().setVisible(false);
+						((Player) App.game.getPlayer())
+								.setSide(Player.Side.RIGHT);
+						((Player) App.game.getPlayer()).changeNode();
+						App.game.getPlayer().setVisible(true);
+					}
+				}
+			}
+			if (t.getCode() == KeyCode.A) {
+				if (App.game.getPlayer() != null) {
+					if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
+						App.game.getPlayer().setVisible(false);
+						((Player) App.game.getPlayer())
+								.setSide(Player.Side.LEFT);
+						((Player) App.game.getPlayer()).changeNode();
+						App.game.getPlayer().setVisible(true);
+					}
+				}
+			}
+
 			if (t.getCode() == KeyCode.N) {
 				if (App.game.getIsAtDoor()) {
 					int index = App.game.getMaps().indexOf(
@@ -28,8 +59,8 @@ public class DevModeKeys extends FlyingKeys {
 			}
 			if (t.getCode() == KeyCode.U) {
 				System.out.println(App.game.getCurrentMap());
-//				System.out.println(GameMap.parse(App.game.getCurrentMap()
-//						.toString(), "asdf"));
+				// System.out.println(GameMap.parse(App.game.getCurrentMap()
+				// .toString(), "asdf"));
 			}
 			if (t.getCode() == KeyCode.P) {
 				App.game.getCurrentMap().toggleTime();
