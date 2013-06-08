@@ -18,9 +18,10 @@ public class Time implements Serializable {
 	Timeline timeline;
 	GameMap map;
 
-	final EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
+	EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent t) {
+			Frame frame = new Frame();
 			map.getPhysics().step(App.getTC(), 8, 3);
 			map.getBack().setLayoutX(App.camera.getOffsetX());
 			map.getBack().setLayoutY(
@@ -44,8 +45,9 @@ public class Time implements Serializable {
 				App.game.isAtDoor(false);
 
 			for (Entity a : map.getElements()) {
+				frame.addEntity(a);
 				if (a instanceof Player) {
-					if(a.getBody().getContactList() != null){
+					if (a.getBody().getContactList() != null) {
 						if (a.getBody().getLinearVelocity().x == 0
 								&& ((Player) a).getStatus() != Player.Status.IDLE
 								&& ((Player) a).getStatus() != Player.Status.UPWARD
@@ -62,8 +64,7 @@ public class Time implements Serializable {
 							((Player) a).changeNode();
 							a.setVisible(true);
 						}
-					}
-					else{
+					} else {
 						if (a.getBody().getLinearVelocity().y > 0
 								&& ((Player) a).getStatus() != Player.Status.UPWARD) {
 							a.setVisible(false);
@@ -80,19 +81,17 @@ public class Time implements Serializable {
 							;
 						}
 					}
-					/*if (((Player) a).getSide() == Player.Side.RIGHT
-							&& a.getBody().getLinearVelocity().x < -.2) {
-						a.setVisible(false);
-						((Player) a).setSide(Player.Side.LEFT);
-						((Player) a).changeNode();
-						a.setVisible(true);
-					} else if (((Player) a).getSide() == Player.Side.LEFT
-							&& a.getBody().getLinearVelocity().x > .2) {
-						a.setVisible(false);
-						((Player) a).setSide(Player.Side.RIGHT);
-						((Player) a).changeNode();
-						a.setVisible(true);
-					}*/
+					/*
+					 * if (((Player) a).getSide() == Player.Side.RIGHT &&
+					 * a.getBody().getLinearVelocity().x < -.2) {
+					 * a.setVisible(false); ((Player)
+					 * a).setSide(Player.Side.LEFT); ((Player) a).changeNode();
+					 * a.setVisible(true); } else if (((Player) a).getSide() ==
+					 * Player.Side.LEFT && a.getBody().getLinearVelocity().x >
+					 * .2) { a.setVisible(false); ((Player)
+					 * a).setSide(Player.Side.RIGHT); ((Player) a).changeNode();
+					 * a.setVisible(true); }
+					 */
 
 				}
 				if (a.node instanceof Circle) {
@@ -109,6 +108,7 @@ public class Time implements Serializable {
 					a.setLayoutY(ypos);
 				}
 			}
+			map.getTimeData().addFrame(frame);
 		}
 	};
 
@@ -119,6 +119,9 @@ public class Time implements Serializable {
 		KeyFrame frame = new KeyFrame(duration, ae, null, null);
 		timeline.getKeyFrames().add(frame);
 		this.map = world;
+	}
+	public Time(){
+		
 	}
 
 	public void startTime() {
@@ -147,10 +150,4 @@ public class Time implements Serializable {
 	public boolean isPaused() {
 		return timeline.getCurrentRate() == 0;
 	}
-
-	// For experimental time manipulation
-	public Time(GameMap world, int a) {
-
-	}
-
 }

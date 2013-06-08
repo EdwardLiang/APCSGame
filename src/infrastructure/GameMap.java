@@ -29,6 +29,29 @@ public class GameMap implements Serializable {
 	private float doorY;
 	private float playerX;
 	private float playerY;
+	private TimeData timeData;
+
+	public GameMap(BackGround back, float doorX, float doorY, float playerX,
+			float playerY, float gravityMag) {
+		this.gravityMag = gravityMag;
+		this.world = new World(new Vec2(0.0f, -gravityMag));
+		this.gameElements = new ArrayList<Entity>();
+		this.time = new Time(this);
+		this.back = back;
+		this.width = back.getWidth();
+		this.height = back.getHeight();
+		this.door = new Door(doorX, doorY);
+		this.doorX = doorX;
+		this.doorY = doorY;
+		this.playerX = playerX;
+		this.playerY = playerY;
+		this.originalDataLoc = "";
+		this.timeData = new TimeData();
+	}
+
+	public TimeData getTimeData() {
+		return timeData;
+	}
 
 	public ArrayList<Entity> getElements() {
 		return gameElements;
@@ -38,7 +61,7 @@ public class GameMap implements Serializable {
 		return back;
 	}
 
-	public Door getDoor() { 
+	public Door getDoor() {
 		return door;
 	}
 
@@ -65,38 +88,28 @@ public class GameMap implements Serializable {
 	public void startTime() {
 		time.startTime();
 	}
-	public void newTime(){
+
+	public void newTime() {
 		this.time = new Time(this);
+	}
+	
+	public void newReverseTime(){
+		this.time = new ReverseTime(this);
 	}
 
 	public void killTime() {
 		time.killTime();
 	}
 
-	public GameMap(BackGround back, float doorX, float doorY, float playerX,
-			float playerY, float gravityMag) {
-		this.gravityMag = gravityMag;
-		this.world = new World(new Vec2(0.0f, -gravityMag));
-		this.gameElements = new ArrayList<Entity>();
-		this.time = new Time(this);
-		this.back = back;
-		this.width = back.getWidth();
-		this.height = back.getHeight();
-		this.door = new Door(doorX, doorY);
-		this.doorX = doorX;
-		this.doorY = doorY;
-		this.playerX = playerX;
-		this.playerY = playerY;
-		this.originalDataLoc = "";
-	}
-
 	public World getPhysics() {
 		return world;
 	}
-	public float getPX(){
+
+	public float getPX() {
 		return playerX;
 	}
-	public float getPY(){
+
+	public float getPY() {
 		return playerY;
 	}
 
@@ -115,9 +128,10 @@ public class GameMap implements Serializable {
 		App.camera.reset();
 		App.game.getCurrentMap().killTime();
 		App.game.getCurrentMap().setVisible(false);
-	
+
 		App.camera.reset();
-		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(), App.game.getCurrentMap().getPY()));
+		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
+				App.game.getCurrentMap().getPY()));
 		App.game.getPlayer().addToMap(App.game.getCurrentMap());
 		App.game.getCurrentMap().setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
@@ -127,11 +141,11 @@ public class GameMap implements Serializable {
 	}
 
 	public void removeAll() {
-		for(int i = 0; i < gameElements.size(); i++)
+		for (int i = 0; i < gameElements.size(); i++)
 			gameElements.get(i).removeFromMap();
-		//this.getBack().setVisible(false);
-//		for (Entity a : gameElements) {
-//			a.removeFromMap();
+		// this.getBack().setVisible(false);
+		// for (Entity a : gameElements) {
+		// a.removeFromMap();
 	}
 
 	public void setVisible(Boolean bool) {

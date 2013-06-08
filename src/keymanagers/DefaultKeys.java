@@ -22,14 +22,14 @@ public class DefaultKeys extends KeyManager {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if (t.getCode() == KeyCode.R)
+			if (t.getCode() == KeyCode.R){
 				try {
 					App.game.getCurrentMap().reset();
 					System.out.println("R Hit");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
+			}
 			if (t.getCode() == KeyCode.D) {
 				if (App.game.getPlayer() != null) {
 					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {

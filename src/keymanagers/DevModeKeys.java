@@ -23,6 +23,10 @@ public class DevModeKeys extends FlyingKeys {
 			if (t.getCode() == KeyCode.Q) {
 				App.setTC(1.0f / 100.0f);
 			}
+			if(t.getCode() == KeyCode.B){
+				App.reverseTime();
+				System.out.println("Key hit");
+			}
 			if (t.getCode() == KeyCode.D) {
 				if (App.game.getPlayer() != null) {
 					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {

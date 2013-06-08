@@ -81,6 +81,12 @@ public class App extends Application {
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
+	public static void reverseTime(){
+		System.out.println("method reverseTime triggered");
+		App.game.getCurrentMap().killTime();
+		App.game.getCurrentMap().newReverseTime();
+		App.game.getCurrentMap().startTime();
+	}
 	
 	public static synchronized void setTC(float tC){
 		App.game.getCurrentMap().killTime();
