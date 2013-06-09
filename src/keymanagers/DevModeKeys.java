@@ -43,8 +43,6 @@ public class DevModeKeys extends FlyingKeys {
 					e.printStackTrace();
 				}
 			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
-						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}
 			buffer.add(t.getCode());

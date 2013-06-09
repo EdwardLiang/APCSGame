@@ -26,8 +26,6 @@ public class InertialKeys extends DefaultKeys {
 					}
 
 				if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-					App.game.getPlayer().getBody()
-							.setLinearVelocity(new Vec2(0, 0));
 					return;
 				}
 
@@ -79,8 +77,6 @@ public class InertialKeys extends DefaultKeys {
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
 			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
-						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}
 
@@ -98,31 +94,32 @@ public class InertialKeys extends DefaultKeys {
 		@Override
 		public void run() {
 			while (true) {
-				try {
-					Body body = App.game.getPlayer().getBody();
-					if (buffer.contains(KeyCode.W)) {
-						Vec2 velocity = new Vec2(body.getLinearVelocity().x,
-								200.0f);
-						body.setLinearVelocity(velocity);
-					}
-					if (buffer.contains(KeyCode.S)) {
-						Vec2 velocity = new Vec2(body.getLinearVelocity().x,
-								-200.0f);
-						body.setLinearVelocity(velocity);
-					}
-					if (buffer.contains(KeyCode.A)) {
-						Vec2 velocity = new Vec2(-200.0f,
-								body.getLinearVelocity().y);
-						body.setLinearVelocity(velocity);
-					}
-					if (buffer.contains(KeyCode.D)) {
-						Vec2 velocity = new Vec2(200.0f,
-								body.getLinearVelocity().y);
-						body.setLinearVelocity(velocity);
-					}
-				} catch (Exception e) {
+				if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD)
+					try {
+						Body body = App.game.getPlayer().getBody();
+						if (buffer.contains(KeyCode.W)) {
+							Vec2 velocity = new Vec2(
+									body.getLinearVelocity().x, 200.0f);
+							body.setLinearVelocity(velocity);
+						}
+						if (buffer.contains(KeyCode.S)) {
+							Vec2 velocity = new Vec2(
+									body.getLinearVelocity().x, -200.0f);
+							body.setLinearVelocity(velocity);
+						}
+						if (buffer.contains(KeyCode.A)) {
+							Vec2 velocity = new Vec2(-200.0f,
+									body.getLinearVelocity().y);
+							body.setLinearVelocity(velocity);
+						}
+						if (buffer.contains(KeyCode.D)) {
+							Vec2 velocity = new Vec2(200.0f,
+									body.getLinearVelocity().y);
+							body.setLinearVelocity(velocity);
+						}
+					} catch (Exception e) {
 
-				}
+					}
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {

@@ -23,8 +23,6 @@ public class CreationKeys extends DefaultKeys {
 					e.printStackTrace();
 				}
 			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
-						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}
 

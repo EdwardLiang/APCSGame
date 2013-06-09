@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 
 public class ContactManager implements ContactListener {
@@ -29,6 +30,7 @@ public class ContactManager implements ContactListener {
 				if (contact.getFixtureB().getBody().getUserData().equals(a)) {
 					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD){
 						((Player) App.game.getPlayer()).kill();
+						((Player) App.game.getPlayer()).getBody().setLinearVelocity(new Vec2(0,0));
 					}
 				}
 			}
@@ -39,6 +41,8 @@ public class ContactManager implements ContactListener {
 					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD)
 						if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD){
 							((Player) App.game.getPlayer()).kill();
+							((Player) App.game.getPlayer()).getBody().setLinearVelocity(new Vec2(0,0));
+
 						}
 				}
 			}

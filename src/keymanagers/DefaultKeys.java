@@ -29,8 +29,6 @@ public class DefaultKeys extends KeyManager {
 			}
 			
 			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
-						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}
 
@@ -120,6 +118,7 @@ public class DefaultKeys extends KeyManager {
 		@Override
 		public void run() {
 			while (true) {
+				if(((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD)
 				try {
 					Body body = App.game.getPlayer().getBody();
 					if (buffer.contains(KeyCode.W)

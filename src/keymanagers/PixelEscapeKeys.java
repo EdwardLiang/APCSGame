@@ -25,8 +25,6 @@ public class PixelEscapeKeys extends DefaultKeys {
 				}
 
 			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
-						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}
 			buffer.add(t.getCode());
@@ -79,8 +77,6 @@ public class PixelEscapeKeys extends DefaultKeys {
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
 			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
-						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}
 
@@ -92,6 +88,7 @@ public class PixelEscapeKeys extends DefaultKeys {
 		@Override
 		public void run() {
 			while (true) {
+				if(((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD)
 				try {
 					Body body = App.game.getPlayer().getBody();
 					if (buffer.contains(KeyCode.W)) {
