@@ -32,6 +32,9 @@ public class DevModeKeys extends FlyingKeys {
 			if (t.getCode() == KeyCode.SHIFT) {
 				App.toggleRTime();
 			}
+			if (t.getCode() == KeyCode.J) {
+				App.togglePIRTime();
+			}
 
 			if (t.getCode() == KeyCode.R)
 				try {

@@ -88,6 +88,12 @@ public class App extends Application {
 		App.game.getCurrentMap().newReverseTime();
 		App.game.getCurrentMap().startTime();
 	}
+	public static void PIreverseTime() {
+		App.game.getCurrentMap().killTime();
+		App.game.getCurrentMap().newPIReverseTime();
+		App.game.getCurrentMap().startTime();
+	}
+
 
 	public static synchronized void setTC(float tC) {
 		App.game.getCurrentMap().killTime();
@@ -111,6 +117,18 @@ public class App extends Application {
 			App.game.getCurrentMap().startTime();
 		}
 	}
+	public static void togglePIRTime() {
+		if (App.game.getCurrentMap().getTime() instanceof ReverseTime2) {
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newTime();
+			App.game.getCurrentMap().startTime();
+		} else {
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newPIReverseTime();
+			App.game.getCurrentMap().startTime();
+		}
+	}
+
 
 	@Override
 	public void start(final Stage primaryStage) throws IOException {
