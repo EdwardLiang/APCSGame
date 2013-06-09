@@ -46,7 +46,7 @@ public class Time implements Serializable {
 
 			for (Entity a : map.getElements()) {
 				frame.addEntity(a);
-				if (a instanceof Player) {
+				if (a instanceof Player && ((Player)a).getStatus() != Player.Status.DEAD) {
 					if (a.getBody().getContactList() != null) {
 						if (a.getBody().getLinearVelocity().x == 0
 								&& ((Player) a).getStatus() != Player.Status.IDLE
