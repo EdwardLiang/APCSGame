@@ -62,9 +62,6 @@ public class EdwardPopup {
 		}
 		isOn = !isOn;
 	}
-	public Text getText(){
-		return this.text;
-	}
 		
 	protected void create() {
 		final double w = rectangle.getWidth();

@@ -78,39 +78,29 @@ public class InertialKeys extends DefaultKeys {
 		@Override
 		public void run() {
 			while (true) {
+				Body body = App.game.getPlayer().getBody();
+				if (buffer.contains(KeyCode.W)) {
+					Vec2 velocity = new Vec2(body.getLinearVelocity().x, 200.0f);
+					body.setLinearVelocity(velocity);
+				}
+				if (buffer.contains(KeyCode.S)) {
+					Vec2 velocity = new Vec2(body.getLinearVelocity().x,
+							-200.0f);
+					body.setLinearVelocity(velocity);
+				}
+				if (buffer.contains(KeyCode.A)) {
+					Vec2 velocity = new Vec2(-200.0f,
+							body.getLinearVelocity().y);
+					body.setLinearVelocity(velocity);
+				}
+				if (buffer.contains(KeyCode.D)) {
+					Vec2 velocity = new Vec2(200.0f, body.getLinearVelocity().y);
+					body.setLinearVelocity(velocity);
+				}
 				try {
-					Body body = App.game.getPlayer().getBody();
-					if (buffer.contains(KeyCode.W)) {
-						Vec2 velocity = new Vec2(body.getLinearVelocity().x, 200.0f);
-						body.setLinearVelocity(velocity);
-					}
-					if (buffer.contains(KeyCode.S)) {
-						Vec2 velocity = new Vec2(body.getLinearVelocity().x,
-								-200.0f);
-						body.setLinearVelocity(velocity);
-					}
-					if (buffer.contains(KeyCode.A)) {
-						Vec2 velocity = new Vec2(-200.0f,
-								body.getLinearVelocity().y);
-						body.setLinearVelocity(velocity);
-					}
-					if (buffer.contains(KeyCode.D)) {
-						Vec2 velocity = new Vec2(200.0f, body.getLinearVelocity().y);
-						body.setLinearVelocity(velocity);
-					}
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						System.out.println("KeyManager stopped");
-					}
-				} catch (NullPointerException e) {
-					// TODO Auto-generated catch block
-					try {
-						Thread.sleep(10);
-						System.out.println("NullPointerCaught");
-					} catch (InterruptedException k) {
-						System.out.println("KeyManager stopped");
-					}
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					System.out.println("KeyManager stopped");
 				}
 			}
 		}

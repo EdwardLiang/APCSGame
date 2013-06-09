@@ -76,38 +76,28 @@ public class PixelEscapeKeys extends DefaultKeys {
 		@Override
 		public void run() {
 			while (true) {
+				Body body = App.game.getPlayer().getBody();
+				if (buffer.contains(KeyCode.W)) {
+					Vec2 impulse = new Vec2(0, 50000.0f);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
+				} else if (buffer.contains(KeyCode.A)) {
+					Vec2 impulse = new Vec2(-10000.0f, 0);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
+				} else if (buffer.contains(KeyCode.D)) {
+					Vec2 impulse = new Vec2(10000.0f, 0);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
+				} else if (buffer.contains(KeyCode.S)) {
+					Vec2 impulse = new Vec2(0, -5000.0f);
+					Vec2 point = body.getWorldPoint(body.getWorldCenter());
+					body.applyForce(impulse, point);
+				}
 				try {
-					Body body = App.game.getPlayer().getBody();
-					if (buffer.contains(KeyCode.W)) {
-						Vec2 impulse = new Vec2(0, 50000.0f);
-						Vec2 point = body.getWorldPoint(body.getWorldCenter());
-						body.applyForce(impulse, point);
-					} else if (buffer.contains(KeyCode.A)) {
-						Vec2 impulse = new Vec2(-10000.0f, 0);
-						Vec2 point = body.getWorldPoint(body.getWorldCenter());
-						body.applyForce(impulse, point);
-					} else if (buffer.contains(KeyCode.D)) {
-						Vec2 impulse = new Vec2(10000.0f, 0);
-						Vec2 point = body.getWorldPoint(body.getWorldCenter());
-						body.applyForce(impulse, point);
-					} else if (buffer.contains(KeyCode.S)) {
-						Vec2 impulse = new Vec2(0, -5000.0f);
-						Vec2 point = body.getWorldPoint(body.getWorldCenter());
-						body.applyForce(impulse, point);
-					}
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						System.out.println("KeyManager stopped");
-					}
-				} catch (NullPointerException e) {
-					// TODO Auto-generated catch block
-					try {
-						Thread.sleep(10);
-						System.out.println("NullPointerCaught");
-					} catch (InterruptedException k) {
-						System.out.println("KeyManager stopped");
-					}
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					System.out.println("KeyManager stopped");
 				}
 			}
 		}
