@@ -90,6 +90,9 @@ public class Player extends Creature {
 	protected synchronized Node createNode() {
 		this.image = new Image("sprites/tim-idle.gif");
 		imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
 		return imageView;
 	}
 
@@ -98,6 +101,9 @@ public class Player extends Creature {
 		imageView = new ImageView(image);
 		imageView.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);
 		imageView.setLayoutY(Util.toPPosY(yPos) - Util.toPWidth(height) / 2);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
 		if (side == Side.LEFT)
 			imageView.setScaleX(-1);
 		imageView.setUserData(getBody());
