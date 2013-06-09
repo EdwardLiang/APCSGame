@@ -1,5 +1,6 @@
 package infrastructure;
 
+import guiobject.BackGround;
 import guiobject.Camera;
 import guiobject.EdwardPopup;
 import guiobject.PopupText;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import keymanagers.CreationKeys;
 import keymanagers.DefaultKeys;
@@ -72,12 +74,12 @@ public class App extends Application {
 	public static float tC;
 
 	public static final List<String> musicList = Arrays.asList(new String[] {
-			"src/audio/Melancholy.mp3", "src/audio/Mountain.m4a",
-			"src/audio/Mysterious.mp3", "src/audio/ZombieTheme.mp3" });
+			"src/audio/Mysterious.mp3", "src/audio/ZombieTheme.mp3",
+			"src/audio/Melancholy.mp3", "src/audio/Mountain.m4a" });
 	public static final List<String> levelList = Arrays.asList(new String[] {
 			"src/levels/menu.txt", "src/levels/1-1.txt", "src/levels/1-2.txt",
 			"src/levels/1-3.txt", "src/levels/1-4.txt", "src/levels/1-7.txt",
-			"src/levels/2-2.txt" });
+			"src/levels/2-2.txt","src/levels/1-5.txt" });
 
 	public static void main(String[] args) throws IOException {
 		launch(args);
@@ -195,6 +197,12 @@ public class App extends Application {
 		// game.getMaps().get(6).addCoreElements();
 		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(6)),
 				getLevelForIndex(6)));
+		// game.addMap(new GameMap(new BackGround("maps/1-5.jpg"), 1340, 285,
+		// 36,
+		// 49, 40.0f));
+		// App.game.getMaps().get(7).addLeftRightWalls();
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(7)),
+				getLevelForIndex(7)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
@@ -270,18 +278,19 @@ public class App extends Application {
 		game.getCurrentMap().getPhysics()
 				.setContactListener(new ContactManager());
 		game.getCurrentMap().addCoreElements();
-		// App.game.changeMap(App.game.getMaps().get(6));
+		App.game.changeMap(App.game.getMaps().get(7));
+		App.game.getMaps().get(7).toggleTime();
 
 	}
 
 	public MediaView createMediaView() {
 		MediaView mediaView = new MediaView();
-		initMediaPlayer(mediaView, musicList.iterator());
+		initMediaPlayer(mediaView, musicList.listIterator());
 		return mediaView;
 	}
 
 	private void initMediaPlayer(final MediaView mediaView,
-			final Iterator<String> urls) {
+			final ListIterator<String> urls) {
 		if (urls.hasNext()) {
 			MediaPlayer mediaPlayer = new MediaPlayer(new Media((new File(
 					urls.next()).toURI().toString())));
@@ -294,6 +303,8 @@ public class App extends Application {
 			});
 			mediaView.setMediaPlayer(mediaPlayer);
 		}
+		// if(!urls.hasNext()&&
+		// !mediaView.getMediaPlayer().getMedia().getTracks().get(0).getName().equals(musicList.get(musicList.size()-1)))
 	}
 
 	public static File getLevelForIndex(int index) {

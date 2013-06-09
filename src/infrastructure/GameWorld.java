@@ -138,6 +138,15 @@ public class GameWorld implements Serializable {
 			pop.getText().setFill(Color.BLACK);
 			pop.toggle();
 		}
+		if(Map.getBack().getPath().equals("maps/1-5.jpg")){
+			pop.toggle();
+			DevModeKeys keyManager = new DevModeKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+		}
 
 		currentMap.startTime();
 	}
