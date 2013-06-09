@@ -274,10 +274,10 @@ public class App extends Application {
 		((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		game.changeMap(game.getMaps().get(1));
+		//game.changeMap(game.getMaps().get(1));
 		game.getCurrentMap().getPhysics()
 				.setContactListener(new ContactManager());
-		game.getCurrentMap().addCoreElements();
+		//game.getCurrentMap().addCoreElements();
 		App.game.changeMap(App.game.getMaps().get(7));
 		App.game.getMaps().get(7).toggleTime();
 
