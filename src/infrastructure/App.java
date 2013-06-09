@@ -74,8 +74,8 @@ public class App extends Application {
 	public static float tC;
 
 	public static final List<String> musicList = Arrays.asList(new String[] {
-			"src/audio/Mysterious.mp3", "src/audio/ZombieTheme.mp3",
-			"src/audio/Melancholy.mp3", "src/audio/Mountain.m4a" });
+			"src/audio/Melancholy.mp3", "src/audio/ZombieTheme.mp3",
+			"src/audio/Mysterious.mp3", "src/audio/Mountain.m4a" });
 	public static final List<String> levelList = Arrays.asList(new String[] {
 			"src/levels/menu.txt", "src/levels/1-1.txt", "src/levels/1-2.txt",
 			"src/levels/1-3.txt", "src/levels/1-4.txt", "src/levels/1-7.txt",
