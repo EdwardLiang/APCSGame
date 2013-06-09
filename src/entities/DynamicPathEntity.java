@@ -18,14 +18,14 @@ public class DynamicPathEntity extends PathEntity {
 
 	public DynamicPathEntity(Vec2[] verts) {
 		super(verts);
-		Image clouds = new Image("sprites/DreamTexture.jpg");
+		Image clouds = new Image("sprites/DeathTexture.jpg");
 		((Polygon) node).setFill(new ImagePattern(clouds));
 	}
 
 	public DynamicPathEntity(Vec2[] lp, Vec2[] local, float x, float y,
 			float width, float height) {
 		super(lp, local, x, y, width, height);
-		Image clouds = new Image("sprites/DreamTexture.jpg");
+		Image clouds = new Image("sprites/DeathTexture.jpg");
 		((Polygon) node).setFill(new ImagePattern(clouds));
 
 	}

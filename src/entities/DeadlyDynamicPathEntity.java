@@ -14,13 +14,13 @@ public class DeadlyDynamicPathEntity extends DynamicPathEntity{
 	public DeadlyDynamicPathEntity(Vec2[] verts) {
 		super(verts);
 		// TODO Auto-generated constructor stub
-		Image clouds = new Image("sprites/DeathTexture.jpg");
+		Image clouds = new Image("sprites/DeadlyTexture.jpg");
 		((Polygon)node).setFill(new ImagePattern(clouds));
 	}
 	public DeadlyDynamicPathEntity(Vec2[] lp, Vec2[] local, float x, float y,
 			float width, float height) {
 		super(lp, local, x, y, width, height);
-		Image clouds = new Image("sprites/DeathTexture.jpg");
+		Image clouds = new Image("sprites/DeadlyTexture.jpg");
 		((Polygon) node).setFill(new ImagePattern(clouds));
 	}
 	public static DeadlyDynamicPathEntity parse(String[] frags) {
