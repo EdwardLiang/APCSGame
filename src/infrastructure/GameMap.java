@@ -129,7 +129,6 @@ public class GameMap implements Serializable {
 			addCoreElements();
 		}
 		App.game.getCurrentMap().killTime();
-		App.game.getCurrentMap().newTime();
 		App.game.getCurrentMap().setVisible(false);
 		App.camera.reset();
 		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
