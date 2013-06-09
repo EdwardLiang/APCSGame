@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
 import utils.Parse;
@@ -121,7 +122,8 @@ public class GameMap implements Serializable {
 	}
 
 	public synchronized void reset() throws IOException {
-		stopAll();
+		App.game.getCurrentMap().killTime();
+		//stopAll();
 		removeAll();
 		if (originalDataLoc != null) {
 			String raw = Parse.readFromFile(originalDataLoc);
@@ -132,7 +134,6 @@ public class GameMap implements Serializable {
 		} else {
 			addCoreElements();
 		}
-		App.game.getCurrentMap().killTime();
 		App.game.getCurrentMap().setVisible(false);
 		App.camera.reset();
 		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
@@ -145,11 +146,20 @@ public class GameMap implements Serializable {
 	}
 
 	public synchronized void removeAll() {
-		for (int i = 0; i < gameElements.size(); i++)
-			gameElements.get(i).removeFromMap();
-		// this.getBack().setVisible(false);
-		// for (Entity a : gameElements) {
-		// a.removeFromMap();
+		/*for (int i = 0; i < gameElements.size(); i++){
+			
+		}*/
+		gameElements.clear();
+		Body body = world.getBodyList();
+		while(body.getNext() != null){
+			world.destroyBody(body);
+			body = body.getNext();
+		}
+		world.destroyBody(body);
+		/*
+		 * this.getBack().setVisible(false); for (Entity a : gameElements) {
+		 * a.removeFromMap(); }
+		 */
 	}
 
 	public synchronized void setVisible(Boolean bool) {

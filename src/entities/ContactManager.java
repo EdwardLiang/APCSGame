@@ -2,6 +2,7 @@ package entities;
 
 import infrastructure.App;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jbox2d.callbacks.ContactImpulse;
@@ -24,14 +25,19 @@ public class ContactManager implements ContactListener {
 		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)) {
 			for (Class<?> a : deadly) {
 				if (contact.getFixtureB().getBody().getUserData().equals(a)) {
-					((Player) App.game.getPlayer()).kill();
+					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD){
+						((Player) App.game.getPlayer()).kill();
+					}
 				}
 			}
 		} else if (contact.getFixtureB().getBody().getUserData()
 				.equals(Player.class)) {
 			for (Class<?> a : deadly) {
 				if (contact.getFixtureA().getBody().getUserData().equals(a)) {
-					((Player) App.game.getPlayer()).kill();
+					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD)
+						if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD){
+							((Player) App.game.getPlayer()).kill();
+						}
 				}
 			}
 		}

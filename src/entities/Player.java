@@ -81,8 +81,10 @@ public class Player extends Creature {
 	}
 
 	public void kill() {
+		this.setVisible(false);
 		this.status = Status.DEAD;
 		this.changeNode();
+		this.setVisible(true);
 	}
 
 	protected Node createNode() {

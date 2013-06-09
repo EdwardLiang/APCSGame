@@ -21,6 +21,10 @@ public class Time implements Serializable {
 	EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent t) {
+			if (App.game.getPlayer() != null
+					&& ((Player)App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				return;
+			}
 			Frame frame = new Frame();
 			map.getPhysics().step(App.getTC(), 8, 3);
 			map.getBack().setLayoutX(App.camera.getOffsetX());
@@ -46,7 +50,8 @@ public class Time implements Serializable {
 
 			for (Entity a : map.getElements()) {
 				frame.addEntity(a);
-				if (a instanceof Player && ((Player)a).getStatus() != Player.Status.DEAD) {
+				if (a instanceof Player
+						&& ((Player) a).getStatus() != Player.Status.DEAD) {
 					if (a.getBody().getContactList() != null) {
 						if (a.getBody().getLinearVelocity().x == 0
 								&& ((Player) a).getStatus() != Player.Status.IDLE
@@ -120,8 +125,9 @@ public class Time implements Serializable {
 		timeline.getKeyFrames().add(frame);
 		this.map = world;
 	}
-	public Time(){
-		
+
+	public Time() {
+
 	}
 
 	public void startTime() {
