@@ -281,7 +281,7 @@ public class App extends Application {
 			a.getPhysics().setContactListener(new ContactManager());
 		}
 		//game.getCurrentMap().addCoreElements();
-		App.game.changeMap(App.game.getMaps().get(7));
+		App.game.changeMap(App.game.getMaps().get(1));
 		//App.game.getMaps().get(7).toggleTime();
 
 	}

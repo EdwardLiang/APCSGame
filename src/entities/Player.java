@@ -33,19 +33,19 @@ public class Player extends Creature {
 		return moving;
 	}
 
-	public Side getSide() {
+	public synchronized Side getSide() {
 		return side;
 	}
 
-	public Status getStatus() {
+	public synchronized Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public synchronized void setStatus(Status status) {
 		this.status = status;
 	}
 
-	public void setSide(Side side) {
+	public synchronized void setSide(Side side) {
 		this.side = side;
 	}
 
@@ -57,7 +57,7 @@ public class Player extends Creature {
 		RIGHT, LEFT;
 	}
 
-	public void updatePic() {
+	public synchronized void updatePic() {
 		switch (this.status) {
 		case IDLE:
 			this.image = new Image("sprites/tim-idle.gif");
@@ -80,20 +80,20 @@ public class Player extends Creature {
 		}
 	}
 
-	public void kill() {
+	public synchronized void kill() {
 		this.setVisible(false);
 		this.status = Status.DEAD;
 		this.changeNode();
 		this.setVisible(true);
 	}
 
-	protected Node createNode() {
+	protected synchronized Node createNode() {
 		this.image = new Image("sprites/tim-idle.gif");
 		imageView = new ImageView(image);
 		return imageView;
 	}
 
-	public void changeNode() {
+	public synchronized void changeNode() {
 		updatePic();
 		imageView = new ImageView(image);
 		imageView.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);

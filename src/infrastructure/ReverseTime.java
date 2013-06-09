@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -26,10 +27,9 @@ public class ReverseTime extends Time {
 	EventHandler<ActionEvent> fs = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			map.getBack().setLayoutX(App.camera.getOffsetX());
-			map.getBack().setLayoutY(
-					(float) (-map.getPHeight() + Util.HEIGHT + App.camera
-							.getOffsetY()));
+			map.getBack().setViewport(
+					new Rectangle2D(-App.camera.getOffsetX(), map.getPHeight()
+							- Util.HEIGHT - App.camera.getOffsetY(), 600, 600));
 			map.getDoor().node.setLayoutX(map.getDoor().pCoord().x
 					+ App.camera.getOffsetX() - 30);
 			map.getDoor().node.setLayoutY(map.getDoor().pCoord().y
@@ -48,7 +48,38 @@ public class ReverseTime extends Time {
 				App.game.isAtDoor(false);
 
 			Frame frame = map.getTimeData().getLastFrame();
+			for (Entity a : map.getElements()) {
+				if (frame.getData().keySet().contains(a) == false) {
+					if (a.node instanceof Circle) {
+						float xpos = a.getPPosition().x
+								+ App.camera.getOffsetX();
+						float ypos = a.getPPosition().y
+								+ App.camera.getOffsetY();
+						a.setLayoutX(xpos);
+						a.setLayoutY(ypos);
+					} else {
+						float xpos = (float) (a.getPPosition().x
+								+ App.camera.getOffsetX() - a.getPWidth() / 2);
+						float ypos = (float) (a.getPPosition().y
+								+ App.camera.getOffsetY() - a.getPHeight() / 2);
+						a.setLayoutX(xpos);
+						a.setLayoutY(ypos);
+					}
+				}
+			}
 			for (Entity a : frame.getData().keySet()) {
+				if (frame.getData().get(a) instanceof PlayerData) {
+					if (((PlayerData) frame.getData().get(a)).getStatus() != ((Player) App.game
+							.getPlayer()).getStatus()) {
+						((Player) App.game.getPlayer()).setVisible(false);
+						((Player) App.game.getPlayer())
+								.setStatus(((PlayerData) frame.getData().get(a))
+										.getStatus());
+						((Player) App.game.getPlayer()).changeNode();
+						((Player) App.game.getPlayer()).setVisible(true);
+					}
+				}
+
 				a.getBody().setAngularVelocity(0);
 				a.getBody().setLinearVelocity(new Vec2(0, 0));
 				// a.getBody().getPosition().x = frame.getData().get(a).getX();
@@ -68,18 +99,6 @@ public class ReverseTime extends Time {
 							+ App.camera.getOffsetY() - a.getPHeight() / 2);
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
-				}
-				if (frame.getData().get(a) instanceof PlayerData) {
-					if (((PlayerData) frame.getData().get(a)).getStatus() != ((Player) App.game
-							.getPlayer()).getStatus()) {
-						((Player) App.game.getPlayer()).setVisible(false);
-						((Player) App.game.getPlayer())
-								.setStatus(((PlayerData) frame.getData().get(a))
-										.getStatus());
-						((Player) App.game.getPlayer()).changeNode();
-						((Player) App.game.getPlayer()).setVisible(true);
-
-					}
 				}
 			}
 		}

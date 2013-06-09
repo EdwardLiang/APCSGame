@@ -47,22 +47,22 @@ public class Camera implements Runnable, Serializable {
 			if (!App.game.getCurrentMap().isPaused()
 					&& App.game.getPlayer() != null && playerData != null) {
 				if (Util.toPPosX(playerData.getPosition().x) + getOffsetX() > Util.WIDTH / 2 + 20
-						&& !(-getOffsetX() + Util.WIDTH + 1 > Util
+						&& !(-getOffsetX() + Util.WIDTH + 1.5f > Util
 								.toPWidth(App.game.getCurrentMap().getWidth()))) {
-					setOffsetX(getOffsetX() - 1);
+					setOffsetX(getOffsetX() - 1.5f);
 				} else if (Util.toPPosX(playerData.getPosition().x)
 						+ getOffsetX() < Util.WIDTH / 2 - 20
-						&& !(getOffsetX() - 1 > 0))
-					setOffsetX(getOffsetX() + 1);
+						&& !(getOffsetX() - 1.5f> 0))
+					setOffsetX(getOffsetX() + 1.5f);
 
 				if (Util.toPPosY(playerData.getPosition().y) + getOffsetY() > Util.HEIGHT / 2 + 20
-						&& !(getOffsetY() - 1 < 0))
-					setOffsetY(getOffsetY() - 1);
+						&& !(getOffsetY() - 1.5f < 0))
+					setOffsetY(getOffsetY() - 1.5f);
 				else if (Util.toPPosY(playerData.getPosition().y)
 						+ getOffsetY() < Util.HEIGHT / 2 - 20
-						&& !(getOffsetY() + Util.HEIGHT + 1 > Util
+						&& !(getOffsetY() + Util.HEIGHT + 1.5f > Util
 								.toPHeight(App.game.getCurrentMap().getHeight())))
-					setOffsetY(getOffsetY() + 1);
+					setOffsetY(getOffsetY() + 1.5f);
 			}
 			try {
 				Thread.sleep(10);

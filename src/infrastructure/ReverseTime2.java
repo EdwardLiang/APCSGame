@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -27,10 +28,8 @@ public class ReverseTime2 extends Time {
 	EventHandler<ActionEvent> fs = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			map.getBack().setLayoutX(App.camera.getOffsetX());
-			map.getBack().setLayoutY(
-					(float) (-map.getPHeight() + Util.HEIGHT + App.camera
-							.getOffsetY()));
+			map.getBack().setViewport(new Rectangle2D(-App.camera.getOffsetX(),map.getPHeight() - Util.HEIGHT - App.camera
+					.getOffsetY(),600,600) );
 			map.getDoor().node.setLayoutX(map.getDoor().pCoord().x
 					+ App.camera.getOffsetX() - 30);
 			map.getDoor().node.setLayoutY(map.getDoor().pCoord().y

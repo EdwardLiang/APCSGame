@@ -2,6 +2,8 @@ package infrastructure;
 
 import java.io.Serializable;
 
+import org.jbox2d.dynamics.BodyType;
+
 import utils.Util;
 
 import javafx.animation.Animation;
@@ -9,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import javafx.scene.shape.Circle;
 
@@ -23,10 +26,12 @@ public class Time implements Serializable {
 		public void handle(ActionEvent t) {
 			Frame frame = new Frame();
 			map.getPhysics().step(App.getTC(), 8, 3);
-			map.getBack().setLayoutX(App.camera.getOffsetX());
-			map.getBack().setLayoutY(
+		//	map.getBack().setLayoutX(App.camera.getOffsetX());
+			/*map.getBack().setLayoutY(
 					(float) (-map.getPHeight() + Util.HEIGHT + App.camera
-							.getOffsetY()));
+							.getOffsetY()));*/
+			map.getBack().setViewport(new Rectangle2D(-App.camera.getOffsetX(),map.getPHeight() - Util.HEIGHT - App.camera
+							.getOffsetY(),600,600) );
 			map.getDoor().node.setLayoutX(map.getDoor().pCoord().x
 					+ App.camera.getOffsetX() - 30);
 			map.getDoor().node.setLayoutY(map.getDoor().pCoord().y
@@ -43,7 +48,6 @@ public class Time implements Serializable {
 				((Player) App.game.getPlayer()).setStatus(Player.Status.DEAD);
 				((Player) App.game.getPlayer()).changeNode();
 				((Player) App.game.getPlayer()).setVisible(true);
-				return;
 			}
 
 			if (map.getDoor().node.getLayoutX() < App.game.getPlayer().node
@@ -61,7 +65,7 @@ public class Time implements Serializable {
 			for (Entity a : map.getElements()) {
 				if (a instanceof Player) {
 					frame.addPlayer((Player) a);
-				} else {
+				} else if(a.getBody().getType() != BodyType.STATIC){
 					frame.addEntity(a);
 				}
 				if (a instanceof Player

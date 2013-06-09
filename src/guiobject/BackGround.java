@@ -14,6 +14,7 @@ import utils.Util;
 
 import entities.Entity;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,12 +27,21 @@ public class BackGround implements FXJBox, Serializable {
 	public BackGround(String path) {
 		this.path = path;
 		image = new Image(path);
-		view = new ImageView(image);
-		view.setLayoutX(0);
-		view.setLayoutY(-getPHeight() + Util.HEIGHT);
+        view = new ImageView();
+        view.setImage(image);
+        //view.setFitWidth(100);
+        view.setPreserveRatio(true);
+        view.setSmooth(true);
+        view.setCache(true);
+        view.setViewport(new Rectangle2D(0,getPHeight() - Util.HEIGHT, 600, 600));
+		/*view.setLayoutX(0);
+		view.setLayoutY(-getPHeight() + Util.HEIGHT);*/
 	}
 	public String getPath(){
 		return path;
+	}
+	public synchronized void setViewport(Rectangle2D a){
+		view.setViewport(a);
 	}
 
 	@Override
