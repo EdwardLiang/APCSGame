@@ -17,6 +17,18 @@ public class PixelEscapeKeys extends DefaultKeys {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
+			if (t.getCode() == KeyCode.R)
+				try {
+					App.game.getCurrentMap().reset();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				App.game.getPlayer().getBody()
+						.setLinearVelocity(new Vec2(0, 0));
+				return;
+			}
 			buffer.add(t.getCode());
 			t.consume();
 			try {
@@ -55,12 +67,6 @@ public class PixelEscapeKeys extends DefaultKeys {
 				if (t.getCode() == KeyCode.P) {
 					App.game.getCurrentMap().toggleTime();
 				}
-				if (t.getCode() == KeyCode.R)
-					try {
-						App.game.getCurrentMap().reset();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 			} catch (Exception e) {
 
 			}
@@ -72,6 +78,12 @@ public class PixelEscapeKeys extends DefaultKeys {
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
+			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				App.game.getPlayer().getBody()
+						.setLinearVelocity(new Vec2(0, 0));
+				return;
+			}
+
 		}
 
 	};

@@ -2,6 +2,8 @@ package keymanagers;
 
 import java.io.IOException;
 
+import org.jbox2d.common.Vec2;
+
 import entities.Player;
 
 import infrastructure.App;
@@ -21,8 +23,11 @@ public class DevModeKeys extends FlyingKeys {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			if(((Player)App.game.getPlayer()).getStatus() == Player.Status.DEAD)
+			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				App.game.getPlayer().getBody()
+						.setLinearVelocity(new Vec2(0, 0));
 				return;
+			}
 			buffer.add(t.getCode());
 			t.consume();
 

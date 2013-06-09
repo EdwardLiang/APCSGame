@@ -17,6 +17,18 @@ public class FlyingKeys extends DefaultKeys {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
+			if (t.getCode() == KeyCode.R)
+				try {
+					App.game.getCurrentMap().reset();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				App.game.getPlayer().getBody()
+						.setLinearVelocity(new Vec2(0, 0));
+				return;
+			}
 			buffer.add(t.getCode());
 			t.consume();
 			try {
@@ -55,12 +67,6 @@ public class FlyingKeys extends DefaultKeys {
 									.get(index + 1));
 					}
 				}
-				if (t.getCode() == KeyCode.R)
-					try {
-						App.game.getCurrentMap().reset();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 			} catch (Exception e) {
 
 			}
@@ -73,6 +79,12 @@ public class FlyingKeys extends DefaultKeys {
 			Body body = App.game.getPlayer().getBody();
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
+			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				App.game.getPlayer().getBody()
+						.setLinearVelocity(new Vec2(0, 0));
+				return;
+			}
+
 			try {
 				if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
 					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);

@@ -2,6 +2,8 @@ package keymanagers;
 
 import java.io.IOException;
 
+import org.jbox2d.common.Vec2;
+
 import entities.Player;
 
 import infrastructure.App;
@@ -20,53 +22,56 @@ public class CreationKeys extends DefaultKeys {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			if(((Player)App.game.getPlayer()).getStatus() == Player.Status.DEAD)
+			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				App.game.getPlayer().getBody()
+						.setLinearVelocity(new Vec2(0, 0));
 				return;
+			}
 
 			buffer.add(t.getCode());
 			t.consume();
-			try{
-			if (t.getCode() == KeyCode.D) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.RIGHT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
+			try {
+				if (t.getCode() == KeyCode.D) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.RIGHT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+						}
 					}
 				}
-			}
-			if (t.getCode() == KeyCode.A) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.LEFT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
+				if (t.getCode() == KeyCode.A) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.LEFT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+						}
 					}
 				}
-			}
 
-			if (t.getCode() == KeyCode.N) {
-				if (App.game.getIsAtDoor()) {
-					int index = App.game.getMaps().indexOf(
-							App.game.getCurrentMap());
-					if (index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index + 1));
+				if (t.getCode() == KeyCode.N) {
+					if (App.game.getIsAtDoor()) {
+						int index = App.game.getMaps().indexOf(
+								App.game.getCurrentMap());
+						if (index + 1 < App.game.getMaps().size())
+							App.game.changeMap(App.game.getMaps()
+									.get(index + 1));
+					}
 				}
-			}
-			if (t.getCode() == KeyCode.P) {
-				App.game.getCurrentMap().toggleTime();
-			} else if (t.getCode() == KeyCode.DIGIT1) {
-				App.shaker.generateDynamicEntity();
-			} else if (t.getCode() == KeyCode.DIGIT2) {
-				App.shaker.generateStaticEntity();
-			}
-			}
-			catch(Exception e){
-				
+				if (t.getCode() == KeyCode.P) {
+					App.game.getCurrentMap().toggleTime();
+				} else if (t.getCode() == KeyCode.DIGIT1) {
+					App.shaker.generateDynamicEntity();
+				} else if (t.getCode() == KeyCode.DIGIT2) {
+					App.shaker.generateStaticEntity();
+				}
+			} catch (Exception e) {
+
 			}
 
 		}

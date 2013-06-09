@@ -18,6 +18,19 @@ public class InertialKeys extends DefaultKeys {
 		public synchronized void handle(KeyEvent key) {
 			try {
 				final KeyEvent t = key;
+				if (t.getCode() == KeyCode.R)
+					try {
+						App.game.getCurrentMap().reset();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+				if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+					App.game.getPlayer().getBody()
+							.setLinearVelocity(new Vec2(0, 0));
+					return;
+				}
+
 				buffer.add(t.getCode());
 				t.consume();
 				if (t.getCode() == KeyCode.P) {
@@ -46,13 +59,6 @@ public class InertialKeys extends DefaultKeys {
 					}
 				}
 
-				if (t.getCode() == KeyCode.R)
-					try {
-						App.game.getCurrentMap().reset();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
 				if (t.getCode() == KeyCode.N) {
 					if (App.game.getIsAtDoor()) {
 						int index = App.game.getMaps().indexOf(
@@ -72,6 +78,12 @@ public class InertialKeys extends DefaultKeys {
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
+			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+				App.game.getPlayer().getBody()
+						.setLinearVelocity(new Vec2(0, 0));
+				return;
+			}
+
 			t.consume();
 			try {
 				if (t.getCode() == KeyCode.A || t.getCode() == KeyCode.D) {
