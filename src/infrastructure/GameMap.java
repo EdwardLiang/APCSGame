@@ -133,6 +133,7 @@ public class GameMap implements Serializable {
 		App.game.getCurrentMap().setVisible(false);
 
 		App.camera.reset();
+		App.game.setPlayer(null);
 		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
 				App.game.getCurrentMap().getPY()));
 		App.game.getPlayer().addToMap(App.game.getCurrentMap());
@@ -180,7 +181,8 @@ public class GameMap implements Serializable {
 
 	// Use Entity's removeFromMap method. DO NOT DIRECTLY CALL THIS METHOD.
 	public void removeEntity(Entity entity) {
-		gameElements.remove(entity);
+		if(gameElements.contains(entity))
+			gameElements.remove(entity);
 	}
 
 	public void addCoreElements() {
