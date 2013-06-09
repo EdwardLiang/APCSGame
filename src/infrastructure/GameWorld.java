@@ -71,6 +71,7 @@ public class GameWorld implements Serializable {
 			// currentMap.reset();
 			currentMap.killTime();
 			currentMap.setVisible(false);
+			currentMap.setTimeData(new TimeData());
 		}
 		currentMap = Map;
 		App.camera.reset();

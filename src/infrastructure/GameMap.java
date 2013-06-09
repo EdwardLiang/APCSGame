@@ -84,6 +84,9 @@ public class GameMap implements Serializable {
 	public synchronized double getPWidth() {
 		return back.getWidth();
 	}
+	public synchronized void setTimeData(TimeData data){
+		this.timeData = data;
+	}
 
 	public synchronized Boolean isPaused() {
 		return time.isPaused();
