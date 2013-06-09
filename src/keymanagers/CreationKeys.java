@@ -16,6 +16,7 @@ public class CreationKeys extends DefaultKeys {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
+			try{
 			if (t.getCode() == KeyCode.D) {
 				if (App.game.getPlayer() != null) {
 					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
@@ -42,7 +43,6 @@ public class CreationKeys extends DefaultKeys {
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();
-					System.out.println("R Hit");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -61,6 +61,10 @@ public class CreationKeys extends DefaultKeys {
 				App.shaker.generateDynamicEntity();
 			} else if (t.getCode() == KeyCode.DIGIT2) {
 				App.shaker.generateStaticEntity();
+			}
+			}
+			catch(Exception e){
+				
 			}
 
 		}

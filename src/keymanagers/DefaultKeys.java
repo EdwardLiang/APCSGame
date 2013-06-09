@@ -22,54 +22,58 @@ public class DefaultKeys extends KeyManager {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if (t.getCode() == KeyCode.R){
-				try {
-					App.game.getCurrentMap().reset();
-					System.out.println("R Hit");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if(t.getCode() == KeyCode.SHIFT){
-				App.toggleRTime();
-			}
-			if (t.getCode() == KeyCode.D) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.RIGHT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
-						((Player)App.game.getPlayer()).setMoving(true);
-
+			try {
+				if (t.getCode() == KeyCode.R) {
+					try {
+						App.game.getCurrentMap().reset();
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
 				}
-			}
-			if (t.getCode() == KeyCode.A) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.LEFT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
-						((Player)App.game.getPlayer()).setMoving(true);
+				if (t.getCode() == KeyCode.SHIFT) {
+					App.toggleRTime();
+				}
+				if (t.getCode() == KeyCode.D) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.RIGHT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+							((Player) App.game.getPlayer()).setMoving(true);
 
+						}
 					}
 				}
-			}
+				if (t.getCode() == KeyCode.A) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.LEFT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+							((Player) App.game.getPlayer()).setMoving(true);
 
-			if (t.getCode() == KeyCode.P) {
-				App.game.getCurrentMap().toggleTime();
-			}
-			if (t.getCode() == KeyCode.N) {
-				if (App.game.getIsAtDoor()) {
-					int index = App.game.getMaps().indexOf(
-							App.game.getCurrentMap());
-					if (index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index + 1));
+						}
+					}
 				}
+
+				if (t.getCode() == KeyCode.P) {
+					App.game.getCurrentMap().toggleTime();
+				}
+				if (t.getCode() == KeyCode.N) {
+					if (App.game.getIsAtDoor()) {
+						int index = App.game.getMaps().indexOf(
+								App.game.getCurrentMap());
+						if (index + 1 < App.game.getMaps().size())
+							App.game.changeMap(App.game.getMaps()
+									.get(index + 1));
+					}
+				}
+			} catch (Exception e) {
+
 			}
 		}
 	};
@@ -79,19 +83,23 @@ public class DefaultKeys extends KeyManager {
 			Body body = App.game.getPlayer().getBody();
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
-			if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
-				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-				body.setLinearVelocity(velocity);
-				((Player)App.game.getPlayer()).setMoving(false);
+			try {
+				if (t.getCode() == KeyCode.A && body.getLinearVelocity().x != 0) {
+					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
+					body.setLinearVelocity(velocity);
+					((Player) App.game.getPlayer()).setMoving(false);
+
+				}
+				if (t.getCode() == KeyCode.D && body.getLinearVelocity().x != 0) {
+					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
+					body.setLinearVelocity(velocity);
+					((Player) App.game.getPlayer()).setMoving(false);
+
+				}
+				t.consume();
+			} catch (Exception e) {
 
 			}
-			if (t.getCode() == KeyCode.D && body.getLinearVelocity().x != 0) {
-				Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-				body.setLinearVelocity(velocity);
-				((Player)App.game.getPlayer()).setMoving(false);
-
-			}
-			t.consume();
 		}
 
 	};
@@ -100,28 +108,35 @@ public class DefaultKeys extends KeyManager {
 		@Override
 		public void run() {
 			while (true) {
-				Body body = App.game.getPlayer().getBody();
-				if (buffer.contains(KeyCode.W)
-						&& body.getLinearVelocity().y == 0
-						&& body.getContactList() != null) {
-					Vec2 impulse = new Vec2(0, 5000.0f);
-					Vec2 point = body.getWorldPoint(body.getWorldCenter());
-					body.applyLinearImpulse(impulse, point);
-				}
-				if (buffer.contains(KeyCode.A) && buffer.contains(KeyCode.D)) {
-					Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
-				} else if (buffer.contains(KeyCode.A)) {
-					Vec2 velocity = new Vec2(-20.0f, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
-				} else if (buffer.contains(KeyCode.D)) {
-					Vec2 velocity = new Vec2(20.0f, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
-				}
 				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					System.out.println("KeyManager stopped");
+					Body body = App.game.getPlayer().getBody();
+					if (buffer.contains(KeyCode.W)
+							&& body.getLinearVelocity().y == 0
+							&& body.getContactList() != null) {
+						Vec2 impulse = new Vec2(0, 5000.0f);
+						Vec2 point = body.getWorldPoint(body.getWorldCenter());
+						body.applyLinearImpulse(impulse, point);
+					}
+					if (buffer.contains(KeyCode.A)
+							&& buffer.contains(KeyCode.D)) {
+						Vec2 velocity = new Vec2(0, body.getLinearVelocity().y);
+						body.setLinearVelocity(velocity);
+					} else if (buffer.contains(KeyCode.A)) {
+						Vec2 velocity = new Vec2(-20.0f,
+								body.getLinearVelocity().y);
+						body.setLinearVelocity(velocity);
+					} else if (buffer.contains(KeyCode.D)) {
+						Vec2 velocity = new Vec2(20.0f,
+								body.getLinearVelocity().y);
+						body.setLinearVelocity(velocity);
+					}
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						System.out.println("KeyManager stopped");
+					}
+				} catch (Exception e) {
+
 				}
 			}
 		}

@@ -16,50 +16,54 @@ public class InertialKeys extends DefaultKeys {
 	public EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
-			final KeyEvent t = key;
-			buffer.add(t.getCode());
-			t.consume();
-			if (t.getCode() == KeyCode.P) {
-				App.game.getCurrentMap().toggleTime();
-			}
-			if (t.getCode() == KeyCode.D) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.RIGHT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
+			try {
+				final KeyEvent t = key;
+				buffer.add(t.getCode());
+				t.consume();
+				if (t.getCode() == KeyCode.P) {
+					App.game.getCurrentMap().toggleTime();
+				}
+				if (t.getCode() == KeyCode.D) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.RIGHT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+						}
 					}
 				}
-			}
-			if (t.getCode() == KeyCode.A) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.LEFT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
+				if (t.getCode() == KeyCode.A) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.LEFT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+						}
 					}
 				}
-			}
 
-			if (t.getCode() == KeyCode.R)
-				try {
-					App.game.getCurrentMap().reset();
-					System.out.println("R Hit");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				if (t.getCode() == KeyCode.R)
+					try {
+						App.game.getCurrentMap().reset();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 
-			if (t.getCode() == KeyCode.N) {
-				if (App.game.getIsAtDoor()) {
-					int index = App.game.getMaps().indexOf(
-							App.game.getCurrentMap());
-					if (index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index + 1));
+				if (t.getCode() == KeyCode.N) {
+					if (App.game.getIsAtDoor()) {
+						int index = App.game.getMaps().indexOf(
+								App.game.getCurrentMap());
+						if (index + 1 < App.game.getMaps().size())
+							App.game.changeMap(App.game.getMaps()
+									.get(index + 1));
+					}
 				}
+			} catch (Exception e) {
+
 			}
 		}
 	};
@@ -69,8 +73,12 @@ public class InertialKeys extends DefaultKeys {
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
 			t.consume();
-			if(t.getCode() == KeyCode.A || t.getCode() == KeyCode.D){
-				((Player)App.game.getPlayer()).setMoving(false);
+			try {
+				if (t.getCode() == KeyCode.A || t.getCode() == KeyCode.D) {
+					((Player) App.game.getPlayer()).setMoving(false);
+				}
+			} catch (Exception e) {
+
 			}
 		};
 	};
@@ -78,24 +86,30 @@ public class InertialKeys extends DefaultKeys {
 		@Override
 		public void run() {
 			while (true) {
-				Body body = App.game.getPlayer().getBody();
-				if (buffer.contains(KeyCode.W)) {
-					Vec2 velocity = new Vec2(body.getLinearVelocity().x, 200.0f);
-					body.setLinearVelocity(velocity);
-				}
-				if (buffer.contains(KeyCode.S)) {
-					Vec2 velocity = new Vec2(body.getLinearVelocity().x,
-							-200.0f);
-					body.setLinearVelocity(velocity);
-				}
-				if (buffer.contains(KeyCode.A)) {
-					Vec2 velocity = new Vec2(-200.0f,
-							body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
-				}
-				if (buffer.contains(KeyCode.D)) {
-					Vec2 velocity = new Vec2(200.0f, body.getLinearVelocity().y);
-					body.setLinearVelocity(velocity);
+				try {
+					Body body = App.game.getPlayer().getBody();
+					if (buffer.contains(KeyCode.W)) {
+						Vec2 velocity = new Vec2(body.getLinearVelocity().x,
+								200.0f);
+						body.setLinearVelocity(velocity);
+					}
+					if (buffer.contains(KeyCode.S)) {
+						Vec2 velocity = new Vec2(body.getLinearVelocity().x,
+								-200.0f);
+						body.setLinearVelocity(velocity);
+					}
+					if (buffer.contains(KeyCode.A)) {
+						Vec2 velocity = new Vec2(-200.0f,
+								body.getLinearVelocity().y);
+						body.setLinearVelocity(velocity);
+					}
+					if (buffer.contains(KeyCode.D)) {
+						Vec2 velocity = new Vec2(200.0f,
+								body.getLinearVelocity().y);
+						body.setLinearVelocity(velocity);
+					}
+				} catch (Exception e) {
+
 				}
 				try {
 					Thread.sleep(10);

@@ -17,29 +17,34 @@ import javafx.scene.input.KeyEvent;
 
 public abstract class KeyManager {
 	public Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
-	protected Player p =(Player) App.game.getPlayer();
+	protected Player p = (Player) App.game.getPlayer();
 	public EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if(t.getCode() == KeyCode.R)
-				try {
-					App.game.getCurrentMap().reset();
-					System.out.println("R Hit");
-				} catch (IOException e) {
-					e.printStackTrace();
+			try {
+				if (t.getCode() == KeyCode.R)
+					try {
+						App.game.getCurrentMap().reset();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				if (t.getCode() == KeyCode.P) {
+					App.game.getCurrentMap().toggleTime();
 				}
-			if (t.getCode() == KeyCode.P) {
-				App.game.getCurrentMap().toggleTime();
-			}
-			if(t.getCode() == KeyCode.N){
-				if(App.game.getIsAtDoor()){
-					int index = App.game.getMaps().indexOf(App.game.getCurrentMap());
-					if(index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index+1));
+				if (t.getCode() == KeyCode.N) {
+					if (App.game.getIsAtDoor()) {
+						int index = App.game.getMaps().indexOf(
+								App.game.getCurrentMap());
+						if (index + 1 < App.game.getMaps().size())
+							App.game.changeMap(App.game.getMaps()
+									.get(index + 1));
+					}
 				}
+			} catch (Exception e) {
+
 			}
 		}
 	};

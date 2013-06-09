@@ -19,47 +19,51 @@ public class PixelEscapeKeys extends DefaultKeys {
 			final KeyEvent t = key;
 			buffer.add(t.getCode());
 			t.consume();
-			if (t.getCode() == KeyCode.D) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.RIGHT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
+			try {
+				if (t.getCode() == KeyCode.D) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.RIGHT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+						}
 					}
 				}
-			}
-			if (t.getCode() == KeyCode.A) {
-				if (App.game.getPlayer() != null) {
-					if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
-						App.game.getPlayer().setVisible(false);
-						((Player) App.game.getPlayer())
-								.setSide(Player.Side.LEFT);
-						((Player) App.game.getPlayer()).changeNode();
-						App.game.getPlayer().setVisible(true);
+				if (t.getCode() == KeyCode.A) {
+					if (App.game.getPlayer() != null) {
+						if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
+							App.game.getPlayer().setVisible(false);
+							((Player) App.game.getPlayer())
+									.setSide(Player.Side.LEFT);
+							((Player) App.game.getPlayer()).changeNode();
+							App.game.getPlayer().setVisible(true);
+						}
 					}
 				}
-			}
 
-			if (t.getCode() == KeyCode.N) {
-				if (App.game.getIsAtDoor()) {
-					int index = App.game.getMaps().indexOf(
-							App.game.getCurrentMap());
-					if (index + 1 < App.game.getMaps().size())
-						App.game.changeMap(App.game.getMaps().get(index + 1));
+				if (t.getCode() == KeyCode.N) {
+					if (App.game.getIsAtDoor()) {
+						int index = App.game.getMaps().indexOf(
+								App.game.getCurrentMap());
+						if (index + 1 < App.game.getMaps().size())
+							App.game.changeMap(App.game.getMaps()
+									.get(index + 1));
+					}
 				}
-			}
-			if (t.getCode() == KeyCode.P) {
-				App.game.getCurrentMap().toggleTime();
-			}
-			if (t.getCode() == KeyCode.R)
-				try {
-					App.game.getCurrentMap().reset();
-					System.out.println("R Hit");
-				} catch (IOException e) {
-					e.printStackTrace();
+				if (t.getCode() == KeyCode.P) {
+					App.game.getCurrentMap().toggleTime();
 				}
+				if (t.getCode() == KeyCode.R)
+					try {
+						App.game.getCurrentMap().reset();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			} catch (Exception e) {
+
+			}
 
 		}
 	};
@@ -76,23 +80,27 @@ public class PixelEscapeKeys extends DefaultKeys {
 		@Override
 		public void run() {
 			while (true) {
-				Body body = App.game.getPlayer().getBody();
-				if (buffer.contains(KeyCode.W)) {
-					Vec2 impulse = new Vec2(0, 50000.0f);
-					Vec2 point = body.getWorldPoint(body.getWorldCenter());
-					body.applyForce(impulse, point);
-				} else if (buffer.contains(KeyCode.A)) {
-					Vec2 impulse = new Vec2(-10000.0f, 0);
-					Vec2 point = body.getWorldPoint(body.getWorldCenter());
-					body.applyForce(impulse, point);
-				} else if (buffer.contains(KeyCode.D)) {
-					Vec2 impulse = new Vec2(10000.0f, 0);
-					Vec2 point = body.getWorldPoint(body.getWorldCenter());
-					body.applyForce(impulse, point);
-				} else if (buffer.contains(KeyCode.S)) {
-					Vec2 impulse = new Vec2(0, -5000.0f);
-					Vec2 point = body.getWorldPoint(body.getWorldCenter());
-					body.applyForce(impulse, point);
+				try {
+					Body body = App.game.getPlayer().getBody();
+					if (buffer.contains(KeyCode.W)) {
+						Vec2 impulse = new Vec2(0, 50000.0f);
+						Vec2 point = body.getWorldPoint(body.getWorldCenter());
+						body.applyForce(impulse, point);
+					} else if (buffer.contains(KeyCode.A)) {
+						Vec2 impulse = new Vec2(-10000.0f, 0);
+						Vec2 point = body.getWorldPoint(body.getWorldCenter());
+						body.applyForce(impulse, point);
+					} else if (buffer.contains(KeyCode.D)) {
+						Vec2 impulse = new Vec2(10000.0f, 0);
+						Vec2 point = body.getWorldPoint(body.getWorldCenter());
+						body.applyForce(impulse, point);
+					} else if (buffer.contains(KeyCode.S)) {
+						Vec2 impulse = new Vec2(0, -5000.0f);
+						Vec2 point = body.getWorldPoint(body.getWorldCenter());
+						body.applyForce(impulse, point);
+					}
+				} catch (Exception e) {
+
 				}
 				try {
 					Thread.sleep(10);
