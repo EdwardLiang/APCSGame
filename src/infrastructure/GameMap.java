@@ -128,19 +128,17 @@ public class GameMap implements Serializable {
 		} else {
 			addCoreElements();
 		}
-		App.camera.reset();
 		App.game.getCurrentMap().killTime();
+		App.game.getCurrentMap().newTime();
 		App.game.getCurrentMap().setVisible(false);
-
 		App.camera.reset();
 		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
-				App.game.getCurrentMap().getPY()));
+		App.game.getCurrentMap().getPY()));
 		App.game.getPlayer().addToMap(App.game.getCurrentMap());
 		App.game.getCurrentMap().setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
 		App.root.getChildren().addAll(App.menuBar);
 		App.game.getCurrentMap().startTime();
-		App.game.getCurrentMap().setVisible(true);
 	}
 
 	public void removeAll() {
