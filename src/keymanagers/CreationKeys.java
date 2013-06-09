@@ -14,6 +14,15 @@ public class CreationKeys extends DefaultKeys {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
+			if (t.getCode() == KeyCode.R)
+				try {
+					App.game.getCurrentMap().reset();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			if(((Player)App.game.getPlayer()).getStatus() == Player.Status.DEAD)
+				return;
+
 			buffer.add(t.getCode());
 			t.consume();
 			try{
@@ -39,13 +48,6 @@ public class CreationKeys extends DefaultKeys {
 					}
 				}
 			}
-
-			if (t.getCode() == KeyCode.R)
-				try {
-					App.game.getCurrentMap().reset();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 
 			if (t.getCode() == KeyCode.N) {
 				if (App.game.getIsAtDoor()) {

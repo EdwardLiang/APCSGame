@@ -15,8 +15,17 @@ public class DevModeKeys extends FlyingKeys {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
+			if (t.getCode() == KeyCode.R)
+				try {
+					App.game.getCurrentMap().reset();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			if(((Player)App.game.getPlayer()).getStatus() == Player.Status.DEAD)
+				return;
 			buffer.add(t.getCode());
 			t.consume();
+
 			try {
 				if (t.getCode() == KeyCode.E) {
 					App.setTC(1.0f / 20.0f);
@@ -84,12 +93,6 @@ public class DevModeKeys extends FlyingKeys {
 				} else if (t.getCode() == KeyCode.DIGIT4) {
 					App.shaker.generateDeadlyStaticEntity();
 				}
-				if (t.getCode() == KeyCode.R)
-					try {
-						App.game.getCurrentMap().reset();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 			} catch (Exception e) {
 
 			}

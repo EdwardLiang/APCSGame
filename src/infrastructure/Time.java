@@ -21,10 +21,6 @@ public class Time implements Serializable {
 	EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent t) {
-			if (App.game.getPlayer() != null
-					&& ((Player)App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				return;
-			}
 			Frame frame = new Frame();
 			map.getPhysics().step(App.getTC(), 8, 3);
 			map.getBack().setLayoutX(App.camera.getOffsetX());
