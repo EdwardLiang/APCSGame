@@ -15,6 +15,7 @@ import utils.Parse;
 import utils.PathUtil;
 
 public class DynamicPathEntity extends PathEntity {
+	public double previousRotation;
 
 	public DynamicPathEntity(Vec2[] verts) {
 		super(verts);
@@ -29,13 +30,19 @@ public class DynamicPathEntity extends PathEntity {
 		((Polygon) node).setFill(new ImagePattern(clouds));*/
 
 	}
+	public synchronized double getPreviousRotation(){
+		return previousRotation;
+	}
+	public synchronized void setPreviousRotation(double rotation){
+		previousRotation = rotation;
+	}
 
 	@Override
 	protected BodyDef createBD() {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DYNAMIC;
 		bodyDef.position.set(xPos, yPos);
-		bodyDef.fixedRotation = true;
+		bodyDef.fixedRotation = false;
 		bodyDef.userData = this.getClass();
 		return bodyDef;
 	}
