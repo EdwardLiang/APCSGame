@@ -79,7 +79,7 @@ public class App extends Application {
 	public static final List<String> levelList = Arrays.asList(new String[] {
 			"src/levels/menu.txt", "src/levels/1-1.txt", "src/levels/1-2.txt",
 			"src/levels/1-3.txt", "src/levels/1-4.txt", "src/levels/1-7.txt",
-			"src/levels/2-2.txt","src/levels/1-5.txt" });
+			"src/levels/2-2.txt", "src/levels/1-5.txt" });
 
 	public static void main(String[] args) throws IOException {
 		launch(args);
@@ -90,12 +90,12 @@ public class App extends Application {
 		App.game.getCurrentMap().newReverseTime();
 		App.game.getCurrentMap().startTime();
 	}
+
 	public static void PIreverseTime() {
 		App.game.getCurrentMap().killTime();
 		App.game.getCurrentMap().newPIReverseTime();
 		App.game.getCurrentMap().startTime();
 	}
-
 
 	public static synchronized void setTC(float tC) {
 		App.game.getCurrentMap().killTime();
@@ -119,6 +119,7 @@ public class App extends Application {
 			App.game.getCurrentMap().startTime();
 		}
 	}
+
 	public static void togglePIRTime() {
 		if (App.game.getCurrentMap().getTime() instanceof ReverseTime2) {
 			App.game.getCurrentMap().killTime();
@@ -130,7 +131,6 @@ public class App extends Application {
 			App.game.getCurrentMap().startTime();
 		}
 	}
-
 
 	@Override
 	public void start(final Stage primaryStage) throws IOException {
@@ -222,11 +222,18 @@ public class App extends Application {
 		Menu menuFile = new Menu("File");
 		MenuItem save = new MenuItem("Save Map");
 		MenuItem reset = new MenuItem("Reset Level");
-		reset.setOnAction(new EventHandler<ActionEvent>() {
+		MenuItem pause = new MenuItem("Pause Level");
+		pause.setOnAction(new EventHandler<ActionEvent>() {
+			EdwardPopup pop = new EdwardPopup("Paused. ");
 
+			public synchronized void handle(ActionEvent arg0) {
+				App.game.getCurrentMap().getTime().toggleTime();
+				pop.toggle();
+			}
+		});
+		reset.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+			public synchronized void handle(ActionEvent arg0) {
 				try {
 					App.game.getCurrentMap().reset();
 				} catch (IOException e) {
@@ -235,7 +242,7 @@ public class App extends Application {
 				}
 			}
 		});
-		menuFile.getItems().addAll(save, reset);
+		menuFile.getItems().addAll(save, reset,pause);
 
 		Menu menuEdit = new Menu("Edit");
 		MenuItem devMode = new MenuItem("DevMode");
@@ -245,12 +252,13 @@ public class App extends Application {
 		menuView.getItems().add(zoom);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
 		devMode.setOnAction(new EventHandler<ActionEvent>() {
+			EdwardPopup pop = new EdwardPopup(
+					"This is the feature of our game that allows us to dynamically draw and execute player-defined shapes. To use, draw points with"
+							+ "your mouse, and press 1 or 2 to create the shape, depending on what kind of shape you want. 3 and 4 make shapes that kill the player. ");
 			@Override
 			public synchronized void handle(ActionEvent event) {
-				(new EdwardPopup(
-						"This is the feature of our game that allows us to dynamically draw and execute player-defined shapes. To use, draw points with"
-								+ "your mouse, and press F1 or F2 to create the shape, depending on what kind of shape you want. "))
-						.toggle();
+				pop.toggle();
+					
 			}
 
 		});
@@ -274,15 +282,15 @@ public class App extends Application {
 		((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		//game.changeMap(game.getMaps().get(1));
-	//	game.getCurrentMap().getPhysics()
-			//	.setContactListener(new ContactManager());
-		for(GameMap a: game.getMaps()){
+		// game.changeMap(game.getMaps().get(1));
+		// game.getCurrentMap().getPhysics()
+		// .setContactListener(new ContactManager());
+		for (GameMap a : game.getMaps()) {
 			a.getPhysics().setContactListener(new ContactManager());
 		}
-		//game.getCurrentMap().addCoreElements();
+		// game.getCurrentMap().addCoreElements();
 		App.game.changeMap(App.game.getMaps().get(1));
-		//App.game.getMaps().get(7).toggleTime();
+		// App.game.getMaps().get(7).toggleTime();
 
 	}
 
