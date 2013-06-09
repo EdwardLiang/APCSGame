@@ -1,7 +1,5 @@
 package guiobject;
 
-
-
 import infrastructure.App;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.VPos;
@@ -15,19 +13,21 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-
 public class EdwardPopup {
 	public enum Box {
 		YES, NO;
 	}
+
 	private Text text;
-	private Rectangle rectangle,clip;
-	private double xPPos,yPPos,width,height;
+	private Rectangle rectangle, clip;
+	private double xPPos, yPPos, width, height;
 	private boolean isOn = false;
-	
 
 	public StringProperty textProperty() {
 		return text.textProperty();
+	}
+	public Text getText(){
+		return text;
 	}
 
 	public EdwardPopup(String string) {
@@ -62,7 +62,7 @@ public class EdwardPopup {
 		}
 		isOn = !isOn;
 	}
-		
+
 	protected void create() {
 		final double w = rectangle.getWidth();
 		final double h = rectangle.getHeight();

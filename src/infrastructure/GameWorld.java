@@ -33,7 +33,8 @@ public class GameWorld implements Serializable {
 	private Boolean isAtDoor;
 
 	public GameWorld() throws IOException {
-		currentMap = GameMap.parse(Parse.readFromFile(App.getLevelForIndex(0)), App.getLevelForIndex(0));
+		currentMap = GameMap.parse(Parse.readFromFile(App.getLevelForIndex(0)),
+				App.getLevelForIndex(0));
 		// currentMap = new GameMap(new BackGround("maps/menu.jpg"), 1190, 352,
 		// 20, 20, 30.0f);
 		player = new Player(currentMap.getPX(), currentMap.getPY());
@@ -64,6 +65,7 @@ public class GameWorld implements Serializable {
 	public synchronized void addMap(GameMap game) {
 		maps.add(game);
 	}
+
 	public synchronized void changeMap(GameMap Map) {
 		if (currentMap != null) {
 			// currentMap.reset();
@@ -77,7 +79,12 @@ public class GameWorld implements Serializable {
 		currentMap.setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
 		App.root.getChildren().addAll(App.menuBar);
-		EdwardPopup pop = new EdwardPopup("test");
+		EdwardPopup pop = new EdwardPopup("");
+		if(Map.getBack().getPath().equals("maps/1-1.jpg")){
+			pop = new EdwardPopup("Welcome to Dreamscape! WASD is to move, R is reset, N is to move on to the next level if you're at a door, and P is to pause. \nBut wait! You're also a master of Time! B is to reverse time, V is to continue time normally, and shift is to temporarily move back in time. E is to speed up time, and Q is to slow it down. Good luck!");
+			pop.getText().setFill(Color.WHITE);
+			pop.toggle();
+		}
 		if(Map.getBack().getPath().equals("maps/1-3.jpg")){
 			FlyingKeys keyManager = new FlyingKeys();
 			App.key.interrupt();
@@ -85,7 +92,8 @@ public class GameWorld implements Serializable {
 			App.key.start();
 			App.scene.setOnKeyPressed(keyManager.keyPress);
 			App.scene.setOnKeyReleased(keyManager.keyRelease);
-			pop= new EdwardPopup("You can fly! WASD to move, N to move to the next level at a door.");
+			pop= new EdwardPopup("You can fly!");
+			pop.getText().setFill(Color.BLUE);
 			pop.toggle();
 		}
 		if(Map.getBack().getPath().equals("maps/1-4.png")){
@@ -125,7 +133,8 @@ public class GameWorld implements Serializable {
 			App.camera = new Camera();
 			App.cam = new Thread(App.camera);
 			App.cam.start();
-			pop = new EdwardPopup("YOU are now making the game! 1 makes a dynamic thingie, 2 makes a static one. As always, R is reset. Have fun!");
+			pop = new EdwardPopup("YOU are now making the game! 1 makes a dynamic object, 2 makes a static one. As always, R is reset. Have fun!");
+			pop.getText().setFill(Color.BLACK);
 			pop.toggle();
 		}
 
