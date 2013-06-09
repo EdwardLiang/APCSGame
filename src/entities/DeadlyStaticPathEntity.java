@@ -9,6 +9,5 @@ public class DeadlyStaticPathEntity extends StaticPathEntity {
 	public DeadlyStaticPathEntity(Vec2[] verts) {
 		super(verts);
 		((Polygon) node).setFill(Color.RED);
-
 	}
 }

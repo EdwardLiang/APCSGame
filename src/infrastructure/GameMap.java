@@ -284,4 +284,8 @@ public class GameMap implements Serializable {
 		}
 		return result;
 	}
+
+	public void newPIReverseTime() {
+		this.time = new ReverseTime2(this);
+	}
 }
