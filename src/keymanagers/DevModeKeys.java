@@ -17,6 +17,22 @@ public class DevModeKeys extends FlyingKeys {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
+			if (t.getCode() == KeyCode.E) {
+				App.setTC(1.0f / 20.0f);
+			}
+			if (t.getCode() == KeyCode.Q) {
+				App.setTC(1.0f / 100.0f);
+			}
+			if (t.getCode() == KeyCode.B) {
+				App.reverseTime();
+			}
+			if (t.getCode() == KeyCode.V) {
+				App.setTC(1.0f / 60.0f);
+			}
+			if (t.getCode() == KeyCode.SHIFT) {
+				App.toggleRTime();
+			}
+
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();
@@ -32,21 +48,6 @@ public class DevModeKeys extends FlyingKeys {
 			t.consume();
 
 			try {
-				if (t.getCode() == KeyCode.E) {
-					App.setTC(1.0f / 20.0f);
-				}
-				if (t.getCode() == KeyCode.Q) {
-					App.setTC(1.0f / 100.0f);
-				}
-				if (t.getCode() == KeyCode.B) {
-					App.reverseTime();
-				}
-				if (t.getCode() == KeyCode.V) {
-					App.setTC(1.0f / 60.0f);
-				}
-				if (t.getCode() == KeyCode.SHIFT) {
-					App.toggleRTime();
-				}
 				if (t.getCode() == KeyCode.D) {
 					if (App.game.getPlayer() != null) {
 						if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {

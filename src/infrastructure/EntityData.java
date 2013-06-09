@@ -1,6 +1,7 @@
 package infrastructure;
 
 import entities.Entity;
+import entities.Player;
 
 public class EntityData {
 	private float locX;

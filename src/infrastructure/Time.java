@@ -59,7 +59,11 @@ public class Time implements Serializable {
 				App.game.isAtDoor(false);
 
 			for (Entity a : map.getElements()) {
-				frame.addEntity(a);
+				if (a instanceof Player) {
+					frame.addPlayer((Player) a);
+				} else {
+					frame.addEntity(a);
+				}
 				if (a instanceof Player
 						&& ((Player) a).getStatus() != Player.Status.DEAD) {
 					if (a.getBody().getContactList() != null) {

@@ -1,6 +1,7 @@
 package infrastructure;
 
 import entities.Entity;
+import entities.Player;
 import utils.Util;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -50,10 +51,11 @@ public class ReverseTime extends Time {
 			for (Entity a : frame.getData().keySet()) {
 				a.getBody().setAngularVelocity(0);
 				a.getBody().setLinearVelocity(new Vec2(0, 0));
-			//	a.getBody().getPosition().x = frame.getData().get(a).getX();
-			//	a.getBody().getPosition().y = frame.getData().get(a).getY();
-				a.getBody().setTransform(new Vec2(frame.getData().get(a).getX(),
-						frame.getData().get(a).getY()), 0);
+				// a.getBody().getPosition().x = frame.getData().get(a).getX();
+				// a.getBody().getPosition().y = frame.getData().get(a).getY();
+				a.getBody().setTransform(
+						new Vec2(frame.getData().get(a).getX(), frame.getData()
+								.get(a).getY()), 0);
 				if (a.node instanceof Circle) {
 					float xpos = a.getPPosition().x + App.camera.getOffsetX();
 					float ypos = a.getPPosition().y + App.camera.getOffsetY();
@@ -66,6 +68,18 @@ public class ReverseTime extends Time {
 							+ App.camera.getOffsetY() - a.getPHeight() / 2);
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
+				}
+				if (frame.getData().get(a) instanceof PlayerData) {
+					if (((PlayerData) frame.getData().get(a)).getStatus() != ((Player) App.game
+							.getPlayer()).getStatus()) {
+						((Player) App.game.getPlayer()).setVisible(false);
+						((Player) App.game.getPlayer())
+								.setStatus(((PlayerData) frame.getData().get(a))
+										.getStatus());
+						((Player) App.game.getPlayer()).changeNode();
+						((Player) App.game.getPlayer()).setVisible(true);
+
+					}
 				}
 			}
 		}
