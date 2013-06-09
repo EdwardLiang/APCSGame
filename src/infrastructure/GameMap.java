@@ -49,74 +49,74 @@ public class GameMap implements Serializable {
 		this.timeData = new TimeData();
 	}
 
-	public TimeData getTimeData() {
+	public synchronized TimeData getTimeData() {
 		return timeData;
 	}
 
-	public ArrayList<Entity> getElements() {
+	public synchronized ArrayList<Entity> getElements() {
 		return gameElements;
 	}
 
-	public BackGround getBack() {/* , you don't know what you're dealing with */
+	public synchronized BackGround getBack() {/* , you don't know what you're dealing with */
 		return back;
 	}
 
-	public Door getDoor() {
+	public synchronized Door getDoor() {
 		return door;
 	}
 
-	public float getWidth() {
+	public synchronized float getWidth() {
 		return width;
 	}
 
-	public float getHeight() {
+	public synchronized float getHeight() {
 		return height;
 	}
 
-	public double getPHeight() {
+	public synchronized double getPHeight() {
 		return back.getPHeight();
 	}
 
-	public double getPWidth() {
+	public synchronized double getPWidth() {
 		return back.getWidth();
 	}
 
-	public Boolean isPaused() {
+	public synchronized Boolean isPaused() {
 		return time.isPaused();
 	}
 
-	public void startTime() {
+	public synchronized void startTime() {
 		time.startTime();
 	}
 
-	public void newTime() {
+	public synchronized void newTime() {
 		this.time = new Time(this);
 	}
 	
-	public void newReverseTime(){
+	public synchronized void newReverseTime(){
 		this.time = new ReverseTime(this);
 	}
 
-	public void killTime() {
+	public synchronized void killTime() {
 		time.killTime();
 	}
-	public Time getTime(){
+	public synchronized Time getTime(){
 		return time;
 	}
 
-	public World getPhysics() {
+	public synchronized World getPhysics() {
 		return world;
 	}
 
-	public float getPX() {
+	public synchronized float getPX() {
 		return playerX;
 	}
 
-	public float getPY() {
+	public synchronized float getPY() {
 		return playerY;
 	}
 
-	public void reset() throws IOException {
+	public synchronized void reset() throws IOException {
 		stopAll();
 		removeAll();
 		if (originalDataLoc != null) {
@@ -128,23 +128,21 @@ public class GameMap implements Serializable {
 		} else {
 			addCoreElements();
 		}
-		App.camera.reset();
 		App.game.getCurrentMap().killTime();
+		App.game.getCurrentMap().newTime();
 		App.game.getCurrentMap().setVisible(false);
-
 		App.camera.reset();
 		App.game.setPlayer(null);
 		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
-				App.game.getCurrentMap().getPY()));
+		App.game.getCurrentMap().getPY()));
 		App.game.getPlayer().addToMap(App.game.getCurrentMap());
 		App.game.getCurrentMap().setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
 		App.root.getChildren().addAll(App.menuBar);
 		App.game.getCurrentMap().startTime();
-		App.game.getCurrentMap().setVisible(true);
 	}
 
-	public void removeAll() {
+	public synchronized void removeAll() {
 		for (int i = 0; i < gameElements.size(); i++)
 			gameElements.get(i).removeFromMap();
 		// this.getBack().setVisible(false);
@@ -152,7 +150,7 @@ public class GameMap implements Serializable {
 		// a.removeFromMap();
 	}
 
-	public void setVisible(Boolean bool) {
+	public synchronized void setVisible(Boolean bool) {
 		if (bool == true) {
 			back.setVisible(true);
 			for (Entity a : gameElements) {
@@ -170,22 +168,22 @@ public class GameMap implements Serializable {
 		}
 	}
 
-	private void stopAll() {
+	private synchronized void stopAll() {
 		time.timeline.stop();
 	}
 
 	// Use Entity's addToMap method. DO NOT DIRECTLY INVOKE THIS METHOD.
-	public void addEntity(Entity entity) {
+	public synchronized void addEntity(Entity entity) {
 		gameElements.add(entity);
 	}
 
 	// Use Entity's removeFromMap method. DO NOT DIRECTLY CALL THIS METHOD.
-	public void removeEntity(Entity entity) {
+	public synchronized void removeEntity(Entity entity) {
 		if(gameElements.contains(entity))
 			gameElements.remove(entity);
 	}
 
-	public void addCoreElements() {
+	public synchronized void addCoreElements() {
 		Wall left = new Wall(0, height / 2, 1, height);
 		Wall right = new Wall(width, height / 2, 1, height);
 		Wall top = new Wall(width / 2, height, width, 1);
@@ -196,11 +194,11 @@ public class GameMap implements Serializable {
 		bottom.addToMap(this);
 	}
 
-	public void toggleTime() {
+	public synchronized void toggleTime() {
 		time.toggleTime();
 	}
 
-	private static Entity parseElements(String raw) {
+	private synchronized static Entity parseElements(String raw) {
 		String[] frags = Parse.fragment(raw);
 		String className = frags[0];
 		switch (className) {
@@ -223,7 +221,7 @@ public class GameMap implements Serializable {
 		}
 	}
 
-	public static GameMap parse(String raw, File loc) {
+	public synchronized static GameMap parse(String raw, File loc) {
 		String[] parsed = raw.split("[\n]");
 		GameMap game = new GameMap(BackGround.parse(parsed[0]),
 				Float.parseFloat(parsed[1]), Float.parseFloat(parsed[2]),
@@ -236,16 +234,16 @@ public class GameMap implements Serializable {
 		return game;
 	}
 
-	public void setOriginalDataLoc(String loc) {
+	public synchronized void setOriginalDataLoc(String loc) {
 		this.originalDataLoc = loc;
 	}
 
-	public String getOriginalDataLoc() {
+	public synchronized String getOriginalDataLoc() {
 		return originalDataLoc;
 	}
 
 	@Override
-	public String toString() {
+	public synchronized String toString() {
 		String result = "";
 		result += back.toString() + "\n";
 		result += doorX + "\n";

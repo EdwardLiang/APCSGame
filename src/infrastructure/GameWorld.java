@@ -46,27 +46,27 @@ public class GameWorld implements Serializable {
 		currentMap.setVisible(true);
 	}
 
-	public GameMap getCurrentMap() {
+	public synchronized GameMap getCurrentMap() {
 		return currentMap;
 	}
 
-	public void setPlayer(Entity entity) {
+	public synchronized void setPlayer(Entity entity) {
 		this.player = entity;
 	}
 
-	public Entity getPlayer() {
+	public synchronized Entity getPlayer() {
 		return player;
 	}
 
-	public LinkedList<GameMap> getMaps() {
+	public synchronized LinkedList<GameMap> getMaps() {
 		return maps;
 	}
 
-	public void addMap(GameMap game) {
+	public synchronized void addMap(GameMap game) {
 		maps.add(game);
 	}
 
-	public void changeMap(GameMap Map) {
+	public synchronized void changeMap(GameMap Map) {
 		if (currentMap != null) {
 			// currentMap.reset();
 			currentMap.killTime();
@@ -144,7 +144,7 @@ public class GameWorld implements Serializable {
 	}
 
 	@Override
-	public String toString() {
+	public synchronized String toString() {
 		String str = "";
 		Iterator iter = maps.iterator();
 		while (iter.hasNext()) {
@@ -153,11 +153,11 @@ public class GameWorld implements Serializable {
 		return str;
 	}
 
-	public void isAtDoor(boolean b) {
+	public synchronized void isAtDoor(boolean b) {
 		this.isAtDoor = b;
 	}
 
-	public boolean getIsAtDoor() {
+	public synchronized boolean getIsAtDoor() {
 		return isAtDoor;
 	}
 }

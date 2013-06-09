@@ -20,8 +20,12 @@ public class Camera implements Runnable, Serializable {
 	}
 
 	public synchronized void reset() {
+		if(App.cam.isAlive())
+			App.cam.interrupt();
 		offsetX = 0.0f;
 		offsetY = 0.0f;
+		App.cam = new Thread(this);
+		App.cam.start();
 	}
 
 	public synchronized float getOffsetX() {
