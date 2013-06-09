@@ -79,6 +79,10 @@ public class DevModeKeys extends FlyingKeys {
 					App.shaker.generateDynamicEntity();
 				} else if (t.getCode() == KeyCode.DIGIT2) {
 					App.shaker.generateStaticEntity();
+				} else if (t.getCode() == KeyCode.DIGIT3) {
+					App.shaker.generateDeadlyDynamicEntity();
+				} else if (t.getCode() == KeyCode.DIGIT4) {
+					App.shaker.generateDeadlyStaticEntity();
 				}
 				if (t.getCode() == KeyCode.R)
 					try {

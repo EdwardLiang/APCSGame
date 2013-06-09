@@ -14,8 +14,8 @@ public class ContactManager implements ContactListener {
 
 	public ContactManager() {
 		super();
-		deadly.add(DynamicDeadlyPathEntity.class);
-		deadly.add(StaticDeadlyPathEntity.class);
+		deadly.add(DeadlyDynamicPathEntity.class);
+		deadly.add(DeadlyStaticPathEntity.class);
 		deadly.add(Projectile.class);
 		deadly.add(DeadlyBouncyBall.class);
 	}

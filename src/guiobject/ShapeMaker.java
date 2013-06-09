@@ -1,5 +1,7 @@
 package guiobject;
 
+import entities.DeadlyDynamicPathEntity;
+import entities.DeadlyStaticPathEntity;
 import entities.DynamicPathEntity;
 import entities.Entity;
 import entities.StaticPathEntity;
@@ -48,6 +50,20 @@ public class ShapeMaker {
 
 	public Entity generateStaticEntity() {
 		StaticPathEntity en = new StaticPathEntity(getLocations());
+		en.addToMap(App.game.getCurrentMap());
+		en.setVisible(true);
+		clearMarkers();
+		return en;
+	}
+	public Entity generateDeadlyDynamicEntity(){
+		DeadlyDynamicPathEntity en = new DeadlyDynamicPathEntity(getLocations());
+		en.addToMap(App.game.getCurrentMap());
+		en.setVisible(true);
+		clearMarkers();
+		return en;
+	}
+	public Entity generateDeadlyStaticEntity(){
+		DeadlyStaticPathEntity en = new DeadlyStaticPathEntity(getLocations());
 		en.addToMap(App.game.getCurrentMap());
 		en.setVisible(true);
 		clearMarkers();
