@@ -275,8 +275,11 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		//game.changeMap(game.getMaps().get(1));
-		game.getCurrentMap().getPhysics()
-				.setContactListener(new ContactManager());
+	//	game.getCurrentMap().getPhysics()
+			//	.setContactListener(new ContactManager());
+		for(GameMap a: game.getMaps()){
+			a.getPhysics().setContactListener(new ContactManager());
+		}
 		//game.getCurrentMap().addCoreElements();
 		App.game.changeMap(App.game.getMaps().get(7));
 		//App.game.getMaps().get(7).toggleTime();
