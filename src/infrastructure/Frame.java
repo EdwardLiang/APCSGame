@@ -2,6 +2,7 @@ package infrastructure;
 
 import java.util.HashMap;
 
+import entities.DynamicPathEntity;
 import entities.Entity;
 import entities.Player;
 
@@ -15,6 +16,9 @@ public class Frame {
 	}
 	public void addPlayer(Player e){
 		eData.put(e, new PlayerData(e));
+	}
+	public void addDEntity(DynamicPathEntity e){
+		eData.put(e, new DynamicEntityData(e));
 	}
 	public HashMap<Entity,EntityData> getData(){
 		return eData;

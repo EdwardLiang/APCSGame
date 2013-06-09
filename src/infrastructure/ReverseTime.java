@@ -1,5 +1,6 @@
 package infrastructure;
 
+import entities.DynamicPathEntity;
 import entities.Entity;
 import entities.Player;
 import utils.Util;
@@ -10,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import org.jbox2d.common.Vec2;
@@ -57,6 +59,31 @@ public class ReverseTime extends Time {
 								+ App.camera.getOffsetY();
 						a.setLayoutX(xpos);
 						a.setLayoutY(ypos);
+					} else if (a instanceof DynamicPathEntity) {
+						float xpos = (float) (a.getPPosition().x
+								+ App.camera.getOffsetX() - a.getPWidth() / 2);
+						float ypos = (float) (a.getPPosition().y
+								+ App.camera.getOffsetY() - a.getPHeight() / 2);
+						float theta = -a.getBody().getAngle();
+						if (!a.node.getTransforms().isEmpty()) {
+							a.node.getTransforms().add(
+									new Rotate(Math.toDegrees(theta)
+											- ((DynamicPathEntity) a)
+													.getPreviousRotation(), a
+											.getPWidth() / 2,
+											a.getPHeight() / 2));
+							((DynamicPathEntity) a).setPreviousRotation(Math
+									.toDegrees(theta));
+						}
+
+						else {
+							a.node.getTransforms().add(
+									new Rotate(Math.toDegrees(theta)));
+							((DynamicPathEntity) a).setPreviousRotation(Math
+									.toDegrees(theta));
+						}
+						a.setLayoutX(xpos);
+						a.setLayoutY(ypos);
 					} else {
 						float xpos = (float) (a.getPPosition().x
 								+ App.camera.getOffsetX() - a.getPWidth() / 2);
@@ -84,12 +111,47 @@ public class ReverseTime extends Time {
 				a.getBody().setLinearVelocity(new Vec2(0, 0));
 				// a.getBody().getPosition().x = frame.getData().get(a).getX();
 				// a.getBody().getPosition().y = frame.getData().get(a).getY();
-				a.getBody().setTransform(
-						new Vec2(frame.getData().get(a).getX(), frame.getData()
-								.get(a).getY()), 0);
+				if (a instanceof DynamicPathEntity) {
+					a.getBody()
+							.setTransform(
+									new Vec2(frame.getData().get(a).getX(),
+											frame.getData().get(a).getY()),
+									(float) -Math.toRadians( ((DynamicEntityData) frame
+											.getData().get(a))
+											.getPreviousRotation()));
+				} else {
+					a.getBody().setTransform(
+							new Vec2(frame.getData().get(a).getX(), frame
+									.getData().get(a).getY()), 0);
+
+				}
 				if (a.node instanceof Circle) {
 					float xpos = a.getPPosition().x + App.camera.getOffsetX();
 					float ypos = a.getPPosition().y + App.camera.getOffsetY();
+					a.setLayoutX(xpos);
+					a.setLayoutY(ypos);
+				} else if (a instanceof DynamicPathEntity) {
+					float xpos = (float) (a.getPPosition().x
+							+ App.camera.getOffsetX() - a.getPWidth() / 2);
+					float ypos = (float) (a.getPPosition().y
+							+ App.camera.getOffsetY() - a.getPHeight() / 2);
+					float theta = -a.getBody().getAngle();
+					if (!a.node.getTransforms().isEmpty()) {
+						a.node.getTransforms().add(
+								new Rotate(Math.toDegrees(theta)
+										- ((DynamicPathEntity) a)
+												.getPreviousRotation(), a
+										.getPWidth() / 2, a.getPHeight() / 2));
+						((DynamicPathEntity) a).setPreviousRotation(Math
+								.toDegrees(theta));
+					}
+
+					else {
+						a.node.getTransforms().add(
+								new Rotate(Math.toDegrees(theta)));
+						((DynamicPathEntity) a).setPreviousRotation(Math
+								.toDegrees(theta));
+					}
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
 				} else {

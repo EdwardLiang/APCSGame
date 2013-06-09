@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Rotate;
 
 import entities.*;
 
@@ -26,12 +27,14 @@ public class Time implements Serializable {
 		public void handle(ActionEvent t) {
 			Frame frame = new Frame();
 			map.getPhysics().step(App.getTC(), 8, 3);
-		//	map.getBack().setLayoutX(App.camera.getOffsetX());
-			/*map.getBack().setLayoutY(
-					(float) (-map.getPHeight() + Util.HEIGHT + App.camera
-							.getOffsetY()));*/
-			map.getBack().setViewport(new Rectangle2D(-App.camera.getOffsetX(),map.getPHeight() - Util.HEIGHT - App.camera
-							.getOffsetY(),600,600) );
+			// map.getBack().setLayoutX(App.camera.getOffsetX());
+			/*
+			 * map.getBack().setLayoutY( (float) (-map.getPHeight() +
+			 * Util.HEIGHT + App.camera .getOffsetY()));
+			 */
+			map.getBack().setViewport(
+					new Rectangle2D(-App.camera.getOffsetX(), map.getPHeight()
+							- Util.HEIGHT - App.camera.getOffsetY(), 600, 600));
 			map.getDoor().node.setLayoutX(map.getDoor().pCoord().x
 					+ App.camera.getOffsetX() - 30);
 			map.getDoor().node.setLayoutY(map.getDoor().pCoord().y
@@ -65,7 +68,9 @@ public class Time implements Serializable {
 			for (Entity a : map.getElements()) {
 				if (a instanceof Player) {
 					frame.addPlayer((Player) a);
-				} else if(a.getBody().getType() != BodyType.STATIC){
+				} else if (a instanceof DynamicPathEntity) {
+					frame.addDEntity((DynamicPathEntity) a);
+				} else if (a.getBody().getType() != BodyType.STATIC) {
 					frame.addEntity(a);
 				}
 				if (a instanceof Player
@@ -120,6 +125,30 @@ public class Time implements Serializable {
 				if (a.node instanceof Circle) {
 					float xpos = a.getPPosition().x + App.camera.getOffsetX();
 					float ypos = a.getPPosition().y + App.camera.getOffsetY();
+					a.setLayoutX(xpos);
+					a.setLayoutY(ypos);
+				} else if (a instanceof DynamicPathEntity) {
+					float xpos = (float) (a.getPPosition().x
+							+ App.camera.getOffsetX() - a.getPWidth() / 2);
+					float ypos = (float) (a.getPPosition().y
+							+ App.camera.getOffsetY() - a.getPHeight() / 2);
+					float theta = -a.getBody().getAngle();
+					if (!a.node.getTransforms().isEmpty()) {
+						a.node.getTransforms().add(
+								new Rotate(Math.toDegrees(theta)
+										- ((DynamicPathEntity) a)
+												.getPreviousRotation(), a
+										.getPWidth() / 2, a.getPHeight() / 2));
+						((DynamicPathEntity) a).setPreviousRotation(Math
+								.toDegrees(theta));
+					}
+
+					else {
+						a.node.getTransforms().add(
+								new Rotate(Math.toDegrees(theta)));
+						((DynamicPathEntity) a).setPreviousRotation(Math
+								.toDegrees(theta));
+					}
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
 				} else {
