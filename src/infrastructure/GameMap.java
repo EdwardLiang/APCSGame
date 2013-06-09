@@ -207,6 +207,12 @@ public class GameMap implements Serializable {
 		top.addToMap(this);
 		bottom.addToMap(this);
 	}
+	public synchronized void addLeftRightWalls(){
+		Wall left = new Wall(0, height / 2, 1, height);
+		Wall right = new Wall(width, height / 2, 1, height);
+		left.addToMap(this);
+		right.addToMap(this);
+	}
 
 	public synchronized void toggleTime() {
 		time.toggleTime();
