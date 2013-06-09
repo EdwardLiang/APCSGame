@@ -97,7 +97,9 @@ public abstract class Entity implements FXJBox, Serializable {
 
 	public synchronized void removeFromMap() {
 		map.removeEntity(this);
-		map.getPhysics().destroyBody(this.getBody());
+		if(this.getBody() != null){
+			map.getPhysics().destroyBody(this.getBody());
+		}
 		setVisible(false);
 		map = null;
 	}

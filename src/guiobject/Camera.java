@@ -45,7 +45,7 @@ public class Camera implements Runnable, Serializable {
 		while (true) {
 			Body playerData = App.game.getPlayer().getBody();
 			if (!App.game.getCurrentMap().isPaused()
-					&& App.game.getPlayer() != null) {
+					&& App.game.getPlayer() != null && playerData != null) {
 				if (Util.toPPosX(playerData.getPosition().x) + getOffsetX() > Util.WIDTH / 2 + 20
 						&& !(-getOffsetX() + Util.WIDTH + 1 > Util
 								.toPWidth(App.game.getCurrentMap().getWidth()))) {
