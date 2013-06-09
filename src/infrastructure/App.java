@@ -279,7 +279,7 @@ public class App extends Application {
 				.setContactListener(new ContactManager());
 		//game.getCurrentMap().addCoreElements();
 		App.game.changeMap(App.game.getMaps().get(7));
-		App.game.getMaps().get(7).toggleTime();
+		//App.game.getMaps().get(7).toggleTime();
 
 	}
 
