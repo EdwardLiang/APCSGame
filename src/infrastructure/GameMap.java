@@ -116,7 +116,7 @@ public class GameMap implements Serializable {
 		return playerY;
 	}
 
-	public void reset() throws IOException {
+	public synchronized void reset() throws IOException {
 		stopAll();
 		removeAll();
 		if (originalDataLoc != null) {
