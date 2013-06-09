@@ -72,6 +72,7 @@ public class App extends Application {
 	public static Thread key;
 	public static Thread cam;
 	public static float tC;
+	private MediaView mediaView;
 
 	public static final List<String> musicList = Arrays.asList(new String[] {
 			"src/audio/Melancholy.mp3", "src/audio/ZombieTheme.mp3",
@@ -215,6 +216,7 @@ public class App extends Application {
 		scene.setOnKeyReleased(keyManager.keyRelease);
 		scene.setOnMouseClicked(mouse);
 		scene.setOnMouseMoved(mouse);
+		this.mediaView = createMediaView();
 
 		menuBar = new MenuBar();
 
@@ -225,10 +227,16 @@ public class App extends Application {
 		MenuItem pause = new MenuItem("Pause Level");
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			EdwardPopup pop = new EdwardPopup("Paused. ");
+			int i = 0;
 
 			public synchronized void handle(ActionEvent arg0) {
 				App.game.getCurrentMap().getTime().toggleTime();
 				pop.toggle();
+				if (i % 2 == 0)
+					mediaView.getMediaPlayer().pause();
+				else
+					mediaView.getMediaPlayer().play();
+				i++;
 			}
 		});
 		reset.setOnAction(new EventHandler<ActionEvent>() {
@@ -242,7 +250,7 @@ public class App extends Application {
 				}
 			}
 		});
-		menuFile.getItems().addAll(save, reset,pause);
+		menuFile.getItems().addAll(save, reset, pause);
 
 		Menu menuEdit = new Menu("Edit");
 		MenuItem devMode = new MenuItem("DevMode");
@@ -255,10 +263,11 @@ public class App extends Application {
 			EdwardPopup pop = new EdwardPopup(
 					"This is the feature of our game that allows us to dynamically draw and execute player-defined shapes. To use, draw points with"
 							+ "your mouse, and press 1 or 2 to create the shape, depending on what kind of shape you want. 3 and 4 make shapes that kill the player. ");
+
 			@Override
 			public synchronized void handle(ActionEvent event) {
 				pop.toggle();
-					
+
 			}
 
 		});
@@ -278,7 +287,6 @@ public class App extends Application {
 
 		((Group) scene.getRoot()).getChildren().addAll(menuBar);
 		// audio stuff
-		MediaView mediaView = createMediaView();
 		((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
