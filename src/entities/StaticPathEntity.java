@@ -31,7 +31,6 @@ public class StaticPathEntity extends PathEntity {
 		super(lp, local, x, y, width, height);
 		Image clouds = new Image("sprites/DreamTexture.jpg");
 		((Polygon) node).setFill(new ImagePattern(clouds));
-
 	}
 
 	@Override
