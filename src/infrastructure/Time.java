@@ -32,6 +32,20 @@ public class Time implements Serializable {
 			map.getDoor().node.setLayoutY(map.getDoor().pCoord().y
 					+ App.camera.getOffsetY() - 34);
 
+			if (App.game.getPlayer().getPosition().x > App.game.getCurrentMap()
+					.getWidth()
+					|| App.game.getPlayer().getPosition().y > App.game
+							.getCurrentMap().getHeight()
+					|| App.game.getPlayer().getPosition().y < 0
+					|| App.game.getPlayer().getPosition().x < 0) {
+
+				((Player) App.game.getPlayer()).setVisible(false);
+				((Player) App.game.getPlayer()).setStatus(Player.Status.DEAD);
+				((Player) App.game.getPlayer()).changeNode();
+				((Player) App.game.getPlayer()).setVisible(true);
+				return;
+			}
+
 			if (map.getDoor().node.getLayoutX() < App.game.getPlayer().node
 					.getLayoutX()
 					&& map.getDoor().node.getLayoutX() + 30 > App.game
