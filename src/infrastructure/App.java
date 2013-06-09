@@ -72,8 +72,8 @@ public class App extends Application {
 	public static float tC;
 
 	public static final List<String> musicList = Arrays.asList(new String[] {
-			"src/audio/ZombieTheme.mp3", "src/audio/Melancholy.mp3",
-			"src/audio/Mountain.m4a", "src/audio/Mysterious.mp3" });
+			"src/audio/Melancholy.mp3", "src/audio/Mountain.m4a",
+			"src/audio/Mysterious.mp3", "src/audio/ZombieTheme.mp3" });
 	public static final List<String> levelList = Arrays.asList(new String[] {
 			"src/levels/menu.txt", "src/levels/1-1.txt", "src/levels/1-2.txt",
 			"src/levels/1-3.txt", "src/levels/1-4.txt", "src/levels/1-7.txt",
@@ -82,28 +82,30 @@ public class App extends Application {
 	public static void main(String[] args) throws IOException {
 		launch(args);
 	}
-	public static void reverseTime(){
+
+	public static void reverseTime() {
 		App.game.getCurrentMap().killTime();
 		App.game.getCurrentMap().newReverseTime();
 		App.game.getCurrentMap().startTime();
 	}
-	
-	public static synchronized void setTC(float tC){
+
+	public static synchronized void setTC(float tC) {
 		App.game.getCurrentMap().killTime();
 		App.game.getCurrentMap().newTime();
 		App.tC = tC;
 		App.game.getCurrentMap().startTime();
 	}
-	public static synchronized float getTC(){
+
+	public static synchronized float getTC() {
 		return tC;
 	}
-	public static void toggleRTime(){
-		if(App.game.getCurrentMap().getTime() instanceof ReverseTime){
+
+	public static void toggleRTime() {
+		if (App.game.getCurrentMap().getTime() instanceof ReverseTime) {
 			App.game.getCurrentMap().killTime();
 			App.game.getCurrentMap().newTime();
 			App.game.getCurrentMap().startTime();
-		}
-		else{
+		} else {
 			App.game.getCurrentMap().killTime();
 			App.game.getCurrentMap().newReverseTime();
 			App.game.getCurrentMap().startTime();
@@ -116,7 +118,7 @@ public class App extends Application {
 		primaryStage.setTitle("Dreamscape");
 		primaryStage.setFullScreen(false);
 		primaryStage.setResizable(false);
-		tC = 1.0f /60.0f;
+		tC = 1.0f / 60.0f;
 
 		root = new Group();
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
@@ -247,7 +249,8 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		game.changeMap(game.getMaps().get(1));
-		game.getCurrentMap().getPhysics().setContactListener(new ContactManager());
+		game.getCurrentMap().getPhysics()
+				.setContactListener(new ContactManager());
 		game.getCurrentMap().addCoreElements();
 		// App.game.changeMap(App.game.getMaps().get(6));
 
