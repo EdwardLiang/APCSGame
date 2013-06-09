@@ -1,7 +1,10 @@
 package entities;
 
-
 import java.io.IOException;
+
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Polygon;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
@@ -14,6 +17,9 @@ public class StaticPathEntity extends PathEntity {
 
 	public StaticPathEntity(Vec2[] verts) {
 		super(verts);
+		Image clouds = new Image("sprites/DreamTexture.jpg");
+		((Polygon) node).setFill(new ImagePattern(clouds));
+
 	}
 
 	public StaticPathEntity() {
@@ -23,6 +29,9 @@ public class StaticPathEntity extends PathEntity {
 	public StaticPathEntity(Vec2[] lp, Vec2[] local, float x, float y,
 			float width, float height) {
 		super(lp, local, x, y, width, height);
+		Image clouds = new Image("sprites/DreamTexture.jpg");
+		((Polygon) node).setFill(new ImagePattern(clouds));
+
 	}
 
 	@Override
