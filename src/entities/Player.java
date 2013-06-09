@@ -80,10 +80,9 @@ public class Player extends Creature {
 		}
 	}
 
-	public void kill() throws IOException {
+	public void kill() {
 		this.status = Status.DEAD;
-		App.game.getCurrentMap().reset();
-
+		this.changeNode();
 	}
 
 	protected Node createNode() {

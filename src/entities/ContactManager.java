@@ -1,33 +1,58 @@
 package entities;
 
+import infrastructure.App;
+
+import java.util.ArrayList;
+
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.contacts.Contact;
 
-public class ContactManager implements ContactListener{
+public class ContactManager implements ContactListener {
+	private ArrayList<Class<?>> deadly = new ArrayList<Class<?>>();
 
-	@Override
+	public ContactManager() {
+		super();
+		deadly.add(DynamicDeadlyPathEntity.class);
+		deadly.add(StaticDeadlyPathEntity.class);
+		deadly.add(Projectile.class);
+		deadly.add(DeadlyBouncyBall.class);
+	}
+
 	public void beginContact(Contact contact) {
-		System.out.println(contact.getFixtureA().getBody().getUserData());
-		System.out.println(contact.getFixtureB().getBody().getUserData());
+		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)) {
+			for (Class<?> a : deadly) {
+				if (contact.getFixtureB().getBody().getUserData().equals(a)) {
+					((Player) App.game.getPlayer()).kill();
+				}
+			}
+		} else if (contact.getFixtureB().getBody().getUserData()
+				.equals(Player.class)) {
+			for (Class<?> a : deadly) {
+				if (contact.getFixtureA().getBody().getUserData().equals(a)) {
+					((Player) App.game.getPlayer()).kill();
+				}
+			}
+		}
+
 	}
 
 	@Override
 	public void endContact(Contact contact) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

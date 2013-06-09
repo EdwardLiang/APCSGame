@@ -57,7 +57,10 @@ public class GameMap implements Serializable {
 		return gameElements;
 	}
 
-	public synchronized BackGround getBack() {/* , you don't know what you're dealing with */
+	public synchronized BackGround getBack() {/*
+											 * , you don't know what you're
+											 * dealing with
+											 */
 		return back;
 	}
 
@@ -92,15 +95,16 @@ public class GameMap implements Serializable {
 	public synchronized void newTime() {
 		this.time = new Time(this);
 	}
-	
-	public synchronized void newReverseTime(){
+
+	public synchronized void newReverseTime() {
 		this.time = new ReverseTime(this);
 	}
 
 	public synchronized void killTime() {
 		time.killTime();
 	}
-	public synchronized Time getTime(){
+
+	public synchronized Time getTime() {
 		return time;
 	}
 
@@ -132,7 +136,7 @@ public class GameMap implements Serializable {
 		App.game.getCurrentMap().setVisible(false);
 		App.camera.reset();
 		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
-		App.game.getCurrentMap().getPY()));
+				App.game.getCurrentMap().getPY()));
 		App.game.getPlayer().addToMap(App.game.getCurrentMap());
 		App.game.getCurrentMap().setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
@@ -213,6 +217,12 @@ public class GameMap implements Serializable {
 			return StaticPathEntity.parse(frags);
 		case "class entities.DynamicPathEntity":
 			return DynamicPathEntity.parse(frags);
+		case "class entities.StaticDeadlyPathEntity":
+			return StaticDeadlyPathEntity.parse(frags);
+		case "class entities.DynamicDeadlyPathEntity":
+			return DynamicDeadlyPathEntity.parse(frags);
+		case "class entities.DeadlyBouncyBall":
+			return DeadlyBouncyBall.parse(frags);
 		default:
 			return null;
 		}
