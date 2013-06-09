@@ -29,6 +29,9 @@ public class DevModeKeys extends FlyingKeys {
 			if (t.getCode() == KeyCode.V) {
 				App.setTC(1.0f / 60.0f);
 			}
+			if(t.getCode() == KeyCode.SHIFT){
+				App.toggleRTime();
+			}
 			if (t.getCode() == KeyCode.D) {
 				if (App.game.getPlayer() != null) {
 					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {

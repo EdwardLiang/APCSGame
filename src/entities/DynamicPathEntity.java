@@ -28,6 +28,7 @@ public class DynamicPathEntity extends PathEntity {
 		bodyDef.type = BodyType.DYNAMIC;
 		bodyDef.position.set(xPos, yPos);
 		bodyDef.fixedRotation = true;
+		bodyDef.userData = this.getClass();
 		return bodyDef;
 	}
 

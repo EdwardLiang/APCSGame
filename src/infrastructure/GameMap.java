@@ -100,6 +100,9 @@ public class GameMap implements Serializable {
 	public void killTime() {
 		time.killTime();
 	}
+	public Time getTime(){
+		return time;
+	}
 
 	public World getPhysics() {
 		return world;

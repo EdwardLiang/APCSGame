@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.Popup;
 import javafx.scene.text.Text;
+import entities.*;
 import mousemanagers.DevMouse;
 
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -95,6 +96,18 @@ public class App extends Application {
 	}
 	public static synchronized float getTC(){
 		return tC;
+	}
+	public static void toggleRTime(){
+		if(App.game.getCurrentMap().getTime() instanceof ReverseTime){
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newTime();
+			App.game.getCurrentMap().startTime();
+		}
+		else{
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newReverseTime();
+			App.game.getCurrentMap().startTime();
+		}
 	}
 
 	@Override
@@ -234,6 +247,7 @@ public class App extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		game.changeMap(game.getMaps().get(1));
+		game.getCurrentMap().getPhysics().setContactListener(new ContactManager());
 		game.getCurrentMap().addCoreElements();
 		// App.game.changeMap(App.game.getMaps().get(6));
 

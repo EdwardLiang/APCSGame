@@ -30,6 +30,9 @@ public class DefaultKeys extends KeyManager {
 					e.printStackTrace();
 				}
 			}
+			if(t.getCode() == KeyCode.SHIFT){
+				App.toggleRTime();
+			}
 			if (t.getCode() == KeyCode.D) {
 				if (App.game.getPlayer() != null) {
 					if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
