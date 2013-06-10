@@ -103,6 +103,10 @@ public class GameMap implements Serializable {
 	public synchronized void newReverseTime() {
 		this.time = new ReverseTime(this);
 	}
+	
+	public synchronized void newNonReversableTime(){
+		this.time = new NonReversableTime(this);
+	}
 
 	public synchronized void killTime() {
 		time.killTime();
@@ -125,27 +129,27 @@ public class GameMap implements Serializable {
 	}
 
 	public synchronized void reset() throws IOException {
-		App.game.getCurrentMap().killTime();
+		//App.game.getCurrentMap().killTime();
 		//stopAll();
 		removeAll();
 		if (originalDataLoc != null) {
 			String raw = Parse.readFromFile(originalDataLoc);
 			String[] parsed = raw.split("[\n]");
-			for (int i = 6; i < parsed.length - 1; i++) {
+			for (int i = 6; i < parsed.length; i++) {
 				parseElements(parsed[i]).addToMap(this);
 			}
 		} else {
 			addCoreElements();
 		}
-//		App.game.getCurrentMap().setVisible(false);
-//		App.camera.reset();
-//		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
-//				App.game.getCurrentMap().getPY()));
-//		App.game.getPlayer().addToMap(App.game.getCurrentMap());
-//		App.game.getCurrentMap().setVisible(true);
-//		App.root.getChildren().removeAll(App.menuBar);
-//		App.root.getChildren().addAll(App.menuBar);
-//		App.game.getCurrentMap().startTime();
+		/*App.game.getCurrentMap().setVisible(false);
+		App.camera.reset();
+		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
+		App.game.getCurrentMap().getPY()));
+		App.game.getPlayer().addToMap(App.game.getCurrentMap());
+		App.game.getCurrentMap().setVisible(true);
+		App.root.getChildren().removeAll(App.menuBar);
+		App.root.getChildren().addAll(App.menuBar);
+		App.game.getCurrentMap().startTime();*/
 		App.game.changeMap(this);
 	}
 

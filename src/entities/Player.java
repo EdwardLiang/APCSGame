@@ -17,6 +17,20 @@ public class Player extends Creature {
 	private Side side;
 	private ImageView imageView;
 	private boolean moving;
+	public static final Image idle = new Image("sprites/tim-idle.gif");
+	public static final Image run =  new Image("sprites/tim-run.gif");
+	public static final Image climb = new Image("sprites/tim-climbing.gif");
+	public static final Image down =  new Image("sprites/tim-downwards.gif");
+	public static final Image upward = new Image("sprites/tim-upward.gif");
+	public static final Image dead = new Image("sprites/tim-dead.gif");
+	public static final ImageView idlev = new ImageView(idle);
+	public static final ImageView runv =   new ImageView(run);
+	public static final ImageView climbv =  new ImageView(climb);
+	public static final ImageView downv =   new ImageView(down);
+	public static final ImageView upwardv =  new ImageView(upward);
+	public static final ImageView deadv =  new ImageView(dead);;
+
+
 
 	public Player(float posX, float posY) {
 		super(posX, posY);
@@ -26,10 +40,12 @@ public class Player extends Creature {
 		this.side = Side.RIGHT;
 		// TODO Auto-generated constructor stub
 	}
-	public synchronized void setMoving(boolean bool){
+
+	public synchronized void setMoving(boolean bool) {
 		moving = bool;
 	}
-	public synchronized boolean isMoving(){
+
+	public synchronized boolean isMoving() {
 		return moving;
 	}
 
@@ -60,22 +76,22 @@ public class Player extends Creature {
 	public synchronized void updatePic() {
 		switch (this.status) {
 		case IDLE:
-			this.image = new Image("sprites/tim-idle.gif");
+			this.imageView = idlev;
 			break;
 		case WALK:
-			this.image = new Image("sprites/tim-run.gif");
+			this.imageView = runv;
 			break;
 		case CLIMBING:
-			this.image = new Image("sprites/tim-climbing.gif");
+			this.imageView = climbv;
 			break;
 		case DOWNWARDS:
-			this.image = new Image("sprites/tim-downwards.gif");
+			this.imageView = downv;
 			break;
 		case UPWARD:
-			this.image = new Image("sprites/tim-upward.gif");
+			this.imageView = upwardv;
 			break;
 		case DEAD:
-			this.image = new Image("sprites/tim-dead.gif");
+			this.imageView = deadv;
 			break;
 		}
 	}
@@ -88,24 +104,23 @@ public class Player extends Creature {
 	}
 
 	protected synchronized Node createNode() {
-		this.image = new Image("sprites/tim-idle.gif");
-		imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
-        imageView.setCache(true);
+		imageView = idlev;
+		imageView.setPreserveRatio(true);
+		imageView.setCache(true);
 		return imageView;
 	}
 
 	public synchronized void changeNode() {
 		updatePic();
-		imageView = new ImageView(image);
 		imageView.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);
 		imageView.setLayoutY(Util.toPPosY(yPos) - Util.toPWidth(height) / 2);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
-        imageView.setCache(true);
-		if (side == Side.LEFT)
+		imageView.setPreserveRatio(true);
+		imageView.setCache(true);
+		if (side == Side.LEFT && imageView.getScaleX() != -1)
 			imageView.setScaleX(-1);
+		if(side == Side.RIGHT && imageView.getScaleX() != 1){
+			imageView.setScaleX(1);
+		}
 		imageView.setUserData(getBody());
 		this.node = imageView;
 	}

@@ -4,11 +4,16 @@ import guiobject.Camera;
 import guiobject.CustomCamera;
 import guiobject.EdwardPopup;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.Timer;
+
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
 
 import utils.Parse;
@@ -16,10 +21,15 @@ import utils.Parse;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import keymanagers.CreationKeys;
+import keymanagers.DCreationKeys;
+import keymanagers.DefaultKeys;
 import keymanagers.DevModeKeys;
 import keymanagers.FlyingKeys;
 import keymanagers.InertialKeys;
+import keymanagers.PartialTimeControlKeys;
 import keymanagers.PixelEscapeKeys;
+import keymanagers.SlowKeys;
+import keymanagers.TimeControlKeys;
 
 import entities.BouncyBall;
 import entities.Creature;
@@ -77,15 +87,22 @@ public class GameWorld implements Serializable {
 		App.camera.reset();
 		player = new Player(currentMap.getPX(), currentMap.getPY());
 		player.addToMap(Map);
+		player.getBody().setLinearVelocity(new Vec2(0,0));
 		currentMap.setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
 		App.root.getChildren().addAll(App.menuBar);
-		EdwardPopup pop = new EdwardPopup("");
 		currentMap.startTime();
+		EdwardPopup pop = new EdwardPopup("");
 
 		if (Map.getBack().getPath().equals("maps/1-1.jpg")) {
 			pop = new EdwardPopup(
-					"Welcome to Dreamscape! WASD is to move, R is reset, N is to move on to the next level if you're at a door, and P is to pause. \nBut wait! You're also a master of Time! B is to reverse time, V is to continue time normally, and shift is to temporarily move back in time. E is to speed up time, and Q is to slow it down. Good luck!");
+					"I once could Dream...\nWASD to move. N to go through doors");
+			pop.getText().setFill(Color.WHITE);
+			pop.toggle();
+		}
+		if (Map.getBack().getPath().equals("maps/1-2.jpg")) {
+			pop = new EdwardPopup(
+					"...back when I could spend my time playing with blocks.\n R to reset.");
 			pop.getText().setFill(Color.WHITE);
 			pop.toggle();
 		}
@@ -96,8 +113,8 @@ public class GameWorld implements Serializable {
 			App.key.start();
 			App.scene.setOnKeyPressed(keyManager.keyPress);
 			App.scene.setOnKeyReleased(keyManager.keyRelease);
-			pop = new EdwardPopup("You can fly!");
-			pop.getText().setFill(Color.BLUE);
+			pop = new EdwardPopup("Sometimes I would imagine I could fly.");
+			pop.getText().setFill(Color.WHITE);
 			pop.toggle();
 		}
 		if (Map.getBack().getPath().equals("maps/1-4.png")) {
@@ -108,8 +125,33 @@ public class GameWorld implements Serializable {
 			App.key.start();
 			App.scene.setOnKeyPressed(keyManager.keyPress);
 			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			pop = new EdwardPopup("Sometimes I was an astronaut");
+			pop.toggle();
+		}
+		if (Map.getBack().getPath().equals("maps/1-6.jpg")) {
+			pop.toggle();
+			DCreationKeys keyManager = new DCreationKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
 			pop = new EdwardPopup(
-					"You are in space. Congrats. Have fun hitting that door!");
+					"I could create solutions with only my mind.\n"
+							+ "Draw two or more markers and press 1 to generate a block");
+			pop.toggle();
+		}
+		if (Map.getBack().getPath().equals("maps/1-8.jpg")) {
+			pop.toggle();
+			CreationKeys keyManager = new CreationKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			pop = new EdwardPopup(
+					"Sometimes I had to create my own floor to stand on.\n"
+							+ "Draw two or more markers and press 2 to generate a static block");
 			pop.toggle();
 		}
 		if (Map.getBack().getPath().equals("maps/1-7.jpg")) {
@@ -124,7 +166,9 @@ public class GameWorld implements Serializable {
 			App.camera = new CustomCamera();
 			App.cam = new Thread(App.camera);
 			App.cam.start();
-			pop = new EdwardPopup("You are a gas particle! Have fun!");
+			pop = new EdwardPopup(
+					"Then my mind turned on me. Reality battered me around.");
+			pop.toggle();
 		}
 		if (Map.getBack().getPath().equals("maps/2-2.jpg")) {
 			pop.toggle();
@@ -138,14 +182,50 @@ public class GameWorld implements Serializable {
 			App.camera = new Camera();
 			App.cam = new Thread(App.camera);
 			App.cam.start();
-			pop = new EdwardPopup(
-					"YOU are now making the game! 1 makes a dynamic object, 2 makes a static one. As always, R is reset. Have fun!");
+			pop = new EdwardPopup("");
 			pop.getText().setFill(Color.BLACK);
 			pop.toggle();
 		}
 		if (Map.getBack().getPath().equals("maps/1-5.jpg")) {
 			pop.toggle();
-			DevModeKeys keyManager = new DevModeKeys();
+			PartialTimeControlKeys keyManager = new PartialTimeControlKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			pop = new EdwardPopup(
+					"The world became deadly. I lost my dreams. I traded them bend time.\n"
+							+ "Press Q to toggle time slow.");
+			pop.toggle();
+		}
+		if (Map.getBack().getPath().equals("maps/1-5-1.jpg")) {
+			pop.toggle();
+			TimeControlKeys keyManager = new TimeControlKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			pop = new EdwardPopup("I replayed my worst moments.\n"
+					+ "Press Shift to toggle reverse time");
+			pop.toggle();
+		}
+		if (Map.getBack().getPath().equals("maps/2-3.jpg")) {
+			pop.toggle();
+			SlowKeys keyManager = new SlowKeys();
+			App.key.interrupt();
+			App.key = new Thread(keyManager.keyThread);
+			App.key.start();
+			App.scene.setOnKeyPressed(keyManager.keyPress);
+			App.scene.setOnKeyReleased(keyManager.keyRelease);
+			pop = new EdwardPopup(
+					"I always hesitated. I slowed down but the world sped up.");
+			pop.toggle();
+		}
+		if (Map.getBack().getPath().equals("maps/backgrounds.gif")) {
+			pop.toggle();
+			DefaultKeys keyManager = new DefaultKeys();
 			App.key.interrupt();
 			App.key = new Thread(keyManager.keyThread);
 			App.key.start();

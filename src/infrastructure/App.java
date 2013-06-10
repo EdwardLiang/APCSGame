@@ -5,6 +5,7 @@ import guiobject.Camera;
 import guiobject.EdwardPopup;
 import guiobject.PopupText;
 import guiobject.ShapeMaker;
+import guiobject.TimePopup;
 import javafx.scene.control.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -49,6 +50,7 @@ import keymanagers.InertialKeys;
 import keymanagers.KeyManager;
 import keymanagers.MouseManager;
 import keymanagers.PixelEscapeKeys;
+import keymanagers.SlowKeys;
 
 import org.jbox2d.common.Vec2;
 
@@ -73,14 +75,20 @@ public class App extends Application {
 	public static Thread cam;
 	public static float tC;
 	private MediaView mediaView;
+	public static EdwardPopup reverse;
+	public static EdwardPopup speed;
+	public static EdwardPopup slow;
 
 	public static final List<String> musicList = Arrays.asList(new String[] {
 			"src/audio/Melancholy.mp3", "src/audio/ZombieTheme.mp3",
 			"src/audio/Mysterious.mp3", "src/audio/Mountain.m4a" });
-	public static final List<String> levelList = Arrays.asList(new String[] {
-			"src/levels/menu.txt", "src/levels/1-1.txt", "src/levels/1-2.txt",
-			"src/levels/1-3.txt", "src/levels/1-4.txt", "src/levels/1-7.txt",
-			"src/levels/2-2.txt", "src/levels/1-5.txt" });
+	public static final List<String> levelList = Arrays
+			.asList(new String[] { "src/levels/menu.txt", "src/levels/1-1.txt",
+					"src/levels/1-2.txt", "src/levels/1-3.txt",
+					"src/levels/1-4.txt", "src/levels/1-6.txt",
+					"src/levels/2-1.txt", "src/levels/2-2.txt",
+					"src/levels/1-7.txt", "src/levels/1-5.txt",
+					"src/levels/1-5-1.txt", "src/levels/2-3.txt" });
 
 	public static void main(String[] args) throws IOException {
 		launch(args);
@@ -105,6 +113,36 @@ public class App extends Application {
 		App.game.getCurrentMap().startTime();
 	}
 
+	public static synchronized void speedUp() {
+		if (App.tC != 1.0f / 20.0f) {
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newTime();
+			App.tC = 1.0f / 20.0f;
+			App.game.getCurrentMap().startTime();
+		} else {
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newTime();
+			App.tC = 1.0f / 60.0f;
+			App.game.getCurrentMap().startTime();
+		}
+		speed.toggle();
+	}
+
+	public static synchronized void slowDown() {
+		if (App.tC != 1.0f / 100.0f) {
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newTime();
+			App.tC = 1.0f / 100.0f;
+			App.game.getCurrentMap().startTime();
+		} else {
+			App.game.getCurrentMap().killTime();
+			App.game.getCurrentMap().newTime();
+			App.tC = 1.0f / 60.0f;
+			App.game.getCurrentMap().startTime();
+		}
+		slow.toggle();
+	}
+
 	public static synchronized float getTC() {
 		return tC;
 	}
@@ -119,6 +157,7 @@ public class App extends Application {
 			App.game.getCurrentMap().newReverseTime();
 			App.game.getCurrentMap().startTime();
 		}
+		reverse.toggle();
 	}
 
 	public static void togglePIRTime() {
@@ -150,7 +189,7 @@ public class App extends Application {
 		camera = new Camera();
 		shaker = new ShapeMaker();
 		MouseManager mouse = new DevMouse();
-		DevModeKeys keyManager = new DevModeKeys();
+		DefaultKeys keyManager = new DefaultKeys();
 		key = new Thread(keyManager.keyThread);
 		cam = new Thread(camera);
 		key.start();
@@ -204,6 +243,22 @@ public class App extends Application {
 		// App.game.getMaps().get(7).addLeftRightWalls();
 		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(7)),
 				getLevelForIndex(7)));
+
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(8)),
+				getLevelForIndex(8)));
+
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(9)),
+				getLevelForIndex(9)));
+
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(10)),
+				getLevelForIndex(10)));
+
+		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(11)),
+				getLevelForIndex(11)));
+
+		//game.addMap(new GameMap(new BackGround("maps/backgrounds.gif"), 900,
+			//	800, 10, 49, 30.0f));
+
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
@@ -290,15 +345,22 @@ public class App extends Application {
 		((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		// game.changeMap(game.getMaps().get(1));
+		/*for(int a = 0; a < 11; a++){
+			game.getMaps().get(a).newNonReversableTime();
+		}*/
+		game.changeMap(game.getMaps().get(1));
 		// game.getCurrentMap().getPhysics()
 		// .setContactListener(new ContactManager());
 		for (GameMap a : game.getMaps()) {
 			a.getPhysics().setContactListener(new ContactManager());
 		}
+		// App.game.changeMap(App.game.getMaps().get(12));
 		// game.getCurrentMap().addCoreElements();
-		App.game.changeMap(App.game.getMaps().get(1));
 		// App.game.getMaps().get(7).toggleTime();
+
+		reverse = new TimePopup("Time Reversing...");
+		slow = new TimePopup("Time Slow...");
+		speed = new TimePopup("Time Sped...");
 
 	}
 

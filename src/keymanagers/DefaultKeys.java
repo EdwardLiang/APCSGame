@@ -23,6 +23,7 @@ public class DefaultKeys extends KeyManager {
 			if (t.getCode() == KeyCode.R) {
 				try {
 					App.game.getCurrentMap().reset();
+					buffer.clear();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -144,10 +145,10 @@ public class DefaultKeys extends KeyManager {
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
-						System.out.println("KeyManager stopped");
+						buffer.clear();
 					}
 				} catch (Exception e) {
-
+					buffer.clear();
 				}
 			}
 		}

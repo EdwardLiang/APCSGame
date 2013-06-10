@@ -74,7 +74,7 @@ public class Creature extends Entity {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;
 		fix.density = 1.0f;
-		fix.friction = 0.0f;
+		fix.friction = 0.2f;
 		fix.restitution = 0f;
 		return fix;
 	}

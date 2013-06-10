@@ -25,6 +25,7 @@ public abstract class KeyManager {
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();
+					buffer.clear();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

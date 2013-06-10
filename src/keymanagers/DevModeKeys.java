@@ -18,27 +18,22 @@ public class DevModeKeys extends FlyingKeys {
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			if (t.getCode() == KeyCode.E) {
-				App.setTC(1.0f / 20.0f);
+				App.speedUp();
 			}
 			if (t.getCode() == KeyCode.Q) {
-				App.setTC(1.0f / 100.0f);
+				App.slowDown();
 			}
-			if (t.getCode() == KeyCode.B) {
-				App.reverseTime();
-			}
-			if (t.getCode() == KeyCode.V) {
-				App.setTC(1.0f / 60.0f);
-			}
-			if (t.getCode() == KeyCode.SHIFT) {
+			if (t.getCode() == KeyCode.F) {
 				App.toggleRTime();
 			}
-			if (t.getCode() == KeyCode.J) {
+			if (t.getCode() == KeyCode.C) {
 				App.togglePIRTime();
 			}
 
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();
+					buffer.clear();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

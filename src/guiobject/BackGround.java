@@ -31,8 +31,7 @@ public class BackGround implements FXJBox, Serializable {
         view.setImage(image);
         //view.setFitWidth(100);
         view.setPreserveRatio(true);
-        view.setSmooth(true);
-        view.setCache(true);
+        //view.setCache(true);
         view.setViewport(new Rectangle2D(0,getPHeight() - Util.HEIGHT, 600, 600));
 		/*view.setLayoutX(0);
 		view.setLayoutY(-getPHeight() + Util.HEIGHT);*/

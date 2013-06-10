@@ -19,6 +19,7 @@ public class CreationKeys extends DefaultKeys {
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();
+					buffer.clear();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -69,7 +70,7 @@ public class CreationKeys extends DefaultKeys {
 					App.shaker.generateStaticEntity();
 				}
 			} catch (Exception e) {
-
+				buffer.clear();
 			}
 
 		}

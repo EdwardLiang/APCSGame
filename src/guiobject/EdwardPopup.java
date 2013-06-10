@@ -18,10 +18,10 @@ public class EdwardPopup {
 		YES, NO;
 	}
 
-	private Text text;
-	private Rectangle rectangle, clip;
-	private double xPPos, yPPos, width, height;
-	private boolean isOn = false;
+	protected Text text;
+	protected Rectangle rectangle, clip;
+	protected double xPPos, yPPos, width, height;
+	protected boolean isOn = false;
 
 	public StringProperty textProperty() {
 		return text.textProperty();

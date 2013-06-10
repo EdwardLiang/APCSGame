@@ -20,6 +20,7 @@ public class FlyingKeys extends DefaultKeys {
 			if (t.getCode() == KeyCode.R)
 				try {
 					App.game.getCurrentMap().reset();
+					buffer.clear();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -128,7 +129,7 @@ public class FlyingKeys extends DefaultKeys {
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
-						System.out.println("KeyManager stopped");
+						buffer.clear();
 					}
 				} catch (Exception e) {
 

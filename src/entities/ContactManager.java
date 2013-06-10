@@ -23,8 +23,6 @@ public class ContactManager implements ContactListener {
 	}
 
 	public void beginContact(Contact contact) {
-		System.out.println(contact.getFixtureA().getBody().getUserData());
-		System.out.println(contact.getFixtureB().getBody().getUserData());
 		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)) {
 			for (Class<?> a : deadly) {
 				if (contact.getFixtureB().getBody().getUserData().equals(a)) {
