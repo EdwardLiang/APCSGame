@@ -405,8 +405,11 @@ public class App extends Application {
 //		Path path = Paths.get(fileName);
 //		List<String> listed = Files.readAllLines(path, ENCODING);
 		String result = "";
-		while((result=in.readLine())!=null){
-			result+="\n";
+		String local = "";
+		while((local=in.readLine())!=null){
+			result+=local + "\n";
+			local = "";
+			System.out.println(result);
 		}
 		return result;
 //		for (String str : listed)
