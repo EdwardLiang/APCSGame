@@ -22,10 +22,6 @@ public class StaticPathEntity extends PathEntity {
 
 	}
 
-	public StaticPathEntity() {
-		super();
-	}
-
 	public StaticPathEntity(Vec2[] lp, Vec2[] local, float x, float y,
 			float width, float height) {
 		super(lp, local, x, y, width, height);
@@ -47,7 +43,7 @@ public class StaticPathEntity extends PathEntity {
 		FixtureDef fix = new FixtureDef();
 		fix.shape = ps;
 		fix.density = 1.0f;
-		fix.friction = 10.3f;
+		fix.friction = 1.0f;
 		return fix;
 	}
 
