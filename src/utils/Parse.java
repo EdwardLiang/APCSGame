@@ -1,5 +1,7 @@
 package utils;
 
+import infrastructure.App;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -25,22 +27,9 @@ public class Parse {
 		return str.split("[;]");
 	}
 
-	public static String readFromFile(String fileName) throws IOException {
-		Path path = Paths.get(fileName);
-		List<String> listed = Files.readAllLines(path, ENCODING);
-		String result = "";
-		for (String str : listed)
-			result += str + "\n";
-		return result;
-	}
+	
 
-	public static String readFromFile(File file) throws IOException {
-		List<String> listed = Files.readAllLines(file.toPath(), ENCODING);
-		String result = "";
-		for (String str : listed)
-			result += str + "\n";
-		return result;
-	}
+	
 
 	/*
 	 * public static void writeToFile(String fileName, GameMap m) throws

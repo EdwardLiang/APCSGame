@@ -141,7 +141,7 @@ public class GameMap implements Serializable {
 		//stopAll();
 		removeAll();
 		if (originalDataLoc != null) {
-			String raw = Parse.readFromFile(originalDataLoc);
+			String raw = App.readFromFile(originalDataLoc);
 			String[] parsed = raw.split("[\n]");
 			for (int i = 6; i < parsed.length; i++) {
 				parseElements(parsed[i]).addToMap(this);
@@ -260,7 +260,7 @@ public class GameMap implements Serializable {
 		}
 	}
 
-	public synchronized static GameMap parse(String raw, File loc) {
+	public synchronized static GameMap parse(String raw, String string) {
 		String[] parsed = raw.split("[\n]");
 		GameMap game = new GameMap(BackGround.parse(parsed[0]),
 				Float.parseFloat(parsed[1]), Float.parseFloat(parsed[2]),
@@ -269,7 +269,7 @@ public class GameMap implements Serializable {
 		for (int i = 6; i < parsed.length; i++) {
 			parseElements(parsed[i]).addToMap(game);
 		}
-		game.setOriginalDataLoc(loc.getPath());
+		game.setOriginalDataLoc(string);
 		return game;
 	}
 

@@ -43,7 +43,7 @@ public class GameWorld implements Serializable {
 	private Boolean isAtDoor;
 
 	public GameWorld() throws IOException {
-		currentMap = GameMap.parse(Parse.readFromFile(App.getLevelForIndex(0)),
+		currentMap = GameMap.parse(App.readFromFile(App.getLevelForIndex(0)),
 				App.getLevelForIndex(0));
 		// currentMap = new GameMap(new BackGround("maps/menu.jpg"), 1190, 352,
 		// 20, 20, 30.0f);
