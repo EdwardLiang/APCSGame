@@ -67,7 +67,6 @@ public class Camera implements Runnable, Serializable {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				System.out.println("Camera stopped");
 			}
 
 		}

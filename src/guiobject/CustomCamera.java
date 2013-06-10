@@ -66,7 +66,6 @@ public class CustomCamera extends Camera {
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
-				System.out.println("Camera stopped");
 			}
 
 		}

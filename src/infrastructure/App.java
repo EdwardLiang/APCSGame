@@ -351,7 +351,7 @@ public class App extends Application {
 		/*for(int a = 0; a < 11; a++){
 			game.getMaps().get(a).newNonReversableTime();
 		}*/
-		game.changeMap(game.getMaps().get(12));
+		game.changeMap(game.getMaps().get(1));
 		// game.getCurrentMap().getPhysics()
 		// .setContactListener(new ContactManager());
 		for (GameMap a : game.getMaps()) {
