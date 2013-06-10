@@ -277,7 +277,7 @@ public class App extends Application {
 		scene.setOnKeyReleased(keyManager.keyRelease);
 		scene.setOnMouseClicked(mouse);
 		scene.setOnMouseMoved(mouse);
-		this.mediaView = createMediaView();
+		//this.mediaView = createMediaView();
 
 		menuBar = new MenuBar();
 
@@ -348,7 +348,7 @@ public class App extends Application {
 
 		((Group) scene.getRoot()).getChildren().addAll(menuBar);
 		// audio stuff
-		((Group) scene.getRoot()).getChildren().add(mediaView);
+		//((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		/*for(int a = 0; a < 11; a++){
@@ -409,7 +409,7 @@ public class App extends Application {
 		while((local=in.readLine())!=null){
 			result+=local + "\n";
 			local = "";
-			System.out.println(result);
+			//System.out.println(result);
 		}
 		return result;
 //		for (String str : listed)
