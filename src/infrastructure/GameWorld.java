@@ -208,7 +208,7 @@ public class GameWorld implements Serializable {
 			App.scene.setOnKeyPressed(keyManager.keyPress);
 			App.scene.setOnKeyReleased(keyManager.keyRelease);
 			pop = new EdwardPopup("I replayed my worst moments.\n"
-					+ "Press Shift to toggle reverse time");
+					+ "Press F to toggle reverse time");
 			pop.toggle();
 		}
 		if (Map.getBack().getPath().equals("maps/2-3.jpg")) {
@@ -223,7 +223,7 @@ public class GameWorld implements Serializable {
 					"I always hesitated. I slowed down but the world sped up.");
 			pop.toggle();
 		}
-		if (Map.getBack().getPath().equals("maps/backgrounds.gif")) {
+		if (Map.getBack().getPath().equals("maps/3-1.jpg")) {
 			pop.toggle();
 			DefaultKeys keyManager = new DefaultKeys();
 			App.key.interrupt();

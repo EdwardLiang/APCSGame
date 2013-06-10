@@ -57,6 +57,10 @@ public class GameMap implements Serializable {
 	public synchronized ArrayList<Entity> getElements() {
 		return gameElements;
 	}
+	
+	public synchronized void setBack(BackGround back){
+		this.back = back;
+	}
 
 	public synchronized BackGround getBack() {/*
 											 * , you don't know what you're
@@ -90,6 +94,10 @@ public class GameMap implements Serializable {
 
 	public synchronized Boolean isPaused() {
 		return time.isPaused();
+	}
+	
+	public synchronized void setTime(Time time){
+		this.time = time;
 	}
 
 	public synchronized void startTime() {

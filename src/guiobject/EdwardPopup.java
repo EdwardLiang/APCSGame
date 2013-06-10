@@ -29,6 +29,9 @@ public class EdwardPopup {
 	public Text getText(){
 		return text;
 	}
+	public boolean getIsON(){
+		return isOn;
+	}
 
 	public EdwardPopup(String string) {
 		this.width = App.scene.getWidth();

@@ -255,7 +255,10 @@ public class App extends Application {
 
 		game.addMap(GameMap.parse(Parse.readFromFile(getLevelForIndex(11)),
 				getLevelForIndex(11)));
+		
+		game.addMap(new GameMap(new BackGround("maps/3-1.jpg"),1000,1000,10,49,30.0f));
 
+		game.getMaps().get(12).setTime(new Ending(game.getMaps().get(12)));
 		//game.addMap(new GameMap(new BackGround("maps/backgrounds.gif"), 900,
 			//	800, 10, 49, 30.0f));
 
@@ -348,7 +351,7 @@ public class App extends Application {
 		/*for(int a = 0; a < 11; a++){
 			game.getMaps().get(a).newNonReversableTime();
 		}*/
-		game.changeMap(game.getMaps().get(1));
+		game.changeMap(game.getMaps().get(12));
 		// game.getCurrentMap().getPhysics()
 		// .setContactListener(new ContactManager());
 		for (GameMap a : game.getMaps()) {
