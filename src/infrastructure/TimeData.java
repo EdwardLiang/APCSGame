@@ -20,7 +20,7 @@ public class TimeData {
 	}
 
 	public void addFrame(Frame e) {
-		if(frames.size() > 3000){
+		if(frames.size() > 2500){
 			frames.clear();
 			firstFrame = e;
 		}
@@ -30,6 +30,5 @@ public class TimeData {
 				firstFrame = e;
 			}
 		}
-		System.out.println(frames.size());
 	}
 }
