@@ -40,7 +40,6 @@ public class Time implements Serializable {
 			map.getDoor().node.setLayoutY(map.getDoor().pCoord().y
 					+ App.camera.getOffsetY() - 34);
 
-
 			if (App.game.getPlayer().getPosition().x > App.game.getCurrentMap()
 					.getWidth()
 					|| App.game.getPlayer().getPosition().y > App.game
@@ -134,24 +133,9 @@ public class Time implements Serializable {
 					float ypos = (float) (a.getPPosition().y
 							+ App.camera.getOffsetY() - a.getPHeight() / 2);
 					float theta = -a.getBody().getAngle();
-					if (!a.node.getTransforms().isEmpty()) {
-						a.node.getTransforms().add(
-								new Rotate(Math.toDegrees(theta)
-										- ((DynamicPathEntity) a)
-												.getPreviousRotation(), a
-										.getPWidth() / 2, a.getPHeight() / 2));
-						((DynamicPathEntity) a).setPreviousRotation(Math
-								.toDegrees(theta));
-					}
-
-					else {
-						a.node.getTransforms().add(
-								new Rotate(Math.toDegrees(theta)));
-						((DynamicPathEntity) a).setPreviousRotation(Math
-								.toDegrees(theta));
-					}
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
+					a.node.setRotate(Math.toDegrees(theta));
 				} else {
 					float xpos = (float) (a.getPPosition().x
 							+ App.camera.getOffsetX() - a.getPWidth() / 2);

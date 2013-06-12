@@ -65,25 +65,9 @@ public class ReverseTime extends Time {
 						float ypos = (float) (a.getPPosition().y
 								+ App.camera.getOffsetY() - a.getPHeight() / 2);
 						float theta = -a.getBody().getAngle();
-						if (!a.node.getTransforms().isEmpty()) {
-							a.node.getTransforms().add(
-									new Rotate(Math.toDegrees(theta)
-											- ((DynamicPathEntity) a)
-													.getPreviousRotation(), a
-											.getPWidth() / 2,
-											a.getPHeight() / 2));
-							((DynamicPathEntity) a).setPreviousRotation(Math
-									.toDegrees(theta));
-						}
-
-						else {
-							a.node.getTransforms().add(
-									new Rotate(Math.toDegrees(theta)));
-							((DynamicPathEntity) a).setPreviousRotation(Math
-									.toDegrees(theta));
-						}
 						a.setLayoutX(xpos);
 						a.setLayoutY(ypos);
+						a.node.setRotate(Math.toDegrees(theta));
 					} else {
 						float xpos = (float) (a.getPPosition().x
 								+ App.camera.getOffsetX() - a.getPWidth() / 2);
@@ -116,7 +100,7 @@ public class ReverseTime extends Time {
 							.setTransform(
 									new Vec2(frame.getData().get(a).getX(),
 											frame.getData().get(a).getY()),
-									(float) -Math.toRadians( ((DynamicEntityData) frame
+									(float) Math.toRadians( -((DynamicEntityData) frame
 											.getData().get(a))
 											.getPreviousRotation()));
 				} else {
@@ -136,24 +120,9 @@ public class ReverseTime extends Time {
 					float ypos = (float) (a.getPPosition().y
 							+ App.camera.getOffsetY() - a.getPHeight() / 2);
 					float theta = -a.getBody().getAngle();
-					if (!a.node.getTransforms().isEmpty()) {
-						a.node.getTransforms().add(
-								new Rotate(Math.toDegrees(theta)
-										- ((DynamicPathEntity) a)
-												.getPreviousRotation(), a
-										.getPWidth() / 2, a.getPHeight() / 2));
-						((DynamicPathEntity) a).setPreviousRotation(Math
-								.toDegrees(theta));
-					}
-
-					else {
-						a.node.getTransforms().add(
-								new Rotate(Math.toDegrees(theta)));
-						((DynamicPathEntity) a).setPreviousRotation(Math
-								.toDegrees(theta));
-					}
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
+					a.node.setRotate(Math.toDegrees(theta));
 				} else {
 					float xpos = (float) (a.getPPosition().x
 							+ App.camera.getOffsetX() - a.getPWidth() / 2);

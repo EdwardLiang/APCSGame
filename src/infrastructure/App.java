@@ -192,7 +192,7 @@ public class App extends Application {
 		camera = new Camera();
 		shaker = new ShapeMaker();
 		MouseManager mouse = new DevMouse();
-		DefaultKeys keyManager = new DefaultKeys();
+		DevModeKeys keyManager = new DevModeKeys();
 		key = new Thread(keyManager.keyThread);
 		cam = new Thread(camera);
 		key.start();
@@ -351,7 +351,7 @@ public class App extends Application {
 		//((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		/*for(int a = 0; a < 11; a++){
+	/*	for(int a = 0; a < 11; a++){
 			game.getMaps().get(a).newNonReversableTime();
 		}*/
 		game.changeMap(game.getMaps().get(1));

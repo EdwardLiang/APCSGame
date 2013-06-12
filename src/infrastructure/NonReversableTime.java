@@ -65,6 +65,13 @@ public class NonReversableTime extends Time {
 				App.game.isAtDoor(false);
 
 			for (Entity a : map.getElements()) {
+				/*
+				 * if (a instanceof Player) { frame.addPlayer((Player) a); }
+				 * else if (a instanceof DynamicPathEntity) {
+				 * frame.addDEntity((DynamicPathEntity) a); } else if
+				 * (a.getBody().getType() != BodyType.STATIC) {
+				 * frame.addEntity(a); }
+				 */
 				if (a instanceof Player
 						&& ((Player) a).getStatus() != Player.Status.DEAD) {
 					if (a.getBody().getContactList() != null) {
@@ -125,24 +132,13 @@ public class NonReversableTime extends Time {
 					float ypos = (float) (a.getPPosition().y
 							+ App.camera.getOffsetY() - a.getPHeight() / 2);
 					float theta = -a.getBody().getAngle();
-					if (!a.node.getTransforms().isEmpty()) {
-						a.node.getTransforms().add(
-								new Rotate(Math.toDegrees(theta)
-										- ((DynamicPathEntity) a)
-												.getPreviousRotation(), a
-										.getPWidth() / 2, a.getPHeight() / 2));
-						((DynamicPathEntity) a).setPreviousRotation(Math
-								.toDegrees(theta));
-					}
-
-					else {
-						a.node.getTransforms().add(
-								new Rotate(Math.toDegrees(theta)));
-						((DynamicPathEntity) a).setPreviousRotation(Math
-								.toDegrees(theta));
-					}
 					a.setLayoutX(xpos);
 					a.setLayoutY(ypos);
+					a.node.getTransforms().clear();
+					a.node.getTransforms().add(
+							new Rotate(Math.toDegrees(theta),
+									a.getPWidth() / 2, a.getPHeight() / 2));
+
 				} else {
 					float xpos = (float) (a.getPPosition().x
 							+ App.camera.getOffsetX() - a.getPWidth() / 2);
@@ -152,6 +148,7 @@ public class NonReversableTime extends Time {
 					a.setLayoutY(ypos);
 				}
 			}
+			// map.getTimeData().addFrame(frame);
 		}
 	};
 
