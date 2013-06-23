@@ -26,9 +26,10 @@ public class ContactManager implements ContactListener {
 		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)) {
 			for (Class<?> a : deadly) {
 				if (contact.getFixtureB().getBody().getUserData().equals(a)) {
-					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD){
+					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD) {
 						((Player) App.game.getPlayer()).kill();
-						((Player) App.game.getPlayer()).getBody().setLinearVelocity(new Vec2(0,0));
+						((Player) App.game.getPlayer()).getBody()
+								.setLinearVelocity(new Vec2(0, 0));
 					}
 				}
 			}
@@ -37,21 +38,39 @@ public class ContactManager implements ContactListener {
 			for (Class<?> a : deadly) {
 				if (contact.getFixtureA().getBody().getUserData().equals(a)) {
 					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD)
-						if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD){
+						if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD) {
 							((Player) App.game.getPlayer()).kill();
-							((Player) App.game.getPlayer()).getBody().setLinearVelocity(new Vec2(0,0));
+							((Player) App.game.getPlayer()).getBody()
+									.setLinearVelocity(new Vec2(0, 0));
 
 						}
 				}
 			}
 		}
-
+		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)
+				&& contact.getFixtureB().getBody().getUserData()
+						.equals(Door.class)) {
+			App.game.isAtDoor(true);
+		} else if (contact.getFixtureB().getBody().getUserData()
+				.equals(Player.class)
+				&& contact.getFixtureA().getBody().getUserData()
+						.equals(Door.class)) {
+			App.game.isAtDoor(true);
+		}
 	}
 
 	@Override
 	public void endContact(Contact contact) {
-		// TODO Auto-generated method stub
-
+		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)
+				&& contact.getFixtureB().getBody().getUserData()
+						.equals(Door.class)) {
+			App.game.isAtDoor(false);
+		} else if (contact.getFixtureB().getBody().getUserData()
+				.equals(Player.class)
+				&& contact.getFixtureA().getBody().getUserData()
+						.equals(Door.class)) {
+			App.game.isAtDoor(false);
+		}
 	}
 
 	@Override

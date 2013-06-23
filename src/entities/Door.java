@@ -50,6 +50,7 @@ public class Door extends Entity {
 		fix.density = 1.0f;
 		fix.friction = 0.2f;
 		fix.restitution = 0f;
+		fix.isSensor = true;
 		return fix;
 	}
 
