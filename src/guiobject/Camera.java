@@ -1,6 +1,7 @@
 package guiobject;
 
 import infrastructure.App;
+import infrastructure.GameWorld;
 
 import java.io.Serializable;
 
@@ -41,16 +42,16 @@ public class Camera implements Runnable, Serializable {
 	@Override
 	public void run() {
 		while (true) {
-			Body playerData = App.game.getPlayer().getBody();
-			if (!App.game.getCurrentMap().isPaused()
-					&& App.game.getPlayer() != null && playerData != null) {
+			Body playerData = GameWorld.world.getPlayer().getBody();
+			if (GameWorld.world.getPlayer() != null && playerData != null) {
 				if (Util.toPPosX(playerData.getPosition().x) + getOffsetX() > Util.WIDTH / 2 + 20
 						&& !(-getOffsetX() + Util.WIDTH + 1.5f > Util
-								.toPWidth(App.game.getCurrentMap().getWidth()))) {
+								.toPWidth(GameWorld.world.getCurrentMap()
+										.getWidth()))) {
 					setOffsetX(getOffsetX() - 1.5f);
 				} else if (Util.toPPosX(playerData.getPosition().x)
 						+ getOffsetX() < Util.WIDTH / 2 - 20
-						&& !(getOffsetX() - 1.5f> 0))
+						&& !(getOffsetX() - 1.5f > 0))
 					setOffsetX(getOffsetX() + 1.5f);
 
 				if (Util.toPPosY(playerData.getPosition().y) + getOffsetY() > Util.HEIGHT / 2 + 20
@@ -59,7 +60,8 @@ public class Camera implements Runnable, Serializable {
 				else if (Util.toPPosY(playerData.getPosition().y)
 						+ getOffsetY() < Util.HEIGHT / 2 - 20
 						&& !(getOffsetY() + Util.HEIGHT + 1.5f > Util
-								.toPHeight(App.game.getCurrentMap().getHeight())))
+								.toPHeight(GameWorld.world.getCurrentMap()
+										.getHeight())))
 					setOffsetY(getOffsetY() + 1.5f);
 			}
 			try {

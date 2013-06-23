@@ -1,6 +1,7 @@
 package keymanagers;
 
 import infrastructure.App;
+import infrastructure.GameWorld;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -15,20 +16,17 @@ import javafx.scene.input.KeyEvent;
 
 public abstract class KeyManager {
 	public Set<KeyCode> buffer = EnumSet.noneOf(KeyCode.class);
-	protected Player p = (Player) App.game.getPlayer();
+	protected Player p = (Player) GameWorld.world.getPlayer();
 	public EventHandler<KeyEvent> keyPress = new EventHandler<KeyEvent>() {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
-			if (t.getCode() == KeyCode.R)
-				try {
-					App.game.getCurrentMap().reset();
-					buffer.clear();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
+			if (t.getCode() == KeyCode.R) {
+				GameWorld.world.getCurrentMap().reset();
+				buffer.clear();
+			}
+			if (((Player) GameWorld.world.getPlayer()).getStatus() == Player.Status.DEAD) {
+				GameWorld.world.getPlayer().getBody()
 						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}
@@ -36,15 +34,12 @@ public abstract class KeyManager {
 			buffer.add(t.getCode());
 			t.consume();
 			try {
-				if (t.getCode() == KeyCode.P) {
-					App.game.getCurrentMap().toggleTime();
-				}
 				if (t.getCode() == KeyCode.N) {
-					if (App.game.getIsAtDoor()) {
-						int index = App.game.getMaps().indexOf(
-								App.game.getCurrentMap());
-						if (index + 1 < App.game.getMaps().size())
-							App.game.changeMap(App.game.getMaps()
+					if (GameWorld.world.getIsAtDoor()) {
+						int index = GameWorld.world.getMaps().indexOf(
+								GameWorld.world.getCurrentMap());
+						if (index + 1 < GameWorld.world.getMaps().size())
+							GameWorld.world.changeMap(GameWorld.world.getMaps()
 									.get(index + 1));
 					}
 				}
@@ -58,8 +53,8 @@ public abstract class KeyManager {
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
 			buffer.remove(t.getCode());
-			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
-				App.game.getPlayer().getBody()
+			if (((Player) GameWorld.world.getPlayer()).getStatus() == Player.Status.DEAD) {
+				GameWorld.world.getPlayer().getBody()
 						.setLinearVelocity(new Vec2(0, 0));
 				return;
 			}

@@ -7,6 +7,7 @@ import entities.Entity;
 import entities.StaticPathEntity;
 
 import infrastructure.App;
+import infrastructure.GameWorld;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class ShapeMaker {
 
 	public Entity generateDynamicEntity() {
 		DynamicPathEntity en = new DynamicPathEntity(getLocations());
-		en.addToMap(App.game.getCurrentMap());
+		en.addToMap(GameWorld.world.getCurrentMap());
 		en.setVisible(true);
 		clearMarkers();
 		return en;
@@ -50,21 +51,21 @@ public class ShapeMaker {
 
 	public Entity generateStaticEntity() {
 		StaticPathEntity en = new StaticPathEntity(getLocations());
-		en.addToMap(App.game.getCurrentMap());
+		en.addToMap(GameWorld.world.getCurrentMap());
 		en.setVisible(true);
 		clearMarkers();
 		return en;
 	}
 	public Entity generateDeadlyDynamicEntity(){
 		DeadlyDynamicPathEntity en = new DeadlyDynamicPathEntity(getLocations());
-		en.addToMap(App.game.getCurrentMap());
+		en.addToMap(GameWorld.world.getCurrentMap());
 		en.setVisible(true);
 		clearMarkers();
 		return en;
 	}
 	public Entity generateDeadlyStaticEntity(){
 		DeadlyStaticPathEntity en = new DeadlyStaticPathEntity(getLocations());
-		en.addToMap(App.game.getCurrentMap());
+		en.addToMap(GameWorld.world.getCurrentMap());
 		en.setVisible(true);
 		clearMarkers();
 		return en;

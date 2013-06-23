@@ -15,6 +15,7 @@ import utils.Util;
 import infrastructure.App;
 import infrastructure.EntityData;
 import infrastructure.FXJBox;
+import infrastructure.Frame;
 import infrastructure.GameMap;
 import javafx.scene.Node;
 
@@ -159,11 +160,11 @@ public abstract class Entity implements FXJBox, Serializable {
 		setLayoutY(ypos);
 	}
 
-	public synchronized void update(EntityData data) {
+	public synchronized void restore(Frame frame) {
 		getBody().setAngularVelocity(0);
 		getBody().setLinearVelocity(new Vec2(0, 0));
+		EntityData data = frame.getData().get(this);
 		getBody().setTransform(new Vec2(data.getX(), data.getY()), 0);
-		update();
 	}
 
 	@Override

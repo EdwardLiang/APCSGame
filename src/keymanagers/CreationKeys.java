@@ -5,6 +5,7 @@ import java.io.IOException;
 import entities.Player;
 
 import infrastructure.App;
+import infrastructure.GameWorld;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,14 +15,11 @@ public class CreationKeys extends DefaultKeys {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
-			if (t.getCode() == KeyCode.R)
-				try {
-					App.game.getCurrentMap().reset();
-					buffer.clear();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			if (((Player) App.game.getPlayer()).getStatus() == Player.Status.DEAD) {
+			if (t.getCode() == KeyCode.R) {
+				GameWorld.world.getCurrentMap().reset();
+				buffer.clear();
+			}
+			if (((Player) GameWorld.world.getPlayer()).getStatus() == Player.Status.DEAD) {
 				return;
 			}
 
@@ -29,39 +27,36 @@ public class CreationKeys extends DefaultKeys {
 			t.consume();
 			try {
 				if (t.getCode() == KeyCode.D) {
-					if (App.game.getPlayer() != null) {
-						if (((Player) App.game.getPlayer()).getSide() == Player.Side.LEFT) {
-							App.game.getPlayer().setVisible(false);
-							((Player) App.game.getPlayer())
+					if (GameWorld.world.getPlayer() != null) {
+						if (((Player) GameWorld.world.getPlayer()).getSide() == Player.Side.LEFT) {
+							GameWorld.world.getPlayer().setVisible(false);
+							((Player) GameWorld.world.getPlayer())
 									.setSide(Player.Side.RIGHT);
-							((Player) App.game.getPlayer()).changeNode();
-							App.game.getPlayer().setVisible(true);
+							((Player) GameWorld.world.getPlayer()).changeNode();
+							GameWorld.world.getPlayer().setVisible(true);
 						}
 					}
 				}
 				if (t.getCode() == KeyCode.A) {
-					if (App.game.getPlayer() != null) {
-						if (((Player) App.game.getPlayer()).getSide() == Player.Side.RIGHT) {
-							App.game.getPlayer().setVisible(false);
-							((Player) App.game.getPlayer())
+					if (GameWorld.world.getPlayer() != null) {
+						if (((Player) GameWorld.world.getPlayer()).getSide() == Player.Side.RIGHT) {
+							GameWorld.world.getPlayer().setVisible(false);
+							((Player) GameWorld.world.getPlayer())
 									.setSide(Player.Side.LEFT);
-							((Player) App.game.getPlayer()).changeNode();
-							App.game.getPlayer().setVisible(true);
+							((Player) GameWorld.world.getPlayer()).changeNode();
+							GameWorld.world.getPlayer().setVisible(true);
 						}
 					}
 				}
 
 				if (t.getCode() == KeyCode.N) {
-					if (App.game.getIsAtDoor()) {
-						int index = App.game.getMaps().indexOf(
-								App.game.getCurrentMap());
-						if (index + 1 < App.game.getMaps().size())
-							App.game.changeMap(App.game.getMaps()
+					if (GameWorld.world.getIsAtDoor()) {
+						int index = GameWorld.world.getMaps().indexOf(
+								GameWorld.world.getCurrentMap());
+						if (index + 1 < GameWorld.world.getMaps().size())
+							GameWorld.world.changeMap(GameWorld.world.getMaps()
 									.get(index + 1));
 					}
-				}
-				if (t.getCode() == KeyCode.P) {
-					App.game.getCurrentMap().toggleTime();
 				} else if (t.getCode() == KeyCode.DIGIT1) {
 					App.shaker.generateDynamicEntity();
 				} else if (t.getCode() == KeyCode.DIGIT2) {

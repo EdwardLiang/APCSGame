@@ -34,7 +34,6 @@ import utils.Parse;
 import utils.Util;
 
 public class App extends Application {
-	public static GameWorld game;
 	public static Camera camera;
 	public static ShapeMaker shaker;
 	public static Group root;
@@ -57,36 +56,6 @@ public class App extends Application {
 		launch(args);
 	}
 
-	public static void reverseTime() {
-		App.game.getCurrentMap().killTime();
-		App.game.getCurrentMap().newReverseTime();
-		App.game.getCurrentMap().startTime();
-	}
-
-	public static synchronized void setTC(float tC) {
-		App.game.getCurrentMap().killTime();
-		App.game.getCurrentMap().newTime();
-		App.tC = tC;
-		App.game.getCurrentMap().startTime();
-	}
-
-	public static synchronized float getTC() {
-		return tC;
-	}
-
-	public static void toggleRTime() {
-		if (App.game.getCurrentMap().getTime() instanceof ReverseTime) {
-			App.game.getCurrentMap().killTime();
-			App.game.getCurrentMap().newTime();
-			App.game.getCurrentMap().startTime();
-		} else {
-			App.game.getCurrentMap().killTime();
-			App.game.getCurrentMap().newReverseTime();
-			App.game.getCurrentMap().startTime();
-		}
-		reverse.toggle();
-	}
-
 	@Override
 	public void start(final Stage primaryStage) throws IOException {
 		pS = primaryStage;
@@ -97,8 +66,6 @@ public class App extends Application {
 
 		root = new Group();
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
-
-		game = new GameWorld();
 
 		scene.setCursor(Cursor.CROSSHAIR);
 		camera = new Camera();
@@ -122,99 +89,23 @@ public class App extends Application {
 		scene.setOnKeyReleased(keyManager.keyRelease);
 		scene.setOnMouseClicked(mouse);
 		scene.setOnMouseMoved(mouse);
-		// this.mediaView = createMediaView();
 
 		menuBar = new MenuBar();
 
-		// Menu File
 		Menu menuFile = new Menu("File");
-		MenuItem save = new MenuItem("Save Map");
-		MenuItem reset = new MenuItem("Reset Level");
-		MenuItem pause = new MenuItem("Pause Level");
-		pause.setOnAction(new EventHandler<ActionEvent>() {
-			EdwardPopup pop = new EdwardPopup("Paused. ");
-			int i = 0;
-
-			@Override
-			public synchronized void handle(ActionEvent arg0) {
-				App.game.getCurrentMap().getTime().toggleTime();
-				pop.toggle();
-				if (i % 2 == 0)
-					mediaView.getMediaPlayer().pause();
-				else
-					mediaView.getMediaPlayer().play();
-				i++;
-			}
-		});
-		reset.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public synchronized void handle(ActionEvent arg0) {
-				try {
-					App.game.getCurrentMap().reset();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		menuFile.getItems().addAll(save, reset, pause);
-
 		Menu menuEdit = new Menu("Edit");
-		MenuItem devMode = new MenuItem("DevMode");
-		menuEdit.getItems().add(devMode);
 		Menu menuView = new Menu("View");
-		MenuItem zoom = new MenuItem("Zoom");
-		menuView.getItems().add(zoom);
+		MenuItem save = new MenuItem("Placeholder");
+		menuFile.getItems().addAll(save);
+		MenuItem hold = new MenuItem("PlaceHolder2");
+		menuEdit.getItems().add(hold);
+		MenuItem hold2 = new MenuItem("PlaceHolder3");
+		menuView.getItems().add(hold2);
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-		devMode.setOnAction(new EventHandler<ActionEvent>() {
-			EdwardPopup pop = new EdwardPopup(
-					"This is the feature of our game that allows us to dynamically draw and execute player-defined shapes. To use, draw points with"
-							+ "your mouse, and press 1 or 2 to create the shape, depending on what kind of shape you want. 3 and 4 make shapes that kill the player. ");
-
-			@Override
-			public synchronized void handle(ActionEvent event) {
-				pop.toggle();
-
-			}
-
-		});
-		save.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public synchronized void handle(ActionEvent event) {
-				try {
-					Parse.writeToFile(App.game.getCurrentMap().toString(),
-							"savefile.txt");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-		});
 
 		((Group) scene.getRoot()).getChildren().addAll(menuBar);
-		// audio stuff
-		// ((Group) scene.getRoot()).getChildren().add(mediaView);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		/*
-		 * for(int a = 0; a < 11; a++){
-		 * game.getMaps().get(a).newNonReversableTime(); }
-		 */
-		game.changeMap(game.getMaps().get(1));
-		// game.getCurrentMap().getPhysics()
-		// .setContactListener(new ContactManager());
-		for (GameMap a : game.getMaps()) {
-			a.getPhysics().setContactListener(new ContactManager());
-		}
-		// App.game.changeMap(App.game.getMaps().get(12));
-		// game.getCurrentMap().addCoreElements();
-		// App.game.getMaps().get(7).toggleTime();
-
-		reverse = new TimePopup("Time Reversing...");
-		slow = new TimePopup("Time Slow...");
-		speed = new TimePopup("Time Sped...");
-
 	}
 
 	public MediaView createMediaView() {
@@ -237,32 +128,17 @@ public class App extends Application {
 			});
 			mediaView.setMediaPlayer(mediaPlayer);
 		}
-		// if(!urls.hasNext()&&
-		// !mediaView.getMediaPlayer().getMedia().getTracks().get(0).getName().equals(musicList.get(musicList.size()-1)))
 	}
 
 	public static String readFromFile(String fileName) throws IOException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(App.class
 				.getClassLoader().getResourceAsStream(fileName)));
-		// Path path = Paths.get(fileName);
-		// List<String> listed = Files.readAllLines(path, ENCODING);
 		String result = "";
 		String local = "";
 		while ((local = in.readLine()) != null) {
 			result += local + "\n";
 			local = "";
-			// System.out.println(result);
 		}
 		return result;
-		// for (String str : listed)
-		// result += str + "\n";
-		// return result;
 	}
-	// public static String readFromFile(File file) throws IOException {
-	// List<String> listed = Files.readAllLines(file.toPath(), ENCODING);
-	// String result = "";
-	// for (String str : listed)
-	// result += str + "\n";
-	// return result;
-	// }
 }

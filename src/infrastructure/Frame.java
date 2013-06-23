@@ -15,4 +15,9 @@ public class Frame {
 	public HashMap<Entity,EntityData> getData(){
 		return eData;
 	}
+	public void backUp(GameMap map){
+		for (Entity a : map.getElements()) {
+			addEntity(a);
+		}
+	}
 }

@@ -1,9 +1,13 @@
 package entities;
 
+import org.jbox2d.common.Vec2;
+
 import utils.Util;
 
 import infrastructure.App;
 import infrastructure.EntityData;
+import infrastructure.Frame;
+import infrastructure.GameWorld;
 import infrastructure.PlayerData;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -168,15 +172,16 @@ public class Player extends Creature {
 	}
 
 	@Override
-	public synchronized void update(EntityData data) {
-		if (((PlayerData) data).getStatus() != ((Player) App.game.getPlayer())
-				.getStatus()) {
-			((Player) App.game.getPlayer()).setVisible(false);
-			((Player) App.game.getPlayer()).setStatus(((PlayerData) data)
-					.getStatus());
-			((Player) App.game.getPlayer()).changeNode();
-			((Player) App.game.getPlayer()).setVisible(true);
+	public synchronized void restore(Frame frame) {
+		getBody().setAngularVelocity(0);
+		getBody().setLinearVelocity(new Vec2(0, 0));
+		EntityData data = frame.getData().get(this);
+		if (((PlayerData) data).getStatus() != getStatus()) {
+			((Player) GameWorld.world.getPlayer()).setVisible(false);
+			((Player) GameWorld.world.getPlayer())
+					.setStatus(((PlayerData) data).getStatus());
+			((Player) GameWorld.world.getPlayer()).changeNode();
+			((Player) GameWorld.world.getPlayer()).setVisible(true);
 		}
-		super.update(data);
 	}
 }

@@ -3,6 +3,7 @@ package entities;
 import infrastructure.App;
 import infrastructure.DynamicEntityData;
 import infrastructure.EntityData;
+import infrastructure.Frame;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
@@ -82,11 +83,13 @@ public class DynamicPathEntity extends PathEntity {
 	}
 
 	@Override
-	public synchronized void update(EntityData data) {
+	public synchronized void restore(Frame frame) {
+		getBody().setAngularVelocity(0);
+		getBody().setLinearVelocity(new Vec2(0, 0));
+		EntityData data = frame.getData().get(this);
 		getBody().setTransform(
 				new Vec2(data.getX(), data.getY()),
 				(float) Math.toRadians(-((DynamicEntityData) data)
 						.getPreviousRotation()));
-		update();
 	}
 }

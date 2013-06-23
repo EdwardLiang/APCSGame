@@ -18,32 +18,35 @@ public class GameMap implements Serializable {
 	private ArrayList<Entity> gameElements;
 	private BackGround back;
 	private World world;
-	private Time time;
 	private float width;
 	private float height;
 	private float gravityMag;
-	private String originalDataLoc;
 	private float playerX;
 	private float playerY;
-	private TimeData timeData;
 
 	public GameMap(BackGround back, float playerX, float playerY,
 			float gravityMag) {
 		this.gravityMag = gravityMag;
 		this.world = new World(new Vec2(0.0f, -gravityMag));
 		this.gameElements = new ArrayList<Entity>();
-		this.time = new Time(this);
 		this.back = back;
 		this.width = back.getWidth();
 		this.height = back.getHeight();
 		this.playerX = playerX;
 		this.playerY = playerY;
-		this.originalDataLoc = "";
-		this.timeData = new TimeData();
+		world.setContactListener(new ContactManager());
 	}
 
-	public synchronized TimeData getTimeData() {
-		return timeData;
+	public GameMap() {
+		this.gravityMag = -30.0f;
+		this.world = new World(new Vec2(0.0f, -gravityMag));
+		this.gameElements = new ArrayList<Entity>();
+		this.back = new BackGround("background.jpg");
+		this.width = back.getWidth();
+		this.height = back.getHeight();
+		this.playerX = 30;
+		this.playerY = 30;
+		world.setContactListener(new ContactManager());
 	}
 
 	public synchronized ArrayList<Entity> getElements() {
@@ -74,38 +77,6 @@ public class GameMap implements Serializable {
 		return back.getWidth();
 	}
 
-	public synchronized void setTimeData(TimeData data) {
-		this.timeData = data;
-	}
-
-	public synchronized Boolean isPaused() {
-		return time.isPaused();
-	}
-
-	public synchronized void setTime(Time time) {
-		this.time = time;
-	}
-
-	public synchronized void startTime() {
-		time.startTime();
-	}
-
-	public synchronized void newTime() {
-		this.time = new Time(this);
-	}
-
-	public synchronized void newReverseTime() {
-		this.time = new ReverseTime(this);
-	}
-
-	public synchronized void killTime() {
-		time.killTime();
-	}
-
-	public synchronized Time getTime() {
-		return time;
-	}
-
 	public synchronized World getPhysics() {
 		return world;
 	}
@@ -118,38 +89,11 @@ public class GameMap implements Serializable {
 		return playerY;
 	}
 
-	public synchronized void reset() throws IOException {
-		// App.game.getCurrentMap().killTime();
-		// stopAll();
-		removeAll();
-		if (originalDataLoc != null) {
-			String raw = App.readFromFile(originalDataLoc);
-			String[] parsed = raw.split("[\n]");
-			for (int i = 6; i < parsed.length; i++) {
-				parseElements(parsed[i]).addToMap(this);
-			}
-		} else {
-			addCoreElements();
-		}
-		/*
-		 * App.game.getCurrentMap().setVisible(false); App.camera.reset();
-		 * App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
-		 * App.game.getCurrentMap().getPY()));
-		 * App.game.getPlayer().addToMap(App.game.getCurrentMap());
-		 * App.game.getCurrentMap().setVisible(true);
-		 * App.root.getChildren().removeAll(App.menuBar);
-		 * App.root.getChildren().addAll(App.menuBar);
-		 * App.game.getCurrentMap().startTime();
-		 */
-		App.game.changeMap(this);
+	public synchronized void reset() {
+		System.out.println("not implemented");
 	}
 
 	public synchronized void removeAll() {
-		/*
-		 * for (int i = 0; i < gameElements.size(); i++){
-		 * 
-		 * }
-		 */
 		gameElements.clear();
 		Body body = world.getBodyList();
 		while (body.getNext() != null) {
@@ -157,10 +101,6 @@ public class GameMap implements Serializable {
 			body = body.getNext();
 		}
 		world.destroyBody(body);
-		/*
-		 * this.getBack().setVisible(false); for (Entity a : gameElements) {
-		 * a.removeFromMap(); }
-		 */
 	}
 
 	public synchronized void setVisible(Boolean bool) {
@@ -177,10 +117,6 @@ public class GameMap implements Serializable {
 				a.setVisible(false);
 			}
 		}
-	}
-
-	private synchronized void stopAll() {
-		time.timeline.stop();
 	}
 
 	// Use Entity's addToMap method. DO NOT DIRECTLY INVOKE THIS METHOD.
@@ -209,10 +145,6 @@ public class GameMap implements Serializable {
 		Wall right = new Wall(width, height / 2, 1, height);
 		left.addToMap(this);
 		right.addToMap(this);
-	}
-
-	public synchronized void toggleTime() {
-		time.toggleTime();
 	}
 
 	private synchronized static Entity parseElements(String raw) {
@@ -252,20 +184,35 @@ public class GameMap implements Serializable {
 		for (int i = 6; i < parsed.length; i++) {
 			parseElements(parsed[i]).addToMap(game);
 		}
-		game.setOriginalDataLoc(string);
 		return game;
 	}
 
-	public synchronized void setOriginalDataLoc(String loc) {
-		this.originalDataLoc = loc;
-	}
-
-	public synchronized String getOriginalDataLoc() {
-		return originalDataLoc;
-	}
-
 	public synchronized void update() {
+		getBack().update();
+		for (Entity a : getElements()) {
+			a.update();
+		}
+	}
 
+	public synchronized void restore(Frame frame) {
+		for (Entity a : frame.getData().keySet()) {
+			a.restore(frame);
+		}
+	}
+
+	public synchronized void boundCheck() {
+		if (GameWorld.world.getPlayer().getPosition().x > GameWorld.world
+				.getCurrentMap().getWidth()
+				|| GameWorld.world.getPlayer().getPosition().y > GameWorld.world
+						.getCurrentMap().getHeight()
+				|| GameWorld.world.getPlayer().getPosition().y < 0
+				|| GameWorld.world.getPlayer().getPosition().x < 0) {
+			((Player) GameWorld.world.getPlayer()).setVisible(false);
+			((Player) GameWorld.world.getPlayer())
+					.setStatus(Player.Status.DEAD);
+			((Player) GameWorld.world.getPlayer()).changeNode();
+			((Player) GameWorld.world.getPlayer()).setVisible(true);
+		}
 	}
 
 	@Override
@@ -277,7 +224,7 @@ public class GameMap implements Serializable {
 		result += gravityMag + "\n";
 
 		for (Entity a : gameElements) {
-			if (a != App.game.getPlayer())
+			if (a != GameWorld.world.getPlayer())
 				result += a.toString() + "\n";
 		}
 		return result;

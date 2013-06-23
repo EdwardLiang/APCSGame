@@ -2,6 +2,7 @@ package guiobject;
 
 import infrastructure.App;
 import infrastructure.FXJBox;
+import infrastructure.GameWorld;
 
 import java.io.Serializable;
 
@@ -104,7 +105,7 @@ public class BackGround implements FXJBox, Serializable {
 
 	@Override
 	public synchronized void update() {
-		setViewport(new Rectangle2D(-App.camera.getOffsetX(), App.game
+		setViewport(new Rectangle2D(-App.camera.getOffsetX(), GameWorld.world
 				.getCurrentMap().getPHeight()
 				- Util.HEIGHT
 				- App.camera.getOffsetY(), 600, 600));

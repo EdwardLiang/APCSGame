@@ -12,21 +12,22 @@ import entities.Entity;
 import entities.Player;
 
 public class GameWorld implements Serializable {
+	public static GameWorld world = new GameWorld();
 	private LinkedList<GameMap> maps;
 	private GameMap currentMap;
 	private Entity player;
 	private Boolean isAtDoor;
+	private Time time;
 
-	public GameWorld() throws IOException {
+	private GameWorld() {
+		currentMap = new GameMap();
 		player = new Player(currentMap.getPX(), currentMap.getPY());
 		player.addToMap(currentMap);
 		maps = new LinkedList<GameMap>();
 		isAtDoor = false;
 		maps.add(currentMap);
-		currentMap.startTime();
 		currentMap.setVisible(true);
 	}
-
 	public synchronized GameMap getCurrentMap() {
 		return currentMap;
 	}
@@ -50,9 +51,8 @@ public class GameWorld implements Serializable {
 	public synchronized void changeMap(GameMap Map) throws IOException {
 		if (currentMap != null) {
 			// currentMap.reset();
-			currentMap.killTime();
+			time.killTime();
 			currentMap.setVisible(false);
-			currentMap.setTimeData(new TimeData());
 		}
 		currentMap = Map;
 		App.camera.reset();
@@ -62,8 +62,12 @@ public class GameWorld implements Serializable {
 		currentMap.setVisible(true);
 		App.root.getChildren().removeAll(App.menuBar);
 		App.root.getChildren().addAll(App.menuBar);
-		currentMap.startTime();
+		time.startTime();
 	}
+
+	public synchronized Boolean isPaused() {
+		return time.isPaused();
+	}	
 
 	@Override
 	public synchronized String toString() {
@@ -74,7 +78,7 @@ public class GameWorld implements Serializable {
 		}
 		return str;
 	}
-
+	
 	public synchronized void isAtDoor(boolean b) {
 		this.isAtDoor = b;
 	}

@@ -31,9 +31,9 @@ public class Ending extends Time {
 							new Rectangle2D(0, map.getPHeight() - Util.HEIGHT,
 									600, 600));
 			count++;
-			((Player) App.game.getPlayer()).setStatus(Player.Status.IDLE);
-			App.game.getPlayer().node.setLayoutX(10);
-			App.game.getPlayer().node.setLayoutY(530);
+			((Player) GameWorld.world.getPlayer()).setStatus(Player.Status.IDLE);
+			GameWorld.world.getPlayer().node.setLayoutX(10);
+			GameWorld.world.getPlayer().node.setLayoutY(530);
 			pr.setVisible(false);
 			pr.node.setLayoutX(500);
 			pr.node.setLayoutY(530);
@@ -71,7 +71,7 @@ public class Ending extends Time {
 				popup2.toggle();
 			}
 			map.getBack().setVisible(true);
-			App.game.getPlayer().setVisible(true);
+			GameWorld.world.getPlayer().setVisible(true);
 			if ((count > 20)){
 				pr.setVisible(false);
 				pr.setStatus(Player.Status.CLIMBING);

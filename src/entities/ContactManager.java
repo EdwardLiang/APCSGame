@@ -1,6 +1,7 @@
 package entities;
 
 import infrastructure.App;
+import infrastructure.GameWorld;
 
 import java.util.ArrayList;
 
@@ -26,9 +27,9 @@ public class ContactManager implements ContactListener {
 		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)) {
 			for (Class<?> a : deadly) {
 				if (contact.getFixtureB().getBody().getUserData().equals(a)) {
-					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD) {
-						((Player) App.game.getPlayer()).kill();
-						((Player) App.game.getPlayer()).getBody()
+					if (((Player) GameWorld.world.getPlayer()).getStatus() != Player.Status.DEAD) {
+						((Player) GameWorld.world.getPlayer()).kill();
+						((Player) GameWorld.world.getPlayer()).getBody()
 								.setLinearVelocity(new Vec2(0, 0));
 					}
 				}
@@ -37,10 +38,10 @@ public class ContactManager implements ContactListener {
 				.equals(Player.class)) {
 			for (Class<?> a : deadly) {
 				if (contact.getFixtureA().getBody().getUserData().equals(a)) {
-					if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD)
-						if (((Player) App.game.getPlayer()).getStatus() != Player.Status.DEAD) {
-							((Player) App.game.getPlayer()).kill();
-							((Player) App.game.getPlayer()).getBody()
+					if (((Player) GameWorld.world.getPlayer()).getStatus() != Player.Status.DEAD)
+						if (((Player) GameWorld.world.getPlayer()).getStatus() != Player.Status.DEAD) {
+							((Player) GameWorld.world.getPlayer()).kill();
+							((Player) GameWorld.world.getPlayer()).getBody()
 									.setLinearVelocity(new Vec2(0, 0));
 
 						}
@@ -50,12 +51,12 @@ public class ContactManager implements ContactListener {
 		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)
 				&& contact.getFixtureB().getBody().getUserData()
 						.equals(Door.class)) {
-			App.game.isAtDoor(true);
+			GameWorld.world.isAtDoor(true);
 		} else if (contact.getFixtureB().getBody().getUserData()
 				.equals(Player.class)
 				&& contact.getFixtureA().getBody().getUserData()
 						.equals(Door.class)) {
-			App.game.isAtDoor(true);
+			GameWorld.world.isAtDoor(true);
 		}
 	}
 
@@ -64,12 +65,12 @@ public class ContactManager implements ContactListener {
 		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)
 				&& contact.getFixtureB().getBody().getUserData()
 						.equals(Door.class)) {
-			App.game.isAtDoor(false);
+			GameWorld.world.isAtDoor(false);
 		} else if (contact.getFixtureB().getBody().getUserData()
 				.equals(Player.class)
 				&& contact.getFixtureA().getBody().getUserData()
 						.equals(Door.class)) {
-			App.game.isAtDoor(false);
+			GameWorld.world.isAtDoor(false);
 		}
 	}
 
