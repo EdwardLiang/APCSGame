@@ -1,9 +1,7 @@
 package infrastructure;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.jbox2d.common.Vec2;
@@ -25,15 +23,12 @@ public class GameMap implements Serializable {
 	private float height;
 	private float gravityMag;
 	private String originalDataLoc;
-	private Door door;
-	private float doorX;
-	private float doorY;
 	private float playerX;
 	private float playerY;
 	private TimeData timeData;
 
-	public GameMap(BackGround back, float doorX, float doorY, float playerX,
-			float playerY, float gravityMag) {
+	public GameMap(BackGround back, float playerX, float playerY,
+			float gravityMag) {
 		this.gravityMag = gravityMag;
 		this.world = new World(new Vec2(0.0f, -gravityMag));
 		this.gameElements = new ArrayList<Entity>();
@@ -41,9 +36,6 @@ public class GameMap implements Serializable {
 		this.back = back;
 		this.width = back.getWidth();
 		this.height = back.getHeight();
-		this.door = new Door(doorX, doorY);
-		this.doorX = doorX;
-		this.doorY = doorY;
 		this.playerX = playerX;
 		this.playerY = playerY;
 		this.originalDataLoc = "";
@@ -57,20 +49,13 @@ public class GameMap implements Serializable {
 	public synchronized ArrayList<Entity> getElements() {
 		return gameElements;
 	}
-	
-	public synchronized void setBack(BackGround back){
+
+	public synchronized void setBack(BackGround back) {
 		this.back = back;
 	}
 
-	public synchronized BackGround getBack() {/*
-											 * , you don't know what you're
-											 * dealing with
-											 */
+	public synchronized BackGround getBack() {
 		return back;
-	}
-
-	public synchronized Door getDoor() {
-		return door;
 	}
 
 	public synchronized float getWidth() {
@@ -88,15 +73,16 @@ public class GameMap implements Serializable {
 	public synchronized double getPWidth() {
 		return back.getWidth();
 	}
-	public synchronized void setTimeData(TimeData data){
+
+	public synchronized void setTimeData(TimeData data) {
 		this.timeData = data;
 	}
 
 	public synchronized Boolean isPaused() {
 		return time.isPaused();
 	}
-	
-	public synchronized void setTime(Time time){
+
+	public synchronized void setTime(Time time) {
 		this.time = time;
 	}
 
@@ -110,10 +96,6 @@ public class GameMap implements Serializable {
 
 	public synchronized void newReverseTime() {
 		this.time = new ReverseTime(this);
-	}
-	
-	public synchronized void newNonReversableTime(){
-		this.time = new NonReversableTime(this);
 	}
 
 	public synchronized void killTime() {
@@ -137,8 +119,8 @@ public class GameMap implements Serializable {
 	}
 
 	public synchronized void reset() throws IOException {
-		//App.game.getCurrentMap().killTime();
-		//stopAll();
+		// App.game.getCurrentMap().killTime();
+		// stopAll();
 		removeAll();
 		if (originalDataLoc != null) {
 			String raw = App.readFromFile(originalDataLoc);
@@ -149,25 +131,28 @@ public class GameMap implements Serializable {
 		} else {
 			addCoreElements();
 		}
-		/*App.game.getCurrentMap().setVisible(false);
-		App.camera.reset();
-		App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
-		App.game.getCurrentMap().getPY()));
-		App.game.getPlayer().addToMap(App.game.getCurrentMap());
-		App.game.getCurrentMap().setVisible(true);
-		App.root.getChildren().removeAll(App.menuBar);
-		App.root.getChildren().addAll(App.menuBar);
-		App.game.getCurrentMap().startTime();*/
+		/*
+		 * App.game.getCurrentMap().setVisible(false); App.camera.reset();
+		 * App.game.setPlayer(new Player(App.game.getCurrentMap().getPX(),
+		 * App.game.getCurrentMap().getPY()));
+		 * App.game.getPlayer().addToMap(App.game.getCurrentMap());
+		 * App.game.getCurrentMap().setVisible(true);
+		 * App.root.getChildren().removeAll(App.menuBar);
+		 * App.root.getChildren().addAll(App.menuBar);
+		 * App.game.getCurrentMap().startTime();
+		 */
 		App.game.changeMap(this);
 	}
 
 	public synchronized void removeAll() {
-		/*for (int i = 0; i < gameElements.size(); i++){
-			
-		}*/
+		/*
+		 * for (int i = 0; i < gameElements.size(); i++){
+		 * 
+		 * }
+		 */
 		gameElements.clear();
 		Body body = world.getBodyList();
-		while(body.getNext() != null){
+		while (body.getNext() != null) {
 			world.destroyBody(body);
 			body = body.getNext();
 		}
@@ -184,7 +169,6 @@ public class GameMap implements Serializable {
 			for (Entity a : gameElements) {
 				a.setVisible(true);
 			}
-			door.setVisible(true);
 			App.pS.setScene(App.scene);
 			App.pS.show();
 		} else {
@@ -192,7 +176,6 @@ public class GameMap implements Serializable {
 			for (Entity a : gameElements) {
 				a.setVisible(false);
 			}
-			door.setVisible(false);
 		}
 	}
 
@@ -220,7 +203,8 @@ public class GameMap implements Serializable {
 		top.addToMap(this);
 		bottom.addToMap(this);
 	}
-	public synchronized void addLeftRightWalls(){
+
+	public synchronized void addLeftRightWalls() {
 		Wall left = new Wall(0, height / 2, 1, height);
 		Wall right = new Wall(width, height / 2, 1, height);
 		left.addToMap(this);
@@ -263,7 +247,6 @@ public class GameMap implements Serializable {
 	public synchronized static GameMap parse(String raw, String string) {
 		String[] parsed = raw.split("[\n]");
 		GameMap game = new GameMap(BackGround.parse(parsed[0]),
-				Float.parseFloat(parsed[1]), Float.parseFloat(parsed[2]),
 				Float.parseFloat(parsed[3]), Float.parseFloat(parsed[4]),
 				Float.parseFloat(parsed[5]));
 		for (int i = 6; i < parsed.length; i++) {
@@ -281,12 +264,14 @@ public class GameMap implements Serializable {
 		return originalDataLoc;
 	}
 
+	public synchronized void update() {
+
+	}
+
 	@Override
 	public synchronized String toString() {
 		String result = "";
 		result += back.toString() + "\n";
-		result += doorX + "\n";
-		result += doorY + "\n";
 		result += playerX + "\n";
 		result += playerY + "\n";
 		result += gravityMag + "\n";
@@ -296,9 +281,5 @@ public class GameMap implements Serializable {
 				result += a.toString() + "\n";
 		}
 		return result;
-	}
-
-	public void newPIReverseTime() {
-		this.time = new ReverseTime2(this);
 	}
 }

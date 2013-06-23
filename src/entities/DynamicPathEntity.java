@@ -1,17 +1,14 @@
 package entities;
 
-import java.io.IOException;
-
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Polygon;
+import infrastructure.App;
+import infrastructure.DynamicEntityData;
+import infrastructure.EntityData;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 
-import utils.Parse;
 import utils.PathUtil;
 
 public class DynamicPathEntity extends PathEntity {
@@ -19,21 +16,18 @@ public class DynamicPathEntity extends PathEntity {
 
 	public DynamicPathEntity(Vec2[] verts) {
 		super(verts);
-		/*Image clouds = new Image("sprites/DeathTexture.jpg");
-		((Polygon) node).setFill(new ImagePattern(clouds));*/
 	}
 
 	public DynamicPathEntity(Vec2[] lp, Vec2[] local, float x, float y,
 			float width, float height) {
 		super(lp, local, x, y, width, height);
-		/*Image clouds = new Image("sprites/DeathTexture.jpg");
-		((Polygon) node).setFill(new ImagePattern(clouds));*/
-
 	}
-	public synchronized double getPreviousRotation(){
+
+	public synchronized double getPreviousRotation() {
 		return previousRotation;
 	}
-	public synchronized void setPreviousRotation(double rotation){
+
+	public synchronized void setPreviousRotation(double rotation) {
 		previousRotation = rotation;
 	}
 
@@ -65,8 +59,34 @@ public class DynamicPathEntity extends PathEntity {
 				Float.parseFloat(frags[6]));
 	}
 
+	@Override
 	public String toString() {
 		return super.toString();
 	}
 
+	@Override
+	public synchronized DynamicEntityData backUp() {
+		return new DynamicEntityData(this);
+	}
+
+	@Override
+	public synchronized void update() {
+		getBody().setAngularVelocity(0);
+		getBody().setLinearVelocity(new Vec2(0, 0));
+		float xpos = (float) (getPPosition().x + App.camera.getOffsetX() - getPWidth() / 2);
+		float ypos = (float) (getPPosition().y + App.camera.getOffsetY() - getPHeight() / 2);
+		float theta = -getBody().getAngle();
+		setLayoutX(xpos);
+		setLayoutY(ypos);
+		node.setRotate(Math.toDegrees(theta));
+	}
+
+	@Override
+	public synchronized void update(EntityData data) {
+		getBody().setTransform(
+				new Vec2(data.getX(), data.getY()),
+				(float) Math.toRadians(-((DynamicEntityData) data)
+						.getPreviousRotation()));
+		update();
+	}
 }

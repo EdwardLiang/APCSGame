@@ -1,5 +1,6 @@
 package entities;
 
+import infrastructure.App;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.Shape;
@@ -81,6 +82,14 @@ public class BouncyBall extends Entity {
 	public String toString() {
 		return super.toString() + Parse.delim + radius + Parse.delim
 				+ color.toString();
+	}
+
+	@Override
+	public void update() {
+		float xpos = getPPosition().x + App.camera.getOffsetX();
+		float ypos = getPPosition().y + App.camera.getOffsetY();
+		setLayoutX(xpos);
+		setLayoutY(ypos);
 	}
 
 }

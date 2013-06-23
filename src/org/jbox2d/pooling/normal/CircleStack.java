@@ -42,7 +42,8 @@ public abstract class CircleStack<E> implements IOrderedStack<E>{
     container = new Object[argContainerSize];
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public final E pop() {
     index++;
     if(index >= size){
@@ -51,7 +52,8 @@ public abstract class CircleStack<E> implements IOrderedStack<E>{
     return (E) pool[index];
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public final E[] pop(int argNum) {
     assert (argNum <= container.length) : "Container array is too small";
     if(index + argNum < size){

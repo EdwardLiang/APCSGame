@@ -1,7 +1,6 @@
 package infrastructure;
 
 import entities.DynamicPathEntity;
-import entities.Entity;
 
 public class DynamicEntityData extends EntityData{
 	private double rotation;

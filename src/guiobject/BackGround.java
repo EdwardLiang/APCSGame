@@ -5,17 +5,10 @@ import infrastructure.FXJBox;
 
 import java.io.Serializable;
 
-import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.FixtureDef;
-
 import utils.Util;
 
-import entities.Entity;
-
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -27,19 +20,23 @@ public class BackGround implements FXJBox, Serializable {
 	public BackGround(String path) {
 		this.path = path;
 		image = new Image(path);
-        view = new ImageView();
-        view.setImage(image);
-        //view.setFitWidth(100);
-        view.setPreserveRatio(true);
-        //view.setCache(true);
-        view.setViewport(new Rectangle2D(0,getPHeight() - Util.HEIGHT, 600, 600));
-		/*view.setLayoutX(0);
-		view.setLayoutY(-getPHeight() + Util.HEIGHT);*/
+		view = new ImageView();
+		view.setImage(image);
+		// view.setFitWidth(100);
+		view.setPreserveRatio(true);
+		// view.setCache(true);
+		view.setViewport(new Rectangle2D(0, getPHeight() - Util.HEIGHT, 600,
+				600));
+		/*
+		 * view.setLayoutX(0); view.setLayoutY(-getPHeight() + Util.HEIGHT);
+		 */
 	}
-	public String getPath(){
+
+	public String getPath() {
 		return path;
 	}
-	public synchronized void setViewport(Rectangle2D a){
+
+	public synchronized void setViewport(Rectangle2D a) {
 		view.setViewport(a);
 	}
 
@@ -72,8 +69,8 @@ public class BackGround implements FXJBox, Serializable {
 	public synchronized float getHeight() {
 		return (float) Util.toHeight(image.getHeight());
 	}
-	
-	public static BackGround parse(String path){
+
+	public static BackGround parse(String path) {
 		return new BackGround(path);
 	}
 
@@ -103,5 +100,13 @@ public class BackGround implements FXJBox, Serializable {
 	@Override
 	public synchronized Vec2 getPPosition() {
 		return new Vec2((float) view.getLayoutX(), (float) view.getLayoutY());
+	}
+
+	@Override
+	public synchronized void update() {
+		setViewport(new Rectangle2D(-App.camera.getOffsetX(), App.game
+				.getCurrentMap().getPHeight()
+				- Util.HEIGHT
+				- App.camera.getOffsetY(), 600, 600));
 	}
 }

@@ -231,7 +231,7 @@ public class PathUtil {
 
 	public static Shape makeShape(Vec2[] verts) {
 		PolygonShape polygon = new PolygonShape();
-		((PolygonShape) polygon).m_centroid.setZero();
+		polygon.m_centroid.setZero();
 		polygon.set(verts, verts.length);
 		return polygon;
 	}

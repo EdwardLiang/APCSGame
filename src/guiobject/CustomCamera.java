@@ -2,13 +2,9 @@ package guiobject;
 
 import infrastructure.App;
 
-import java.io.Serializable;
-
 import org.jbox2d.dynamics.Body;
 
 import utils.Util;
-
-import entities.Player;
 
 public class CustomCamera extends Camera {
 	public float offsetX;
@@ -19,23 +15,28 @@ public class CustomCamera extends Camera {
 		offsetY = 0.0f;
 	}
 
+	@Override
 	public synchronized void reset() {
 		offsetX = 0.0f;
 		offsetY = 0.0f;
 	}
 
+	@Override
 	public synchronized float getOffsetX() {
 		return offsetX;
 	}
 
+	@Override
 	public synchronized void setOffsetX(float offsetX) {
 		this.offsetX = offsetX;
 	}
 
+	@Override
 	public synchronized float getOffsetY() {
 		return offsetY;
 	}
 
+	@Override
 	public synchronized void setOffsetY(float offsetY) {
 		this.offsetY = offsetY;
 	}

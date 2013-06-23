@@ -2,7 +2,6 @@ package entities;
 
 import infrastructure.App;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jbox2d.callbacks.ContactImpulse;
@@ -22,6 +21,7 @@ public class ContactManager implements ContactListener {
 		deadly.add(DeadlyBouncyBall.class);
 	}
 
+	@Override
 	public void beginContact(Contact contact) {
 		if (contact.getFixtureA().getBody().getUserData().equals(Player.class)) {
 			for (Class<?> a : deadly) {

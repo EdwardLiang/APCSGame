@@ -4,8 +4,6 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utils.Util;
-import entities.Player.Side;
-import entities.Player.Status;
 
 public class Princess extends Player{
 	private Status status;
@@ -30,22 +28,27 @@ public class Princess extends Player{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public synchronized void setMoving(boolean bool) {
 		moving = bool;
 	}
 
+	@Override
 	public synchronized boolean isMoving() {
 		return moving;
 	}
 
+	@Override
 	public synchronized void setStatus(Status status) {
 		this.status = status;
 	}
 
+	@Override
 	public synchronized void setSide(Side side) {
 		this.side = side;
 	}
 	
+	@Override
 	public synchronized void updatePic() {
 		switch (this.status) {
 		case IDLE:
@@ -69,6 +72,7 @@ public class Princess extends Player{
 		}
 	}
 
+	@Override
 	protected synchronized Node createNode() {
 		imageView = idlev;
 		imageView.setPreserveRatio(true);
@@ -77,6 +81,7 @@ public class Princess extends Player{
 		return imageView;
 	}
 
+	@Override
 	public synchronized void changeNode() {
 		updatePic();
 		imageView.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);

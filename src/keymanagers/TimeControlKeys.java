@@ -2,12 +2,9 @@ package keymanagers;
 
 import java.io.IOException;
 
-import org.jbox2d.common.Vec2;
-
 import entities.Player;
 
 import infrastructure.App;
-import infrastructure.GameMap;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,12 +14,6 @@ public class TimeControlKeys extends FlyingKeys {
 		@Override
 		public synchronized void handle(KeyEvent key) {
 			final KeyEvent t = key;
-			if (t.getCode() == KeyCode.E) {
-				App.speedUp();
-			}
-			if (t.getCode() == KeyCode.Q) {
-				App.slowDown();
-			}
 			if (t.getCode() == KeyCode.F) {
 				App.toggleRTime();
 			}

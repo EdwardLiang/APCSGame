@@ -1,7 +1,5 @@
 package guiobject;
 
-import utils.Util;
-import infrastructure.App;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

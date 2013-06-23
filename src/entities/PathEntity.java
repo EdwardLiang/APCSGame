@@ -3,15 +3,11 @@ package entities;
 import infrastructure.App;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.FixtureDef;
-
 import utils.Parse;
 import utils.PathUtil;
 import utils.Util;
@@ -69,6 +65,7 @@ public abstract class PathEntity extends Entity {
 		return shape;
 	}
 
+	@Override
 	public String toString() {
 		return "" + this.getClass() + Parse.delim + xPos + Parse.delim + yPos
 				+ Parse.delim + PathUtil.pToString(localPPoints) + Parse.delim

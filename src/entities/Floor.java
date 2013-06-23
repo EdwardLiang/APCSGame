@@ -1,8 +1,5 @@
 package entities;
 
-import utils.Parse;
-import infrastructure.App;
-
 public class Floor extends Wall {
 
 	public Floor(float posX, float posY, float width, float height) {
@@ -19,6 +16,7 @@ public class Floor extends Wall {
 				Float.parseFloat(frag[3]), Float.parseFloat(frag[4]));
 	}
 
+	@Override
 	public String toString() {
 		return super.toString();
 	}

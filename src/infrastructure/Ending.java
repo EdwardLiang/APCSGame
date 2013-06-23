@@ -6,13 +6,8 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.shape.Circle;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import org.jbox2d.dynamics.BodyType;
 import utils.Util;
-import entities.DynamicPathEntity;
-import entities.Entity;
 import entities.Player;
 import entities.Princess;
 import guiobject.BackGround;
@@ -105,19 +100,23 @@ public class Ending extends Time {
 		this.map = world;
 	}
 
+	@Override
 	public void startTime() {
 		timeline.playFromStart();
 		pop.toggle();
 	}
 
+	@Override
 	public void stopTime() {
 		timeline.pause();
 	}
 
+	@Override
 	public void killTime() {// Is that what I'm doing here?
 		timeline.stop();
 	}
 
+	@Override
 	public void toggleTime() {
 		if (timeline.getCurrentRate() > 0)
 			stopTime();
@@ -125,10 +124,12 @@ public class Ending extends Time {
 			startTime();
 	}
 
+	@Override
 	public void reverseTime() {
 		System.out.println("NOT IMPLEMENTED");
 	}
 
+	@Override
 	public boolean isPaused() {
 		return timeline.getCurrentRate() == 0;
 	}

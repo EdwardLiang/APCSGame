@@ -13,14 +13,12 @@ import utils.Parse;
 import utils.Util;
 
 import infrastructure.App;
+import infrastructure.EntityData;
 import infrastructure.FXJBox;
 import infrastructure.GameMap;
 import javafx.scene.Node;
 
 public abstract class Entity implements FXJBox, Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 42L;
 	public Node node;
 	protected float xPos;
@@ -97,7 +95,7 @@ public abstract class Entity implements FXJBox, Serializable {
 
 	public synchronized void removeFromMap() {
 		map.removeEntity(this);
-		if(this.getBody() != null){
+		if (this.getBody() != null) {
 			map.getPhysics().destroyBody(this.getBody());
 		}
 		setVisible(false);
@@ -147,6 +145,25 @@ public abstract class Entity implements FXJBox, Serializable {
 	@Override
 	public synchronized float getHeight() {
 		return height;
+	}
+
+	public EntityData backUp() {
+		return new EntityData(this);
+	}
+
+	@Override
+	public synchronized void update() {
+		float xpos = (float) (getPPosition().x + App.camera.getOffsetX() - getPWidth() / 2);
+		float ypos = (float) (getPPosition().y + App.camera.getOffsetY() - getPHeight() / 2);
+		setLayoutX(xpos);
+		setLayoutY(ypos);
+	}
+
+	public synchronized void update(EntityData data) {
+		getBody().setAngularVelocity(0);
+		getBody().setLinearVelocity(new Vec2(0, 0));
+		getBody().setTransform(new Vec2(data.getX(), data.getY()), 0);
+		update();
 	}
 
 	@Override

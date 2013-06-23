@@ -37,8 +37,8 @@ public class Wall extends Entity {
 		verts[2] = new Vec2(1 + (width) / 2, height / 2); // top right
 		verts[3] = new Vec2(-1 - (width) / 2, height / 2); // top left
 
-		((PolygonShape) polygon).set(verts, 4);
-		((PolygonShape) polygon).m_centroid.setZero();
+		polygon.set(verts, 4);
+		polygon.m_centroid.setZero();
 
 		return polygon;
 	}

@@ -7,8 +7,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-
 import entities.Player;
 
 import javafx.event.EventHandler;

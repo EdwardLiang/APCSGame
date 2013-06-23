@@ -113,11 +113,13 @@ public class Vec3 implements Serializable {
     z = 0;
   }
 
-  public Vec3 clone() {
+  @Override
+public Vec3 clone() {
     return new Vec3(this);
   }
 
-  public String toString() {
+  @Override
+public String toString() {
     return "(" + x + "," + y + "," + z + ")";
   }
 

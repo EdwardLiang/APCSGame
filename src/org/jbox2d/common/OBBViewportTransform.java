@@ -55,7 +55,8 @@ public class OBBViewportTransform implements IViewportTransform {
   /**
    * @see IViewportTransform#setCamera(float, float, float)
    */
-  public void setCamera(float x, float y, float scale) {
+  @Override
+public void setCamera(float x, float y, float scale) {
     box.center.set(x, y);
     Mat22.createScaleTransform(scale, box.R);
   }
@@ -63,42 +64,48 @@ public class OBBViewportTransform implements IViewportTransform {
   /**
    * @see IViewportTransform#getExtents()
    */
-  public Vec2 getExtents() {
+  @Override
+public Vec2 getExtents() {
     return box.extents;
   }
 
   /**
    * @see IViewportTransform#setExtents(Vec2)
    */
-  public void setExtents(Vec2 argExtents) {
+  @Override
+public void setExtents(Vec2 argExtents) {
     box.extents.set(argExtents);
   }
 
   /**
    * @see IViewportTransform#setExtents(float, float)
    */
-  public void setExtents(float argHalfWidth, float argHalfHeight) {
+  @Override
+public void setExtents(float argHalfWidth, float argHalfHeight) {
     box.extents.set(argHalfWidth, argHalfHeight);
   }
 
   /**
    * @see IViewportTransform#getCenter()
    */
-  public Vec2 getCenter() {
+  @Override
+public Vec2 getCenter() {
     return box.center;
   }
 
   /**
    * @see IViewportTransform#setCenter(Vec2)
    */
-  public void setCenter(Vec2 argPos) {
+  @Override
+public void setCenter(Vec2 argPos) {
     box.center.set(argPos);
   }
 
   /**
    * @see IViewportTransform#setCenter(float, float)
    */
-  public void setCenter(float x, float y) {
+  @Override
+public void setCenter(float x, float y) {
     box.center.set(x, y);
   }
 
@@ -132,14 +139,16 @@ public class OBBViewportTransform implements IViewportTransform {
   /**
    * @see IViewportTransform#isYFlip()
    */
-  public boolean isYFlip() {
+  @Override
+public boolean isYFlip() {
     return yFlip;
   }
 
   /**
    * @see IViewportTransform#setYFlip(boolean)
    */
-  public void setYFlip(boolean yFlip) {
+  @Override
+public void setYFlip(boolean yFlip) {
     this.yFlip = yFlip;
   }
 
@@ -149,7 +158,8 @@ public class OBBViewportTransform implements IViewportTransform {
   /**
    * @see IViewportTransform#getScreenVectorToWorld(Vec2, Vec2)
    */
-  public void getScreenVectorToWorld(Vec2 argScreen, Vec2 argWorld) {
+  @Override
+public void getScreenVectorToWorld(Vec2 argScreen, Vec2 argWorld) {
     inv.set(box.R);
     inv.invertLocal();
     inv.mulToOut(argScreen, argWorld);
@@ -161,14 +171,16 @@ public class OBBViewportTransform implements IViewportTransform {
   /**
    * @see IViewportTransform#getWorldVectorToScreen(Vec2, Vec2)
    */
-  public void getWorldVectorToScreen(Vec2 argWorld, Vec2 argScreen) {
+  @Override
+public void getWorldVectorToScreen(Vec2 argWorld, Vec2 argScreen) {
     box.R.mulToOut(argWorld, argScreen);
     if (yFlip) {
       yFlipMatInv.mulToOut(argScreen, argScreen);
     }
   }
 
-  public void getWorldToScreen(Vec2 argWorld, Vec2 argScreen) {
+  @Override
+public void getWorldToScreen(Vec2 argWorld, Vec2 argScreen) {
     argScreen.x = argWorld.x - box.center.x;
     argScreen.y = argWorld.y - box.center.y;
     box.R.mulToOut(argScreen, argScreen);
@@ -184,7 +196,8 @@ public class OBBViewportTransform implements IViewportTransform {
   /**
    * @see IViewportTransform#getScreenToWorld(Vec2, Vec2)
    */
-  public void getScreenToWorld(Vec2 argScreen, Vec2 argWorld) {
+  @Override
+public void getScreenToWorld(Vec2 argScreen, Vec2 argWorld) {
     argWorld.set(argScreen);
     argWorld.subLocal(box.extents);
     box.R.invertToOut(inv2);

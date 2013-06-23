@@ -50,7 +50,8 @@ public abstract class MutableStack<E> implements IDynamicStack<E> {
     size = newStack.length;
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public final E pop() {
     if (index >= size) {
       extendStack(size * 2);
@@ -58,7 +59,8 @@ public abstract class MutableStack<E> implements IDynamicStack<E> {
     return (E) stack[index++];
   }
 
-  public final void push(E argObject) {
+  @Override
+public final void push(E argObject) {
     assert (index > 0);
     stack[--index] = argObject;
   }

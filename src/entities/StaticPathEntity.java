@@ -1,11 +1,5 @@
 package entities;
 
-import java.io.IOException;
-
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Polygon;
-
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -54,6 +48,7 @@ public class StaticPathEntity extends PathEntity {
 				Float.parseFloat(frags[6]));
 	}
 
+	@Override
 	public String toString() {
 		return super.toString();
 	}

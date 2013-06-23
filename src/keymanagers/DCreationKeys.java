@@ -2,8 +2,6 @@ package keymanagers;
 
 import java.io.IOException;
 
-import org.jbox2d.common.Vec2;
-
 import entities.Player;
 
 import infrastructure.App;

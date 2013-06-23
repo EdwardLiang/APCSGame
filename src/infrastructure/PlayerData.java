@@ -1,6 +1,5 @@
 package infrastructure;
 
-import entities.Entity;
 import entities.Player;
 
 public class PlayerData extends EntityData{

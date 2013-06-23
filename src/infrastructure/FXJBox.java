@@ -11,5 +11,5 @@ public interface FXJBox {
 	public float getHeight();
 	public double getPWidth();
 	public double getPHeight();
-	
+	public void update();
 }

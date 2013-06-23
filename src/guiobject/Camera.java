@@ -8,8 +8,6 @@ import org.jbox2d.dynamics.Body;
 
 import utils.Util;
 
-import entities.Player;
-
 public class Camera implements Runnable, Serializable {
 	public float offsetX;
 	public float offsetY;

@@ -192,7 +192,8 @@ public class AABB {
    * @param input
    * @return
    */
-  public final boolean raycast(final RayCastOutput output, final RayCastInput input) {
+  @Deprecated
+public final boolean raycast(final RayCastOutput output, final RayCastInput input) {
     return raycast(output, input, new DefaultWorldPool(4, 4));
   }
 

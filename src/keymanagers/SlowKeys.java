@@ -3,9 +3,6 @@ package keymanagers;
 import infrastructure.App;
 
 import java.io.IOException;
-import java.util.EnumSet;
-import java.util.Set;
-
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

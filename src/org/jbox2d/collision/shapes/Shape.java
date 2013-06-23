@@ -133,5 +133,6 @@ public abstract class Shape {
    * public abstract float computeSubmergedArea(Vec2 normal, float offset, Transform xf, Vec2 c);
    */
 
-  public abstract Shape clone();
+  @Override
+public abstract Shape clone();
 }

@@ -46,7 +46,8 @@ public class CircleShape extends Shape {
     m_radius = 0;
   }
 
-  public final Shape clone() {
+  @Override
+public final Shape clone() {
     CircleShape shape = new CircleShape();
     shape.m_p.x = m_p.x;
     shape.m_p.y = m_p.y;
@@ -54,7 +55,8 @@ public class CircleShape extends Shape {
     return shape;
   }
 
-  public final int getChildCount() {
+  @Override
+public final int getChildCount() {
     return 1;
   }
 

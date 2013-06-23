@@ -1,7 +1,6 @@
 package infrastructure;
 
 import java.util.Stack;
-import java.util.LinkedList;
 
 public class TimeData {
 	Stack<Frame> frames;
