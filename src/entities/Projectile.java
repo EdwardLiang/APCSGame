@@ -61,7 +61,7 @@ public class Projectile extends Entity {
 		bodyDef.type = BodyType.KINEMATIC;
 		bodyDef.position.set(xPos, yPos);
 		bodyDef.fixedRotation = true;
-		bodyDef.userData = this.getClass();
+		
 		return bodyDef;
 	}
 

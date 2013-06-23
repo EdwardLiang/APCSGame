@@ -165,12 +165,6 @@ public class GameMap implements Serializable {
 			return StaticPathEntity.parse(frags);
 		case "class entities.DynamicPathEntity":
 			return DynamicPathEntity.parse(frags);
-		case "class entities.DeadlyStaticPathEntity":
-			return DeadlyStaticPathEntity.parse(frags);
-		case "class entities.DeadlyDynamicPathEntity":
-			return DeadlyDynamicPathEntity.parse(frags);
-		case "class entities.DeadlyBouncyBall":
-			return DeadlyBouncyBall.parse(frags);
 		default:
 			return null;
 		}

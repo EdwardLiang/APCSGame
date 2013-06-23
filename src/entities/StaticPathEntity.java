@@ -28,7 +28,7 @@ public class StaticPathEntity extends PathEntity {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position.set(xPos, yPos);
 		bodyDef.type = BodyType.STATIC;
-		bodyDef.userData = this.getClass();
+		
 		return bodyDef;
 	}
 

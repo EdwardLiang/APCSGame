@@ -69,10 +69,6 @@ public class DevModeKeys extends DefaultKeys {
 					App.shaker.generateDynamicEntity();
 				} else if (t.getCode() == KeyCode.DIGIT2) {
 					App.shaker.generateStaticEntity();
-				} else if (t.getCode() == KeyCode.DIGIT3) {
-					App.shaker.generateDeadlyDynamicEntity();
-				} else if (t.getCode() == KeyCode.DIGIT4) {
-					App.shaker.generateDeadlyStaticEntity();
 				}
 			} catch (Exception e) {
 

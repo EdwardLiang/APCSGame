@@ -21,7 +21,7 @@ import javafx.scene.Node;
 
 public abstract class Entity implements FXJBox, Serializable {
 	private static final long serialVersionUID = 42L;
-	public Node node;
+	protected Node node;
 	protected float xPos;
 	protected float yPos;
 	protected float width;
@@ -31,21 +31,22 @@ public abstract class Entity implements FXJBox, Serializable {
 	protected Shape ps;
 	protected Body body;
 	protected Fixture fixture;
-
-	public GameMap map;
+	protected GameMap map;
+	protected boolean isDeadly;
 
 	public Entity(float posX, float posY, float width, float height) {
 		this.xPos = posX;
 		this.yPos = posY;
 		this.width = width;
 		this.height = height;
+		this.isDeadly = false;
 		create();
-
 	}
 
 	public Entity(float posX, float posY) {
 		this.xPos = posX;
 		this.yPos = posY;
+		this.isDeadly = false;
 		create();
 	}
 
@@ -79,6 +80,7 @@ public abstract class Entity implements FXJBox, Serializable {
 		fixture = body.createFixture(fd);
 		body.createFixture(fd);
 		node.setUserData(body);
+		body.setUserData(this);
 		map.addEntity(this);
 	}
 
@@ -147,9 +149,17 @@ public abstract class Entity implements FXJBox, Serializable {
 	public synchronized float getHeight() {
 		return height;
 	}
+	
+	public synchronized boolean getIsDeadly(){
+		return isDeadly;
+	}
 
 	public EntityData backUp() {
 		return new EntityData(this);
+	}
+	
+	public synchronized Node getNode(){
+		return node;
 	}
 
 	@Override
