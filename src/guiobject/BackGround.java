@@ -14,14 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BackGround implements FXJBox, Serializable {
-	private String path;
 	private ImageView view;
 	private Image image;
 
-	public BackGround(String path) {
-		this.path = path;
-		image = new Image(path);
-		view = new ImageView();
+	public BackGround(ImageView view) {
+		this.view = new ImageView();
 		view.setImage(image);
 		// view.setFitWidth(100);
 		view.setPreserveRatio(true);
@@ -31,10 +28,6 @@ public class BackGround implements FXJBox, Serializable {
 		/*
 		 * view.setLayoutX(0); view.setLayoutY(-getPHeight() + Util.HEIGHT);
 		 */
-	}
-
-	public String getPath() {
-		return path;
 	}
 
 	public synchronized void setViewport(Rectangle2D a) {
@@ -71,15 +64,6 @@ public class BackGround implements FXJBox, Serializable {
 		return (float) Util.toHeight(image.getHeight());
 	}
 
-	public static BackGround parse(String path) {
-		return new BackGround(path);
-	}
-
-	@Override
-	public String toString() {
-		return path;
-	}
-
 	@Override
 	public void setVisible(Boolean bool) {
 		if (bool == true) {
@@ -105,9 +89,8 @@ public class BackGround implements FXJBox, Serializable {
 
 	@Override
 	public synchronized void update() {
-		setViewport(new Rectangle2D(-App.camera.getOffsetX(), GameWorld.world
-				.getCurrentMap().getPHeight()
-				- Util.HEIGHT
-				- App.camera.getOffsetY(), 600, 600));
+		setViewport(new Rectangle2D(-Camera.camera.getOffsetX(),
+				GameWorld.world.getCurrentMap().getPHeight() - Util.HEIGHT
+						- Camera.camera.getOffsetY(), 600, 600));
 	}
 }

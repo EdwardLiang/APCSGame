@@ -53,8 +53,4 @@ public class Door extends Entity {
 		fix.isSensor = true;
 		return fix;
 	}
-
-	public static Door parse(String[] frag) {
-		return new Door(Float.parseFloat(frag[0]), Float.parseFloat(frag[1]));
-	}
 }

@@ -78,11 +78,6 @@ public class Creature extends Entity {
 		return fix;
 	}
 
-	public static Creature parse(String[] frag) {
-		return new Creature(Float.parseFloat(frag[1]),
-				Float.parseFloat(frag[2]));
-	}
-
 	@Override
 	public String toString() {
 		return super.toString();

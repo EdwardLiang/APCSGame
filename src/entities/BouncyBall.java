@@ -1,5 +1,6 @@
 package entities;
 
+import guiobject.Camera;
 import infrastructure.App;
 
 import org.jbox2d.collision.shapes.CircleShape;
@@ -72,12 +73,6 @@ public class BouncyBall extends Entity {
 		return fix;
 	}
 
-	public static BouncyBall parse(String[] frag) {
-		return new BouncyBall(Float.parseFloat(frag[1]),
-				Float.parseFloat(frag[2]), Integer.parseInt(frag[5]),
-				Color.web(frag[6]));
-	}
-
 	@Override
 	public String toString() {
 		return super.toString() + Parse.delim + radius + Parse.delim
@@ -86,8 +81,8 @@ public class BouncyBall extends Entity {
 
 	@Override
 	public void update() {
-		float xpos = getPPosition().x + App.camera.getOffsetX();
-		float ypos = getPPosition().y + App.camera.getOffsetY();
+		float xpos = getPPosition().x + Camera.camera.getOffsetX();
+		float ypos = getPPosition().y + Camera.camera.getOffsetY();
 		setLayoutX(xpos);
 		setLayoutY(ypos);
 	}

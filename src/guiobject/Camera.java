@@ -9,11 +9,12 @@ import org.jbox2d.dynamics.Body;
 
 import utils.Util;
 
-public class Camera implements Runnable, Serializable {
-	public float offsetX;
-	public float offsetY;
+public class Camera implements Serializable {
+	private float offsetX;
+	private float offsetY;
+	public static Camera camera = new Camera();
 
-	public Camera() {
+	private Camera() {
 		offsetX = 0.0f;
 		offsetY = 0.0f;
 	}
@@ -39,36 +40,38 @@ public class Camera implements Runnable, Serializable {
 		this.offsetY = offsetY;
 	}
 
-	@Override
-	public void run() {
-		while (true) {
-			Body playerData = GameWorld.world.getPlayer().getBody();
-			if (GameWorld.world.getPlayer() != null && playerData != null) {
-				if (Util.toPPosX(playerData.getPosition().x) + getOffsetX() > Util.WIDTH / 2 + 20
-						&& !(-getOffsetX() + Util.WIDTH + 1.5f > Util
-								.toPWidth(GameWorld.world.getCurrentMap()
-										.getWidth()))) {
-					setOffsetX(getOffsetX() - 1.5f);
-				} else if (Util.toPPosX(playerData.getPosition().x)
-						+ getOffsetX() < Util.WIDTH / 2 - 20
-						&& !(getOffsetX() - 1.5f > 0))
-					setOffsetX(getOffsetX() + 1.5f);
+	public synchronized void update() {
+		Body playerData = GameWorld.world.getPlayer().getBody();
+		if (GameWorld.world.getPlayer() != null && playerData != null) {
+			offsetX = Util.WIDTH / 2 - Util.toPPosX(playerData.getPosition().x);
+			offsetY = Util.HEIGHT / 2
+					- Util.toPPosY(playerData.getPosition().y);
+		}
+		boundCheck();
+	}
 
-				if (Util.toPPosY(playerData.getPosition().y) + getOffsetY() > Util.HEIGHT / 2 + 20
-						&& !(getOffsetY() - 1.5f < 0))
-					setOffsetY(getOffsetY() - 1.5f);
-				else if (Util.toPPosY(playerData.getPosition().y)
-						+ getOffsetY() < Util.HEIGHT / 2 - 20
-						&& !(getOffsetY() + Util.HEIGHT + 1.5f > Util
-								.toPHeight(GameWorld.world.getCurrentMap()
-										.getHeight())))
-					setOffsetY(getOffsetY() + 1.5f);
-			}
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-			}
+	private synchronized void boundCheck() {
+		boundXCheck();
+		boundYCheck();
+	}
 
+	private synchronized void boundXCheck() {
+		if (offsetX > Util.WIDTH
+				- Util.toPWidth(GameWorld.world.getCurrentMap().getWidth()))
+			offsetX = Util.WIDTH
+					- Util.toPWidth(GameWorld.world.getCurrentMap().getWidth());
+		else if (offsetX > 0) {
+			offsetX = 0;
+		}
+	}
+
+	private synchronized void boundYCheck() {
+		if (offsetY < 0) {
+			offsetY = 0;
+		} else if (offsetY > Util.toPHeight(GameWorld.world.getCurrentMap()
+				.getHeight()) - Util.HEIGHT) {
+			offsetY = Util.toPHeight(GameWorld.world.getCurrentMap()
+					.getHeight()) - Util.HEIGHT;
 		}
 	}
 }

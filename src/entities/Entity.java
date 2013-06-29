@@ -12,6 +12,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import utils.Parse;
 import utils.Util;
 
+import guiobject.Camera;
 import infrastructure.App;
 import infrastructure.EntityData;
 import infrastructure.FXJBox;
@@ -164,8 +165,8 @@ public abstract class Entity implements FXJBox, Serializable {
 
 	@Override
 	public synchronized void update() {
-		float xpos = (float) (getPPosition().x + App.camera.getOffsetX() - getPWidth() / 2);
-		float ypos = (float) (getPPosition().y + App.camera.getOffsetY() - getPHeight() / 2);
+		float xpos = (float) (getPPosition().x + Camera.camera.getOffsetX() - getPWidth() / 2);
+		float ypos = (float) (getPPosition().y + Camera.camera.getOffsetY() - getPHeight() / 2);
 		setLayoutX(xpos);
 		setLayoutY(ypos);
 	}

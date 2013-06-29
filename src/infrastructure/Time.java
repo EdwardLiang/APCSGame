@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 import entities.*;
+import guiobject.Camera;
 
 public class Time implements Serializable {
 	private Timeline timeline;
@@ -20,6 +21,7 @@ public class Time implements Serializable {
 		public void handle(ActionEvent t) {
 			GameMap map = GameWorld.world.getCurrentMap();
 			map.getPhysics().step(1 / 60, 8, 3);
+			Camera.camera.update();
 			map.update();
 			data.backUp(map);
 		}

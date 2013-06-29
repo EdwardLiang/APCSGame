@@ -1,5 +1,6 @@
 package entities;
 
+import guiobject.Camera;
 import infrastructure.App;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -23,15 +24,8 @@ public abstract class PathEntity extends Entity {
 		this.worldPPoints = wp;
 		this.localPPoints = PathUtil.PWorldToPLocal(worldPPoints);
 		this.local = PathUtil.PWorldToLocal(worldPPoints);
-		if (App.camera != null) {
-			this.xPos = Util
-					.toPosX(PathUtil.posX(wp) - App.camera.getOffsetX());
-			this.yPos = Util
-					.toPosY(PathUtil.posY(wp) - App.camera.getOffsetY());
-		} else {
-			this.xPos = Util.toPosX(PathUtil.posX(wp));
-			this.yPos = Util.toPosY(PathUtil.posY(wp));
-		}
+		this.xPos = Util.toPosX(PathUtil.posX(wp) - Camera.camera.getOffsetX());
+		this.yPos = Util.toPosY(PathUtil.posY(wp) - Camera.camera.getOffsetY());
 		this.width = Util.toWidth(PathUtil.width(wp));
 		this.height = Util.toHeight(PathUtil.height(wp));
 		create();

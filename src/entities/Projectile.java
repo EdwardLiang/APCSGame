@@ -61,7 +61,7 @@ public class Projectile extends Entity {
 		bodyDef.type = BodyType.KINEMATIC;
 		bodyDef.position.set(xPos, yPos);
 		bodyDef.fixedRotation = true;
-		
+
 		return bodyDef;
 	}
 
@@ -73,11 +73,6 @@ public class Projectile extends Entity {
 		fix.friction = 0.3f;
 		fix.restitution = 0.0f;
 		return fix;
-	}
-	public static Projectile parse(String[] frag){
-		return new Projectile(Float.parseFloat(frag[1]),
-				Float.parseFloat(frag[2]), Float.parseFloat(frag[3]),
-				Float.parseFloat(frag[4]), Float.parseFloat(frag[5]));
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import utils.Parse;
 
 import entities.Entity;
 import entities.Player;
+import guiobject.Camera;
 
 public class GameWorld implements Serializable {
 	public static GameWorld world = new GameWorld();
@@ -55,7 +56,7 @@ public class GameWorld implements Serializable {
 			currentMap.setVisible(false);
 		}
 		currentMap = Map;
-		App.camera.reset();
+		Camera.camera.reset();
 		player = new Player(currentMap.getPX(), currentMap.getPY());
 		player.addToMap(Map);
 		player.getBody().setLinearVelocity(new Vec2(0, 0));

@@ -8,6 +8,7 @@ import infrastructure.App;
 import infrastructure.EntityData;
 import infrastructure.Frame;
 import infrastructure.GameWorld;
+import infrastructure.ImageLoader;
 import infrastructure.PlayerData;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -18,18 +19,6 @@ public class Player extends Creature {
 	private Side side;
 	private ImageView imageView;
 	private boolean moving;
-	public static final Image idle = new Image("sprites/tim-idle.gif");
-	public static final Image run = new Image("sprites/tim-run.gif");
-	public static final Image climb = new Image("sprites/tim-climbing.gif");
-	public static final Image down = new Image("sprites/tim-downwards.gif");
-	public static final Image upward = new Image("sprites/tim-upward.gif");
-	public static final Image dead = new Image("sprites/tim-dead.gif");
-	public static final ImageView idlev = new ImageView(idle);
-	public static final ImageView runv = new ImageView(run);
-	public static final ImageView climbv = new ImageView(climb);
-	public static final ImageView downv = new ImageView(down);
-	public static final ImageView upwardv = new ImageView(upward);
-	public static final ImageView deadv = new ImageView(dead);
 
 	public Player(float posX, float posY) {
 		super(posX, posY);
@@ -72,25 +61,25 @@ public class Player extends Creature {
 		RIGHT, LEFT;
 	}
 
-	public synchronized void updatePic() {
+	private synchronized void updatePic() {
 		switch (this.status) {
 		case IDLE:
-			this.imageView = idlev;
+			this.imageView = ImageLoader.idlev;
 			break;
 		case WALK:
-			this.imageView = runv;
+			this.imageView = ImageLoader.runv;
 			break;
 		case CLIMBING:
-			this.imageView = climbv;
+			this.imageView = ImageLoader.climbv;
 			break;
 		case DOWNWARDS:
-			this.imageView = downv;
+			this.imageView = ImageLoader.downv;
 			break;
 		case UPWARD:
-			this.imageView = upwardv;
+			this.imageView = ImageLoader.upwardv;
 			break;
 		case DEAD:
-			this.imageView = deadv;
+			this.imageView = ImageLoader.deadv;
 			break;
 		}
 	}
@@ -104,7 +93,7 @@ public class Player extends Creature {
 
 	@Override
 	protected synchronized Node createNode() {
-		imageView = idlev;
+		imageView = ImageLoader.idlev;
 		imageView.setPreserveRatio(true);
 		imageView.setCache(true);
 		return imageView;
@@ -169,12 +158,12 @@ public class Player extends Creature {
 				}
 			}
 		}
+		super.update();
 	}
 
 	@Override
 	public synchronized void restore(Frame frame) {
-		getBody().setAngularVelocity(0);
-		getBody().setLinearVelocity(new Vec2(0, 0));
+		super.restore(frame);
 		EntityData data = frame.getData().get(this);
 		if (((PlayerData) data).getStatus() != getStatus()) {
 			((Player) GameWorld.world.getPlayer()).setVisible(false);

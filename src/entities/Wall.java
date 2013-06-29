@@ -61,11 +61,6 @@ public class Wall extends Entity {
 		return fix;
 	}
 
-	public static Wall parse(String[] frag) {
-		return new Wall(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]),
-				Float.parseFloat(frag[3]), Float.parseFloat(frag[4]));
-	}
-
 	@Override
 	public String toString() {
 		return super.toString();

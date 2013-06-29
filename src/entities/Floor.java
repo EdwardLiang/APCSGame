@@ -11,11 +11,6 @@ public class Floor extends Wall {
 		return;
 	}
 
-	public static Floor parse(String[] frag) {
-		return new Floor(Float.parseFloat(frag[1]), Float.parseFloat(frag[2]),
-				Float.parseFloat(frag[3]), Float.parseFloat(frag[4]));
-	}
-
 	@Override
 	public String toString() {
 		return super.toString();

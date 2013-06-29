@@ -41,7 +41,7 @@ public class GameMap implements Serializable {
 		this.gravityMag = -30.0f;
 		this.world = new World(new Vec2(0.0f, -gravityMag));
 		this.gameElements = new ArrayList<Entity>();
-		this.back = new BackGround("background.jpg");
+		this.back = new BackGround(ImageLoader.background);
 		this.width = back.getWidth();
 		this.height = back.getHeight();
 		this.playerX = 30;
@@ -145,40 +145,6 @@ public class GameMap implements Serializable {
 		Wall right = new Wall(width, height / 2, 1, height);
 		left.addToMap(this);
 		right.addToMap(this);
-	}
-
-	private synchronized static Entity parseElements(String raw) {
-		String[] frags = Parse.fragment(raw);
-		String className = frags[0];
-		switch (className) {
-		case "class entities.BouncyBall":
-			return BouncyBall.parse(frags);
-		case "class entities.Creature":
-			return Creature.parse(frags);
-		case "class entities.Projectile":
-			return Projectile.parse(frags);
-		case "class entities.Wall":
-			return Wall.parse(frags);
-		case "class entities.Floor":
-			return Floor.parse(frags);
-		case "class entities.StaticPathEntity":
-			return StaticPathEntity.parse(frags);
-		case "class entities.DynamicPathEntity":
-			return DynamicPathEntity.parse(frags);
-		default:
-			return null;
-		}
-	}
-
-	public synchronized static GameMap parse(String raw, String string) {
-		String[] parsed = raw.split("[\n]");
-		GameMap game = new GameMap(BackGround.parse(parsed[0]),
-				Float.parseFloat(parsed[3]), Float.parseFloat(parsed[4]),
-				Float.parseFloat(parsed[5]));
-		for (int i = 6; i < parsed.length; i++) {
-			parseElements(parsed[i]).addToMap(game);
-		}
-		return game;
 	}
 
 	public synchronized void update() {

@@ -34,14 +34,12 @@ import utils.Parse;
 import utils.Util;
 
 public class App extends Application {
-	public static Camera camera;
 	public static ShapeMaker shaker;
 	public static Group root;
 	public static Scene scene;
 	public static Stage pS;
 	public static MenuBar menuBar;
 	public static Thread key;
-	public static Thread cam;
 	public static float tC;
 	private MediaView mediaView;
 	public static EdwardPopup reverse;
@@ -68,14 +66,11 @@ public class App extends Application {
 		scene = new Scene(root, Util.WIDTH, Util.HEIGHT);
 
 		scene.setCursor(Cursor.CROSSHAIR);
-		camera = new Camera();
 		shaker = new ShapeMaker();
 		MouseManager mouse = new DevMouse();
 		DevModeKeys keyManager = new DevModeKeys();
 		key = new Thread(keyManager.keyThread);
-		cam = new Thread(camera);
 		key.start();
-		cam.start();
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
