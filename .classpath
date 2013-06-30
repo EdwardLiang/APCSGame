@@ -3,5 +3,26 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="at.bestsolution.efxclipse.tooling.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-library/target/jbox2d-library-2.2.1.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/edward/Desktop/jbox2d-library/target/jbox2d-library-2.2.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-library/target/jbox2d-library-2.2.1.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-library/target/jbox2d-library-2.2.1.1-sources.jar"/>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-serialization/target/jbox2d-serialization-1.1.0-jar-with-dependencies.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/edward/Desktop/jbox2d-serialization/target/jbox2d-serialization-1.1.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-serialization/target/jbox2d-serialization-1.1.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-serialization/target/jbox2d-serialization-1.1.0-sources.jar"/>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-testbed/target/jbox2d-testbed-2.2.1.1-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-testbed/target/jbox2d-testbed-2.2.1.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/edward/Desktop/jbox2d-testbed/target/jbox2d-testbed-2.2.1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/edward/Desktop/jbox2d-testbed/target/jbox2d-testbed-2.2.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

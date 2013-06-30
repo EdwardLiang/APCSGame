@@ -150,16 +150,16 @@ public abstract class Entity implements FXJBox, Serializable {
 	public synchronized float getHeight() {
 		return height;
 	}
-	
-	public synchronized boolean getIsDeadly(){
+
+	public synchronized boolean getIsDeadly() {
 		return isDeadly;
 	}
 
 	public EntityData backUp() {
 		return new EntityData(this);
 	}
-	
-	public synchronized Node getNode(){
+
+	public synchronized Node getNode() {
 		return node;
 	}
 
