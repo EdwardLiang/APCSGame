@@ -19,6 +19,7 @@ public class Player extends Creature {
 	private Side side;
 	private ImageView imageView;
 	private boolean moving;
+	private static final float speed = 20.0f;
 
 	public Player(float posX, float posY) {
 		super(posX, posY);
@@ -31,6 +32,38 @@ public class Player extends Creature {
 
 	public synchronized void setMoving(boolean bool) {
 		moving = bool;
+	}
+
+	public synchronized void moveRight() {
+		this.side = Side.RIGHT;
+		this.status = Status.WALK;
+		Vec2 velocity = new Vec2(speed, body.getLinearVelocity().y);
+		body.setLinearVelocity(velocity);
+	}
+
+	public synchronized void moveLeft() {
+		this.side = Side.LEFT;
+		this.status = Status.WALK;
+		Vec2 velocity = new Vec2(-speed, body.getLinearVelocity().y);
+		body.setLinearVelocity(velocity);
+	}
+
+	public synchronized void moveUp() {
+		this.status = Status.UPWARD;
+		Vec2 velocity = new Vec2(body.getLinearVelocity().x, speed);
+		body.setLinearVelocity(velocity);
+	}
+
+	public synchronized void moveDown() {
+		this.status = Status.DOWNWARD;
+		Vec2 velocity = new Vec2(body.getLinearVelocity().x, -speed);
+		body.setLinearVelocity(velocity);
+	}
+
+	public synchronized void jump() {
+		this.status = Status.UPWARD;
+		Vec2 impulse = new Vec2(0, speed * 10);
+		body.applyLinearImpulse(impulse, body.getWorldCenter());
 	}
 
 	public synchronized boolean isMoving() {
@@ -54,40 +87,34 @@ public class Player extends Creature {
 	}
 
 	public enum Status {
-		IDLE, WALK, CLIMBING, DOWNWARDS, UPWARD, DEAD;
+		IDLE, WALK, CLIMB, DOWNWARD, UPWARD, DEAD;
 	}
 
 	public enum Side {
 		RIGHT, LEFT;
 	}
 
-	private synchronized void updatePic() {
+	private synchronized ImageView getNewPic() {
 		switch (this.status) {
 		case IDLE:
-			this.imageView = ImageLoader.idlev;
-			break;
+			return ImageLoader.idlev;
 		case WALK:
-			this.imageView = ImageLoader.runv;
-			break;
-		case CLIMBING:
-			this.imageView = ImageLoader.climbv;
-			break;
-		case DOWNWARDS:
-			this.imageView = ImageLoader.downv;
-			break;
+			return ImageLoader.runv;
+		case CLIMB:
+			return ImageLoader.climbv;
+		case DOWNWARD:
+			return ImageLoader.downv;
 		case UPWARD:
-			this.imageView = ImageLoader.upwardv;
-			break;
+			return ImageLoader.upwardv;
 		case DEAD:
-			this.imageView = ImageLoader.deadv;
-			break;
+			return ImageLoader.deadv;
 		}
+		return null;
 	}
 
 	public synchronized void kill() {
 		this.setVisible(false);
 		this.status = Status.DEAD;
-		this.changeNode();
 		this.setVisible(true);
 	}
 
@@ -99,17 +126,33 @@ public class Player extends Creature {
 		return imageView;
 	}
 
-	public synchronized void changeNode() {
-		updatePic();
-		imageView.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);
-		imageView.setLayoutY(Util.toPPosY(yPos) - Util.toPWidth(height) / 2);
-		imageView.setPreserveRatio(true);
-		imageView.setCache(true);
+	public synchronized void updateSide() {
 		if (side == Side.LEFT && imageView.getScaleX() != -1)
 			imageView.setScaleX(-1);
 		if (side == Side.RIGHT && imageView.getScaleX() != 1) {
 			imageView.setScaleX(1);
 		}
+	}
+
+	public synchronized void updateLocation() {
+		imageView.setLayoutX(Util.toPPosX(xPos) - Util.toPWidth(width) / 2);
+		imageView.setLayoutY(Util.toPPosY(yPos) - Util.toPWidth(height) / 2);
+		imageView.setPreserveRatio(true);
+		imageView.setCache(true);
+	}
+
+	private synchronized void updatePic() {
+		if (imageView != getNewPic()) {
+			setVisible(false);
+			imageView = getNewPic();
+			updateSide();
+			setVisible(true);
+		}
+	}
+
+	public synchronized void updateNode() {
+		updatePic();
+		updateLocation();
 		imageView.setUserData(getBody());
 		this.node = imageView;
 	}
@@ -121,43 +164,7 @@ public class Player extends Creature {
 
 	@Override
 	public void update() {
-		if (getStatus() == Status.DEAD) {
-			return;
-		} else {
-			if (getBody().getContactList() != null) {
-				if (getBody().getLinearVelocity().x == 0
-						&& getStatus() != Player.Status.IDLE
-						&& getStatus() != Player.Status.UPWARD && !isMoving()
-						&& getBody().getContactList() != null) {
-					setVisible(false);
-					setStatus(Player.Status.IDLE);
-					changeNode();
-					setVisible(true);
-				} else if (Math.abs(getBody().getLinearVelocity().x) > 0
-						&& getStatus() != Player.Status.WALK) {
-					setVisible(false);
-					setStatus(Player.Status.WALK);
-					changeNode();
-					setVisible(true);
-				}
-			} else {
-				if (getBody().getLinearVelocity().y > 0
-						&& getStatus() != Player.Status.UPWARD) {
-					setVisible(false);
-					setStatus(Player.Status.UPWARD);
-					changeNode();
-					setVisible(true);
-				} else if (getBody().getLinearVelocity().y < 0
-						&& getStatus() != Player.Status.DOWNWARDS) {
-					setVisible(false);
-					setStatus(Player.Status.DOWNWARDS);
-					changeNode();
-					setVisible(true);
-				} else if (getBody().getLinearVelocity().y != 0) {
-					;
-				}
-			}
-		}
+		updateNode();
 		super.update();
 	}
 
@@ -166,11 +173,8 @@ public class Player extends Creature {
 		super.restore(frame);
 		EntityData data = frame.getData().get(this);
 		if (((PlayerData) data).getStatus() != getStatus()) {
-			((Player) GameWorld.world.getPlayer()).setVisible(false);
-			((Player) GameWorld.world.getPlayer())
-					.setStatus(((PlayerData) data).getStatus());
-			((Player) GameWorld.world.getPlayer()).changeNode();
-			((Player) GameWorld.world.getPlayer()).setVisible(true);
+			status = ((PlayerData) data).getStatus();
+			updateNode();
 		}
 	}
 }
